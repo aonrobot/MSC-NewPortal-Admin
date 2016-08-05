@@ -42,58 +42,65 @@
         <h3>Step 2 | Fill Post Data & Finish <small>If you don't have any data you can don't fill it.</small></h3>
         <br>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="box box-info">
                     <div class="box-header with-border">
                         <h3 class="box-title">General</h3>
                     </div>
                     <div class="box-body ">
-                        <div class="form-group">
-                            <label>Post Title</label>
-                            <input type="text" class="form-control input-lg" placeholder="Enter ..." ng-model="title">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Post Title</label>
+                                <input type="text" class="form-control input-lg" placeholder="Enter ..." ng-model="title">
+                            </div>
+                            <div class="form-group">
+                                <label>Post Name</label>
+                                <input type="text" class="form-control" placeholder="Enter ..." value="<%title%>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Post Description</label>
+                                <input type="text" class="form-control" placeholder="Enter ...">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Post Name</label>
-                            <input type="text" class="form-control" placeholder="Enter ..." value="<%title%>" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label>Post Description</label>
-                            <input type="text" class="form-control" placeholder="Enter ...">
-                        </div>
-                        <div class="form-group">
-                            <label>Post Status</label>
-                            <select class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Post Type</label>
-                            <select class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
-                            </select>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Post Status</label>
+                                <select class="form-control">
+                                    <option>option 1</option>
+                                    <option>option 2</option>
+                                    <option>option 3</option>
+                                    <option>option 4</option>
+                                    <option>option 5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Post Type</label>
+                                <select class="form-control">
+                                    <option>option 1</option>
+                                    <option>option 2</option>
+                                    <option>option 3</option>
+                                    <option>option 4</option>
+                                    <option>option 5</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">Component</h3>
                     </div>
                     <div class="box-body ">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>
                                 <h4><b>Content</b></h4></label>
                             <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
                         </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>
                                 <h4><b>Image</b></h4></label>
@@ -109,6 +116,26 @@
                             </div>
                             <!--/.row-->
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                <h4><b>Video</b></h4></label>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <addvdobutton></addvdobutton>
+                                </div>
+                                <div class="col-md-10">
+                                    <div id="chooseVideoZone">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/.row-->
+                        </div>
+                    </div>
+                        
+                        
                     </div>
                 </div>
             </div>

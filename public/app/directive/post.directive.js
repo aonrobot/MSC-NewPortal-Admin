@@ -22,6 +22,12 @@ app.directive('addimagebutton', function(){
 app.directive('addimage',['$compile','$http',function($compile,$http){
 	return function(scope, element, attrs){
 		element.bind("click",function(){
+			var x = document.querySelectorAll("[id='imagePath']");
+			var y = document.querySelectorAll("[id='uploadBlock']");
+			for(i=0;i<x.length;i++){
+				if(y[i].style.display != 'none')
+					alert(x[i].value);
+			}
 			var tpl = "/newportal/template/post/uploadItem.html";
 			$http.get(tpl).then(function(response){
 				angular.element(document.getElementById('chooseImageZone')).append($compile(response.data)(scope));

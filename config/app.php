@@ -164,6 +164,9 @@ return [
 
         Zizaco\Entrust\EntrustServiceProvider::class,
 
+        /**/
+
+
     ],
 
     /*
