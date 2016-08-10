@@ -1,16 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\request1;
+use App\trop;
 
-use Session;
 
-use App\File;
 
-class PostController extends Controller
+
+
+
+
+class requestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,11 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        if (!Session::has('post_create_session')) {
-                Session::put('post_create_session', Session::get('emid').'_'.date("Y-m-d-H-i-s"));
-        }
-        $image_files = File::where('session', '=', Session::get('post_create_session'))->get();
-        return view('admin.pages.post.post_create', ['image_files' => $image_files]);
+       
     }
 
     /**
@@ -44,7 +43,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
     }
 
     /**
@@ -53,9 +52,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+       $request = request1::join('trop','trop.tid', '=', 'request.object_id')
+      ->select('request_id','trop.trop_name','request.request_detail','request.request_type','request.request_status','request.request_object','request.object_id')
+	  ->get();
+       return view('admin.pages.request.request', ['request' => $request]);
     }
 
     /**
@@ -64,10 +66,46 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit1($id)
+    {  //        $cat = category::join('trop','trop.tid', '=', 'category.tid')
+		//    ->where('category.tid', '=', '1')
+        //    ->select('catid','trop.trop_name','category.catid','category.cat_name','category.cat_type')
+		//	  ->get();
+		
+		$ids = explode(',',$id);
+
+		request1::where('request_id', $ids[0])
+          ->update(['request_status' => '1']);
+		  
+		
+          trop::where('tid', $ids[1])
+          ->update(['trop_status' => '1']);
+		
+        return redirect('/admin/request');
+    }
+	public function edit(Request $request)
     {
+		
+    }
+	public function detailset($id)
+    {	
+	
+ 
+    }
+	
+	
+	public function detail($id)
+    {	
+	
+ 
         //
     }
+	public function cat()
+    {	
+			    
+        //
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -80,7 +118,10 @@ class PostController extends Controller
     {
         //
     }
-
+    public function Del($id){
+           request1::where('request_id',$id)->delete(); 
+      	return redirect('/request');
+	}
     /**
      * Remove the specified resource from storage.
      *

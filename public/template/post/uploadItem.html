@@ -1,21 +1,73 @@
 <div class="box box-warning" id="uploadBlock">
     <div class="box-header with-border">
         <h3 class="box-title"><i class="fa fa-fw fa-cloud-upload"></i> Upload Image</h3>
-        <div class="box-tools pull-right">
+        <!--<div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
+        </div>-->
         <!-- /.box-tools -->
     </div>
     <!-- /.box-header -->
-    <div class="box-body">
-        <div class="input-group margin">
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-primary">Choose File (.jpeg or .png)</button>
+    <form id="upload" enctype="multipart/form-data">
+        <div class="box-body">
+            <div class="input-group margin">
+                <div class="input-group-btn">
+                    <input type="file" name="file[]" class="form-control" multiple>
+                    <input type="hidden" id="token" value="{{ csrf_token() }}">
+                    <br>
+                </div>
+                <!-- /btn-group -->
             </div>
-            <!-- /btn-group -->
-            <input type="text" class="form-control" id="imagePath" value="">
+            <button id="uploadBtn" type="submit" class="btn btn-primary">Choose File (.jpeg or .png)</button>
         </div>
-    </div>
-    <!-- /.box-body -->
+        <!-- /.box-body -->
+    </form>
 </div>
 <!-- /.box -->
+<script type="text/javascript">
+$("#upload").on("submit", function() {
+    var fd = new FormData($(this)[0]);
+    //fd.append('file', $('input[type=file]')[0].files[0]);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: '/newportal/admin/upload/image',
+        data: fd,
+        processData: false,
+        contentType: false,
+        async: true,
+        cache: false,
+        type: 'POST',
+        success: function(data) {
+            //alert(data);
+            var response = jQuery.parseJSON(JSON.stringify(data));
+            if (!response.success) {
+                alert("Please Select Only Image File (.jpeg or .png)");
+            } else {
+                console.log(response);
+                $.each(response.files, function(index, value) {
+                    var string_add = '<tr>' +
+                        '<td>' + value.id + '</td>' +
+                        '<td>' + value.file_file_name + '</td>' +
+                        '<td><img src="/newportal/' + value.file_location + '" class="img-responsive" width="200" height="200"></td>' +
+                        '<td><a href="/newportal/' + value.file_location + '">' + value.file_file_name + '</a></td>' +
+                        '<td>' +
+                        '<button class="btn btn-danger" id="delete_file" value="' + value.id + '"><i class="fa fa-fw fa-recycle"></i>DELETE</button>' +
+                        '</td>' +
+                        '</tr>';
+                    $("#image_list").append(string_add);
+                });
+            }
+
+        },
+        error: function(error) {
+            alert("Error Upload Image");
+        }
+    });
+
+});
+</script>

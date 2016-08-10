@@ -1,4 +1,8 @@
 @extends('admin.admin_template') @section('content')
+name = 
+{{
+    Session::get('post_create_session')
+}}
 <div ng-controller="post.create">
     <!-- form start -->
     <form role="form">
@@ -93,49 +97,71 @@
                         <h3 class="box-title">Component</h3>
                     </div>
                     <div class="box-body ">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>
-                                <h4><b>Content</b></h4></label>
-                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>
+                                    <h4><b>Content</b></h4></label>
+                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>
-                                <h4><b>Image</b></h4></label>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    <h4><b>Image</b></h4></label>
+                                <br>
+                                <div class="row">
+                                    <!--<div class="col-md-2">
                                     <addimagebutton></addimagebutton>
-                                </div>
-                                <div class="col-md-10">
-                                    <div id="chooseImageZone">
+                                </div>-->
+                                    <div class="col-md-12">
+                                        <div id="chooseImageZone">
+                                            <addimages></addimages>
+                                        </div>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                        </div>
+                                        <table class="table table-bordered" id="image_list">
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>Image Name</th>
+                                                <th>Image</th>
+                                                <th>Link</th>
+                                                <th style="width: 40px">Delete Image</th>
+                                            </tr>
+                                            @foreach($image_files as $image_file)
+                                            <tr>
+                                                <td>{{$image_file->id}}</td>
+                                                <td>{{$image_file->file_file_name}}</td>
+                                                <td><img src="{{asset($image_file->file_location)}}" class="img-responsive" width="200" height="200"></td>
+                                                <td><a href="{{asset($image_file->file_location)}}">{{$image_file->file_file_name}}</a></td>
+                                                <td>
+                                                    <button class="btn btn-danger delete_file" value="{{$image_file->id}}"><i class="fa fa-fw fa-recycle"></i> DELETE</button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </table>
                                     </div>
                                 </div>
+                                <!--/.row-->
                             </div>
-                            <!--/.row-->
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>
-                                <h4><b>Video</b></h4></label>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <addvdobutton></addvdobutton>
-                                </div>
-                                <div class="col-md-10">
-                                    <div id="chooseVideoZone">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>
+                                    <h4><b>Video</b></h4></label>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <addvdobutton></addvdobutton>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div id="chooseVideoZone">
+                                        </div>
                                     </div>
                                 </div>
+                                <!--/.row-->
                             </div>
-                            <!--/.row-->
                         </div>
-                    </div>
-                        
-                        
                     </div>
                 </div>
             </div>

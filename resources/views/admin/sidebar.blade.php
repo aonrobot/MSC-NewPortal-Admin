@@ -33,8 +33,13 @@
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li ng-class="getClass('/admin')"><a href="<?=asset('/admin')?>"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+		<li ng-class="getClass('/admin/trop/create')"><a href="<?=asset('/admin/trop/create')?>"><i class="fa fa-link"></i> <span>Create Trop</span></a></li>
         <li ng-class="getClass('/admin/employee/create')"><a href="<?=asset('/admin/employee/create')?>"><i class="fa fa-link"></i> <span>Create User</span></a></li>
-        <li ng-class="getClass('/admin/post/create')"><a href="<?=asset('/admin/post/create')?>"><i class="fa fa-link"></i> <span>Create Post</span></a></li>
+		<li ng-class="getClass('/admin/employee/create')"><a href="<?=asset('/admin/category/show')?>"><i class="fa fa-link"></i> <span>Create Category</span></a></li>      
+	    <li ng-class="getClass('/admin/post/create')"><a href="<?=asset('/admin/post/create')?>"><i class="fa fa-link"></i> <span>Create Post</span></a></li>
+		<li ng-class="getClass('/admin/employee/create')"><a href="<?=asset('/admin/menu/create')?>"><i class="fa fa-link"></i> <span>Create Menu</span></a></li>
+		<li ng-class="getClass('/admin/employee/create')"><a href="<?=asset('/admin/request')?>"><i class="fa fa-link"></i> <span>Request</span></a></li>
+	
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
             <span class="pull-right-container">

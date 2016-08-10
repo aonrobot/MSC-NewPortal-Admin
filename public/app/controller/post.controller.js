@@ -9,4 +9,11 @@ app.controller('post.create', function() {
         $(".select2").select2();
     });
 
+    $(".delete_file").on('click', function() {
+
+        var id = $(".delete_file").val();
+         alert(id);
+         
+    });
+
 });

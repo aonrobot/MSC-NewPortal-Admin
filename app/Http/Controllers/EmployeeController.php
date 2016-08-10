@@ -90,11 +90,11 @@ class EmployeeController extends Controller {
 
 	public function addTest(){
 
-		$em = Employee::where('emid', '=', '43216')->first();
+		/*$em = Employee::where('emid', '=', '43216')->first();
 
 		$admin = Role::where('name', '=', 'admin')->first();
 
-		$owner = Role::where('name', '=', 'owner')->first();
+		$owner = Role::where('name', '=', 'owner')->first();*/
 
 		/*$owner = new Role();
         $owner->name         = 'owner';
@@ -131,7 +131,13 @@ class EmployeeController extends Controller {
 		
 
 
-		return $em->hasRole('admin') ? 'True' : 'False';
-		
+		//return $em->hasRole('admin') ? 'True' : 'False';
+		$avatar = new Employee();
+		$avatar->emid = 78945;
+		$avatar->org_code = 'test_upload1';
+		$avatar->status = 'active';
+		$avatar->avatar = "https://upload.wikimedia.org/wikipedia/commons/5/58/KolkataMetro3000siries.JPG";
+		$avatar->save();
+		return $avatar->all();		
 	}
 }

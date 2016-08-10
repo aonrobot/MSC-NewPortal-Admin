@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Bangkok',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,8 +164,8 @@ return [
 
         Zizaco\Entrust\EntrustServiceProvider::class,
 
-        /**/
-
+        /* For Stapler File Uploader */
+        Codesleeve\LaravelStapler\Providers\L5ServiceProvider::class,
 
     ],
 

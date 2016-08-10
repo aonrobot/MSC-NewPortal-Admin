@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'mscUsers',
     ],
 
     /*
@@ -38,12 +38,17 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'mscUsers',
         ],
 
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
+        ],
+
+        'msc' => [
+            'driver' => 'token',
+            'provider' => 'mscUsers',
         ],
     ],
 
