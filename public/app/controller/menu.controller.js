@@ -1,10 +1,7 @@
 app.controller('menu.edit', main);
 
 function main() {
-    this.name = "John Smith";
-    this.contacts = [
-
-    ];
+    this.contacts = [];
 }
 
 main.prototype.greet = function(argument) {
@@ -16,3 +13,8 @@ main.prototype.addMenu = function(argument) {
 };
 
 
+main.prototype.del = function(contactToRemove) {
+    var index = this.contacts.indexOf(contactToRemove);
+    this.contacts.splice(index, 1);
+	
+  };	

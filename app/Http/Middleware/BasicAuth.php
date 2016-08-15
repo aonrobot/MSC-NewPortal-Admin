@@ -54,9 +54,10 @@ class BasicAuth
                 $emp->save();
             }
 
-            //Check don'y have Session
-            if (!Session::has('emid')) {
+            //Check don't have Session
+            if (!Session::has('emid') or !Session::has('em_info')) {
                 Session::put('emid', $em[0]->EmpCode);// a string
+                Session::put('em_info', $em[0]);
             }
 
             return $next($request);

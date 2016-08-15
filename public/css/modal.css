@@ -1,0 +1,13 @@
+.modal-dialog {
+      width: 90%;
+      height: 100%;
+      padding: 0;
+      margin-top:10px;
+      margin-button:10px;
+ 
+}
+.modal-content {    
+      height: 100%;
+      border-radius: 0;
+      overflow:auto;
+}

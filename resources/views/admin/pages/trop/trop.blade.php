@@ -1,5 +1,6 @@
 @extends('admin.admin_template')
 @section('content')
+
 	<form action="<?=asset('/admin/trop/insert')?>" method="get">
  <div class="row metrop-row-content">
             <div class="col-md-8">

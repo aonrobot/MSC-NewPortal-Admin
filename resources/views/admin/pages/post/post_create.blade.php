@@ -199,6 +199,4 @@ name =
         <!--/.row-->
     </form>
 </div>
-<script type="text/javascript">
-</script>
 @stop

@@ -16,15 +16,18 @@
 
 }]);*/
 
+Route::get('/', 'FrontHomeController@index');
+Route::get('/trop/{id?}', 'FrontTropController@index');
+
 Route::group(['middleware' => ['auth.ad']], function () {
 
 	Route::get('/admin/post/create', 'PostController@index');
-	
+
+	Route::get('/admin', function() {
+	    return view('admin.pages.dashboard');
+	});	
 });
 
-Route::get('/admin', function() {
-    return view('admin.admin_template');
-});
 //Upload
 Route::post('/admin/upload/image','UploadController@upload_image');
 Route::get('/admin/upload/delete','UploadController@delete');
@@ -55,7 +58,9 @@ Route::get('/admin/category/del/{id?}', 'CategoryController@del');
 
 Route::get('/admin/menu/create', 'MenuController@show');
 Route::get('/admin/menu/insert', 'MenuController@store');
-Route::get('/admin/menu/edit/{id?}', 'MenuController@edit1');
-Route::get('/admin/menu/default/{id?}', 'MenuController@update');
+Route::get('/admin/menu/edit/{id?}', 'MenuController@edit1'); //show หน้า edit
+Route::get('/admin/menu/update', 'MenuController@edit2');  //update edit
+Route::get('/admin/menu/default/{id?}', 'MenuController@update');//Template
 Route::get('/admin/menu/del/{id?}', 'MenuController@Del');
+Route::get('/admin/menu/delitem/{id?}', 'MenuController@delitem');
 

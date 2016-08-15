@@ -6,11 +6,13 @@
                 <h1><i class="fa fa-newspaper-o" aria-hidden="true"></i> Create Menu</h1>
                 <ol class="breadcrumb">
 
-                    <li class="active"><font color="black">Menu Name <input value="" name="name1">  
+                    <li class="active"><font color="black">Menu Name <input value="" name="name1"> 
+    Title			
+    <input value="" name="title"> 	
 	Type <select name="type1">
-    <option>Template</option>
-    <option>Normal</option>
-    <option>Trop</option>
+    <option>template</option>
+    <option>normal</option>
+    <option>trop</option>
   </select>
   Trop
  <select name="trop">
@@ -52,6 +54,7 @@
     <tr>
       <th><center>mid</th>
       <th><center>menu_name</th>
+	  <th><center>menu_title</th>
 	  <th><center>menu_type</th>
       <th><center>trop_name</th>
       <th><center></th>
@@ -61,11 +64,12 @@
 ?>
     <tr>
       <td><center><?php echo $menu0->mid?><center></td>
-	  <td><center><?php echo $menu0->menu_name?></center></td></td>
+	  <td><center><?php echo $menu0->menu_name?></center></td>	
+	  <td><center><?php echo $menu0->menu_title?></center></td>
 	  <td><center><?php echo $menu0->menu_type?></td>
 	  <td><center> -- </td>
 	  
-		<td><center> <a href="<?=asset('/admin/menu/default/') ?><?php echo '/'.$menu0->mid;?>"> @if($menu0->menu_type == 'Template')  Default /   @elseif ($menu0->menu_type == 'TemplateDefault')
+		<td><center> <a href="<?=asset('/admin/menu/default/') ?><?php echo '/'.$menu0->mid;?>"> @if($menu0->menu_type == 'template')  Default /   @elseif ($menu0->menu_type == 'templatedefault')
 			<font size="3" color="green"><span class="glyphicon glyphicon-ok"> @endif</a>
 	  
   
@@ -78,7 +82,8 @@ foreach($menu1 as $menu){
 ?>
     <tr>
       <td><center><?php echo $menu->mid?><center></td>
-	  <td><center><?php echo $menu->menu_name?></center></td></td>
+	  <td><center><?php echo $menu->menu_name?></center></td>
+	  <td><center><?php echo $menu->menu_title?></center></td>	
 	  <td><center><?php echo $menu->menu_type?></td>
 	  <td><center><?php echo $menu->trop_name?></td>
       <td><center>	 <a href="<?=asset('/admin/menu/edit/') ?><?php echo '/'.$menu->mid;?>"> Edit /</a> <a href="<?=asset('/admin/menu/del/') ?><?php echo '/'.$menu->mid;?>">Delete</a></center></td>

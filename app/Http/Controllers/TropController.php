@@ -9,6 +9,7 @@ use App\menu_rela;
 use App\menu;
 use App\trop_rela;
 use App\employee;
+use Session;
 
 class tropController extends Controller
 {
@@ -54,18 +55,18 @@ class tropController extends Controller
 	
 	
 		$userDB = new request1;
-		$userDB->emid = 2;
+		$userDB->emid = Session::get('emid');
 		$userDB->request_detail = 'create_Trop';
 		$userDB->request_type = 'trop';
 		$userDB->request_object = 'trop';
 		$userDB->request_status = "0";
 	    $userDB->object_id = $id;
 	//	$userDB->created_at = "0";
-	//  $userDB->update_at = "0";
+      //  $userDB->update_at = "0";
 		$userDB->save();
 			  
 	    $userDB = new trop_rela;
-		$userDB->emid = 2;
+		$userDB->emid = Session::get('emid');
 	    $userDB->tid = $id;
 	    $userDB->save();
 		
@@ -172,8 +173,7 @@ class tropController extends Controller
           trop::where('tid',$id)->delete();
 		   request1::where('object_id',$id)->delete();
 		    menu::where('tid',$id)->delete();
-			  
-			 
+			
       	return redirect('/admin/trop/create');
 	}
     /**

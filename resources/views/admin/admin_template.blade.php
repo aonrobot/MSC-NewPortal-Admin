@@ -1,3 +1,4 @@
+<?php $em_info = Session::get('em_info'); ?>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -20,15 +21,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> @include('admin.plugin_style')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> 
+    @include('admin.plugin_style')
     <!-- Theme style -->
+    <link rel="stylesheet" href="<?=asset('/plugins/select2/select2.min.css')?>">
     <link rel="stylesheet" href="<?=asset('dist/css/AdminLTE.min.css')?>">
-	 <link rel="stylesheet" href="<?=asset('/plugins/select2/select2.min.css')?>">    <!-- admin
+        <!-- admin
     AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
     <link rel="stylesheet" href="<?=asset('dist/css/skins/skin-blue.min.css')?>">
+
+
+    <!-- jQuery 2.2.3 -->
+    <script src="<?=asset('plugins/jQuery/jquery-2.2.3.min.js')?>"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="<?=asset('bootstrap/js/bootstrap.min.js')?>"></script>
 	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,7 +69,8 @@ desired effect
 
 <body class="hold-transition skin-blue sidebar-mini" ng-app="portalApp" ng-controller="portalCtrl" >
     <div class="wrapper">
-        @include('admin.header') @include('admin.sidebar')
+        @include('admin.header') 
+        @include('admin.sidebar')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -156,14 +166,14 @@ desired effect
     </div>
     <!-- ./wrapper -->
     <!-- REQUIRED JS SCRIPTS -->
-    <!-- jQuery 2.2.3 -->
-    <script src="<?=asset('plugins/jQuery/jquery-2.2.3.min.js')?>"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="<?=asset('bootstrap/js/bootstrap.min.js')?>"></script>
+    
     <!-- AdminLTE App -->
     @include('admin.plugin')
+    
+    <script src="<?=asset('plugins/select2/select2.full.min.js')?>"></script>   <!-- Text select แอดมิน -->
+    <script src="<?=asset('plugins/chained/jquery.chained.min.js')?>"></script> 
+
     <!-- AngularJS -->
-	<script src="<?=asset('plugins/select2/select2.full.min.js')?>"></script>   <!-- Text select แอดมิน -->
     <script src="<?=asset('plugins/angular/angular.js')?>"></script>
     <script src="<?=asset('plugins/angular-route/angular-route.min.js')?>"></script>
     <script src="<?=asset('plugins/angular-resource/angular-resource.min.js')?>"></script>
@@ -174,6 +184,9 @@ desired effect
     <script src="<?=asset('dist/js/app.min.js')?>"></script>
     <script src="<?=asset('app/app.js')?>"></script>
     <script src="<?=asset('app/controller.js')?>"></script>
+
+    <!-- Dashboard -->
+    <script src="<?=asset('app/controller/dashboard.controller.js')?>"></script>
 
     <!-- Content -->
     <script src="<?=asset('app/controller/post.controller.js')?>"></script>
