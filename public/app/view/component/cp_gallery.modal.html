@@ -1,0 +1,225 @@
+<div id="cp_gallery_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-tv"></i> Add gallery component</h3>
+            </div>
+            <div class="modal-body">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success gallery-input-button fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Choose your gallery</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input accept-charset="UTF-8" id="gallery-upload" type="file" name="files[]" multiple>
+                </span>
+                <br>
+                <br>
+                <!-- The global progress bar -->
+                <div id="gallery-progress" class="progress">
+                    <div class="progress-bar progress-bar-success"></div>
+                </div>
+                <!-- The container for the uploaded files -->
+                <div id="gallery-files" class="files"></div>
+            </div>
+            <div class="modal-footer">
+                <p class="text-left">Support gallery type : JPEG, PNG</p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="add_gallery_btn" type="button" class="btn btn-primary">Add gallery</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/*jslint unparam: true, regexp: true */
+/*global window, $ */
+$(function() {
+    'use strict';
+
+    var scope = angular.element($("cp-gallery-modal")).scope();
+
+    var count_file = 0;
+    var count_to_update_db = 0;
+
+    $('#add_gallery_btn').hide();
+    $('#add_gallery_btn').click(function(){
+        $('.upload_gallery_btn').trigger('click');
+    });
+
+    // Initial Button
+    $('#add_gallery_btn').prop('disabled', true);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        }
+    });
+    var post_path = $('#post_path').val().split('/');
+    var trop = post_path[2];
+    var post = post_path[4];
+
+    var url = '/newportal/admin/upload/gallery/' + trop + '/' + post,
+        uploadButton = $('<button/>')
+        .addClass('btn btn-primary upload_gallery_btn')
+        .prop('disabled', true)
+        .text('Processing...')
+        .on('click', function() {
+            var $this = $(this),
+                data = $this.data();
+
+            $('#remove_gallery_btn').hide();
+
+            $this
+                .off('click')
+                .text('Abort')
+                .on('click', function() {
+                    $this.remove();
+                    data.abort();
+                });
+            data.submit().always(function() {
+                $this.remove();
+            });
+        });
+
+    var removeButton = $('<button/>')
+        .addClass('btn btn-danger')
+        .attr('id','remove_gallery_btn')
+        .text('Processing...')
+        .on('click', function() {
+
+            var $this = $(this),
+                 data = $this.data();
+            // Abort the data upload if it's running.
+            data.abort();
+            // Overwrite the plugin's default submit function.
+            data.submit = function () { return false; };
+            // Optional: Remove the data context (thus from collection).
+            data.context.remove();
+
+            $('.gallery-input-button').css("pointer-events", "auto").removeClass('disabled');
+
+        });
+
+    $('#gallery-upload').fileupload({
+            url: url,
+            dataType: 'json',
+            autoUpload: false,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 999000,
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator.userAgent),
+            previewMaxWidth: 100,
+            previewMaxHeight: 100,
+            previewCrop: true
+
+        }).change(function(){
+            $('.gallery-input-button').css("pointer-events", "none").addClass('disabled');
+        }).on('fileuploadadd', function(e, data) {
+            data.context = $('<div/>').appendTo('#gallery-files');
+            $.each(data.files, function(index, file) {
+                var node = $('<p/>')
+                    .append($('<span/>').text(file.name));
+                if (!index) {
+                    node
+                        .append('<br>')
+                        .append(uploadButton.clone(true).data(data))
+                        .append(' ')
+                        .append(removeButton.clone(true).data(data));
+                }
+                node.appendTo(data.context);
+
+                data.context.find('button:eq(0)').hide();
+
+                //for insert db
+                scope.$apply(function(){
+                    scope.gallery_name_origin.push(file.name);
+                })
+
+                $('#add_gallery_btn').show();
+            });
+        }).on('fileuploadprocessalways', function(e, data) {
+            var index = data.index,
+                file = data.files[index],
+                node = $(data.context.children()[index]);
+            if (file.preview) {
+                node
+                    .prepend('<br>')
+                    .prepend(file.preview);
+            }
+            if (file.error) {
+                node
+                    .append('<br>')
+                    .append($('<span class="text-danger"/>').text(file.error));
+            }
+            if (index + 1 === data.files.length) {
+                data.context.find('button:eq(0)')
+                    .text('Upload')
+                    .prop('disabled', !!data.files.error);
+                data.context.find('button:eq(1)')
+                    .text('Remove');
+
+                $('#add_gallery_btn').text('Add gallery')
+                    .prop('disabled', !!data.files.error);
+            }
+
+            count_file++;
+
+        }).on('fileuploadprogressall', function(e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#gallery-progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+            console.log(count_file);
+        }).on('fileuploaddone', function(e, data) {
+            $.each(data.result.files, function(index, file) {
+
+                if (file.url) {
+                    var link = $('<a>')
+                        .attr('target', '_blank')
+                        .prop('href', file.url);
+                    $(data.context.find('span')[index])
+                        .wrap(link);
+
+                    //for insert db
+                    scope.$apply(function(){
+                        scope.gallery_path.push(file.url);
+                        scope.gallery_name.push(file.name);
+                    })
+
+
+                    if(count_file == count_to_update_db+1){
+                        scope.$apply(function(){
+                            scope.add_gallery();
+                        })
+                    }
+
+                    count_to_update_db++;
+
+                    $('#remove_gallery_btn').hide();
+                    $('#gallery-files').html("");
+                    $('#gallery-fileupload').val('');
+                    $('.gallery-input-button').css("pointer-events", "auto").removeClass('disabled');
+                    $('#gallery-progress .progress-bar').css('width','0%');
+                    $('#add_gallery_btn').hide();
+                    $('#cp_gallery_modal').modal('hide');
+
+                } else if (file.error) {
+                    var error = $('<span class="text-danger"/>').text(file.error);
+                    $(data.context.find('span')[index])
+                        .append('<br>')
+                        .append(error);
+                }
+            });
+        }).on('fileuploadfail', function(e, data) {
+            $.each(data.files, function(index) {
+                var error = $('<span class="text-danger"/>').text('File upload failed.');
+                $(data.context.children()[index])
+                    .append('<br>')
+                    .append(error);
+            });
+        }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>

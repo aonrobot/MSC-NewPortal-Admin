@@ -11,7 +11,7 @@ class Menu_item extends Model
 	
     protected $table = 'menu_item';
 	
-    protected $fillable = ['mtid', 'item_parent_id', 'item_sort', 'item_icon','item_name','item_link','item_style','item_type'];
+    protected $fillable = ['mtid', 'item_parent_id', 'item_sort', 'item_icon','item_name','item_link','item_style','item_type','item_template_id'];
 
     protected $primaryKey  = 'mtid';
 

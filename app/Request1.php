@@ -20,7 +20,7 @@ class request1 extends Model
 	protected $table = 'request';
 	
 	protected $fillable = [
-        'request_id', 'emid', 'request_detail','request_type','request_object','object_id','request_status','created_at','updated_at',
+        'request_id', 'emid', 'request_detail','request_type','request_object','object_id','request_status','created_at','updated_at','request_comment'
 		];
 
     /**

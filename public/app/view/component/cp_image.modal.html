@@ -1,0 +1,221 @@
+<div id="cp_image_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-image-o"></i> Add image component</h3>
+            </div>
+            <div class="modal-body">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success image-input-button fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Choose your image</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input accept-charset="UTF-8" id="image-upload" type="file" name="files">
+                </span>
+                <br>
+                <br>
+                <!-- The global progress bar -->
+                <div id="image-progress" class="progress">
+                    <div class="progress-bar progress-bar-success"></div>
+                </div>
+                <!-- The container for the uploaded files -->
+                <div id="image-files" class="files"></div>
+            </div>
+            <div class="modal-footer">
+                <p class="text-left">Support image type : JPEG, PNG</p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="add_image_btn" type="button" class="btn btn-primary">Add image</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/*jslint unparam: true, regexp: true */
+/*global window, $ */
+$(function() {
+    'use strict';
+
+    var com_name = 'image';
+
+    var scope = angular.element($("cp-image-modal")).scope();
+
+    $('#add_image_btn').hide();
+    $('#add_image_btn').click(function(){
+        $('.upload_image_btn').trigger('click');
+    });
+
+    // Initial Button
+    $('#add_image_btn').prop('disabled', true);
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        }
+    });
+    var post_path = $('#post_path').val().split('/');
+    var trop = post_path[2];
+    var post = post_path[4];
+
+    var url = '/newportal/admin/upload/image/' + trop + '/' + post,
+        uploadButton = $('<button/>')
+        .addClass('btn btn-primary upload_image_btn')
+        .prop('disabled', true)
+        .text('Processing...')
+        .on('click', function() {
+            var $this = $(this),
+                data = $this.data();
+
+            $('#remove_image_btn').hide();
+
+            $this
+                .off('click')
+                .text('Abort')
+                .on('click', function() {
+                    $this.remove();
+                    data.abort();
+                });
+            data.submit().always(function() {
+                $this.remove();
+            });
+        });
+
+    var removeButton = $('<button/>')
+        .addClass('btn btn-danger')
+        .attr('id','remove_image_btn')
+        .text('Processing...')
+        .on('click', function() {
+
+            var $this = $(this),
+                 data = $this.data();
+            // Abort the data upload if it's running.
+            data.abort();
+            // Overwrite the plugin's default submit function.
+            data.submit = function () { return false; };
+            // Optional: Remove the data context (thus from collection).
+            data.context.remove();
+
+            $('.image-input-button').css("pointer-events", "auto").removeClass('disabled');
+
+        });
+
+    $('#image-upload').fileupload({
+            url: url,
+            dataType: 'json',
+            autoUpload: false,
+            singleFileUploads: true,
+            limitMultiFileUploads: 1,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize: 999000,
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator.userAgent),
+            previewMaxWidth: 100,
+            previewMaxHeight: 100,
+            previewCrop: true
+
+        }).change(function(){
+            $('.image-input-button').css("pointer-events", "none").addClass('disabled');
+        }).on('fileuploadadd', function(e, data) {
+            data.context = $('<div/>').appendTo('#image-files');
+            $.each(data.files, function(index, file) {
+                var node = $('<p/>')
+                    .append($('<span/>').text(file.name));
+                if (!index) {
+                    node
+                        .append('<br>')
+                        .append(uploadButton.clone(true).data(data))
+                        .append(' ')
+                        .append(removeButton.clone(true).data(data));
+                }
+                node.appendTo(data.context);
+
+                data.context.find('button:eq(0)').hide();
+
+                //for insert db
+                scope.$apply(function(){
+                    scope.image_name_origin = file.name;
+                })
+
+                $('#add_image_btn').show();
+            });
+        }).on('fileuploadprocessalways', function(e, data) {
+            var index = data.index,
+                file = data.files[index],
+                node = $(data.context.children()[index]);
+            if (file.preview) {
+                node
+                    .prepend('<br>')
+                    .prepend(file.preview);
+
+                    //for insert db
+                    scope.$apply(function(){
+                        scope.image_preview = file.preview.outerHTML;
+                    })
+            }
+            if (file.error) {
+                node
+                    .append('<br>')
+                    .append($('<span class="text-danger"/>').text(file.error));
+            }
+            if (index + 1 === data.files.length) {
+                data.context.find('button:eq(0)')
+                    .text('Upload')
+                    .prop('disabled', !!data.files.error);
+                data.context.find('button:eq(1)')
+                    .text('Remove');
+
+                $('#add_image_btn').text('Add image')
+                    .prop('disabled', !!data.files.error);
+            }
+        }).on('fileuploadprogressall', function(e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#image-progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }).on('fileuploaddone', function(e, data) {
+            $.each(data.result.files, function(index, file) {
+                if (file.url) {
+                    var link = $('<a>')
+                        .attr('target', '_blank')
+                        .prop('href', file.url);
+                    $(data.context.find('span')[index])
+                        .wrap(link);
+
+                    //for insert db
+                    scope.$apply(function(){
+                        scope.image_path = file.url;
+                        scope.image_name = file.name;
+                    })
+
+                    $('#remove_image_btn').hide();
+                    $('#image-files').html("");
+                    $('#image-fileupload').val('');
+                    $('.image-input-button').css("pointer-events", "auto").removeClass('disabled');
+                    $('#image-progress .progress-bar').css('width','0%');
+                    $('#add_image_btn').hide();
+                    $('#cp_image_modal').modal('hide');
+
+                    scope.$apply(function(){
+                        scope.add_image();
+                    })
+
+                } else if (file.error) {
+                    var error = $('<span class="text-danger"/>').text(file.error);
+                    $(data.context.find('span')[index])
+                        .append('<br>')
+                        .append(error);
+                }
+            });
+        }).on('fileuploadfail', function(e, data) {
+            $.each(data.files, function(index) {
+                var error = $('<span class="text-danger"/>').text('File upload failed.');
+                $(data.context.children()[index])
+                    .append('<br>')
+                    .append(error);
+            });
+        }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>

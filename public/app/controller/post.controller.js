@@ -1,4 +1,4 @@
-app.controller('post.create', function() {
+app.controller('post.create', function($scope,$compile,$scope) {
 
     //for page script
     $(document).ready(function() {
@@ -7,6 +7,7 @@ app.controller('post.create', function() {
             radioClass: 'iradio_minimal-blue'
         });
         $(".select2").select2();
+
     });
 
     $(".delete_file").on('click', function() {
@@ -16,4 +17,15 @@ app.controller('post.create', function() {
          
     });
 
+    $scope.header = 'Put here your header';
+    $scope.body = function($compile){
+        $compile("<addimages></addimages>");
+    }
+    $scope.footer = 'Put here your footer';
+    
+    $scope.myRightButton = function (bool) {
+            alert('!!! first function call!');
+    };
+
 });
+

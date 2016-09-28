@@ -55,7 +55,8 @@ class requestController extends Controller
     public function show()
     {
        $request = request1::join('trop','trop.tid', '=', 'request.object_id')
-      ->select('request_id','trop.trop_name','request.request_detail','request.request_type','request.request_status','request.request_object','request.object_id')
+      ->select('request_id','trop.trop_name','request.request_detail','request.request_type','request.request_status','request.request_object','request.object_id','request_comment')
+	  ->orderBy('request_status', 'ASC')
 	  ->get();
        return view('admin.pages.request.request', ['request' => $request]);
     }
@@ -94,11 +95,19 @@ class requestController extends Controller
     }
 	
 	
-	public function detail($id)
-    {	
-	
- 
-        //
+	public function reject(Request $request)
+	{
+     $request_id = $request->input('request_id');
+     $comment = $request->input('comment');
+	 $tropid = $request->input('tropid');
+	 
+	 request1::where('request_id', $request_id)
+          ->update(['request_status' => '2','request_comment' => $comment]);
+	  trop::where('tid', $tropid)
+          ->update(['trop_status' => '2']);
+		
+	 
+       return redirect('/admin/request');
     }
 	public function cat()
     {	
@@ -120,7 +129,7 @@ class requestController extends Controller
     }
     public function Del($id){
            request1::where('request_id',$id)->delete(); 
-      	return redirect('/request');
+      	return redirect('/admin/request');
 	}
     /**
      * Remove the specified resource from storage.

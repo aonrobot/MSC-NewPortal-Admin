@@ -19,6 +19,9 @@
         "imagine/imagine": "~0.6.2"
     },
     "autoload": {
+        "files": [
+            "App/Library/Tools.php"
+        ],
         "classmap": [
             "database"
         ],

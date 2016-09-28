@@ -1,15 +1,15 @@
-@extends('front_template') 
+@extends('front_template')
 @section('head_image')
 <header class="intro-header-empty">
 </header>
-@stop 
+@stop
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <?php 
-            $big_name = $trop->trop_title;
-            $name = explode('||', $big_name);            
-        ?>
+        <?php
+$big_name = $trop->trop_title;
+$name = explode('||', $big_name);
+?>
         <h1 class="page-header text-center" style="font-size:72px">{{$name[0]}}
                     @if(count($name)>=2)
                         <small>{{$name[1]}}</small>
@@ -45,22 +45,87 @@
     <div class="col-lg-12">
         <h2 class="page-header">{{isset($menu->menu_title) ? $menu->menu_title : 'Menu | '}}</h2>
     </div>
-    @forelse($menu->menu_item as $menu_item)
-    <div class="col-md-3 col-sm-6">
-        <div class="panel panel-default text-center">
-            <div class="panel-heading">
-                <span class="fa-stack fa-5x">
-                              <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
-                        </span>
+    @if(isset($menu->menu_item))
+    <div class="col-lg-12">
+
+        @foreach($menu->menu_item as $menu_item)
+        @if($menu_item->item_type == 'template' && ($menu_item->item_link == '' || empty($menu_item->item_link) || is_null($menu_item->item_link)))
+            <div class="col-md-3 col-sm-6" style="-webkit-filter: opacity(25%);">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <span class="fa-stack fa-5x">
+                                      <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
+                                </span>
+                    </div>
+                    <div class="panel-body">
+                        <h4>{{$menu_item->item_name}}</h4>
+                        <p>{{$menu_item->item_description}}</p>
+                        <a class="btn">Enter</a>
+                    </div>
+                </div>
             </div>
-            <div class="panel-body">
-                <h4>{{$menu_item->item_name}}</h4>
-                <p>{{$menu_item->item_description}}</p>
-                <a href="#" class="btn btn-primary">Enter</a>
+            @continue;
+        @endif
+        @if($menu_item->item_type == 'template')
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default text-center">
+                <div class="panel-heading">
+                    <span class="fa-stack fa-5x">
+                                  <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
+                            </span>
+                </div>
+                <div class="panel-body">
+                    <h4>{{$menu_item->item_name}}</h4>
+                    <p>{{$menu_item->item_description}}</p>
+                    <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">Enter</a>
+                </div>
             </div>
         </div>
+        @endif
+        @endforeach
+		
+		@foreach($menu->menu_item as $menu_item)
+        @if($menu_item->item_type != 'template' && ($menu_item->item_link == '' || empty($menu_item->item_link) || is_null($menu_item->item_link)))
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <span class="fa-stack fa-5x">
+                                      <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
+                                </span>
+                    </div>
+                    <div class="panel-body">
+                        <h4>{{$menu_item->item_name}}</h4>
+                        <p>{{$menu_item->item_description}}</p>
+                        <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">Enter</a>
+                    </div>
+                </div>
+            </div>
+            @continue;
+        @endif
+        @if($menu_item->item_type != 'template')
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default text-center">
+                <div class="panel-heading">
+                    <span class="fa-stack fa-5x">
+                                  <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
+                            </span>
+                </div>
+                <div class="panel-body">
+                    <h4>{{$menu_item->item_name}}</h4>
+                    <p>{{$menu_item->item_description}}</p>
+                    <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">Enter</a>
+                </div>
+            </div>
+        </div>
+        @endif
+        @endforeach
     </div>
-    @empty
+
+    <div class="col-lg-12">
+        
+    </div>
+
+    @else
     <div class="col-lg-12">
         <div class="metrop-news-group-content text-center" style="margin:20px 0px 35px;">
             <h3>Menu isn't set<br>
@@ -68,7 +133,7 @@
             </h3>
         </div>
     </div>
-    @endforelse
+    @endif
 </div>
 <!-- Service Tabs -->
 <div class="row">
@@ -112,7 +177,7 @@
 </div>
 <!-- Service List -->
 <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
-<div class="row">
+<!--<div class="row">
     <div class="col-lg-12">
         <h2 class="page-header">Service List</h2>
     </div>

@@ -20,7 +20,7 @@ class Employee extends Model implements StaplerableInterface{
 
 	protected $table = "employee";
 
-	protected $fillable = ['emid', 'Login', 'org_code', 'status', 'avatar'];
+	protected $fillable = ['emid', 'EmpCode', 'Login', 'org_code', 'status', 'avatar'];
 
 	protected $primaryKey  = 'emid';
 

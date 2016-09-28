@@ -11,7 +11,7 @@ class Menu extends Model
 	
     protected $table = 'menu';
 	
-    protected $fillable = [ 'mid', 'tpid', 'menu_name', 'manu_type' ,'is_tem','menu_title'];
+    protected $fillable = [ 'mid', 'tpid', 'menu_name', 'manu_type' ,'is_tem','menu_title','menu_template_id'];
 
     protected $primaryKey  = 'mid';
 

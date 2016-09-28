@@ -1,253 +1,136 @@
-@extends('front_template') 
-
-@section('head_image')
+@inject('categoryController', 'App\Http\Controllers\FrontCategoryController')
+@extends('front_template') @section('head_image')
 <!-- Page Header -->
-<!-- Set your background image for this header on the line below. -->
+@if(!empty($slide_heads))
 <header class="intro-header">
     <div class="header-slider">
         <ul>
-            <li><img class="img-responsive" src="{{asset('img/msc-bg.png')}}"></li>
+            @foreach($slide_heads as $slide_head)
+            <li><img class="img-responsive" src="{{asset($slide_head->slide_item_img_url)}}"></li>
+            @endforeach
         </ul>
     </div>
 </header>
-@stop
-
-@section('content')
-<!-- content 1 | news -->
-<div class="row">
-    <div class="news-slider">
-        <ul>
-            <li>
-                <div class="col-md-8">
-                    <img class="img-responsive img-rounded" src="img/news/content4.jpg" width="900" height="350" alt="">
+@else
+<header class="intro-header-empty">
+</header>
+@endif @stop @section('content')
+<!-- content 1 | info -->
+<!--<div class="row" id="em_info">
+    <div class="col-lg-12">
+        <div class="panel panel-default metrop-news-group-content" style="margin:10px 0px 80px 0px">
+            <div class="pull-left">
+                <h1>Welcome Back<small> | to NewPortal <i class="fa fa-heart" style="color:#E26A6A"></i></small></h1>
+            </div>
+            <div class="pull-right">
+            <a href="#" data-toggle="collapse" data-target="#collapseEmpInfo" aria-expanded="true" aria-controls="collapseEmpInfo" >
+                    <h1 data-toggle="tooltip" title="คลิกเพื่อ เปิด/ปิด"><i id="collapseIcon" class="fa fa-chevron-circle-up"></i></h1>
+            </a>
+            </div>
+            <div class="panel-body" style="padding:0px;">
+                <div class="col-md-12">
+                    <div class="panel-heading collapse in" id="collapseEmpInfo" style="padding:0px;">
+                        <div class="fa-stack-img-right fa-4x" style="float:left;margin-right:25px">
+                            <a href="{{asset('http://appmsc.metrosystems.co.th/epages/Employeepic/' . intval(Session::get('em_info')->EmpCode) . '.jpg')}}" data-toggle="lightbox" data-title="{{Session::get('em_info')->FullNameEng}} ({{Session::get('em_info')->EmpCode}})">
+                            <img src="{{asset('http://appmsc.metrosystems.co.th/epages/Employeepic/' . intval(Session::get('em_info')->EmpCode) . '.jpg')}}" height="100%" style="" />
+                            </a>
+                        </div>
+                        <p>
+                            <h3> {{Session::get('em_info')->FullName}} <br>
+                            <small>{{Session::get('em_info')->FullNameEng}}</small><br>
+                            <small>Employee Code : {{Session::get('em_info')->EmpCode}}</small><br>
+                            <small>({{Session::get('em_info')->PositionName}})</small></h3>
+                        </p>
+                    </div>
                 </div>
-                <!-- /.col-md-8 -->
                 <div class="col-md-4">
-                    <h2>ตรวจสุขภาพประจำปี<small>
-                                        <h3>วันที่ 16,17,20 มิ.ย. 2559</h3>
-                                    </small>
-                                </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-12
+</div> -->
+<!-- /.row -->
+
+<!-- content 2 | slide -->
+<div class="row">
+    <div class="metrop-text-head">
+        <h2>ข่าวสารที่กำลังจะเกิดขึ้น</h2>
+    </div>
+    <div class="news-slider home_slide">
+        <ul>
+            @foreach($slides as $slide)
+            <li>
+                {{-- check if $slide not have image --}} @if(!is_null($slide->slide_item_img_url) and $slide->slide_item_img_url != '')
+                <div class="col-md-5">
+                    <img class="img-responsive img-rounded" src="{{asset($slide->slide_item_img_url)}}" width="900" height="350" alt="">
+                </div>
+                @endif
+                <!-- /.col-md-8 -->
+                {{-- check if $slide not have image --}}
+                <div class="{{(is_null($slide->slide_item_img_url) or $slide->slide_item_img_url == '') ? 'col-md-12' : 'col-md-7'}}">
+                    <h2>{{$slide->slide_item_title}}<small><h3>{{$slide->slide_item_subtitle}}</h3></small></h2>
                     <ul>
                         <li>
-                            บริษัท เมโทรซิสเต็มส์คอร์ปอเรชั่น จำกัด (มหาชน) และบริษัทในเครือ จัดโปรแกรมการตรวจสุขภาพประจำปี 2559 ให้กับพนักงานทุกท่าน ในวันที่ 16,17 และ 20 มิถุนายน 2559 ณ Convention Hall อาคาร G ชั้น 2 เวลา 7:00 - 11:00 น. โดยโรงพยาบาลพญาไท 2 และพนักงานทุกท่านสามารถเข้าร่วมกิจกรรมทดสอบสมรรถภาพกล้ามเนื้อแขน ขา และหลัง รวมถึงการตรวจสภาพผิวหน้าได้ภายในงาน
+                            {!!$slide->slide_item_content!!}
                         </li>
                     </ul>
-                    <br>
-                    <a class="btn btn-primary btn-lg" href="content_news_1.html">อ่านข่าวต่อ</a>
+                    <br> @if(!is_null($slide->slide_item_content_link))
+                    <a class="btn btn-primary btn-lg" href="{{asset($slide->slide_item_content_link)}}" style=" margin-bottom: 35px;">อ่านข่าวต่อ</a><br>
+                @endif
                 </div>
                 <!-- /.col-md-4 -->
             </li>
-            <li>
-                <div class="col-md-8">
-                    <img class="img-responsive" src="img/home_img1.jpg" width="900" height="350" alt="">
-                </div>
-                <!-- /.col-md-8 -->
-                <div class="col-md-4">
-                    <h2>Metro Systems<small>
-                                        <h3>Corporate Social Resposibility</h3>
-                                    </small>
-                                </h2>
-                    <ul>
-                        <li>- กำกับดูแลกิจการที่ดี</li>
-                        <li>- ปฏิบัติต่อพนักงานแย่างเป็นธรรมและเคารพสิทธิมนุษยชน</li>
-                        <li>- ต่อต้านการทุจริตคอร์รัปชั่น</li>
-                        <li>- ปฏิบัตต่อผู้ร่วมค้าและเจ้าหนี้ด้วยความเป็นธรรม</li>
-                        <li>- ดูแลรักษาสิ่งแวดล้อม</li>
-                        <li>- พัฒนาชุมชนและสังคม</li>
-                    </ul>
-                </div>
-                <!-- /.col-md-4 -->
-            </li>
-            <li>
-                <div class="col-md-8">
-                    <img class="img-responsive" src="img/success.jpg" width="900" height="350" alt="">
-                </div>
-                <!-- /.col-md-8 -->
-                <div class="col-md-4">
-                    <h2>ปัจจัยความสำเร็จองค์กร<small>
-                                        <h3>Metro Success Factors</h3>
-                                    </small>
-                                </h2>
-                    <ul>
-                        <li>- ภาวะผู้นำ
-                        </li>
-                        <li>- ความสามารถในการคิด ริเริ่มและการแก้ปัญหา
-                        </li>
-                        <li>- การสื่อสาร
-                        </li>
-                        <li>- การทำงานร่วมกัน</li>
-                        <li>- ความรู้ในงานและความเป็นมืออาชีพ</li>
-                    </ul>
-                </div>
-                <!-- /.col-md-4 -->
-            </li>
-            <li>
-                <div class="col-md-8">
-                    <img class="img-responsive" src="img/mission.jpg" width="900" height="350" alt="">
-                </div>
-                <!-- /.col-md-8 -->
-                <div class="col-md-4">
-                    <h2>Mission<small>
-                                        <h3></h3>
-                                    </small>
-                                </h2>
-                    <ul>
-                        <li>"มุ่งมั่นสู่ความเป็นเลิศและบริหารความต่อเนื่องในธุรกิจเทคโนโลยีสารสนเทศครบวงจร โดยบุคลากรระดับมืออาชีพ เพื่อความสำเร็จของลูกค้า ตลอดจนมีส่วนร่วมในการพัฒนาสังคมแห่งความรู้"</li>
-                    </ul>
-                </div>
-                <!-- /.col-md-4 -->
-            </li>
-            <li>
-                <div class="col-md-8">
-                    <img class="img-responsive" src="img/vision.jpg" width="900" height="350" alt="">
-                </div>
-                <!-- /.col-md-8 -->
-                <div class="col-md-4">
-                    <h2>Vision<small>
-                                        <h3></h3>
-                                    </small>
-                                </h2>
-                    <ul>
-                        <li>- มุ่งมั่นในการเป็นตัวแทนจำหน่ายอันดับหนึ่งของสินค้าที่เป็นผู้นำในอุตสาหกรรมไอที</li>
-                        <li>- สร้างเสริม และพัฒนา การให้บริการด้านไอทีครบวงจร เพื่อสร้างมูลค่าเพิ่มให้องค์กร</li>
-                        <li>- พัฒนาบุคลากรมืออาชีพเพื่อรองรับการให้บริการให้ได้มาตรฐานเพื่อความก้าวหน้าของลูกค้าในการตอบสนองการเปลี่ยนแปลงทางเทคโนโลยี</li>
-                    </ul>
-                </div>
-                <!-- /.col-md-4 -->
-            </li>
+            @endforeach
         </ul>
     </div>
 </div>
 <!-- /.row -->
 <hr>
+
 <!-- content 2 | news -->
 <div class="row">
-    <div class="col-lg-12">
-        <div class="metrop-news-group-content text-center" style="margin:20px 0px 35px;">
-            <h3>New MSC Portal<br>
-                            <small>Minimalist is Important!</small>
-                        </h3>
-        </div>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-<div class="row">
     <div class="metrop-text-head">
-        <h2>รอบรั้วเมโทรซิสเต็มส์</h2>
+        <h2>{{empty($news_category['cat_title']->cat_title)? 'ข่าวสาร' : $news_category['cat_title']->cat_title}}</h2>
     </div>
+    @foreach($news_category['posts'] as $news)
     <div class="col-md-4 col-sm-6">
         <div class="metrop-thumbnail">
-            <img class="img-responsive" src="img/home-news/news6.jpg" alt="">
+            <img class="img-responsive" src="{{ asset($news['post_thumbnail']) }}" alt="">
         </div>
         <div class="metrop-news-group-content">
             <div class="metrop-news-label">
-                <span class="label label-primary">
+                <!--<span class="label label-primary">
                                 <i class="fa fa-envelope"></i>
-                                New</span>
+                                New</span>-->
             </div>
-            <h3 class="metrop-news-head">ชสอ. ร่วมกับ เมโทรซิสเต็มส์ฯ แถลงผลงานความก้าวหน้าโครงการจัดหาโปรแกรมสหกรณ์ออมทรัพย์เพื่อสหกรณ์สมาชิก พร้อมดึง ธนาคารกรุงไทย จำกัด (มหาชน) กับ บริษัท ทีโอที จำกัด (มหาชน) ร่วมเป็นพันธมิตร</h3>
-            <p class="metrop-news-content">ดร.เฉลิมพล ดุลสัมพันธ์ ประธานกรรมการ ชุมนุมสหกรณ์ออมทรัพย์แห่งประเทศไทย จำกัด (ชสอ.) เป็นประธานในพิธีการแถลงผลงานความก้าวหน้าโครงการจัดหาโปรแกรมสหกรณ์ออมทรัพย์เพื่อสหกรณ์สมาชิก ร่วมกับ บริษัท เมโทรซิสเต็มส์คอร์ปอเรชั่น จำกัด (มหาชน) หรือ MSC โดยมีนายอรุณ ต่อเอกบัณฑิต ผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น บริษัท เมโทรซิสเต็มส์คอร์ปอเรชั่น จำกัด (มหาชน) พร้อมการลงนามความร่วมมือการใช้บริการเครือข่าย ATM ของธนาคารกรุงไทย จำกัด (มหาชน)</p>
+            <h3 class="metrop-news-head">{{$news['post_title']}}</h3>
+            <p class="metrop-news-content">{{$news['post_detail']}}</p>
             <div class="metrop-news-group-footer">
-                <a class="btn btn-default" href="content_news_2.html">Read More</a>
+                <a class="btn btn-default" href="{{ asset('post/'. $news['pid']) }}">อ่านข่าวต่อ</a>
                 <span>
                                 <i class="fa fa-clock-o"></i>
-                                1 Day Ago</span>
+                                {{App\Library\Tools::postTime($news['created_at'])}}</span>
             </div>
         </div>
     </div>
     <!-- /.col-md-4 -->
+    @endforeach
+    @if(count($news_category['posts']) == 3 || count($news_category['posts']) == 0)
+    <div class="col-md-12 col-sm-12 text-center" style="margin:120px 0 120px 0;">
+        <h3 class="metrop-news-head">สนใจอ่านข่าวอื่นๆเพิ่มเติมหรือไม่?</h3>
+        <p>ถ้าคุณสนใจอ่านข่าวสารอื่นๆเพิ่มเติมสามารถ Click ได้ที่ปุ่มด้านล่างนี้</p>
+        <a class="btn btn-primary" target="_blank" href="{{ asset('category/'. $news_category['cat_title']->catid) }}">อ่านเพิ่มเติม</a>
+    </div>
+    <!-- /.col-md-4 -->
+    @else
     <div class="col-md-4 col-sm-6">
-        <div class="metrop-thumbnail">
-            <img class="img-responsive" src="img/news/content3.jpg" alt="">
-        </div>
-        <div class="metrop-news-group-content">
-            <div class="metrop-news-label">
-                <span class="label label-primary">
-                                <i class="fa fa-envelope"></i>
-                                New</span>
-            </div>
-            <h3 class="metrop-news-head">เมโทรซิสเต็มส์ฯ หรือ MSC รับมอบประกาศนียบัตรรับรองการเป็นสมาชิกแนวร่วมปฎิบัติของภาคเอกชนไทยในการต่อต้านทุจริต</h3>
-            <p class="metrop-news-content">นายสรรพิชญ์ เศรษฐพรพงศ์ ประธานกรรมการ บริษัท เมโทรซิสเต็มส์คอร์ปอเรชั่น จำกัด (มหาชน) รับมอบประกาศนียบัตรรับรองการเป็นสมาชิกแนวร่วมปฏิบัติของภาคเอกชนไทยในการต่อต้านทุจริต จากสมาคมส่งเสริมสถาบันกรรมการบริษัทไทย โดยมี นายกิตติ เตชะทวีกิจกุล รองประธานกรรมการบริหาร เข้าร่วมงานด้วย เมื่อวันที่ 30 พฤษภาคม 2559 ณ โรงแรมแกรนด์ ไฮแอท เอราวัณ</p>
-            <div class="metrop-news-group-footer">
-                <a class="btn btn-default" href="content_news.html">Read More</a>
-                <span>
-                                <i class="fa fa-clock-o"></i>
-                                15 Min Ago</span>
-            </div>
-        </div>
+        <h3 class="metrop-news-head center-y">สนใจอ่านข่าวอื่นๆเพิ่มเติมหรือไม่?</h3>
+        <p>ถ้าคุณสนใจอ่านข่าวสารอื่นๆเพิ่มเติมสามารถ Click ได้ที่ปุ่มด้านล่างนี้</p>
+        <a class="btn btn-primary" target="_blank" href="{{ asset('category/'. $news_category['cat_title']->catid) }}">อ่านเพิ่มเติม</a>
     </div>
     <!-- /.col-md-4 -->
-    <div class="col-md-4 col-sm-6">
-        <div class="metrop-thumbnail">
-            <img class="img-responsive" src="img/news/content3-2.jpg" alt="">
-        </div>
-        <div class="metrop-news-group-content">
-            <div class="metrop-news-label">
-                <span class="label label-danger">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                Important</span>
-            </div>
-            <h3 class="metrop-news-head">เมโทรซิสเต็มส์ฯ หรือ MSC รับมอบประกาศนียบัตรรับรองการเป็นสมาชิกแนวร่วมปฎิบัติของภาคเอกชนไทยในการต่อต้านทุจริต</h3>
-            <p class="metrop-news-content">นายสรรพิชญ์ เศรษฐพรพงศ์ ประธานกรรมการ บริษัท เมโทรซิสเต็มส์คอร์ปอเรชั่น จำกัด (มหาชน) รับมอบประกาศนียบัตรรับรองการเป็นสมาชิกแนวร่วมปฏิบัติของภาคเอกชนไทยในการต่อต้านทุจริต จากสมาคมส่งเสริมสถาบันกรรมการบริษัทไทย โดยมี นายกิตติ เตชะทวีกิจกุล รองประธานกรรมการบริหาร เข้าร่วมงานด้วย เมื่อวันที่ 30 พฤษภาคม 2559 ณ โรงแรมแกรนด์ ไฮแอท เอราวัณ</p>
-            <div class="metrop-news-group-footer">
-                <a class="btn btn-default" href="content_news.html">Read More</a>
-                <span>
-                                <i class="fa fa-clock-o"></i>
-                                Few Minuts Ago</span>
-            </div>
-        </div>
-    </div>
-    <!-- /.col-md-4 -->
-    <div class="col-md-4 col-sm-6">
-        <div class="metrop-thumbnail">
-            <img class="img-responsive" src="img/news/content1.jpg" alt="">
-        </div>
-        <div class="metrop-news-group-content">
-            <div class="metrop-news-label">
-                <span class="label label-danger">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                Important</span>
-            </div>
-            <h3 class="metrop-news-head">มหาวิทยาลัยราชภัฏยะลา นำคณะนักศึกษาสาขาวิทยาการคอมพิวเตอร์ และสาขาวิชาเทคโนโลยีสารสนเทศเยี่ยมชมเมโทรซิสเต็มส์ฯ</h3>
-            <p class="metrop-news-content">มหาวิทยาลัยราชภัฏยะลา นำคณะนักศึกษาชั้นปีที่ 3 สาขาวิชาวิทยาการคอมพิวเตอร์ และสาขาวิชาเทคโนโลยีสารสนเทศ คณะวิทยาศาสตร์เทคโนโลยีและการเกษตร พร้อมอาจารย์ รวม 61 คน เข้าศึกษาดูงาน และฟังการบรรยายความรู้ด้านไอที จาก นายยงยุทธ ศรีวันทนียกุล ผู้ช่วยผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น บริษัท เมโทรซิสเต็มส์คอร์ปอเรชั่น จำกัด (มหาชน) โดย นายมีลาภ โสขุมา Solution Architect ร่วมบรรยาย และนำเยี่ยมชมศูนย์สาธิตเทคโนโลยีต่างๆ ภายในบริษัท เมโทรซิสเต็มส์คอร์ปอเรชั่น จำกัด (มหาชน) สำนักงานใหญ่ เมื่อวันที่ 21 มิถุนายน 2559
-            </p>
-            <div class="metrop-news-group-footer">
-                <a class="btn btn-default" href="content_news.html">Read More</a>
-                <span>
-                                <i class="fa fa-clock-o"></i>
-                                3 Day Ago</span>
-            </div>
-        </div>
-    </div>
-    <!-- /.col-md-4 -->
-    <div class="col-md-4 col-sm-6">
-        <div class="metrop-thumbnail">
-            <img class="img-responsive" src="img/news/content2.png" alt="">
-        </div>
-        <div class="metrop-news-group-content">
-            <div class="metrop-news-label">
-                <span class="label label-danger">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                Important</span>
-            </div>
-            <h3 class="metrop-news-head">มหาวิทยาลัยสงขลานครินทร์ (หาดใหญ่) นำนักศึกษาสาขาวิชาวิทยาการคอมพิวเตอร์ เยี่ยมชมเมโทรซิสเต็มส์ฯ</h3>
-            <p class="metrop-news-content">ภาควิชาวิทยาการคอมพิวเตอร์ คณะวิทยาศาสตร์ มหาวิทยาลัยสงขลานครินทร์ อำเภอหาดใหญ่ จังหวัดสงขลา นำคณะนักศึกษาสาขาวิชาวิทยาการคอมพิวเตอร์ ระดับปริญญาตรี ชั้นปีที่ 3 พร้อมอาจารย์ จำนวน 26 คน เข้าศึกษาดูงาน ณ บริษัท เมโทรซิสเต็มส์คอร์ปอเรชั่น จำกัด (มหาชน)</p>
-            <div class="metrop-news-group-footer">
-                <a class="btn btn-default" href="content_news.html">Read More</a>
-                <span>
-                                <i class="fa fa-clock-o"></i>
-                                25 Day Ago</span>
-            </div>
-        </div>
-    </div>
-    <!-- /.col-md-4 -->
-    <div class="col-md-4 col-sm-6">
-        <h3 class="metrop-news-head center-y">สนใจอ่านข่าวเพิ่มเติมหรือไม่?</h3>
-        <p>ถ้าคุณสนใจอ่านข่าวสารเพิ่มเติมสามารถ Click ได้ที่ปุ่มด้านล่างนี้</p>
-        <a class="btn btn-primary" target="_blank" href="#">อ่านเพิ่มเติม</a>
-    </div>
-    <!-- /.col-md-4 -->
+    @endif
 </div>
 <!-- /.row -->
 <hr>
@@ -466,86 +349,97 @@
 <!-- content 4 | Group News -->
 <div class="row">
     <div class="metrop-text-head">
-        <h2>รวมข่าวสารตามประเภท</h2>
+        <h2>รวมข่าวสารแยกตามประเภท</h2>
     </div>
     <div class="col-md-12">
         <div class="row">
+
+            {{--*/$i = 0;/*--}}
+            {{--*/ $color = ["#875F9A" , "#5D3F6A", "#763568", "#9B59B6" ,"#5B3256" , "#8E44AD" ,"#4D8FAC", "#5D8CAE","#22A7F0", "#19B5FE", "#59ABE3", "#48929B", "#317589", "#4B77BE", "#1F4788", "#044F67", "#264348", "#7A942E", "#5B8930", "#6B9362", "#407A52", "#006442", "#049372" , "#16A085", "#03A678", "#4DAF7C", "#E08A1E", "#FFA400", "#FFA631" , "#6C7A89", "#757D75"] /*--}}
+            @foreach($categorys as $category)
+
+            {{-- */$cat_posts = $categoryController->cat_posts($category->catid)/* --}}
+            {{-- */$posts = App\Library\Tools::sortPost($cat_posts['posts']) /* --}}
+            @if(isset($posts[0]))
+            <div class="col-sm-4" data-toggle="tooltip" title="คลิกเพื่อ อ่านข่าวประเภท {{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}">
+                <a href="{{asset('category/news/'.$category->catid)}}">
+                <div class="metrop-news-group-content-color" style="background: {{$color[rand(0,30)]}};">
+                    <div class="metrop-news-group-content metrop-news-group-content-img" style="background-image:url('{{ asset($posts[0]['post_thumbnail']) }}');">
+                        <div class="metrop-news-content">
+                        </div>
+                    </div>
+                    <p class="cat-label">{{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}</p>
+                </div>
+
+                </a>
+            </div>
+            @else
             <div class="col-sm-4">
-                <div class=" metrop-news-group-content">
-                    <a href="content_news_3.html"><img class="img-responsive" src="img/news/content1.jpg" alt=""></a>
+                <a href="{{asset('category/news/'.$category->catid)}}">
+                <div class="metrop-news-group-content" style="background-color:{{$color[rand(0,24)]}};">
                     <div class="metrop-news-content">
-                        <a href="content_news_3.html">
-                            <h4>เมโทรซิสเต็มส์ฯ หรือ MSC รับมอบประกาศนียบัตรรับรองการเป็นสมาชิกแนวร่วมปฎิบัติของภาคเอกชนไทยในการต่อต้านทุจริต</h4>
-                        </a>
+                        <p class="cat-label">{{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}</p>
                     </div>
                 </div>
-                <a href="news_cat.html" class="cat-label">กิจกรรมการเยี่ยมชม</a>
+                </a>
             </div>
-            <div class="col-sm-4">
-                <div class=" metrop-news-group-content">
-                    <a href="#"><img class="img-responsive" src="img/home-news/news6.jpg" alt=""></a>
-                    <div class="metrop-news-content">
-                        <a href="#">
-                            <h4>มหาวิทยาลัยราชภัฏยะลา นำคณะนักศึกษาสาขาวิทยาการคอมพิวเตอร์ และสาขาวิชาเทคโนโลยีสารสนเทศเยี่ยมชมเมโทรซิสเต็มส์ฯ</h4>
-                        </a>
-                    </div>
-                </div>
-                <a href="#" class="cat-label">อบรม</a>
-            </div>
-            <div class="col-sm-4">
-                <div class=" metrop-news-group-content">
-                    <a href="#"><img class="img-responsive" src="img/news/content3.jpg" alt=""></a>
-                    <div class="metrop-news-content">
-                        <a href="#">
-                            <h4>ชสอ. ร่วมกับ เมโทรซิสเต็มส์ฯ แถลงผลงานความก้าวหน้าโครงการจัดหาโปรแกรมสหกรณ์ออมทรัพย์เพื่อสหกรณ์สมาชิก พร้อมดึง ธนาคารกรุงไทย จำกัด (มหาชน) กับ บริษัท ทีโอที จำกัด (มหาชน) ร่วมเป็นพันธมิตร</h4>
-                        </a>
-                    </div>
-                </div>
-                <a href="#" class="cat-label">MSC News</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class=" metrop-news-group-content">
-                    <a href="#"><img class="img-responsive" src="img/news/content3-2.jpg" alt=""></a>
-                    <div class="metrop-news-content">
-                        <a href="#">
-                            <h4>เมโทรซิสเต็มส์ฯ หรือ MSC รับมอบประกาศนียบัตรรับรองการเป็นสมาชิกแนวร่วมปฎิบัติของภาคเอกชนไทยในการต่อต้านทุจริต</h4>
-                        </a>
-                    </div>
-                </div>
-                <a href="#" class="cat-label">หนังสือความมุ่งมั่น</a>
-            </div>
-            <div class="col-sm-4">
-                <div class=" metrop-news-group-content">
-                    <a href="#"><img class="img-responsive" src="img/news/content3.jpg" alt=""></a>
-                    <div class="metrop-news-content">
-                        <a href="#">
-                            <h4>เมโทรซิสเต็มส์ฯ หรือ MSC รับมอบประกาศนียบัตรรับรองการเป็นสมาชิกแนวร่วมปฎิบัติของภาคเอกชนไทยในการต่อต้านทุจริต</h4>
-                        </a>
-                    </div>
-                </div>
-                <a href="#" class="cat-label">Download Document</a>
-            </div>
+            @endif
+            {{--*/$i++;/*--}}
+            @endforeach
         </div>
     </div>
 </div>
 <script>
 jQuery(document).ready(function($) {
+
+    $('.metrop-news-group-content').hover(function(){
+        //$('.metrop-news-group-content-img').css();
+    });
+
     $('.header-slider').unslider({
         arrows: false,
-        speed: 1000
+        @if(!empty($slide_setting['home_head']))
+        speed: {
+            {
+                is_null($slide_setting['home_head'][0] - > slide_speed) ? 1500 : $slide_setting['home_head'][0] - > slide_speed
+            }
+        },
+        delay: {
+            {
+                is_null($slide_setting['home_head'][0] - > slide_delay) ? 1500 : $slide_setting['home_head'][0] - > slide_delay
+            }
+        }
+        @endif
     });
+
     $('.news-slider').unslider({
         autoplay: true,
         arrows: false,
-        speed: 800,
-        delay: 3000
+        @if(!empty($slide_setting['home']))
+        speed: {
+            {
+                is_null($slide_setting['home'][0] - > slide_speed) ? 1500 : $slide_setting['home'][0] - > slide_speed
+            }
+        },
+        delay: {
+            {
+                is_null($slide_setting['home'][0] - > slide_delay) ? 1500 : $slide_setting['home'][0] - > slide_delay
+            }
+        }
+        @endif
     });
+
     $('.news-slider').hover(function() {
         $('.news-slider').unslider("stop");
     }, function() {
         $('.news-slider').unslider("start");
+    });
+
+    $('#collapseEmpInfo').on('hidden.bs.collapse', function () {
+        $('#collapseIcon').removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+    });
+    $('#collapseEmpInfo').on('shown.bs.collapse', function () {
+        $('#collapseIcon').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
     });
 
 });

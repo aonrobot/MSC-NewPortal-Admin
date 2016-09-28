@@ -2,6 +2,7 @@ app.controller('menu.edit', main);
 
 function main() {
     this.contacts = [];
+	
 }
 
 main.prototype.greet = function(argument) {
@@ -9,9 +10,8 @@ main.prototype.greet = function(argument) {
 };
 
 main.prototype.addMenu = function(argument) {
-    this.contacts.push({});
+    this.contacts.push({});	
 };
-
 
 main.prototype.del = function(contactToRemove) {
     var index = this.contacts.indexOf(contactToRemove);

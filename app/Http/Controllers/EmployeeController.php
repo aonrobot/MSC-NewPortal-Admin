@@ -7,6 +7,11 @@ use App\Permission;
 use App\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\trop;
+use App\trop_rela;
+use App\category;
+use App\role_user;
+use DB;
 
 class EmployeeController extends Controller {
 	/**
@@ -53,10 +58,32 @@ class EmployeeController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id) {
-		//
-	}
+	    public function show()
+     {
+        $employee_detail = employee::all();
+		
+		$tel = DB::connection('MSCMain')->select("select Emp.*,isnull([LOCATE],'') [LOCATE] ,isnull(EXTNO,'') EXTNO,isnull(REMARK,'') REMARK from EmployeeNew Emp left outer join EmpPhonebook Phone on Emp.EmpCode = Phone.EMPNO and Emp.OrgCode = Phone.COMCOD WHERE Emp.OrgCode  = 'MSC'  or  Emp.OrgCode = 'MID' or  Emp.OrgCode  = 'MCC' or  Emp.OrgCode  = 'MIT' or  Emp.OrgCode  = 'HIS' ");
+		
+        return view('admin.pages.employee.employee_list', ['employee' => $employee_detail,'tel' => $tel]);
+     }
+	 
+        public function editdetail($id){
+	    
+		$employee = employee::where('emid', '=', $id ) 
+		 ->get();	
+		 
+		$trop_list = trop_rela::join('trop','trop_rela.tid', '=', 'trop.tid')
+			  ->where('trop_rela.emid','=',$id)
+              ->select('emid','trop.tid','trop_name','trop_title','trop_type','trop_status')
+        	  ->get();
+			  
+		$roles =DB::select('select*from roles');
+		$roles1 =DB::select('select*from role_user where employee_id ='.$id);
+		
+      	return view('admin.pages.employee.employee_setting', ['em_id' => $employee,'trop_em' => $trop_list,'role'=>$roles,'role_select'=>$roles1]);
+	}	
 
+	
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -74,8 +101,13 @@ class EmployeeController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id) {
+	public function update(Request $request) {
 		//
+		$role = $request->input('role_setting');
+		$id = $request->input('eid');
+		role_user::where('employee_id','=',$id)
+			->update(['role_id' => $role]);
+	return redirect('/admin/employee/setting/'.$id);
 	}
 
 	/**

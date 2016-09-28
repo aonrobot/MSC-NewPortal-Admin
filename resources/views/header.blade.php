@@ -1,10 +1,9 @@
-@inject('menu', 'App\Http\Controllers\FrontMenuController')
-{{-- */$menus = $menu->index()/* --}}
-
+@inject('menu', 'App\Http\Controllers\FrontMenuController') {{-- */$menus = $menu->index()/* --}}
+@inject('fav_app', 'App\Http\Controllers\FrontFavoriteController') {{-- */$fav_apps = $fav_app->fetch_fav_app()/* --}}
 <!-- Navigation -->
-<header class="metrop-nav">
+<header class="metrop-nav cd-main-header">
     <div class="cd-logo">
-        <a href="#0"><img src="<?=asset('logo.png')?>" height="52px" alt="Logo"></a>
+        <a href="{{asset('/')}}"><img src="{{asset('logo.png')}}" height="52px" alt="Logo"></a>
     </div>
     <!-- Search btn -->
     <div class="cd-search-btn">
@@ -12,74 +11,13 @@
             <i class="fa fa-search" id="search-icon"></i>
         </a>
     </div>
-    <nav class="cd-main-nav-wrapper">
-        <ul class="cd-main-nav">
-            <li><a href="{{asset('/')}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-            <li><a href="about.html"><i class="fa fa-globe" aria-hidden="true"></i> About MSC</a></li>
-            <li><a href="phone_book.html"><i class="fa fa-phone" aria-hidden="true"></i> Phone Book</a></li>
-            <li><a href="app.html"><i class="fa fa-desktop" aria-hidden="true"></i> MSC App</a></li>
-            <li><a href="content_policy.html"><i class="fa fa-university" aria-hidden="true"></i> Policy</a></li>
-            <li><a href="#0" id="collapse-toggle" aria-hidden="true" data-toggle="collapse" data-target="#collapseApp" aria-expanded="false" aria-controls="collapseApp"><i class="fa fa-star" aria-hidden="true" style="color:#e4ce22"></i> Favorite App</a></li>
-            <li>
-                <a href="#0" class="cd-subnav-trigger"><span> More</span></a>
-                <ul>
-                    <li class="go-back"><a href="#0">Menu</a></li>
-                    @foreach($menus as $menu)
-                    <li><a href="{{asset($menu->item_link)}}"><i class="fa fa-circle-thin" aria-hidden="true"></i> {{$menu->item_name}}</a></li>
-                    @endforeach
-                    <li><a href="#0" class="placeholder">Placeholder</a></li>
-                </ul>
-            </li>
-        </ul>
-        <!-- .cd-main-nav -->
-        <!--App Menu-->
-        <div class="collapse nav-app-content" id="collapseApp">
-            <h1 class="nav-app-head"><i class="fa fa-cubes"></i> Most Use Application</h1>
-            <div class="row">
-                <h3 class="nav-app-subhead">Sale & Services |</h3>
-                <div class="nav-app-item">
-                    <i class="fa fa-medium fa-2x"></i>
-                    <h4>Initiate New Customer</h4>
-                </div>
-                <div class="nav-app-item">
-                    <i class="fa fa-medium fa-2x"></i>
-                    <h4>Adjust Customer Info.</h4>
-                </div>
-                <div class="nav-app-item">
-                    <i class="fa fa-medium fa-2x"></i>
-                    <h4>Revise Customer Credit</h4>
-                </div>
-                <div class="nav-app-item">
-                    <i class="fa fa-medium fa-2x"></i>
-                    <h4>Inactive Customer List</h4>
-                </div>
-            </div>
-            <div class="row">
-                <h3 class="nav-app-subhead">Employee Services |</h3>
-                <div class="nav-app-item">
-                    <i class="fa fa-medium fa-2x"></i>
-                    <h4>Initiate New Customer</h4>
-                </div>
-                <div class="nav-app-item">
-                    <i class="fa fa-medium fa-2x"></i>
-                    <h4>Adjust Customer Info.</h4>
-                </div>
-                <div class="nav-app-item">
-                    <i class="fa fa-medium fa-2x"></i>
-                    <h4>Revise Customer Credit</h4>
-                </div>
-                <div class="nav-app-item">
-                    <i class="fa fa-medium fa-2x"></i>
-                    <h4>Inactive Customer List</h4>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <!-- .cd-main-nav-wrapper -->
-    <a href="#0" class="cd-nav-trigger"><span></span></a>
+    <ul class="cd-header-buttons">
+        <li><a class="cd-nav-trigger" href="#cd-primary-nav">.<span></span></a></li>
+    </ul>
+    <!-- cd-header-buttons -->
+    <!-- .cd-main-nav -->
 </header>
 <!-- /.container -->
-
 <!-- Search -->
 <div class="search-form-wrap" id="search-content">
     <form action="#" class="search-form">
@@ -88,10 +26,106 @@
             <i class="fa fa-times" aria-hidden="true"></i>
         </button>
         <br>
-        <button class="btn btn-default btn-search-submit" type="submit"><i class="fa fa-search"></i> Search</button>
+        <button class="btn btn-default btn-search-submit" type="submit">
+            <i class="fa fa-search"></i> Search
+        </button>
     </form>
 </div>
 <!-- /.search-form-wrap -->
 <!-- /.header-search-form -->
+<div class="cd-overlay"></div>
+<nav class="cd-nav">
+    <ul id="cd-primary-nav" class="cd-primary-nav is-fixed">
+        <li data-toggle="tooltip" data-placement="bottom" title="หน้าแรก">
+            <a href="{{asset('/')}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+        </li>
+        <li data-toggle="tooltip" data-placement="bottom" title="เกี่ยวกับบริษัท">
+            <a href="{{asset('/')}}"><i class="fa fa-globe" aria-hidden="true"></i> About MSC</a>
+        </li>
+        <li data-toggle="tooltip" data-placement="bottom" title="สมุดโทรศัพท์">
+            <a href="{{asset('/phonebook')}}"><i class="fa fa-phone" aria-hidden="true"></i> Phone Book</a>
+        </li>
+        <li data-toggle="tooltip" data-placement="bottom" title="Application ทั้งหมด">
+            <a href="{{asset('/application')}}"><i class="fa fa-desktop" aria-hidden="true"></i> MSC App</a>
+        </li>
+        <li data-toggle="tooltip" data-placement="bottom" title="Policy ทั้งหมด">
+            <a href="{{asset('/')}}"><i class="fa fa-file-text" aria-hidden="true"></i> Policy</a>
+        </li>
+        <li class="disible-dasktop">
+            <a href="content_policy.html">
+                <i class="fa  fa-calendar  text-danger" aria-hidden="true"></i> calendar
+            </a>
+        </li>
 
+        <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="Application ที่ชื่นชอบทั้งหมด">
+            <a href="#"><i class="fa fa-star" aria-hidden="true" style="color:#e4ce22"></i> Favorite App</a>
+            <ul class="fav_app_list cd-nav-icons is-hidden">
+                <li class="go-back"><a href="#0">Menu</a></li>
+                <li class="see-all" data-toggle="tooltip" title="Application ทั้งหมด">
+                    <a href="{{asset('/application')}}">{{empty($fav_apps) ? 'Sorry, Not have favorite application now.' : 'All Application'}}</a>
+                </li>
+                @forelse($fav_apps as $fav_app)
+                <li>
+                    <a class="cd-nav-item" href="{{asset($fav_app->app_link)}}" target="_blank">
+                        {{--*/
 
+                            if(strlen($fav_app->app_title)>2)
+                                $app_name = substr($fav_app->app_title,0,1) . substr($fav_app->app_title,-1,1);
+                            else
+                                $app_name = substr($fav_app->app_title,0,2);
+
+                        /*--}}
+                        <div class="item-icon"><span style="font-size:3em;color:rgba(135, 187, 139, 0.39);">{{$app_name}}</span></div>
+                        <h3 {!!empty($fav_app->app_description) ? "style='margin-top:10px;'" : ''!!}>{{$fav_app->app_title}}</h3>
+                        <p>{{$fav_app->app_description}}</p>
+                    </a>
+                </li>
+                @empty
+                <li>
+                    <a class="cd-nav-item" href="#">
+                        <div class="item-icon"><i class="fa fa-2x fa-warning"></i></div>
+                        <h3>Sorry, Not have a favorite application now.</h3>
+                        <p>Please contact your administrator or call 78451(aon@mis)</p>
+                    </a>
+                </li>
+                @endforelse
+            </ul>
+        </li>
+
+        <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">
+            <a href="{{asset('/')}}"><i class="fa fa-group"></i> Department</a>
+            <ul class="cd-nav-icons is-hidden">
+                <li class="go-back"><a href="#0">Menu</a></li>
+                <li class="see-all"><a href="#">{{empty($menus) ? 'Sorry, Not have a menu now.' : 'All Department'}}</a></li>
+                {{--*/$i = 0/*--}}
+                @forelse($menus as $menu)
+                <li>
+                    <a class="cd-nav-item" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
+                        {{--*/
+
+                            if(strlen($menu->item_name)>2)
+                                $menu_name = substr($menu->item_name,0,1) . substr($menu->item_name,-1,1);
+                            else
+                                $menu_name = substr($menu->item_name,0,2);
+
+                        /*--}}
+                        <div class="item-icon"><span style="font-size:3em;color:rgba(135, 187, 139, 0.39);"><i class="fa fa-circle-o"></i></span></div>
+                        <h3 {!!empty($menu->item_description) ? "style='margin-top:10px;'" : ''!!}>{{$menu->item_name}}</h3>
+                        <p>{{$menu->item_description}}</p>
+                    </a>
+                </li>
+                @empty
+                <li>
+                    <a class="cd-nav-item" href="#">
+                        <div class="item-icon"><i class="fa fa-2x fa-warning"></i></div>
+                        <h3>Sorry, Not have a menu now.</h3>
+                        <p>Please contact your administrator or call 78451(aon@mis)</p>
+                    </a>
+                </li>
+                @endforelse
+            </ul>
+        </li>
+    </ul>
+    <!-- primary-nav -->
+</nav>
+<!-- cd-nav -->

@@ -80,7 +80,7 @@ return [
 
 		'sqlsrv' => [
 			'driver' => 'sqlsrv',
-			'host' => '172.16.43.202', // Provide IP address here
+			'host' => 'MSCDTA\MSCDATA', // Provide IP address here
 			'database' => 'mscnewportal',
 			'username' => 'sa',
 			'password' => 'Leave&Time',
@@ -89,7 +89,7 @@ return [
 
 		'MSCMain' => [
 			'driver' => 'sqlsrv',
-			'host' => '172.16.43.202', // Provide IP address here
+			'host' => 'MSCDTA\MSCDATA', // Provide IP address here
 			'database' => 'MSCMain',
 			'username' => 'sa',
 			'password' => 'Leave&Time',

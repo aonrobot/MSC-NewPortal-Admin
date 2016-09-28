@@ -1,0 +1,43 @@
+<div id="cp_content_modal" class="modal fade">
+    <div class="modal-dialog" style="width: 62.2%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-align-left"></i> Add content component</h3>
+            </div>
+            <div class="modal-body">
+                <textarea id="content_area" name="content_component" rows="10" cols="180">
+                </textarea>
+            </div>
+            <div class="modal-footer">
+                <p class="text-left">Support text type</p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="add_content_btn" type="button" class="btn btn-primary">Add text</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/*jslint unparam: true, regexp: true */
+/*global window, $ */
+$(function() {
+    'use strict';
+
+    var scope = angular.element($("cp-content-modal")).scope();
+
+    CKEDITOR.stylesSet.add( 'my_styles', [
+        // Block Styles
+        { name: 'List', element: 'ul', styles: { 'list-style-type': 'decimal', 'list-style': 'initial' } },
+
+    ] );
+
+    CKEDITOR.replace('content_component',{stylesSet : 'my_styles'});
+
+
+    $('#add_content_btn').click(function() {
+        scope.$apply(function() {
+            scope.add_content();
+        })
+    });
+});
+</script>

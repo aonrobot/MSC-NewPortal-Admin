@@ -1,4 +1,14 @@
-<?php $em_info = Session::get('em_info'); ?>
+<?php $em_info = Session::get('em_info');?>
+<?php
+$user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first();
+$can_access = ['admin', 'owner', 'trop_admin', 'trop_assistant'];
+?>
+@if(!$user->hasRole($can_access))
+<script type="text/javascript">
+    window.location = "{{ url('/') }}";
+</script>
+@endif
+@if($user->hasRole($can_access))
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -13,18 +23,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 2 | Starter</title>
     <!-- Tell the browser to be responsive to screen width -->
-	
+
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="shortcut icon" href="{{asset('/favicon.ico')}}" type="image/x-icon" />
+
     <!-- Bootstrap 3.3.6 -->
-	
     <link rel="stylesheet" href="<?=asset('bootstrap/css/bootstrap.min.css')?>">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> 
+    <link rel="stylesheet" href="<?=asset('/plugins/font-awesome/css/font-awesome.min.css')?>">
+    <!-- Ionicons
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
     @include('admin.plugin_style')
     <!-- Theme style -->
     <link rel="stylesheet" href="<?=asset('/plugins/select2/select2.min.css')?>">
+	<link rel="stylesheet" href="<?=asset('/plugins/datatables/dataTables.bootstrap.css')?>">
+    <link rel="stylesheet" href="<?=asset('/plugins/fileupload/css/jquery.fileupload.css')?>">
+    <!-- fontawesome-iconpicker -->
+    <link rel="stylesheet" href="<?=asset('plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css')?>"></link>
+
     <link rel="stylesheet" href="<?=asset('dist/css/AdminLTE.min.css')?>">
         <!-- admin
     AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -36,9 +53,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- jQuery 2.2.3 -->
     <script src="<?=asset('plugins/jQuery/jquery-2.2.3.min.js')?>"></script>
+
     <!-- Bootstrap 3.3.6 -->
     <script src="<?=asset('bootstrap/js/bootstrap.min.js')?>"></script>
-	
+    <!-- jQuery UI -->
+    <script src="<?=asset('plugins/jQueryUI/jquery-ui.min.js')?>"></script>
+
+	<script src="<?=asset('plugins/datatables/jquery.dataTables.min.js')?>"></script>
+    <script src="<?=asset('plugins/datatables/dataTables.bootstrap.min.js')?>"></script>
+
+    <!-- CKEditor -->
+    <script src="<?=asset('plugins/ckeditor/ckeditor.js')?>"></script>
+    <!-- fontawesome-iconpicker -->
+    <script src="<?=asset('plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js')?>"></script>
+
+    <!-- File Upload -->
+
+    <script src="<?=asset('plugins/fileupload/js/vendor/jquery.ui.widget.js')?>"></script>
+    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+    <script src="https://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+    <script src="https://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+    <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+    <script src="<?=asset('plugins/fileupload/js/jquery.iframe-transport.js')?>"></script>
+    <!-- The basic File Upload plugin -->
+    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload.js')?>"></script>
+    <!-- The File Upload processing plugin -->
+    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-process.js')?>"></script>
+    <!-- The File Upload image preview & resize plugin -->
+    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-image.js')?>"></script>
+    <!-- The File Upload audio preview plugin -->
+    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-audio.js')?>"></script>
+    <!-- The File Upload video preview plugin -->
+    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-video.js')?>"></script>
+    <!-- The File Upload validation plugin -->
+    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-validate.js')?>"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -69,16 +119,16 @@ desired effect
 
 <body class="hold-transition skin-blue sidebar-mini" ng-app="portalApp" ng-controller="portalCtrl" >
     <div class="wrapper">
-        @include('admin.header') 
+        @include('admin.header')
         @include('admin.sidebar')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-        <i class="fa fa-fw <% page_path.length <= 1 ? 'fa-medium' : page_icon %>"></i>
+        <!--<i class="fa fa-fw <% page_path.length <= 1 ? 'fa-medium' : page_icon %>"></i>
         <b><% page_path.length <= 1  ? 'Welcome To New Portal' : page_title %></b>
-        <small><% $page_description %></small>
+        <small><% $page_description %></small>-->
       </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -166,12 +216,16 @@ desired effect
     </div>
     <!-- ./wrapper -->
     <!-- REQUIRED JS SCRIPTS -->
-    
+
     <!-- AdminLTE App -->
     @include('admin.plugin')
-    
+
     <script src="<?=asset('plugins/select2/select2.full.min.js')?>"></script>   <!-- Text select แอดมิน -->
-    <script src="<?=asset('plugins/chained/jquery.chained.min.js')?>"></script> 
+    <script src="<?=asset('plugins/chained/jquery.chained.min.js')?>"></script>
+    <!--Nested Sortable-->
+    <script src="<?=asset('plugins/nestable/jquery.nestable.js')?>"></script>
+
+
 
     <!-- AngularJS -->
     <script src="<?=asset('plugins/angular/angular.js')?>"></script>
@@ -180,17 +234,23 @@ desired effect
     <script src="<?=asset('plugins/angular-touch/angular-touch.min.js')?>"></script>
     <script src="<?=asset('plugins/angular-animate/angular-animate.min.js')?>"></script>
     <script src="<?=asset('plugins/angular-bootstrap/ui-bootstrap-tpls.min.js')?>"></script>
+
     <!-- AngularJS App -->
     <script src="<?=asset('dist/js/app.min.js')?>"></script>
     <script src="<?=asset('app/app.js')?>"></script>
     <script src="<?=asset('app/controller.js')?>"></script>
+
+    <!--New Portal Custom Javascript-->
+    <script src="<?=asset('js/metrop-admin.js')?>"></script>
 
     <!-- Dashboard -->
     <script src="<?=asset('app/controller/dashboard.controller.js')?>"></script>
 
     <!-- Content -->
     <script src="<?=asset('app/controller/post.controller.js')?>"></script>
+    <script src="<?=asset('app/controller/component.controller.js')?>"></script>
     <script src="<?=asset('app/directive/post.directive.js')?>"></script>
+    <script src="<?=asset('app/directive/component.directive.js')?>"></script>
 
     <!-- Menu -->
     <script src="<?=asset('app/controller/menu.controller.js')?>"></script>
@@ -199,14 +259,9 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
-	 
 
- 
-	<script><!-- Text select แอดมิน-->
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2(); });
-</script>
 </body>
 
 </html>
+
+@endif <!--End if of check admin-->
