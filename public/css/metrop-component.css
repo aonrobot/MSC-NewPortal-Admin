@@ -1676,7 +1676,7 @@ table {
     /* set here number of columns - use width percentage */
     width: 20%; /*32%*/
     float: left;
-    margin: 0 2% 20px 0;
+    /*margin: 0 2% 20px 0;*/
   }
   .cd-primary-nav .cd-nav-icons li:nth-child(3n+2) {
     /* +2 because we have two additional list items with display:none */

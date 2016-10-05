@@ -20,9 +20,11 @@ class PostController extends Controller {
 	 */
 	public function index() {
 		$tid = Session::get('trop_id');
-		$postList = Post::where('tid', '=', $tid)->get();
+
 		if ($tid == 0) {
-			$postList = Post::all();
+			$postList = DB::table('post')->join('trop', 'post.tid', '=', 'trop.tid', 'left outer')->get();
+		} else {
+			$postList = DB::table('post')->where('post.tid', '=', $tid)->join('trop as trop', 'post.tid', '=', 'trop.tid')->get();
 		}
 
 		return view('admin.pages.post.post', ['postList' => $postList]);
@@ -39,12 +41,30 @@ class PostController extends Controller {
 		$tid = Session::get('trop_id');
 
 		$input = $request->all();
+
+		//Event Date
+		if (!empty($input['post_event_date'])) {
+			$event_date = $input['post_event_date'];
+		} else {
+			$event_date = date("YYYY/MM/DD h:mm A") . ' - ' . date("YYYY/MM/DD h:mm A");
+		}
+
+		$event_date = explode('-', $event_date);
+
+		$event_start_date = date_format(date_create($event_date[0]), "Y-m-d h:i:sa");
+
+		$event_end_date = date_format(date_create($event_date[1]), "Y-m-d h:i:sa");
+		//
+
 		$post = new Post;
 		$post->tid = $tid;
 		$post->emid = intval(Session::get('em_info')->EmpCode);
-		$post->post_title = $input['post_title'];
-		$post->post_name = $input['post_name'];
+
+		$post->post_title = htmlentities($input['post_title']);
+		$post->post_name = htmlentities($input['post_name']);
 		$post->post_type = $input['post_type'];
+		$post->event_start_date = $event_start_date;
+		$post->event_end_date = $event_end_date;
 		$post->save();
 
 		Storage::disk('uploads')->makeDirectory('trop/' . $tid . '/post/' . $post->pid . '/video');
@@ -101,7 +121,15 @@ class PostController extends Controller {
 
 		$post = Post::where('pid', '=', $id)->first();
 
-		return view('admin.pages.post.post_edit', ['post' => $post, 'components' => $components]);
+		$get_cats = DB::table('post')->leftJoin('category_rela', 'post.pid', '=', 'category_rela.pid')->join('category', 'category.catid', '=', 'category_rela.catid', 'left outer')->where('post.pid', '=', $id)->get();
+
+		$post_cat = [];
+
+		foreach ($get_cats as $get_cat) {
+			array_push($post_cat, $get_cat->catid);
+		}
+
+		return view('admin.pages.post.post_edit', ['post' => $post, 'post_cat' => $post_cat, 'components' => $components]);
 	}
 
 	/**
@@ -116,6 +144,33 @@ class PostController extends Controller {
 		$input = $request->all();
 		$date_now = Carbon::now();
 
+		$event_date = $input['post_event_date'];
+
+		$event_date = explode('-', $event_date);
+
+		$event_start_date = date_format(date_create($event_date[0]), "Y-m-d h:i:sa");
+
+		$event_end_date = date_format(date_create($event_date[1]), "Y-m-d h:i:sa");
+
+		//Update Category
+		DB::table('category_rela')->where('pid', '=', $id)->delete();
+
+		//return $post_cats;
+
+		if (!empty($input['post_cat'])) {
+
+			$post_cats = $input['post_cat'];
+
+			$data_set = [];
+
+			foreach ($post_cats as $post_cat) {
+				array_push($data_set, ['pid' => $id, 'catid' => $post_cat]);
+			}
+
+			DB::table('category_rela')->insert($data_set);
+		}
+		//
+
 		DB::table('post')
 			->where('pid', $id)
 			->update([
@@ -129,6 +184,8 @@ class PostController extends Controller {
 				'post_status' => $input['post_status'],
 				'post_type' => $input['post_type'],
 				'updated_at' => $date_now,
+				'event_start_date' => $event_start_date,
+				'event_end_date' => $event_end_date,
 
 			]);
 

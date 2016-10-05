@@ -12,9 +12,9 @@
             <li class="active"> 
 			  
 			  
-               Category Name <input value="" name="category"  maxlength="20" />   
-             
-			   
+               Category Name <input value="" name="category"  maxlength="100" />   
+               Title <input value="" name="title"  maxlength="100" />   
+			   Subtitle <input value="" name="subtitle"  maxlength="100" />   
 			   
                <!-- <select name="trop" id="trop_select">
                   <?php
@@ -44,8 +44,9 @@
             <tr class="w3-blue">
                <th><center>Id_category</th>
                <th><center>Category_Name</th>
+			   <th><center>Cat_title</th>
+			   <th><center>Cat_subtitle</th>
                <th><center>Trop_Name</th>
-               <th><center>Type</th>
                <th></th>
             </tr>
 	      </thead>
@@ -58,9 +59,11 @@
 			   
             <tr>
                <td><center><?php echo $cat2->catid?></td>
-               <td><center><?php echo $cat2->cat_name?></center></td>      
+               <td><center><?php echo $cat2->cat_name?></center></td>   
+               <td><center><?php echo $cat2->cat_title?></center></td>
+			   <td><center><?php echo $cat2->cat_subtitle?></center></td>			   
                <td><center><?php echo $cat2->trop_name?></center></td>
-               <td> <center><?php echo $cat2->cat_type?></td><td>
+              <td>
                   <center>  
 				  <a href="<?=asset('/admin/category/showedit/') ?><?php echo '/'.$cat2->catid;?>">
 				  <button class="btn btn-default"  type="button" style="background-color:white;height:33px"><span class="glyphicon glyphicon-pencil"></span>
@@ -84,9 +87,11 @@
 			   
             <tr>
                <td><center><?php echo $cat2->catid?></td>
-               <td><center><?php echo $cat2->cat_name?></center></td>      
+               <td><center><?php echo $cat2->cat_name?></center></td>    
+			   <td><center><?php echo $cat2->cat_title?></center></td>
+			   <td><center><?php echo $cat2->cat_subtitle?></center></td>			   
                <td><center><?php echo $cat2->trop_name?></center></td>
-               <td> <center><?php echo $cat2->cat_type?></td><td>
+               <td>
                   <center>  
 				  <a href="<?=asset('/admin/category/showedit/') ?><?php echo '/'.$cat2->catid;?>">
 				  <button class="btn btn-default"  type="button" style="background-color:white;height:33px"><span class="glyphicon glyphicon-pencil"></span>
@@ -118,8 +123,10 @@
             <tr class="w3-blue">
                <th><center>Id_category</th>
                <th><center>Category_Name</th>
-               <th><center>Type</th>
-               <th><center></th>
+			   <th><center>Cat_title</th>
+			   <th><center>Cat_subtitle</th>
+               <th><center>Trop_Name</th>
+               <th></th>
             </tr>
 		  </thead>
 			<tbody>
@@ -129,7 +136,9 @@
             <tr>
                <td><center><?php echo $catadmin->catid?></td>
                <td><center><?php echo $catadmin->cat_name?></center></td>
-               <td><center><?php echo $catadmin->cat_type?></td>
+			   <td><center><?php echo $catadmin->cat_title?></center></td>
+               <td><center><?php echo $catadmin->cat_subtitle?></td>
+               <td><center><?php echo $catadmin->trop_name?></center></td>
                <td><center>
 			     <center>   
 				 <a href="<?=asset('/admin/category/showedit/') ?><?php echo '/'.$catadmin->catid;?>">

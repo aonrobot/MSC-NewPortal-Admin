@@ -37,19 +37,29 @@
 <nav class="cd-nav">
     <ul id="cd-primary-nav" class="cd-primary-nav is-fixed">
         <li data-toggle="tooltip" data-placement="bottom" title="หน้าแรก">
-            <a href="{{asset('/')}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+            <a href="{{asset('/')}}" class="npt_stat" data-name="home" data-where="top-nav">
+                <i class="fa fa-home" aria-hidden="true"></i> Home
+            </a>
         </li>
         <li data-toggle="tooltip" data-placement="bottom" title="เกี่ยวกับบริษัท">
-            <a href="{{asset('/')}}"><i class="fa fa-globe" aria-hidden="true"></i> About MSC</a>
+            <a href="{{asset(Config::get('newportal.trop.aboutmsc.url'))}}" class="npt_stat" data-name="about" data-where="top-nav">
+                <i class="fa fa-globe" aria-hidden="true"></i> About MSC
+            </a>
         </li>
         <li data-toggle="tooltip" data-placement="bottom" title="สมุดโทรศัพท์">
-            <a href="{{asset('/phonebook')}}"><i class="fa fa-phone" aria-hidden="true"></i> Phone Book</a>
+            <a href="{{asset('/phonebook')}}" class="npt_stat" data-name="phonebook" data-where="top-nav">
+                <i class="fa fa-phone" aria-hidden="true"></i> Phone Book
+            </a>
         </li>
         <li data-toggle="tooltip" data-placement="bottom" title="Application ทั้งหมด">
-            <a href="{{asset('/application')}}"><i class="fa fa-desktop" aria-hidden="true"></i> MSC App</a>
+            <a href="{{asset('/application')}}" class="npt_stat" data-name="application" data-where="top-nav">
+                <i class="fa fa-desktop" aria-hidden="true"></i> MSC App
+            </a>
         </li>
         <li data-toggle="tooltip" data-placement="bottom" title="Policy ทั้งหมด">
-            <a href="{{asset('/')}}"><i class="fa fa-file-text" aria-hidden="true"></i> Policy</a>
+            <a href="{{asset('/')}}" class="npt_stat" data-name="policy" data-where="top-nav">
+                <i class="fa fa-file-text" aria-hidden="true"></i> Policy
+            </a>
         </li>
         <li class="disible-dasktop">
             <a href="content_policy.html">
@@ -58,7 +68,14 @@
         </li>
 
         <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="Application ที่ชื่นชอบทั้งหมด">
-            <a href="#"><i class="fa fa-star" aria-hidden="true" style="color:#e4ce22"></i> Favorite App</a>
+            <a href="#" class="npt_stat" data-name="favoriteApp" data-where="top-nav">
+                @if(empty($fav_apps))
+                    <i class="fa fa-star-o" aria-hidden="true" style="color:#e4ce22"></i> Favorite App
+                @else
+                    <i class="fa fa-star" aria-hidden="true" style="color:#e4ce22"></i> Favorite App
+                @endif
+
+            </a>
             <ul class="fav_app_list cd-nav-icons is-hidden">
                 <li class="go-back"><a href="#0">Menu</a></li>
                 <li class="see-all" data-toggle="tooltip" title="Application ทั้งหมด">
@@ -66,7 +83,7 @@
                 </li>
                 @forelse($fav_apps as $fav_app)
                 <li>
-                    <a class="cd-nav-item" href="{{asset($fav_app->app_link)}}" target="_blank">
+                    <a class="cd-nav-item npt_stat" href="{{asset($fav_app->app_link)}}" data-name="{{$fav_app->app_title}}" data-where="favoriteApp-bar" target="_blank">
                         {{--*/
 
                             if(strlen($fav_app->app_title)>2)
@@ -82,10 +99,10 @@
                 </li>
                 @empty
                 <li>
-                    <a class="cd-nav-item" href="#">
+                    <a class="cd-nav-item" href="{{asset('/application')}}">
                         <div class="item-icon"><i class="fa fa-2x fa-warning"></i></div>
                         <h3>Sorry, Not have a favorite application now.</h3>
-                        <p>Please contact your administrator or call 78451(aon@mis)</p>
+                        <p>Please Click Here To Add Favorite App</p>
                     </a>
                 </li>
                 @endforelse
@@ -100,7 +117,7 @@
                 {{--*/$i = 0/*--}}
                 @forelse($menus as $menu)
                 <li>
-                    <a class="cd-nav-item" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
+                    <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" data-name="{{$menu->item_name}}" data-where="department-bar" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
                         {{--*/
 
                             if(strlen($menu->item_name)>2)

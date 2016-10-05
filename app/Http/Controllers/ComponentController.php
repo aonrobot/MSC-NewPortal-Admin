@@ -64,7 +64,7 @@ class ComponentController extends Controller {
 		case "image":
 
 			$ref_id = DB::table('cp_image')->insertGetId([
-				'image_path' => $url,
+				'image_path' => str_replace(Config::get('newportal.upload_url'), '/uploads', $url),
 				'image_name' => $filename,
 				'image_name_origin' => $filename_origin,
 				'image_alt' => $filename_origin,
@@ -99,7 +99,7 @@ class ComponentController extends Controller {
 
 				DB::table('cp_gallery_item')->insert([
 					'gallery_id' => $ref_id,
-					'item_path' => $urls[$i],
+					'item_path' => str_replace(Config::get('newportal.upload_url'), '/uploads', $urls[$i]),
 					'item_alt' => $filenames[$i],
 					'created_at' => $date_now,
 					'updated_at' => $date_now,
@@ -112,7 +112,7 @@ class ComponentController extends Controller {
 		$comid = DB::table('component')->insertGetId([
 			'pid' => $pid,
 			'ref_table_name' => 'cp_' . $component,
-			'ref_id' => $ref_id,
+			'ref_id' => $component != "file" ? $ref_id : 0,
 			'sort' => 0,
 		]);
 
@@ -123,6 +123,10 @@ class ComponentController extends Controller {
 		} else if ($component == 'content') {
 
 			return json_encode(['comid' => $comid, 'id' => $ref_id]);
+
+		} else if ($component == 'file') {
+
+			return json_encode(['comid' => $comid, 'id' => 0]);
 
 		} else if ($component == 'gallery') {
 
@@ -188,6 +192,10 @@ class ComponentController extends Controller {
 			DB::table('cp_' . $type . '_item')->where($type . '_id', '=', $id)->delete();
 
 			DB::table('cp_' . $type)->where($type . '_id', '=', $id)->delete();
+
+			DB::table('component')->where('comid', '=', $comid)->delete();
+
+		} else if ($type == 'file') {
 
 			DB::table('component')->where('comid', '=', $comid)->delete();
 		}

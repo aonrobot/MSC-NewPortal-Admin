@@ -11,6 +11,8 @@
 		  @if($settingtrop[0]->trop_name)
 		  Trop_Name : <input type="text" name="" size="12" value="<?Php echo $settingtrop[0]->trop_name; ?>" readonly >
 		  @endif
+		  <button TYPE="submit" class="btn btn-success"  onclick="return confirm('Are you sure you want to update slide?')"> <span class="glyphicon glyphicon-floppy-disk"></span></button>
+		   <input type=button value="Refresh"class="btn btn-primary"  onClick="javascript:location.reload();">
      </h4>
       <input type="text" name="item_id1"  value="<?php echo $item_id ?>" hidden/>
       <h5>
@@ -69,7 +71,7 @@ foreach ($item_slide as $item_slide1) {
 			   </td>
 			   <td align="center">
 
-			   <input type="text" name="item_link[<?Php echo $item_slide1->slide_item_id; ?>][]"  size="15" value="<?Php echo $item_slide1->slide_item_img_link; ?>">
+			   <input type="text" name="item_link[<?Php echo $item_slide1->slide_item_id; ?>][]"  size="15" value="<?Php echo $item_slide1->slide_item_content_link; ?>">
 
 			   </td>
 			   <td align="center">
@@ -101,7 +103,7 @@ foreach ($item_slide as $item_slide1) {
 				</table>
 			</div>
             <div id="ctrl-exmple" ng-controller="menu.edit as menu">
-               <button ng-click="menu.addMenu()" id="addbutton" type="button"class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button> <button TYPE="submit" class="btn btn-success"  onclick="return confirm('Are you sure you want to update slide?')"> <span class="glyphicon glyphicon-floppy-disk"></span></button>
+               <button ng-click="menu.addMenu()" id="addbutton" type="button"class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button> 
                <ul ng-repeat="contact in menu.contacts">
 
                <div class="col-sm-12 col-md-12" style="margin:10px";>

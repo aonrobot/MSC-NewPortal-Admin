@@ -10,7 +10,7 @@ $canrole = ['delete-trop'];
 ?>
 
 <?php //test permission
-echo $per::canrole($canrole);
+//echo $per::canrole($canrole);
 ?>
 
 <form action="<?=asset('/admin/trop/insert')?>" method="get">
@@ -23,6 +23,7 @@ echo $per::canrole($canrole);
 	
          <ol class="breadcrumb" style="background-color:white" >
             <li class="active"><font color="black">Trop Name <input value="" name="trop"  maxlength="20">Title<input value="" name="trop_title"  maxlength="30">
+			SubTitle<input value="" name="trop_subtitle"  maxlength="30">
 			<INPUT  TYPE="submit" VALUE="Create" class="btn btn-success" style="height:30px" onclick="return confirm('Are you sure you want to create trop ?')"></li>
          </ol>
 		 @endif
@@ -37,7 +38,7 @@ echo $per::canrole($canrole);
                         <th><center>Id_Trop</th>
                         <th><center>Name</th>
 						<th><center>Title</th>
-                        <th><center>Type</th>
+                        <th><center>Subtitle</th>
                         <th><center>Status</th>
 						<th></th>                        
                      </tr>
@@ -49,7 +50,7 @@ echo $per::canrole($canrole);
                         <td><center><?php echo $trop->tid?></center></td>
                         <td><center><?php echo $trop->trop_name?></center></td>
 						<td><center><?php echo $trop->trop_title?></center></td>
-                        <td><center><?php echo $trop->trop_type?></center></td>
+                        <td><center><?php echo $trop->trop_subtitle?></center></td>
 						
                         <td><center>
                            <?php  if(!$trop->request_status){?>
@@ -110,7 +111,7 @@ echo $per::canrole($canrole);
                      <tr>
                         <th><center>Id_Trop</th>
                         <th><center>Name</th>
-						<th><center>Title</th>
+						<th><center>Subtitle</th>
                         <th><center>Type</th>
                         <th><center>Status</th>
 						<th></th>
@@ -124,7 +125,7 @@ echo $per::canrole($canrole);
                         <td><center><?php echo $trop->tid?></center></td>
                         <td><center><?php echo $trop->trop_name?></center></td>
 						 <td><center><?php echo $trop->trop_title?></center></td>
-                        <td><center><?php echo $trop->trop_type?></center></td>
+                        <td><center><?php echo $trop->trop_subtitle?></center></td>
 						
                         <td><center>
                            <?php  if(!$trop->trop_status){?><font size="3" color="red"><span class="glyphicon glyphicon-remove"></span>
@@ -142,7 +143,12 @@ echo $per::canrole($canrole);
 						    -->
 						   </a>					
 						
-                           <?php  if($user->can('delete-trop') or $per::can($can_access_del)){?>				   
+                           <?php  if($user->can('delete-trop') or $per::can($can_access_del)){?>			   
+				    	   <a href="<?=asset('/admin/trop/edit/') ?><?php echo '/'.$trop->tid;?>">
+						     <button class="btn btn-default"  type="button" style="background-color:white;height:33px"><span class="glyphicon glyphicon-pencil"></span>
+						   	 edit 
+							 </button>
+						   </a>
 						   <a href="<?=asset('/admin/trop/del/') ?><?php echo '/'.$trop->tid;?>"><font color="white">
 						   <button class="btn btn-danger"   type="button" style="height:33px" onclick="return confirm('Are you sure you want to Delete :: <?php echo $trop->trop_name?> ?')"><span class="glyphicon glyphicon-trash" ></span>
 					    	 delete</font>

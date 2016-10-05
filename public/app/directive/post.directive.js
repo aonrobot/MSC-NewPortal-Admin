@@ -9,7 +9,7 @@ app.directive('addimagebutton', function(){
 		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
 		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
 		//template: 'Kuy',
-		templateUrl: '{{Config::get('newportal.root_url')}}' + '/template/post/addImageButton.html',
+		templateUrl: '/newportal/template/post/addImageButton.html',
 		// replace: true,
 		// transclude: true,
 		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
@@ -30,7 +30,7 @@ app.directive('addimages', function(){
 		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
 		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
 		//template: 'Kuy',
-		templateUrl: '{{Config::get('newportal.root_url')}}' + '/template/post/uploadItem.html',
+		templateUrl: '/newportal/template/post/uploadItem.html',
 		// replace: true,
 		// transclude: true,
 		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
@@ -49,7 +49,7 @@ app.directive('addimage',['$compile','$http',function($compile,$http){
 				if(y[i].style.display != 'none')
 					alert(x[i].value);
 			}
-			var tpl = '{{Config::get('newportal.root_url')}}' + "/template/post/uploadItem.html";
+			var tpl = "/newportal/template/post/uploadItem.html";
 			$http.get(tpl).then(function(response){
 				angular.element(document.getElementById('chooseImageZone')).append($compile(response.data)(scope));
 				//angular.element(document.getElementById('chooseImageZone')).append($compile("<div><button class='btn btn-default' data-alert="+scope.count+">Show alert #"+scope.count+"</button></div>")(scope));

@@ -4,6 +4,13 @@
 </header>
 @stop
 @section('content')
+<style>
+    h4.menu_name{
+        font-size: 16px;
+        height: 32.5px;
+        overflow: hidden;
+    }
+</style>
 <div class="row">
     <div class="col-lg-12">
         <?php
@@ -58,9 +65,9 @@ $name = explode('||', $big_name);
                                 </span>
                     </div>
                     <div class="panel-body">
-                        <h4>{{$menu_item->item_name}}</h4>
+                        <h4 class="menu_name">{{$menu_item->item_name}}</h4>
                         <p>{{$menu_item->item_description}}</p>
-                        <a class="btn">Enter</a>
+                        <a class="btn">-</a>
                     </div>
                 </div>
             </div>
@@ -71,32 +78,36 @@ $name = explode('||', $big_name);
             <div class="panel panel-default text-center">
                 <div class="panel-heading">
                     <span class="fa-stack fa-5x">
-                                  <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
+                                <a href="{{asset($menu_item->item_link)}}">
+                                    <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
+                                </a>
                             </span>
                 </div>
                 <div class="panel-body">
-                    <h4>{{$menu_item->item_name}}</h4>
+                    <h4 class="menu_name">{{$menu_item->item_name}}</h4>
                     <p>{{$menu_item->item_description}}</p>
-                    <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">Enter</a>
+                    <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">More</a>
                 </div>
             </div>
         </div>
         @endif
         @endforeach
-		
+
 		@foreach($menu->menu_item as $menu_item)
         @if($menu_item->item_type != 'template' && ($menu_item->item_link == '' || empty($menu_item->item_link) || is_null($menu_item->item_link)))
             <div class="col-md-3 col-sm-6">
                 <div class="panel panel-default text-center">
                     <div class="panel-heading">
                         <span class="fa-stack fa-5x">
+                                    <a href="{{asset($menu_item->item_link)}}">
                                       <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
+                                    </a>
                                 </span>
                     </div>
                     <div class="panel-body">
-                        <h4>{{$menu_item->item_name}}</h4>
+                        <h4 class="menu_name">{{$menu_item->item_name}}</h4>
                         <p>{{$menu_item->item_description}}</p>
-                        <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">Enter</a>
+                        <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">More</a>
                     </div>
                 </div>
             </div>
@@ -107,13 +118,15 @@ $name = explode('||', $big_name);
             <div class="panel panel-default text-center">
                 <div class="panel-heading">
                     <span class="fa-stack fa-5x">
+                                <a href="{{asset($menu_item->item_link)}}">
                                   <img src="{{asset(str_replace('', ' ', $menu_item->item_image))}}" class="fa-stack-3x img-circle" height="160px" width="160px">
+                                </a>
                             </span>
                 </div>
                 <div class="panel-body">
-                    <h4>{{$menu_item->item_name}}</h4>
+                    <h4 class="menu_name">{{$menu_item->item_name}}</h4>
                     <p>{{$menu_item->item_description}}</p>
-                    <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">Enter</a>
+                    <a href="{{asset($menu_item->item_link)}}" class="btn btn-primary">More</a>
                 </div>
             </div>
         </div>
@@ -122,7 +135,7 @@ $name = explode('||', $big_name);
     </div>
 
     <div class="col-lg-12">
-        
+
     </div>
 
     @else
@@ -135,7 +148,7 @@ $name = explode('||', $big_name);
     </div>
     @endif
 </div>
-<!-- Service Tabs -->
+<!-- Service Tabs
 <div class="row">
     <div class="col-lg-12">
         <h2 class="page-header">Service Tabs</h2>
@@ -295,7 +308,7 @@ $name = explode('||', $big_name);
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!-- /.row -->
 <script>
 @if(isset($slide_setting[0]))

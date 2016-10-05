@@ -1,4 +1,12 @@
 @extends('admin.admin_template') @section('content')
+{{--*/$post_path = Session::get('post_path')/*--}}
+
+<?php
+
+$_SESSION["file_path"] = 'uploads' . $post_path . '/file';
+
+?>
+
 <link rel="stylesheet" href="{{asset('/plugins/nestable/nestable.css')}}">
 <input type="hidden" id="post_path" value="{{ Session::get('post_path') }}">
 <div ng-controller="post.create">
@@ -77,6 +85,28 @@
                             </div>
                             <div class="col-xs-12">
                                 <div class="form-group">
+                                    <label>Event Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="eventdate" name="post_event_date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;" name="post_cat[]">
+                                        {{--*/ $cats = DB::table('category')->where('tid', '=', Session::get('trop_id'))->get()/*--}}
+                                        @foreach($cats as $cat)
+                                            <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
                                     <label>Thumbnail</label>
                                     <br>
                                     <span class="btn btn-primary fileinput-button">
@@ -110,7 +140,7 @@
                         showCharCount: true,
                         showWordCount: false,
                         maxWordCount: 4000,
-                        maxCharCount: 244,
+                        maxCharCount: 488,
 
                     },
                     toolbar: [[ 'Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo' ],]
@@ -147,7 +177,7 @@
                         <a href="#" data-toggle="modal" data-target="#cp_gallery_modal"><span class="info-box-icon bg-yellow"><i class="fa fa-tv"></i></span><p>Gallery</p></a>
                     </div>
                     <div class="col-md-1">
-                        <a href="#" data-toggle="modal" data-target="#cp_archive_modal"><span class="info-box-icon bg-yellow"><i class="fa fa-file-archive-o"></i></span><p>Archive File</p></a>
+                        <a href="#" data-toggle="modal" data-target="#cp_file_modal"><span class="info-box-icon bg-yellow"><i class="fa fa-file-archive-o"></i></span><p>Archive File</p></a>
                     </div>
                 </div>
             </div>
@@ -194,7 +224,7 @@
 
                                 <div class="dd3-content collapse" id="{{'com'.$com->comid}}">
                                     <hr>
-                                        <image src="{{$cp_image[0]->image_path}}" class="img-responsive"/>
+                                        <image src="{{asset($cp_image[0]->image_path)}}" class="img-responsive"/>
                                     <br>
                                     <a class="btn btn-danger removeComponent"  ng-click="delete">Remove This Image</a>
                                 </div>
@@ -216,7 +246,7 @@
                                             @foreach($gallerys as $gallery)
                                             <div class="col-md-4">
                                                 <div class="row">
-                                                    <img src="{{$gallery->item_path}}" alt="{{$gallery->item_alt}}" class="img-responsive"/>
+                                                    <img src="{{asset($gallery->item_path)}}" alt="{{$gallery->item_alt}}" class="img-responsive"/>
                                                 </div>
                                             </div>
                                             @endforeach
@@ -244,6 +274,30 @@
                                     <br>
                                     <a class="btn btn-danger removeComponent"  ng-click="delete"><i class="fa fa-trash-o"></i> Remove This Content</a>
                                     <a class="btn btn-primary" data-toggle="modal" data-target="#edit_content_modal" data-id="{{$cp_content[0]->content_id}}" ng-click="edit"><i class="fa fa-pencil"></i> Edit This Content</a>
+                                </div>
+
+                            </li>
+                            @endif
+
+                            @if($com->ref_table_name == 'cp_file')
+                            <li class="dd-item dd3-item" data-component="cp_file" data-id="0" data-comid="{{$com->comid}}">
+
+                                <div class="dd-handle dd3-handle">Drag</div>
+                                <a class="btn btn-default hide-com-btn" data-toggle="collapse" data-target="{{'#com'.$com->comid}}">Show / Hide</a>
+
+                                <h4><i class="fa fa-align-left"> Archive File</i></h4>
+
+                                <div class="dd3-content collapse" id="{{'com'.$com->comid}}">
+                                    <hr>
+                                    <!--<iframe src="{{asset('plugins/fileman/index.html?integration=custom&type=files&txtFieldId=txtSelectedFile')}}" style="width:100%;height:500px" frameborder="0">
+                                    </iframe>-->
+                                    <br>
+                                    <h3>Copy This To Explorer</h3><br>
+                                    <h3><mark>\\172.16.43.202\d$\MSCNewPortal\public\uploads{{str_replace("/","\\",$post_path)}}\file</mark></h3>
+                                    <br>
+
+                                    <br>
+                                    <a class="btn btn-danger removeComponent"  ng-click="delete"><i class="fa fa-trash-o"></i> Remove This Content</a>
                                 </div>
 
                             </li>
@@ -459,6 +513,7 @@
     <cp-image-modal></cp-image-modal>
     <cp-content-modal></cp-content-modal>
     <cp-gallery-modal></cp-gallery-modal>
+    <cp-file-modal></cp-file-modal>
 
     <edit-content-modal></edit-content-modal>
 
@@ -483,6 +538,46 @@ $(function() {
             //alert('Video');
         }
     });*/
+
+    //Date Range
+    $('#eventdate').daterangepicker({
+        "startDate": "{{is_null($post->event_start_date) || empty($post->event_start_date) ? date("Y-m-d h:i:sa") : $post->event_start_date}}",
+        "endDate": "{{is_null($post->event_end_date) || empty($post->event_end_date) ? date("Y-m-d h:i:sa") : $post->event_end_date}}",
+        "timePicker": true,
+        "timePicker24Hour": true,
+        "locale": {
+            "format": 'YYYY/MM/DD h:mm A',
+            "applyLabel": "ยืนยัน",
+            "cancelLabel": "ยกเลิก",
+            "fromLabel": "จาก",
+            "toLabel": "ถึง",
+            "daysOfWeek": [
+                "อา.",
+                "จ.",
+                "อ.",
+                "พ.",
+                "พฤ.",
+                "ศ.",
+                "ส."
+            ],
+            "monthNames": [
+                "มกราคม",
+                "กุมภาพันธ์",
+                "มีนาคม",
+                "เมษายน",
+                "พฤษภาคม",
+                "มิถุนายน",
+                "กรกฎาคม",
+                "สิงหาคม",
+                "กันยายน",
+                "ตุลาคม",
+                "พฤศจิกายน",
+                "ธันวาคม"
+            ],
+        },
+    });
+
+    //Icon Picker
     $('.icp-auto').iconpicker();
     $('.icp').on('iconpickerSelected', function(e) {
         $('.lead .picker-target').get(0).className = 'picker-target fa-3x ' +

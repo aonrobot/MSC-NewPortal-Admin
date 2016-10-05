@@ -25,6 +25,10 @@ include 'functions.inc.php';
 include 'database.php';
 include 'ChromePhp.php';
 
+session_start();
+
+ChromePhp::log($_SESSION["user_id"]);
+
 verifyAction('UPLOAD');
 checkAccess('UPLOAD');
 
@@ -57,7 +61,7 @@ if(is_dir(fixPath($path))){
 		 //Insert Database New Portal
 		 $file_type = stripos($filePath, 'policy') != false || strpos($filePath, 'Policy') != false ? "policy" : "other";
 		 $insert_file = "INSERT INTO [file] (emid, used, session, file_location, file_type, file_file_name, updated_at, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-		 $params = array(43216, "0", "SESSION", substr($filePath, strpos($filePath, "uploads/files") - 1), $file_type, $filename, date("Y-m-d h:i:sa"), date("Y-m-d h:i:sa"));
+		 $params = array($_SESSION["user_id"], "0", session_id(), substr($filePath, strpos($filePath, "uploads") - 1), $file_type, $filename, date("Y-m-d h:i:sa"), date("Y-m-d h:i:sa"));
 		 sqlsrv_query( $conn, $insert_file, $params);
 
       }

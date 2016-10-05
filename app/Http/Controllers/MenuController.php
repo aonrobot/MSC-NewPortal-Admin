@@ -24,7 +24,7 @@ class menuController extends Controller
 	 
 	 public function edit1($id)
     {	  
-
+       $trop_id = Session::get('trop_id');
 		  $menu0 = menu::where('mid', '=', $id)
          ->select('mid','menu_name','menu_type','is_tem','menu_title','menu_template_id','tid')
 		 ->get();
@@ -32,7 +32,7 @@ class menuController extends Controller
 		  $menu_template = menu::where('mid', '=', $menu0[0]->menu_template_id)
 		 ->first()->menu_name;
 		  $trops = trop::orderBy('trop_status', 'ASC')->get();
-		  $post1 = post::all();
+		  $post1 = post::where('tid','=',$trop_id)->get();
 		  $category1 = category::where('tid', '=',$menu0[0]->tid)->get();
 		 
 	error_reporting(E_ALL ^ E_NOTICE);
@@ -90,6 +90,7 @@ class menuController extends Controller
 		$description=$request->input('description');
 	    $icon = $request->input('icon');
 		$Link =$request->input('link');
+		$Linkfile =$request->input('linkfile');
 		$image = $request->input('image');
 	    $txt = $request->input('txt');
 		$sort = $request->input('sort');
@@ -174,6 +175,9 @@ $rela = menu_rela::where('mid', '=', $mid )
 		{
 			if($type[$rela1->mtid][0]=="post_option"){
 			$sum = "post/".$type_name[$rela1->mtid][0];
+			}
+			else if($type[$rela1->mtid][0]=="file"){
+			$sum = "file/".$Linkfile[$rela1->mtid][0];
 			}
 			else {
 			$sum=$type[$rela1->mtid][0]."/".$type_name[$rela1->mtid][0];

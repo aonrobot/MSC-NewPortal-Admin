@@ -3,10 +3,10 @@ namespace App\Library {
 
 	class Tools {
 
-		static public function sortPost($posts) {
+		static public function sortPost($posts, $by = 'created_at') {
 			$times = [];
 			foreach ($posts as $post => $val) {
-				$times[$post] = strtotime($val['created_at']);
+				$times[$post] = strtotime($val[$by]);
 			}
 			array_multisort($times, SORT_DESC, $posts, SORT_DESC);
 
@@ -30,7 +30,7 @@ namespace App\Library {
 			if ($diff['year'] != 0) {
 				$timeString = $diff['year'] . " ปีก่อน.";
 			} else if ($diff['month'] != 0) {
-				$timeString = $diff['month'] . " วันที่แล้ว.";
+				$timeString = $diff['month'] . " เดือนที่แล้ว.";
 			} else if ($diff['day'] != 0) {
 				$timeString = $diff['day'] . " วันที่แล้ว.";
 			} else if ($diff['hour'] != 0) {
@@ -47,6 +47,70 @@ namespace App\Library {
 			}
 
 			return $timeString;
+		}
+
+		# Set date format
+		static public function thaiDate($date, $f) {
+			// Full month array
+			$f_m = array("01" => "มกราคม",
+				"02" => "กุมภาพันธ์",
+				"03" => "มีนาคม",
+				"04" => "เมษายน",
+				"05" => "พฤษภาคม",
+				"06" => "มิถุนายน",
+				"07" => "กรกฎาคม",
+				"08" => "สิงหาคม",
+				"09" => "กันยายน",
+				"10" => "ตุลาคม",
+				"11" => "พฤศจิกายน",
+				"12" => "ธันวาคม",
+			);
+
+			// Quick month array
+			$q_m = array("01" => "ม.ค.",
+				"02" => "ก.พ.",
+				"03" => "มี.ค.",
+				"04" => "เม.ย.",
+				"05" => "พ.ค.",
+				"06" => "มิ.ย.",
+				"07" => "ก.ค.",
+				"08" => "ส.ค.",
+				"09" => "ก.ย.",
+				"10" => "ต.ค.",
+				"11" => "พ.ย.",
+				"12" => "ธ.ค.",
+			);
+
+			if ($f == '1') {
+				return ((int) substr($date, 8)) . ' ' .
+					$q_m[substr($date, 5, -3)] . ' ' . (substr($date, 2, -6) + 43);
+			}
+
+			if ($f == '2') {
+				return (int) substr($date, 8) . ' ' .
+					$f_m[substr($date, 5, -3)] . ' ' . ((int) substr($date, 0, -6) + 543);
+			}
+
+			if ($f == '3') {
+				return 'วันที่ ' . (int) substr($date, 8) . ' ' .
+					$f_m[substr($date, 5, -3)] . ' พ.ศ. ' . ((int) substr($date, 0, -6) + 543);
+			}
+
+		}
+
+		# Set time format
+		static public function thaiTime($time, $f) {
+			if ($f == '1') {
+				return substr($time, 0, -6) . ':' .
+				substr($time, 3, -3) . ' น.';
+			}
+
+			if ($f == '2') {
+				return substr($time, 0, -6) . ':' .
+				substr($time, 3, -3) . ':' .
+				substr($time, 6);
+			}
+
 		}
 
 		static public function is_url_exist($url) {
@@ -78,6 +142,156 @@ namespace App\Library {
 				$hexNum = substr($hexNum, 0, 7);
 			}
 			return '#' . $hexNum;
+		}
+
+		// Function to get the client IP address
+		static public function get_client_ip() {
+			$ipaddress = '';
+			if (getenv('HTTP_CLIENT_IP')) {
+				$ipaddress = getenv('HTTP_CLIENT_IP');
+			} else if (getenv('HTTP_X_FORWARDED_FOR')) {
+				$ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+			} else if (getenv('HTTP_X_FORWARDED')) {
+				$ipaddress = getenv('HTTP_X_FORWARDED');
+			} else if (getenv('HTTP_FORWARDED_FOR')) {
+				$ipaddress = getenv('HTTP_FORWARDED_FOR');
+			} else if (getenv('HTTP_FORWARDED')) {
+				$ipaddress = getenv('HTTP_FORWARDED');
+			} else if (getenv('REMOTE_ADDR')) {
+				$ipaddress = getenv('REMOTE_ADDR');
+			} else {
+				$ipaddress = 'UNKNOWN';
+			}
+
+			return $ipaddress;
+		}
+
+		static public function have_link($str) {
+			if (empty($str) || $str == null) {
+				return '/images/image-404.png';
+			} else {
+				return $str;
+			}
+		}
+
+		//taken from wordpress
+		static function utf8_uri_encode($utf8_string, $length = 0) {
+			$unicode = '';
+			$values = array();
+			$num_octets = 1;
+			$unicode_length = 0;
+
+			$string_length = strlen($utf8_string);
+			for ($i = 0; $i < $string_length; $i++) {
+
+				$value = ord($utf8_string[$i]);
+
+				if ($value < 128) {
+					if ($length && ($unicode_length >= $length)) {
+						break;
+					}
+
+					$unicode .= chr($value);
+					$unicode_length++;
+				} else {
+					if (count($values) == 0) {
+						$num_octets = ($value < 224) ? 2 : 3;
+					}
+
+					$values[] = $value;
+
+					if ($length && ($unicode_length + ($num_octets * 3)) > $length) {
+						break;
+					}
+
+					if (count($values) == $num_octets) {
+						if ($num_octets == 3) {
+							$unicode .= '%' . dechex($values[0]) . '%' . dechex($values[1]) . '%' . dechex($values[2]);
+							$unicode_length += 9;
+						} else {
+							$unicode .= '%' . dechex($values[0]) . '%' . dechex($values[1]);
+							$unicode_length += 6;
+						}
+
+						$values = array();
+						$num_octets = 1;
+					}
+				}
+			}
+
+			return $unicode;
+		}
+
+		//taken from wordpress
+		static function seems_utf8($str) {
+			$length = strlen($str);
+			for ($i = 0; $i < $length; $i++) {
+				$c = ord($str[$i]);
+				if ($c < 0x80) {
+					$n = 0;
+				}
+				# 0bbbbbbb
+				elseif (($c & 0xE0) == 0xC0) {
+					$n = 1;
+				}
+				# 110bbbbb
+				elseif (($c & 0xF0) == 0xE0) {
+					$n = 2;
+				}
+				# 1110bbbb
+				elseif (($c & 0xF8) == 0xF0) {
+					$n = 3;
+				}
+				# 11110bbb
+				elseif (($c & 0xFC) == 0xF8) {
+					$n = 4;
+				}
+				# 111110bb
+				elseif (($c & 0xFE) == 0xFC) {
+					$n = 5;
+				}
+				# 1111110b
+				else {
+					return false;
+				}
+				# Does not match any model
+				for ($j = 0; $j < $n; $j++) {
+					# n bytes matching 10bbbbbb follow ?
+					if ((++$i == $length) || ((ord($str[$i]) & 0xC0) != 0x80)) {
+						return false;
+					}
+
+				}
+			}
+			return true;
+		}
+
+		//function sanitize_title_with_dashes taken from wordpress
+		static function sanitize($title) {
+			$title = strip_tags($title);
+			// Preserve escaped octets.
+			$title = preg_replace('|%([a-fA-F0-9][a-fA-F0-9])|', '---$1---', $title);
+			// Remove percent signs that are not part of an octet.
+			$title = str_replace('%', '', $title);
+			// Restore octets.
+			$title = preg_replace('|---([a-fA-F0-9][a-fA-F0-9])---|', '%$1', $title);
+
+			if (seems_utf8($title)) {
+				if (function_exists('mb_strtolower')) {
+					$title = mb_strtolower($title, 'UTF-8');
+				}
+				$title = utf8_uri_encode($title, 200);
+			}
+
+			$title = strtolower($title);
+			$title = preg_replace('/&.+?;/', '', $title); // kill entities
+			$title = str_replace('.', '-', $title);
+			$title = preg_replace('/[^%a-z0-9 _-]/', '', $title);
+			$title = preg_replace('/\s+/', '-', $title);
+			$title = preg_replace('|-+|', '-', $title);
+			$title = trim($title, '-');
+
+			return $title;
 		}
 	}
 }

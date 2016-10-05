@@ -34,7 +34,9 @@ if( file_exists('wfio://' . $root . $dir) ) {
 		echo "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
 		// All dirs
 		foreach( $files as $file ) {
+
 			$file = urldecode($file);
+			
 			if( file_exists('wfio://' . $root . $dir . $file) && $file != '.' && $file != '..' && is_dir('wfio://' . $root . $dir . $file) ) {
 				echo "<li class=\"directory collapsed\"><a href=\"#\" rel=\"" . $dir . $file . "/\">" . $file . "</a></li>";
 			}

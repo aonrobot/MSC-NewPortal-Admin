@@ -118,8 +118,39 @@ app.controller('component.cpGallery', function($scope) {
             success: function(data) {
                 location.reload();
             },
+            error: function(data){
+                location.reload();
+            },
 
         });
+    }
+    
+});
+
+app.controller('component.cpFile', function($scope) {
+
+    $scope.add_file = function() {
+
+        //Update Component DB
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            url: '/newportal/admin/component/create',
+            data: { component: 'file', path: $('#post_path').val() },
+            dataType: 'json',
+            async: true,
+            type: 'POST',
+            success: function(data) {
+                location.reload();
+            },
+
+        });
+
+        /* ---------------------------------------------------------------------------------- */
     }
     
 });

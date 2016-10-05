@@ -25,6 +25,6 @@ ini_set('display_errors', 'on');
 // You DON'T have to make any changes to this file. For Roxy Fileman user configuration see conf.json file.
 define('BASE_PATH', dirname (__FILE__));
 date_default_timezone_set('Asia/Bangkok');
-mb_internal_encoding("UTF-8");
+mb_internal_encoding("tis-620");
 mb_regex_encoding(mb_internal_encoding());
 ?>

@@ -43,6 +43,9 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	//Fetch New App
 	Route::get('/favorite/ajax_fav_app', 'FrontFavoriteController@ajax_fav_app');
 
+	//Statistic
+	Route::get('/statistic/linkclick', 'StatisticController@linkclick');
+
 	////////////////////////////////////////// Ajax Backend //////////////////////////////////////////////////////////////////
 
 	//Component Fetch Info
@@ -84,7 +87,7 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	//Index
 	Route::get('/admin/employee/create', 'EmployeeController@index');
 	Route::get('/admin/employee/list', 'EmployeeController@show');
-	Route::get('/admin/employee/setting/{id?}', 'EmployeeController@editdetail');   
+	Route::get('/admin/employee/setting/{id?}', 'EmployeeController@editdetail');
 	Route::get('/admin/employee/create/store', 'EmployeeController@store');
 	Route::get('/admin/employee/update', 'EmployeeController@update');
 
@@ -129,5 +132,20 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	Route::post('/admin/slide/update', 'SlideController@edit2'); //update
 	Route::get('/admin/slide/del/{id?}', 'SlideController@Del');
 	Route::get('/admin/slide/delitem/{id?}', 'SlideController@delitem');
+
+	////////////////////////////////////////// Static Zone //////////////////////////////////////////////////////////
+
+	//Srcipt
+	Route::get('/run', function () {
+		return View::make('script.run');
+	});
+
+	//Board of Directors
+	Route::get('/static/board_of_directors', function () {
+		return View::make('pages.static.boardofdirectors');
+	});
+	Route::get('/static/management_committee', function () {
+		return View::make('pages.static.managementcommittee');
+	});
 
 });

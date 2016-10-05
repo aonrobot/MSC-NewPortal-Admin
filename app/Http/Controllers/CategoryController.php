@@ -44,6 +44,8 @@ class categoryController extends Controller
         $trop_id = Session::get('trop_id');
 	    $category= $request->input('category');
 	    $trops = $request->input('trop');
+		$title= $request->input('title');
+		$subtitle= $request->input('subtitle');
 
 		
 		if($trop_id=="0"){
@@ -51,12 +53,16 @@ class categoryController extends Controller
 		$userDB->tid = 0;
 		$userDB->cat_name = $category;
 		$userDB->cat_type = "administrator";
+		$userDB->cat_title = $title;
+		$userDB->cat_subtitle = $subtitle;
         $userDB->save();}
 		else{
 			$userDB = new category;
 		$userDB->cat_name = $category;
 		$userDB->tid = $trop_id;
 		$userDB->cat_type = "trop";
+		$userDB->cat_title = $title;
+		$userDB->cat_subtitle = $subtitle;
         $userDB->save();}
 	
 	
@@ -96,10 +102,8 @@ class categoryController extends Controller
          ->get();
         
 		     $cat = category::join('trop','trop.tid', '=', 'category.tid')
-              ->select('catid','trop.tid','trop_name','category.catid','category.cat_name','category.cat_type')
         	  ->get();
 			 $catadmin = category::where('cat_type','=','administrator')
-              ->select('catid','catid','cat_name','cat_type')
         	  ->get();
 			  
 	  return view('admin.pages.category.category', ['ca2' => $cat,'trops' => $trops,'catad' => $catadmin]); 
@@ -129,8 +133,7 @@ class categoryController extends Controller
 
  public function editdetail($id){
 	    $catname = category::where('catid','=',$id)
-		          ->select('cat_name','cat_type')
-				  ->get();
+		         ->get();
 
    foreach($catname as $cattype){
       if($cattype->cat_type=="administrator"){
@@ -158,9 +161,11 @@ public function edit(Request $request) //update
 		$postid = $request->input('postid');	
 		$catid = $request->input('idcat');	
 		$category_name = $request->input('catagory_name');
+		$title = $request->input('catagory_title');
+		$subtitle = $request->input('catagory_subtitle');
 
 		category::where('catid', $catid)
-          ->update(['cat_name' => $category_name]);
+          ->update(['cat_name' => $category_name,'cat_title' =>$title,'cat_subtitle'=>$subtitle]);
 	
 	$i1=count($postid);
 		  for($i=0;$i<$i1;$i++)

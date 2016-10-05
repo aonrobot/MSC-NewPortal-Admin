@@ -106,7 +106,7 @@ $(function() {
             dataType: 'json',
             autoUpload: false,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            maxFileSize: 999000,
+            maxFileSize: 999999,
             disableImageResize: /Android(?!.*Chrome)|Opera/
                 .test(window.navigator.userAgent),
             previewMaxWidth: 100,
@@ -151,6 +151,10 @@ $(function() {
                 node
                     .append('<br>')
                     .append($('<span class="text-danger"/>').text(file.error));
+
+                alert('File is too large');
+
+                location.reload();
             }
             if (index + 1 === data.files.length) {
                 data.context.find('button:eq(0)')

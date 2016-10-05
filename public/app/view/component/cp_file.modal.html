@@ -1,0 +1,34 @@
+<div id="cp_file_modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-files-o"></i> Add Archive File</h3>
+            </div>
+            <div class="modal-body">
+                Click <mark><b>Add Archive File Button</b></mark> to confirm
+            </div>
+            <div class="modal-footer">
+                <p class="text-left">Support All File</p>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="add_file_btn" type="button" class="btn btn-primary">Add Archive File</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/*jslint unparam: true, regexp: true */
+/*global window, $ */
+$(function() {
+    'use strict';
+
+    var scope = angular.element($("cp-file-modal")).scope();
+
+    $('#add_file_btn').click(function() {
+        scope.$apply(function() {
+            scope.add_file();
+        })
+    });
+
+});
+</script>

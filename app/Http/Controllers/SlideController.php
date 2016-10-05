@@ -88,7 +88,7 @@ $update = cp_slide_item::where('slide_id', '=', $id )
 
 		 cp_slide_item::where('slide_item_id','=', $update1->slide_item_id)
           ->update(['slide_item_name' => $item_name[$update1->slide_item_id][0],'slide_item_img_url' =>$item_url[$update1->slide_item_id][0]
-		  ,'slide_item_img_link' => $item_link[$update1->slide_item_id][0],'slide_item_title' => $item_title[$update1->slide_item_id][0],'slide_item_subtitle' => $item_subtitle[$update1->slide_item_id][0]
+		  ,'slide_item_content_link' => $item_link[$update1->slide_item_id][0],'slide_item_title' => $item_title[$update1->slide_item_id][0],'slide_item_subtitle' => $item_subtitle[$update1->slide_item_id][0]
 		  ,'slide_item_content' => $item_content[$update1->slide_item_id][0],'slide_item_sort' => $item_sort[$update1->slide_item_id][0]]);
 	
 		 }

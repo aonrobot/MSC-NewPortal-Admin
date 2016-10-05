@@ -19,4 +19,11 @@ return [
 
 	],
 
+	'trop' => [
+		'aboutmsc' => [
+			'url' => 'trop/10086',
+		],
+
+	],
+
 ];

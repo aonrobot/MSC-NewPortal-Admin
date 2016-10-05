@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\category;
+use App\category_rela;
 use App\cp_slide;
 use App\employee;
 use App\menu;
@@ -11,11 +12,9 @@ use App\request1;
 use App\setting;
 use App\trop;
 use App\trop_rela;
-use App\category_rela;
 use DB;
 use Illuminate\Http\Request;
 use Session;
-
 
 class tropController extends Controller {
 	/**
@@ -24,27 +23,22 @@ class tropController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index($id) {
-    
-	Session::put('trop_id',$id);	
-	
-	if($id){
-	$trops = trop::join('request', 'trop.tid', '=', 'request.object_id')
-		        ->where('tid','=',$id)
+
+		Session::put('trop_id', $id);
+
+		if ($id) {
+			$trops = trop::join('request', 'trop.tid', '=', 'request.object_id')
+				->where('tid', '=', $id)
 				->orderBy('trop_status', 'ASC')
 				->get();
-	
-    Session::put('name_trop',$trops[0]->trop_name);	
-	}else{
-		
-	Session::put('name_trop','Newportal');	
-	}
+
+			Session::put('name_trop', $trops[0]->trop_name);
+		} else {
+
+			Session::put('name_trop', 'Newportal');
+		}
 		$trop = Trop::where('tid', '=', $id)->first();
 
-		
-
-		//return $trop;
-
-		//Fetch All Setting Of This Trop
 		$setting = Setting::where('set_type', '=', 'trop')->where('set_type_id', '=', $id)->get();
 
 		//Fetch Slide Item
@@ -60,17 +54,16 @@ class tropController extends Controller {
 			$slide_setting = DB::select('select * from cp_slide where slide_id = ?', [$slide->set_value]);
 		}
 		//Fetch Menu Item
-
-		$menu = Menu::where('tid', '=', $id)->first();
-
-		if ($menu == null) {
-			$menu = [];
+		$menu1 = Setting::
+			where('set_type', '=', 'trop')->
+			where('set_type_id', '=', $id)->
+			where('set_name', '=', 'menu')->first();
+		$menu = [];
+		if ($menu1 != null) {
+			$menu = Menu::where('mid', '=', $menu1->set_value)->first();
 		}
 
-
-	
-	
-	return view('admin.pages.trop.tropdetail', ['trop' => $trop, 'slide_setting' => $slide_setting, 'slide_items' => $slide_items, 'menu' => $menu]);
+		return view('admin.pages.trop.tropdetail', ['trop' => $trop, 'slide_setting' => $slide_setting, 'slide_items' => $slide_items, 'menu' => $menu]);
 	}
 
 	/**
@@ -91,15 +84,19 @@ class tropController extends Controller {
 	public function store(Request $request) {
 		$trops = $request->input('trop');
 		$trop_title = $request->input('trop_title');
+		$trop_subtitle = $request->input('trop_subtitle');
 
 		$tropDB = new trop;
 		$tropDB->trop_name = $trops;
 		$tropDB->trop_title = $trop_title;
+		$tropDB->trop_subtitle = $trop_subtitle;
 		$tropDB->trop_type = 'trop';
 		$tropDB->trop_status = "0";
 
 		if ($tropDB->save()) {
-			$id = $tropDB->id;}
+			$id = $tropDB->id;
+			Storage::disk('uploads')->makeDirectory('trop/' . $id . '/file');
+		}
 
 		$tropDB = new request1;
 		$tropDB->emid = Session::get('emid');
@@ -125,7 +122,7 @@ class tropController extends Controller {
 		$settingDB->set_value = '';
 		$settingDB->set_key = 'slide_id';
 		$settingDB->save();
-		
+
 		$settingDB = new setting;
 		$settingDB->set_type = "trop";
 		$settingDB->set_type_id = $id;
@@ -133,7 +130,7 @@ class tropController extends Controller {
 		$settingDB->set_value = '';
 		$settingDB->set_key = 'menu_id';
 		$settingDB->save();
-		
+
 		Session::forget('trop_id');
 		//$tropDB = new menu_rela;
 		//	$tropDB->mid = '1';
@@ -188,24 +185,25 @@ class tropController extends Controller {
 		$slidehome = $request->input('Slide_Home');
 		$empid = $request->input('empid');
 		$menu = $request->input('Menu1');
-        $status =$request->input('status');
+		$status = $request->input('status');
+		$subtitle = $request->input('subtitle');
 
 		trop::where('tid', $trops)
-			->update(['Trop_Name' => $trops1, 'Trop_type' => $type, 'trop_title' => $title,'trop_status' => $status]);
-        request1::where('object_id', $trops)
+			->update(['Trop_Name' => $trops1, 'Trop_type' => $type, 'trop_title' => $title, 'trop_subtitle' => $subtitle, 'trop_status' => $status]);
+		request1::where('object_id', $trops)
 			->update(['request_status' => $status]);
-		setting::where('set_type_id','=',$trops)
-		    ->where('set_key','=','slide_id')
+		setting::where('set_type_id', '=', $trops)
+			->where('set_key', '=', 'slide_id')
 			->update(['set_value' => $slide]);
-			
-	    setting::where('set_type_id','=',$trops)
-		    ->where('set_key','=','menu_id')
+
+		setting::where('set_type_id', '=', $trops)
+			->where('set_key', '=', 'menu_id')
 			->update(['set_value' => $menu]);
-			
-	    setting::where('set_type_id','=',$trops)
-		    ->where('set_subtype','=','slide')
+
+		setting::where('set_type_id', '=', $trops)
+			->where('set_subtype', '=', 'slide')
 			->update(['set_value' => $slidehome]);
-			
+
 		if ($empid) {
 			$sum = "";
 			$i1 = count($empid);
@@ -224,35 +222,43 @@ class tropController extends Controller {
 
 	public function detailset($id) //edit
 	{
+
+		Session::put('trop_id', $id);
 		$emid = Session::get('emid');
-        $trop_id = Session::get('trop_id');
+		$trop_id = Session::get('trop_id');
+		error_reporting(E_ALL ^ E_NOTICE);
 		$menu1 = menu::where('tid', '=', $trop_id)
 			->select('mid', 'menu_name', 'menu_type', 'is_tem')
 			->get();
 		$menuportal = menu::where('tid', '=', $trop_id)
-		    ->where('menu_type','=','trop')
+			->where('menu_type', '=', 'trop')
 			->select('mid', 'menu_name', 'menu_type', 'is_tem')
 			->get();
-   
+
 		$trop_rela = trop_rela::join('employee', 'employee.emid', '=', 'trop_rela.emid')
 			->where('tid', '=', $id)
 			->select('trop_rela_id', 'trop_rela.emid', 'EmpCode', 'user_level')
 			->get();
 
 		$detail1 = trop::where('tid', '=', $id)->get();
-
+		Session::put('name_trop', $detail1[0]->trop_name);
+		if($id==0)
+		{
+			Session::put('name_trop', 'Newportal');
+		}
+		
 		$setting = setting::where('set_type_id', '=', $id)
 			->select('set_value')
 			->get();
-			
+
 		error_reporting(E_ALL ^ E_NOTICE);
 		$slide_select = cp_slide::where('slide_id', '=', $setting[0]->set_value)
 			->select('slide_id', 'slide_name')
 			->get();
-	    $cp_slide = cp_slide::where('slide_tid', '=', $trop_id)
+		$cp_slide = cp_slide::where('slide_tid', '=', $trop_id)
 			->select('slide_id', 'slide_name')
 			->get();
-			
+
 		$employee = employee::all();
 
 		/*$cp_slide = cp_slide::where('slide_type', '=', 'Trop')
@@ -266,7 +272,7 @@ class tropController extends Controller {
 		//return $cp_slide;
 
 		return view('admin.pages.trop.tropedit', ['detail1' => $detail1, 'troprela' => $trop_rela, 'setting' => $setting, 'employee' => $employee, 'slide_select' => $slide_select, 'slide' => $cp_slide
-		,'menu'=>$menu1,'menuportal'=>$menuportal]);
+			, 'menu' => $menu1, 'menuportal' => $menuportal]);
 	}
 
 	public function detail($id) {
@@ -294,32 +300,32 @@ class tropController extends Controller {
 		$menudel = menu::where('tid', '=', $id)
 			->select('mid', 'tid')
 			->get();
-        foreach ($menudel as $menudel1) {
+		foreach ($menudel as $menudel1) {
 			$menurela = menu_rela::where('mid', '=', $menudel1->mid)
-			->select('mrid', 'mid', 'mtid')
-			->get();
-			
+				->select('mrid', 'mid', 'mtid')
+				->get();
+
 			foreach ($menurela as $menurela1) {
-		       menu_rela::where('mrid', $menurela1->mrid)->delete();
-		         }
-			 
-			 foreach ($menurela as $menurela1) {
-		       menu_item::where('mtid', $menurela1->mtid)->delete();
-		         }
+				menu_rela::where('mrid', $menurela1->mrid)->delete();
+			}
+
+			foreach ($menurela as $menurela1) {
+				menu_item::where('mtid', $menurela1->mtid)->delete();
+			}
 		}
 		menu::where('tid', $id)->delete();
 		$category1 = category::where('tid', '=', $id)
 			->select('catid')
-			->get(); 
-		category_rela::where('catid',$category1[0]->catid);
+			->get();
+		category_rela::where('catid', $category1[0]->catid);
 		category::where('tid', $id)->delete();
 		trop_rela::where('tid', $id)->delete();
 		trop::where('tid', $id)->delete();
 		request1::where('object_id', $id)->delete();
 		menu::where('tid', $id)->delete();
 		setting::where('set_type_id', $id)->delete();
-        cp_slide::where('slide_tid', $id)->delete();
-		Session::forget('trop_id'); 
+		cp_slide::where('slide_tid', $id)->delete();
+		Session::forget('trop_id');
 		return redirect('/admin/trop/create');
 	}
 	public function deladmin($id) {
@@ -334,10 +340,9 @@ class tropController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function tropout() {
-		
+
 		Session::forget('trop_id');
 		return redirect('/admin');
-		
-		
+
 	}
 }

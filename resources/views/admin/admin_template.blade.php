@@ -9,6 +9,14 @@ $can_access = ['admin', 'owner', 'trop_admin', 'trop_assistant'];
 </script>
 @endif
 @if($user->hasRole($can_access))
+<?php
+
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
+$_SESSION["user_id"] = $em_info->EmpCode;
+
+?>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -29,65 +37,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="shortcut icon" href="{{asset('/favicon.ico')}}" type="image/x-icon" />
 
     <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="<?=asset('bootstrap/css/bootstrap.min.css')?>">
+    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?=asset('/plugins/font-awesome/css/font-awesome.min.css')?>">
+    <link rel="stylesheet" href="{{asset('/plugins/font-awesome/css/font-awesome.min.css')}}">
     <!-- Ionicons
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
     @include('admin.plugin_style')
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?=asset('/plugins/select2/select2.min.css')?>">
-	<link rel="stylesheet" href="<?=asset('/plugins/datatables/dataTables.bootstrap.css')?>">
-    <link rel="stylesheet" href="<?=asset('/plugins/fileupload/css/jquery.fileupload.css')?>">
+    <link rel="stylesheet" href="{{asset('/plugins/select2/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/plugins/daterangepicker/daterangepicker.css')}}">
+	<link rel="stylesheet" href="{{asset('/plugins/datatables/dataTables.bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    <link rel="stylesheet" href="{{asset('/plugins/fileupload/css/jquery.fileupload.css')}}">
     <!-- fontawesome-iconpicker -->
-    <link rel="stylesheet" href="<?=asset('plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css')?>"></link>
+    <link rel="stylesheet" href="{{asset('plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css')}}"></link>
 
-    <link rel="stylesheet" href="<?=asset('dist/css/AdminLTE.min.css')?>">
-        <!-- admin
-    AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect.
-  -->
-    <link rel="stylesheet" href="<?=asset('dist/css/skins/skin-blue.min.css')?>">
+    <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('dist/css/skins/skin-blue.min.css')}}">
 
 
     <!-- jQuery 2.2.3 -->
-    <script src="<?=asset('plugins/jQuery/jquery-2.2.3.min.js')?>"></script>
+    <script src="{{asset('plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 
     <!-- Bootstrap 3.3.6 -->
-    <script src="<?=asset('bootstrap/js/bootstrap.min.js')?>"></script>
-    <!-- jQuery UI -->
-    <script src="<?=asset('plugins/jQueryUI/jquery-ui.min.js')?>"></script>
+    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 
-	<script src="<?=asset('plugins/datatables/jquery.dataTables.min.js')?>"></script>
-    <script src="<?=asset('plugins/datatables/dataTables.bootstrap.min.js')?>"></script>
+    <!-- Bootstrap Validation -->
+    <script src="{{asset('plugins/bootstrap-validator/dist/validator.min.js')}}"></script>
+
+    <!-- Moment -->
+    <script src="{{asset('plugins/daterangepicker/moment.min.js')}}"></script>
+    <!-- Datepicker Range-->
+    <script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+
+    <!-- jQuery UI -->
+    <script src="{{asset('plugins/jQueryUI/jquery-ui.min.js')}}"></script>
+
+	<script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
 
     <!-- CKEditor -->
-    <script src="<?=asset('plugins/ckeditor/ckeditor.js')?>"></script>
+    <script src="{{asset('plugins/ckeditor/ckeditor.js')}}"></script>
     <!-- fontawesome-iconpicker -->
-    <script src="<?=asset('plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js')?>"></script>
+    <script src="{{asset('plugins/fontawesome-iconpicker/dist/js/fontawesome-iconpicker.js')}}"></script>
 
     <!-- File Upload -->
 
-    <script src="<?=asset('plugins/fileupload/js/vendor/jquery.ui.widget.js')?>"></script>
+    <script src="{{asset('plugins/fileupload/js/vendor/jquery.ui.widget.js')}}"></script>
     <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
     <script src="https://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
     <!-- The Canvas to Blob plugin is included for image resizing functionality -->
     <script src="https://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
     <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-    <script src="<?=asset('plugins/fileupload/js/jquery.iframe-transport.js')?>"></script>
+    <script src="{{asset('plugins/fileupload/js/jquery.iframe-transport.js')}}"></script>
     <!-- The basic File Upload plugin -->
-    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload.js')?>"></script>
+    <script src="{{asset('plugins/fileupload/js/jquery.fileupload.js')}}"></script>
     <!-- The File Upload processing plugin -->
-    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-process.js')?>"></script>
+    <script src="{{asset('plugins/fileupload/js/jquery.fileupload-process.js')}}"></script>
     <!-- The File Upload image preview & resize plugin -->
-    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-image.js')?>"></script>
+    <script src="{{asset('plugins/fileupload/js/jquery.fileupload-image.js')}}"></script>
     <!-- The File Upload audio preview plugin -->
-    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-audio.js')?>"></script>
+    <script src="{{asset('plugins/fileupload/js/jquery.fileupload-audio.js')}}"></script>
     <!-- The File Upload video preview plugin -->
-    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-video.js')?>"></script>
+    <script src="{{asset('plugins/fileupload/js/jquery.fileupload-video.js')}}"></script>
     <!-- The File Upload validation plugin -->
-    <script src="<?=asset('plugins/fileupload/js/jquery.fileupload-validate.js')?>"></script>
+    <script src="{{asset('plugins/fileupload/js/jquery.fileupload-validate.js')}}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -220,40 +235,41 @@ desired effect
     <!-- AdminLTE App -->
     @include('admin.plugin')
 
-    <script src="<?=asset('plugins/select2/select2.full.min.js')?>"></script>   <!-- Text select แอดมิน -->
-    <script src="<?=asset('plugins/chained/jquery.chained.min.js')?>"></script>
+    <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>   <!-- Text select แอดมิน -->
+    <script src="{{asset('plugins/chained/jquery.chained.min.js')}}"></script>
     <!--Nested Sortable-->
-    <script src="<?=asset('plugins/nestable/jquery.nestable.js')?>"></script>
+    <script src="{{asset('plugins/nestable/jquery.nestable.js')}}"></script>
 
-
+    <!-- Toastr JS -->
+    <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 
     <!-- AngularJS -->
-    <script src="<?=asset('plugins/angular/angular.js')?>"></script>
-    <script src="<?=asset('plugins/angular-route/angular-route.min.js')?>"></script>
-    <script src="<?=asset('plugins/angular-resource/angular-resource.min.js')?>"></script>
-    <script src="<?=asset('plugins/angular-touch/angular-touch.min.js')?>"></script>
-    <script src="<?=asset('plugins/angular-animate/angular-animate.min.js')?>"></script>
-    <script src="<?=asset('plugins/angular-bootstrap/ui-bootstrap-tpls.min.js')?>"></script>
+    <script src="{{asset('plugins/angular/angular.js')}}"></script>
+    <script src="{{asset('plugins/angular-route/angular-route.min.js')}}"></script>
+    <script src="{{asset('plugins/angular-resource/angular-resource.min.js')}}"></script>
+    <script src="{{asset('plugins/angular-touch/angular-touch.min.js')}}"></script>
+    <script src="{{asset('plugins/angular-animate/angular-animate.min.js')}}"></script>
+    <script src="{{asset('plugins/angular-bootstrap/ui-bootstrap-tpls.min.js')}}"></script>
 
     <!-- AngularJS App -->
-    <script src="<?=asset('dist/js/app.min.js')?>"></script>
-    <script src="<?=asset('app/app.js')?>"></script>
-    <script src="<?=asset('app/controller.js')?>"></script>
+    <script src="{{asset('dist/js/app.min.js')}}"></script>
+    <script src="{{asset('app/app.js')}}"></script>
+    <script src="{{asset('app/controller.js')}}"></script>
 
     <!--New Portal Custom Javascript-->
-    <script src="<?=asset('js/metrop-admin.js')?>"></script>
+    <script src="{{asset('js/metrop-admin.js')}}"></script>
 
     <!-- Dashboard -->
-    <script src="<?=asset('app/controller/dashboard.controller.js')?>"></script>
+    <script src="{{asset('app/controller/dashboard.controller.js')}}"></script>
 
     <!-- Content -->
-    <script src="<?=asset('app/controller/post.controller.js')?>"></script>
-    <script src="<?=asset('app/controller/component.controller.js')?>"></script>
-    <script src="<?=asset('app/directive/post.directive.js')?>"></script>
-    <script src="<?=asset('app/directive/component.directive.js')?>"></script>
+    <script src="{{asset('app/controller/post.controller.js')}}"></script>
+    <script src="{{asset('app/controller/component.controller.js')}}"></script>
+    <script src="{{asset('app/directive/post.directive.js')}}"></script>
+    <script src="{{asset('app/directive/component.directive.js')}}"></script>
 
     <!-- Menu -->
-    <script src="<?=asset('app/controller/menu.controller.js')?>"></script>
+    <script src="{{asset('app/controller/menu.controller.js')}}"></script>
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

@@ -1,7 +1,7 @@
 <!-- Main Header -->
 <header class="main-header">
     <!-- Logo -->
-    <a href="admin" class="logo">
+    <a href="{{asset('/')}}" target="_blank" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>NP</span>
         <!-- logo for regular state and mobile devices -->

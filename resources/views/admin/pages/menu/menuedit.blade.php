@@ -18,6 +18,11 @@ foreach ($menu as $menu1) {
 		 @if($template_name)
 		    Template Name : <input type="text" name="title" size="13" value="<?Php echo $template_name; ?>" disabled >
 	     @endif
+		    <button TYPE="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to update?')"> <span class="glyphicon glyphicon-floppy-disk"></span></button>
+	      	 <input type=button value="Refresh"class="btn btn-primary"  onClick="javascript:location.reload();">
+			 <a href="<?=asset('/admin/menu/listitemdel/')?><?php echo '/' . $mid; ?>">
+			 <button class="btn btn-danger"   type="button" style="height:33px" ><span class="glyphicon glyphicon-trash" ></span> Delete </font></button>
+			 </a>
         </i>
       </h4>
 
@@ -57,8 +62,9 @@ foreach ($menuitem as $menuitem1) {
                   <option value="category" <?php if ($check_link[0] == "category") {echo "selected";}?>>Category</option>
                   <option value="post_option" <?php if ($check_link[0] == "post") {echo "selected";}?>>Post</option>
 				  <option value="trop" <?php if ($check_link[0] == "trop") {echo "selected";}?>>Trop</option>
+				  <option value="file"<?php if ($check_link[0] == "file") {echo "selected";}?>>File</option>
                   <option value="other"<?php if ($check_link[0] == "http:") {echo "selected";}?>>Other</option>
-               </select>
+			   </select>
 
                <select id="type_name" name="type_name[<?Php echo $menuitem1->mtid; ?>][]" class="series" style="width: 70px">
                   <option value="A">--</option>
@@ -74,9 +80,13 @@ foreach ($menuitem as $menuitem1) {
                   <option value="<?php echo $trop0->tid; ?>" class="trop" <?php if ($check_link[0] == "trop" and $check_link[1] == $trop0->tid) {echo "selected";}?>><?php echo $trop0->trop_name; ?></option>
                   <?php }?>
                   <option value="B" class="other"><?php echo $menuitem1->item_link; ?> </option>
+				  <option value="file" class="file"><?php echo $menuitem1->item_link; ?> </option>
                </select>
-
+			   
 			   <input id="link" type="text" name="link[<?Php echo $menuitem1->mtid; ?>][]"  value="<?php echo $menuitem1->item_link; ?>"size="12" >
+			   
+			   <input id="linkfile" type="text" name="linkfile[<?Php echo $menuitem1->mtid; ?>][]"  value="<?php echo $menuitem1->item_link; ?>"size="12" >
+			   
 			   </center>
 			   </td>
 
@@ -135,10 +145,9 @@ foreach ($menuitem as $menuitem1) {
 			   </div>
 
             <div id="ctrl-exmple" ng-controller="menu.edit as menu">
-               <button ng-click="menu.addMenu()" id="addbutton" type="button"class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button> <button TYPE="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to update?')"> <span class="glyphicon glyphicon-floppy-disk"></span></button>
-			   <a href="<?=asset('/admin/menu/listitemdel/')?><?php echo '/' . $mid; ?>">
-			   <button class="btn btn-danger"   type="button" style="height:33px" ><span class="glyphicon glyphicon-trash" ></span> </font></button>
-			   </a>
+               <button ng-click="menu.addMenu()" id="addbutton" type="button"class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+			
+			   
                <ul ng-repeat="contact in menu.contacts">
 
 
@@ -146,8 +155,6 @@ foreach ($menuitem as $menuitem1) {
 					  <h3>
                         Name
                         <input type="text" name="item_name2[]" size="30">
-
-
                         <button type="button" ng-click="menu.del(contact)" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove"></span></button>
 					 </h3>
                      </div>
@@ -163,6 +170,7 @@ foreach ($menuitem as $menuitem1) {
     <script>
 	    //$('[id="type"]').click(function(){
 	      $('[id="link"]').hide(500);
+		  $('[id="linkfile"]').hide(500);
 	    	$('[id="type"]').each(function(index){
 	    		var el_index = index;
 				if($('[id="type"]:eq('+ el_index +')').val()=='other')
@@ -170,16 +178,32 @@ foreach ($menuitem as $menuitem1) {
 					$('[id="link"]:eq('+ el_index +')').show(500);
 				    $('[id="type_name"]:eq('+ el_index +')').hide(500);
 				}
-
+				else if($('[id="type"]:eq('+ el_index +')').val()=='file')
+				{
+					$('[id="link"]:eq('+ el_index +')').hide(500);
+				    $('[id="type_name"]:eq('+ el_index +')').hide(500);
+					$('[id="linkfile"]:eq('+ el_index +')').show(500);
+				}		
 	    		$(this).change(function(){
-	    			if($(this).val() != 'other'){
-	    				$('[id="link"]:eq('+ el_index +')').hide(500);
-						$('[id="type_name"]:eq('+ el_index +')').show(500);
-	    			}
-	    			else{
-	    				$('[id="link"]:eq('+ el_index +')').show(500);
+					if($(this).val() == 'other'){
+						$('[id="link"]:eq('+ el_index +')').show(500);
 						$('[id="type_name"]:eq('+ el_index +')').hide(500);
-	    			}
+						$('[id="linkfile"]:eq('+ el_index +')').hide(500);
+	    					    			}
+					else if($(this).val() == 'file'){
+						$('[id="link"]:eq('+ el_index +')').hide(500);
+						$('[id="type_name"]:eq('+ el_index +')').hide(500);
+						$('[id="linkfile"]:eq('+ el_index +')').show(500);
+						
+	    					    			}
+					else{
+						$('[id="linkfile"]:eq('+ el_index +')').hide(500);
+	    		       	$('[id="link"]:eq('+ el_index +')').hide(500);
+						$('[id="type_name"]:eq('+ el_index +')').show(500);
+						}
+					
+				
+								
 	    		});
 	    	});
 

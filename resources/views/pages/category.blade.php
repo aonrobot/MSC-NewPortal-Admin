@@ -15,24 +15,30 @@
 <!-- /.row -->
 {{-- */$posts = App\Library\Tools::sortPost($posts) /* --}}
 
-@for($i = 0 ; $i < count($posts)/3 ; $i++)
+{{-- */$row = 4 /* --}}
+
+@for($i = 0 ; $i < count($posts)/$row ; $i++)
 <!-- Projects Row -->
 <div class="row">
-    @for($j = 1 ; $j <= 3 ; $j++)
-    {{--*/ $index = $j+($i*3)-1 /*--}}
-    <div class="col-md-4">
+    @for($j = 1 ; $j <= $row ; $j++)
+    {{--*/ $index = $j+($i*$row)-1 /*--}}
+    <div class="col-md-3">
         <div class="metrop-news-group-content">
             <a href="{{ asset('post/' . $posts[$index]['pid']) }}">
-                <img class="img-responsive" src="{{ asset($posts[$index]['post_thumbnail']) }}" alt="">
+                {{--*/$img_url = App\Library\Tools::have_link($posts[$index]['post_thumbnail'])/*--}}
+                <img class="img-responsive" src="{{asset($img_url)}}" alt="" style="height:148px">
             </a>
-            <h3 class="metrop-news-head">
-                      <a href="{{ asset('post/' . $posts[$index]['pid']) }}">{{ $posts[$index]['post_title'] }}</a>
-                  </h3>
-            <p class="metrop-news-content">{{ $posts[$index]['post_detail'] }}</p><br>
+            <h4 class="metrop-news-head" style="height: 34px;">
+                <a href="{{ asset('post/' . $posts[$index]['pid']) }}">{{ $posts[$index]['post_title'] }}</a>
+            </h4>
+            @if(!empty($posts[$index]['post_detail']) and $posts[$index]['post_detail'] != null)
+            <p class="metrop-news-content" >{{ $posts[$index]['post_detail'] }}</p><br>
             <a class="btn btn-default" href="{{ asset('post/' . $posts[$index]['pid']) }}">Read More</a>
+            @endif
+
         </div>
     </div>
-    @if($j+($i*3) == count($posts))
+    @if($j+($i*$row) == count($posts))
         @break;
     @endif
     @endfor

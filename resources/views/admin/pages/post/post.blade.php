@@ -12,43 +12,57 @@ div .dataTables_filter {
                 <h3 class="box-title"><i class="fa fa-plus"></i> Create New Post</h3>
             </div>
             <div class="box-body">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" placeholder="Post Name" name="post_name">
+                <form data-toggle="validator" role="form" id="form">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" placeholder="Post Name" name="post_name" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <label>Title</label>
-                            <input type="text" class="form-control" placeholder="Post Title" name="post_title">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" class="form-control" placeholder="Post Title" name="post_title" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <label>Type</label>
-                            <select class="form-control" name="post_type">
-                                <option value="post">Post</option>
-                                <option value="news">News Post</option>
-                            </select>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select class="form-control" name="post_type" id="post_type" required>
+                                    <option value="post">Post</option>
+                                    <option value="news">News Post</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <!--<div class="col-xs-12">
-                        <div class="form-group">
-                            <label>Trop</label>
-                            <select class="form-control" name="tid">
+                        <div class="col-xs-12" id="event_date_zone">
+                            <div class="form-group">
+                                <label>Event Date</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="eventdate" name="post_event_date" required>
+                                 </div>
+                            </div>
+                        </div>
 
-                            </select>
-                        </div>
-                    </div>-->
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        <button id="createPostBtn" class="btn btn-success right"><i class="fa fa-plus"></i> Create Post</button>
+                        <!--<div class="col-xs-12">
+                            <div class="form-group">
+                                <label>Trop</label>
+                                <select class="form-control" name="tid">
+
+                                </select>
+                            </div>
+                        </div>-->
                     </div>
-                </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <input type="submit" class="btn btn-success right" value="Create Post">
+                        </div>
+                    </div>
+                </form>
             </div>
             <!-- /.box-body -->
         </div>
@@ -66,6 +80,7 @@ div .dataTables_filter {
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Post Name</th>
+                            <th>Trop Name</th>
                             <th>Author</th>
                             <th style="width: 20px">Edit</th>
                             <th style="width: 20px">Delete</th>
@@ -73,9 +88,10 @@ div .dataTables_filter {
                     </thead>
                     <tbody>
                         @foreach($postList as $post)
-                        <tr>
+                        <tr @if(empty($post->trop_name)) style="background-color: #C5EFF7;" @endif>
                             <td>{{$post->pid}}</td>
                             <td>{{$post->post_name}}</td>
+                            <td>{{empty($post->trop_name) ? 'NewPortal' : $post->trop_name}}</td>
                             <td><span class="badge" style="background-color:{{App\Library\Tools::emid2color($post->emid)}}">{{App\MainEmployee::where('EmpCode', '=' ,App\Employee::where('emid' , '=' , $post->emid)->first()->EmpCode)->first()->FirstNameEng}}</span></td>
                             <td>
                                 <a id="editPostBtn" href="{{asset('admin/post/edit/'.$post->pid)}}"  class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
@@ -92,6 +108,7 @@ div .dataTables_filter {
         </div>
         <!-- /.box -->
     </div>
+
 </div>
 <div id="finish_modal" class="modal fade">
     <div class="modal-dialog">
@@ -115,6 +132,61 @@ div .dataTables_filter {
 <script>
 $(function() {
 
+    //Date Range
+    $('#eventdate').daterangepicker({
+        "autoUpdateInput": false,
+        "timePicker": true,
+        "timePicker24Hour": true,
+        "locale": {
+            "format": 'YYYY/MM/DD h:mm A',
+            "cancelLabel": "ยกเลิก",
+            "fromLabel": "จาก",
+            "toLabel": "ถึง",
+            "daysOfWeek": [
+                "อา.",
+                "จ.",
+                "อ.",
+                "พ.",
+                "พฤ.",
+                "ศ.",
+                "ส."
+            ],
+            "monthNames": [
+                "มกราคม",
+                "กุมภาพันธ์",
+                "มีนาคม",
+                "เมษายน",
+                "พฤษภาคม",
+                "มิถุนายน",
+                "กรกฎาคม",
+                "สิงหาคม",
+                "กันยายน",
+                "ตุลาคม",
+                "พฤศจิกายน",
+                "ธันวาคม"
+            ],
+        },
+
+    });
+
+    $('#eventdate').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('YYYY/MM/DD h:mm A') + ' - ' + picker.endDate.format('YYYY/MM/DD h:mm A'));
+    });
+
+    $('#eventdate').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+
+    //
+    //
+    $('#event_date_zone').hide();
+    $('#eventdate').click(function(){
+        if($(this).val() == 'news'){
+            $('#event_date_zone').show();
+        }else{
+            $('#event_date_zone').hide();
+        }
+    });
 
     $("#postTable").DataTable({
         "paging": false,
@@ -125,7 +197,11 @@ $(function() {
     search_input.removeClass('col-sm-6');
     search_input.addClass('col-sm-12 text-center');
 
-    $('#createPostBtn').click(function() {
+    $('#form').validator().on('submit', function (e) {
+      if (e.isDefaultPrevented()) {
+        toastr["error"]("Please fill all field!!", "Fail");
+      } else {
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -133,10 +209,11 @@ $(function() {
         });
 
         var postData = {
-          'post_name': $('input[name=post_name]').val(),
-          'post_type' : $('select[name=post_type]').val(),
-          'post_title' : $('input[name=post_title]').val(),
-          //'tid' : $('select[name=tid]').val()
+            'post_name': $('input[name=post_name]').val(),
+            'post_type' : $('select[name=post_type]').val(),
+            'post_title' : $('input[name=post_title]').val(),
+            'post_event_date' : $('input[name=post_event_date]').val(),
+            //'tid' : $('select[name=tid]').val()
         };
 
         $.ajax({
@@ -145,10 +222,13 @@ $(function() {
             dataType: 'json',
             type: 'POST',
             success: function(data) {
-              $('#finish_modal_edit_link').attr('href','post/edit/' + data['pid']);
-              $('#finish_modal').modal('show');
+                $('#finish_modal_edit_link').attr('href','post/edit/' + data['pid']);
+                $('#finish_modal').modal('show');
             }
         });
+
+
+      }
     });
 
     $('#removePostBtn').click(function() {

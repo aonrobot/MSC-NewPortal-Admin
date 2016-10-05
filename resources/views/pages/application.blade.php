@@ -96,7 +96,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header"><a href="#">
-          <i class="fa fa-fw fa-cubes"></i></a> Application<small> Find everything what you want <3</small>
+          <i class="fa fa-fw fa-cubes"></i></a> Application<small> แอพพลิเคชั่น</small>
         </h1>
     </div>
 </div>
@@ -104,17 +104,17 @@
 <div class="row">
     <div class="col-md-12">
         <div class="controls">
-            <h3>Filter:</h3>
-            <button class="btn btn-primary filter" data-filter="all">
-              <span data-toggle="tooltip" data-placement="left" title="กรองทุกหมวดหมู่">All</span>
+            <h3>คลิกเพื่อเลือกหมวดหมู่แอพพลิเคชั่น :</h3>
+            <button class="btn btn-primary filter" data-filter="all" style="margin-top:15px;">
+              <span data-toggle="tooltip" data-placement="left" title="กรองทุกหมวดหมู่" style="">All</span>
             </button>
             @foreach($group as $g)
-            <button class="btn btn-primary filter" data-filter=".{{$g->group_name}}" style="background: {{$g->group_color}};">
+            <button class="btn btn-primary filter" data-filter=".{{$g->group_name}}" style="margin-top:15px; background: {{$g->group_color}};">
               <span data-toggle="tooltip" data-placement="top" title="กรองตามหมวดหมู่ {{$g->group_title}}">{{$g->group_title}}</span>
             </button>
             @endforeach
             <hr>
-            <div class="input-group input-group-lg" style="z-index:0" data-toggle="tooltip" data-placement="bottom" title="ค้นหา Application ทั้งหมด">
+            <div class="input-group input-group-lg" style="margin-top:15px;z-index:0" data-toggle="tooltip" data-placement="bottom" title="ค้นหา Application ทั้งหมด">
                 <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
                 <input type="text" class="form-control" id="filter" placeholder="Search" aria-describedby="sizing-addon1">
             </div>
@@ -134,10 +134,10 @@
                   $fav_count = DB::select('select * from favorite_app where app_id = ? and fid = ?',[$app->app_id, $fid])
 
                 /*--}}
-                <div class="col-md-3 mix {{$app->group_name}}" style="background: {{$app->group_color}};">
+                <div class="col-md-3 mix {{$app->group_name}}" data-app-name="{{$app->app_name}}" style="background: {{$app->group_color}};">
                     <h4 class="app-title">
                     <a href="{{$app->app_link}}" target="_blank">
-                      {{$app->app_name}} <br>
+                      {{$app->app_name}} <br><br>
                       <small style="color:#FFF;">{{$app->app_description}}</small>
                     </a>
                     <div id="{{$app->app_id}}" class="favBtn {{count($fav_count)>0 ? 'starActive' : 'star'}}">

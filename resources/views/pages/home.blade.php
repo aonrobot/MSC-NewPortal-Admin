@@ -75,9 +75,10 @@
                             {!!$slide->slide_item_content!!}
                         </li>
                     </ul>
-                    <br> @if(!is_null($slide->slide_item_content_link))
-                    <a class="btn btn-primary btn-lg" href="{{asset($slide->slide_item_content_link)}}" style=" margin-bottom: 35px;">อ่านข่าวต่อ</a><br>
-                @endif
+                    <br>
+                    @if(!is_null($slide->slide_item_content_link) and $slide->slide_item_content_link != '')
+                        <a class="btn btn-primary btn-lg" href="{{asset($slide->slide_item_content_link)}}" style=" margin-bottom: 35px;">รายละเอียดเพิ่มเติม</a><br>
+                    @endif
                 </div>
                 <!-- /.col-md-4 -->
             </li>
@@ -93,7 +94,8 @@
     <div class="metrop-text-head">
         <h2>{{empty($news_category['cat_title']->cat_title)? 'ข่าวสาร' : $news_category['cat_title']->cat_title}}</h2>
     </div>
-    @foreach($news_category['posts'] as $news)
+    {{-- */$posts = App\Library\Tools::sortPost($news_category['posts'],'event_start_date') /* --}}
+    @foreach($posts as $news)
     <div class="col-md-4 col-sm-6">
         <div class="metrop-thumbnail">
             <img class="img-responsive" src="{{ asset($news['post_thumbnail']) }}" alt="">
@@ -104,13 +106,16 @@
                                 <i class="fa fa-envelope"></i>
                                 New</span>-->
             </div>
+            {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($news['event_start_date'])),3)/*--}}
+
             <h3 class="metrop-news-head">{{$news['post_title']}}</h3>
             <p class="metrop-news-content">{{$news['post_detail']}}</p>
+            <h5 style="color: rgba(86, 143, 199, 0.79);">{{$str_date}}</h5>
             <div class="metrop-news-group-footer">
                 <a class="btn btn-default" href="{{ asset('post/'. $news['pid']) }}">อ่านข่าวต่อ</a>
                 <span>
                                 <i class="fa fa-clock-o"></i>
-                                {{App\Library\Tools::postTime($news['created_at'])}}</span>
+                                {{App\Library\Tools::postTime($news['event_start_date'])}}</span>
             </div>
         </div>
     </div>
@@ -133,9 +138,69 @@
     @endif
 </div>
 <!-- /.row -->
+
 <hr>
 <!-- content 3 | Calendar -->
-<div class="row disible-sm">
+<div class="row">
+	<div class="metrop-text-head">
+        <h2>Call Center</h2>
+    </div>
+    <div class="col-lg-12">
+		<div class="col-md-12">
+			<style>
+				td.success{
+					font-weight: bolder;
+				}
+			</style>
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<tr>
+						<th style="width:20%">Name</th>
+						<th>Number</th>
+					</tr>
+					<tr>
+						<td class="active">AR Call Center</td>
+						<td class="success">#74444</td>
+					</tr>
+					<tr>
+						<td class="active">BP Call Center</td>
+						<td class="success">#77777</td>
+					</tr>
+					<tr>
+						<td class="active">HR Call Center</td>
+						<td class="success">#79999</td>
+					</tr>
+					<tr>
+						<td class="active">ITS Call Center</td>
+						<td class="success">#71111</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+    </div>
+</div>
+<!-- /.row -->
+
+<hr>
+<!-- content 3 | Calendar -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default metrop-news-group-content">
+            <div class="panel-body" style="padding:0px;">
+                <div class="col-md-12">
+                    <div class="panel-heading text-center">
+
+                        <h3>Calendar will available soon <i class="fa fa-heart" style="color:#E26A6A"></i></h3>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.col-lg-12-->
+<!--<div class="row disible-sm">
     <div class="metrop-text-head">
         <h2>ปฏิทินกิจกรรมประจำปี</h2>
     </div>

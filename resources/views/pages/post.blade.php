@@ -108,7 +108,7 @@
             @endif
 
             @if($component->name == "cp_file")
-                <h3>{{$post->post_title}} File</h3><hr>
+                <h3>File {{$post->post_title}}</h3><hr>
                 <div class="row">
                         <div class="col-md-12" id="file-container"></div>
                 </div>

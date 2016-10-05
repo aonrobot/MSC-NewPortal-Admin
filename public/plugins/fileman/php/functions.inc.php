@@ -22,6 +22,7 @@
 */
 include 'security.inc.php';
 
+
 function t($key){
   global $LANG;
   if(empty($LANG)){
@@ -76,11 +77,13 @@ function verifyPath($path){
   }
 }
 function fixPath($path){
+	
   $get_path = explode("\\",__DIR__);
   
   $real_path = $get_path[0] . '\\' . $get_path[1] . '\\' . $get_path[2];
   $path = $real_path.'/'.$path;
   $path = str_replace('\\', '/', $path);
+  
   $path = RoxyFile::FixPath($path);
   
   return $path;
@@ -315,6 +318,7 @@ class RoxyFile{
   }
   static public function FixPath($path){
     $path = mb_ereg_replace('[\\\/]+', '/', $path);
+	
     return $path;
   }
   /**

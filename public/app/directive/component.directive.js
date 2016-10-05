@@ -30,6 +30,14 @@ app.directive('cpGalleryModal', function(){
 	};
 });
 
+app.directive('cpFileModal', function(){
+	return {
+		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
+		templateUrl: '/newportal/app/view/component/cp_file.modal.html',
+		controller: 'component.cpFile'
+	};
+});
+
 //Edit
 app.directive('editContentModal', function(){
 	return {

@@ -1,5 +1,10 @@
 @extends('admin.admin_template') @section('content')
+<?php
 
+session_start();
+$_SESSION["file_path"] = 'uploads/files';
+
+?>
 <div class="row">
     <div class="col-md-12">
         <div class="box box-success">

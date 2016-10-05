@@ -5,7 +5,10 @@
    <div class="row metrop-row-content">
       <div class="col-md-12">
 	   <h2><i class="fa  fa-edit" aria-hidden="true"></i> Category Edit</h2>
-         <h3>Category Name <input value="{{$namecat[0]->cat_name}}" name="catagory_name"  size="20"></h3>
+         <h3>Category Name <input value="{{$namecat[0]->cat_name}}" name="catagory_name"  size="20">
+		     Title <input value="{{$namecat[0]->cat_title}}" name="catagory_title"  size="20">
+		     Subtitle <input value="{{$namecat[0]->cat_subtitle}}" name="catagory_subtitle"  size="20">
+		 </h3>
              <ol class="breadcrumb" style="background-color:white" >
             <font color="black">
             <div>
