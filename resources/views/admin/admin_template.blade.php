@@ -24,6 +24,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
 
+<style>
+
+
+</style>
 <head>
 
     <meta charset="utf-8">
@@ -53,6 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css')}}"></link>
 
     <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/AdminCustom.css')}}">
 
     <link rel="stylesheet" href="{{asset('dist/css/skins/skin-blue.min.css')}}">
 
@@ -103,6 +108,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{asset('plugins/fileupload/js/jquery.fileupload-video.js')}}"></script>
     <!-- The File Upload validation plugin -->
     <script src="{{asset('plugins/fileupload/js/jquery.fileupload-validate.js')}}"></script>
+
+    <script src="{{asset('plugins/chained/jquery.chained.min.js')}}"></script>
+
+    <script src="{{asset('plugins/jqueryConfirm/jquery.confirm.min.js')}}"></script>
+
+    <!-- Flot JS -->
+    <script src="{{asset('plugins/flot/jquery.flot.min.js')}}"></script>
+    <script src="{{asset('plugins/flot/jquery.flot.resize.min.js')}}"></script>
+    <script src="{{asset('plugins/flot/jquery.flot.pie.min.js')}}"></script>
+    <script src="{{asset('plugins/flot/jquery.flot.categories.min.js')}}"></script>
+    <script src="{{asset('plugins/flot/jquery.flot.time.min.js')}}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -236,12 +252,15 @@ desired effect
     @include('admin.plugin')
 
     <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>   <!-- Text select แอดมิน -->
-    <script src="{{asset('plugins/chained/jquery.chained.min.js')}}"></script>
+
     <!--Nested Sortable-->
     <script src="{{asset('plugins/nestable/jquery.nestable.js')}}"></script>
 
     <!-- Toastr JS -->
     <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+
+    <!-- fastclick JS -->
+    <script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
 
     <!-- AngularJS -->
     <script src="{{asset('plugins/angular/angular.js')}}"></script>
@@ -276,8 +295,9 @@ desired effect
      user experience. Slimscroll is required when using the
      fixed layout. -->
 
+
+
 </body>
 
 </html>
-
 @endif <!--End if of check admin-->

@@ -107,7 +107,12 @@ class DashboardController extends Controller {
 				->where('trop_rela.emid', '=', $emid)
 				->orderBy('trop_status', 'ASC')
 				->get();
-				$tropadmin="";
+			$tropadmin = "";
+		}
+
+		//If user login
+		if (!isset($trops)) {
+			abort('404');
 		}
 
 		return view('admin.pages.dashboard', ['trops' => $trops, 'tropadmin' => $tropadmin]);

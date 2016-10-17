@@ -159,6 +159,7 @@ else {
 $rela = menu_rela::where('mid', '=', $mid )
          ->select('mrid','mid','mtid')
 		 ->get();
+		 error_reporting(E_ALL ^ E_NOTICE);
  foreach($rela as $rela1){
 	     if($type_name[$rela1->mtid][0]=="A")
 	       { $sum="";}
@@ -460,6 +461,23 @@ $rela = menu_rela::where('mid', '=', $mid )
 		  
       	return redirect('/admin/menu/create');
 	}
+	
+  public function Delall(Request $request){
+	  $item = $request->input('item_id');	
+	  $mid = $request->input('mid');	
+	  $i1=count($item);
+		  for($i=0;$i<$i1;$i++)
+		  {
+		  menu_rela::where('mtid',$item[$i])
+		  ->where('mid',$mid)
+		  ->delete();
+		  
+          menu_item::where('mtid',$item[$i])->delete();
+		  }
+		  
+      	return redirect('/admin/menu/edit/'.$mid);
+	}
+	
 	
 	public function delitem($id){
 		

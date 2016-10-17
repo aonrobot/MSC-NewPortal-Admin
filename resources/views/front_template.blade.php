@@ -1,4 +1,6 @@
 {{App\Library\Statistic_lib::FirstOfDay()}}
+{{--*/ $em_info = Session::get('em_info')/*--}}
+{{--*/ $user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first() /*--}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,6 +33,9 @@
     <link rel="stylesheet" href="{{asset('plugins/datatables/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/filetree/jqueryFileTree.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/lightgallery/css/lightgallery.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/justifiedgallery/justifiedGallery.min.css')}}">
+
     <!--Back to top css-->
     <link rel="stylesheet" href="{{asset('plugins/back-to-top/css/style.css')}}">
 
@@ -42,12 +47,25 @@
     <!-- Font Awesome -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
 
+    <link href="{{asset('plugins/jQueryUI/jquery-ui-1.10.0.custom.css')}}" rel="stylesheet">
+
     <!-- Custom CSS -->
+    <!-- King 9 Gray Style -->
+    <link href="{{asset('css/graystyle.css')}}" rel="stylesheet">
+
     <link href="{{asset('css/metrop.css')}}" rel="stylesheet">
+
     <link href="{{asset('css/metrop-component.css')}}" rel="stylesheet">
+
+    <!-- IE 11 grayscale img-->
+    <link href="{{asset('plugins/grayscale/css/grayscale.css')}}" rel="stylesheet">
+
 
     <!-- jQuery 2.2.3 -->
     <script src="{{asset('plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
+
+    <!-- jQuery UI -->
+    <script src="{{asset('plugins/jQueryUI/jquery-ui.min.js')}}"></script>
 
 	<script src="{{asset('js/jquery.mobile.custom.min.js')}}"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -61,6 +79,8 @@
 
     <script src="{{asset('plugins/filetree/jqueryFileTree.js')}}"></script>
 
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -72,7 +92,7 @@
 
 <body>
 
-    <div class="portal-loader"><div><img src="{{asset('loader.gif')}}"><h4>New Portal</h4></div></div>
+    <div class="portal-loader"><div><img src="{{asset('loader_gray.gif')}}"><h4>New Portal</h4></div></div>
 
     @include('header')
 
@@ -113,12 +133,25 @@
     <!-- JReject JS -->
     <script src="{{asset('plugins/jreject/js/jquery.reject.js')}}"></script>
 
+    <!-- LightGallery JS -->
+    <script src="{{asset('plugins/lightgallery/lib/picturefill.min.js')}}"></script>
+    <script src="{{asset('plugins/lightgallery/js/lightgallery.min.js')}}"></script>
+    <script src="{{asset('plugins/lightgallery/lib/jquery.mousewheel.min.js')}}"></script>
+    <script src="{{asset('plugins/lightgallery/lib/lg-thumbnail.min.js')}}"></script>
+
+    <!-- justifiedGallery -->
+    <script src="{{asset('plugins/justifiedgallery/jquery.justifiedGallery.min.js')}}"></script>
+
+    <!-- IE 11 grayscale img -->
+    <script type='text/javascript' src='{{asset('plugins/grayscale/js/grayscale.js')}}'></script>
+    <script type='text/javascript' src="{{asset('plugins/grayscale/js/functions.js')}}"></script>
+
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('js/metrop.js')}}"></script>
     <script src="{{asset('js/metrop-component.js')}}"></script>
 
     <!-- Custom Component JS -->
-    <script src="{{asset('plugins/gallery/gallery.js')}}"></script>
+    <!--<script src="{{asset('plugins/gallery/gallery.js')}}"></script>-->
 
     <script>
 
@@ -136,7 +169,7 @@
                     safari: false, // Apple Safari
                     chrome: false, // Google Chrome
                     firefox: true, // Mozilla Firefox
-                    msie: true, // Microsoft Internet Explorer
+                    msie: false, // Microsoft Internet Explorer
                     opera: true, // Opera
                     konqueror: true, // Konqueror (Linux)
                     unknown: true // Everything else

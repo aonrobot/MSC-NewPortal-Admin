@@ -9,7 +9,8 @@ use App\Http\Requests;
 use App\Role;
 
 use App\Permission_role;
-
+use App\employee;
+use App\role_user;
 use DB;
 class RoleController extends Controller
 {
@@ -52,7 +53,17 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    $Role_name = $request->input('Role_Name');	
+	$Display = $request->input('Display_Name');	
+	$Description = $request->input('Description');	
+	   
+   	    $roleDB = new Role();
+		$roleDB->name = $Role_name;
+		$roleDB->display_name =$Display ;
+		$roleDB->description = $Description;
+		$roleDB->save();
+		
+		return redirect('/admin/role/setting');
     }
 
     /**
@@ -78,11 +89,17 @@ class RoleController extends Controller
     public function edit($id)
     {
 		 $permission =DB::select('select*from permissions');
-        
-
-			   $role_per =DB::select('select*from permissions p join permission_role pr on pr.permission_id = p.id where role_id='.$id);
+	     $role_per =DB::select('select*from permissions p join permission_role pr on pr.permission_id = p.id where role_id='.$id);
+		 $employee = employee::all();
+		 
+		 $role_user = role_user ::join('employee','employee.emid','=','role_user.employee_id')
+		 ->where('role_id','=',$id)
+		 ->get();
+		 $rolename = Role::where('id','=',$id)
+		 ->first();
+            	
       
-			 return view('admin.pages.role.role_edit', ['select_per' => $permission,'show_per_role' => $role_per,'role_id'=>$id]);
+	return view('admin.pages.role.role_edit', ['select_per' => $permission,'show_per_role' => $role_per,'role_id'=>$id,'employer_list'=>$employee,'role_user'=>$role_user,'rolename'=>$rolename]);
     }
 
     /**
@@ -97,6 +114,7 @@ class RoleController extends Controller
     $perid = $request->input('perid');	
 	$roleid = $request->input('idrole');	
 	
+	
 	$i1=count($perid);
 		  for($i=0;$i<$i1;$i++)
 		  {
@@ -105,12 +123,33 @@ class RoleController extends Controller
 	    $permissionDB->role_id = $roleid;
 	    $permissionDB->save();
 		  }
+		  
+		  
 		  return  redirect('/admin/role/showedit/'.$roleid);
     }
+	
+	 public function updatrole(Request $request)
+    {
+   
+	$roleid = $request->input('idrole');	
+	$emp_id = $request->input('emp_id');
+
+	$i1=count($emp_id);
+		  for($i=0;$i<$i1;$i++)
+		  {	  
+			  role_user::where('employee_id', $emp_id[$i])
+			 ->update(['role_id' => $roleid]);
+		  }
+		  
+		  
+		  return  redirect('/admin/role/showedit/'.$roleid);
+    }
+	
+	
 	public function del(Request $request){
 	  $rela_id = $request->input('rela_id');	
 	  $roleid = $request->input('idrole');	
-	  
+	  $emp_check = $request->input('empcheck');
 	  $i1=count($rela_id);
 		  for($i=0;$i<$i1;$i++)
 		  {
@@ -119,8 +158,17 @@ class RoleController extends Controller
 		  ->delete();
 		  }
 		  
+	  $i2=count($emp_check);
+		  for($i=0;$i<$i2;$i++)
+		  {
+         role_user::where('employee_id', $emp_check[$i])
+			 ->update(['role_id' => 7]);
+		  }
+		  
       	return redirect('/admin/role/showedit/'.$roleid);
 	}
+	
+	
 	
 	
 

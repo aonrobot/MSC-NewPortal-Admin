@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth.ad']], function () {
 
 	Route::get('/phonebook', 'FrontPhoneBookController@index');
 
-	Route::get('/test', 'FrontFavoriteController@fetch_fav_app');
+	//Route::get('/test', 'FrontFavoriteController@fetch_fav_app');
 
 	////////////////////////////////////////// Ajax //////////////////////////////////////////////////////////////////
 
@@ -67,10 +67,18 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	Route::post('/admin/upload/thumbnail/{object?}/{tropId?}/{objectId?}', 'UploadController@thumbnail');
 
 	//role
+	Route::get('/admin/role/insert', 'RoleController@store');
+	Route::get('/admin/role/insert/employee', 'RoleController@updatrole');
 	Route::get('/admin/role/setting', 'RoleController@show');
 	Route::get('/admin/role/showedit/{id?}', 'RoleController@edit');
 	Route::get('/admin/role/edit', 'RoleController@update');
 	Route::get('/admin/role/delPermissions', 'RoleController@del');
+
+	//Permission
+	Route::get('/admin/permission/index', 'PermissionController@index');
+	Route::get('/admin/permission/store', 'PermissionController@store');
+	Route::get('/admin/permission/destroy/{id?}', 'PermissionController@destroy');
+
 	//Component
 	Route::post('/admin/component/create', 'ComponentController@create');
 	Route::post('/admin/component/update', 'ComponentController@update');
@@ -90,7 +98,6 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	Route::get('/admin/employee/setting/{id?}', 'EmployeeController@editdetail');
 	Route::get('/admin/employee/create/store', 'EmployeeController@store');
 	Route::get('/admin/employee/update', 'EmployeeController@update');
-
 	Route::get('/admin/employee/addTest', 'EmployeeController@addTest');
 	Route::get('/admin/role/create', 'RoleController@create');
 	//trop
@@ -124,6 +131,7 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	Route::get('/admin/menu/default/{id?}', 'MenuController@update'); //Template
 	Route::get('/admin/menu/del/{id?}', 'MenuController@Del');
 	Route::get('/admin/menu/delitem/{id?}', 'MenuController@delitem');
+	Route::post('/admin/menu/delall', 'MenuController@Delall');
 	Route::get('/admin/menu/listitemdel/{id?}', 'MenuController@listedit'); //link_del
 	//slide
 	Route::get('/admin/slide/create', 'SlideController@show');
@@ -134,6 +142,11 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	Route::get('/admin/slide/delitem/{id?}', 'SlideController@delitem');
 
 	////////////////////////////////////////// Static Zone //////////////////////////////////////////////////////////
+
+	//Backend
+	Route::get('/admin/statistic/index', 'StatisticController@index');
+
+	Route::get('/admin/statistic/countLoginToday', 'StatisticController@countLoginToday');
 
 	//Srcipt
 	Route::get('/run', function () {
@@ -148,4 +161,16 @@ Route::group(['middleware' => ['auth.ad']], function () {
 		return View::make('pages.static.managementcommittee');
 	});
 
+	////////////////////////////////////////// External Zone //////////////////////////////////////////////////////////
+	///
+
+	//Purchase
+	Route::get('/purchase', function () {
+		return View::make('pages.pcm.purchase');
+	});
+
+	//Test
+	Route::get('/test', function () {
+		return View::make('script.test');
+	});
 });

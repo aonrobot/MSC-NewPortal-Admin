@@ -1,6 +1,106 @@
 @extends('admin.admin_template') @section('content')
+<!--
+<style>
+
+html {
+    /* IE */
+    filter: progidXImageTransform.Microsoft.BasicImage(grayscale=1);
+    /* Chrome, Safari */
+    -webkit-filter: grayscale(1);
+    /* Firefox */
+    filter: grayscale(1);
+    filter: grayscale(100%);
+    filter: gray; 
+    -moz-filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
+
+</style>
+-->
+<script>
+// IE 10 only CSS properties
+var ie10Styles = [
+'msTouchAction',
+'msWrapFlow'];
+
+var ie11Styles = [
+'msTextCombineHorizontal'];
+
+/*
+* Test all IE only CSS properties
+*/
+
+var d = document;
+var b = d.body;
+var s = b.style;
+var brwoser = null;
+var property;
+
+// Tests IE10 properties
+for (var i = 0; i <ie10Styles.length; i++) {
+    property = ie10Styles[i];
+    if (s[property] != undefined) {
+        brwoser = "ie10";
+    }
+}
+
+// Tests IE11 properties
+for (var i = 0; i <ie11Styles.length; i++) {
+    property = ie11Styles[i];
+    if (s[property] != undefined) {
+        brwoser = "ie11";
+    }
+}
+
+ //Grayscale images only on browsers IE10+ since they removed support for CSS grayscale filter
+ if(brwoser == "ie10" || brwoser == "ie11" ){
+    $('body').addClass('ie11'); // Fixes marbin issue on IE10 and IE11 after canvas function on images
+    $('.grayscale img').each(function(){
+        var el = $(this);
+        el.css({"position":"absolute"}).wrap("<div class='img_wrapper' style='display: inline-block'>").clone().addClass('img_grayscale ieImage').css({"position":"absolute","z-index":"5","opacity":"0"}).insertBefore(el).queue(function(){
+            var el = $(this);
+            el.parent().css({"width":this.width,"height":this.height});
+            el.dequeue();
+        });
+        this.src = grayscaleIe(this.src);
+    });
+
+    // Quick animation on IE10+ 
+    $('.grayscale img').hover(
+        function () {
+            $(this).parent().find('img:first').stop().animate({opacity:1}, 200);
+        }, 
+        function () {
+            $('.img_grayscale').stop().animate({opacity:0}, 200);
+        }
+    );
+
+    // Custom grayscale function for IE10 and IE11
+    function grayscaleIe(src){
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var imgObj = new Image();
+        imgObj.src = src;
+        canvas.width = imgObj.width;
+        canvas.height = imgObj.height; 
+        ctx.drawImage(imgObj, 0, 0); 
+        var imgPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for(var y = 0; y <imgPixels.height; y++){
+            for(var x = 0; x <imgPixels.width; x++){
+                var i = (y * 4) * imgPixels.width + x * 4;
+                var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+                imgPixels.data[i] = avg; 
+                imgPixels.data[i + 1] = avg; 
+                imgPixels.data[i + 2] = avg;
+            }
+        }
+        ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+        return canvas.toDataURL();
+    };
+ };
+</script>
 <!-- Main Content -->
-<form class="form-horizontal" method="POST" action="<?=asset('/admin/menu/update')?>">
+<form class="form-horizontal" method="POST" action="<?=asset('/admin/menu/delall')?>">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
    <div class="container-fluid">
 <h2><i class="glyphicon glyphicon-trash" aria-hidden="true"></i> Menu Delete</h2>
@@ -19,6 +119,7 @@ foreach ($menu as $menu1) {
 		    Template Name : <input type="text" name="title" size="13" value="<?Php echo $template_name; ?>" disabled >
 	     @endif
         </i>
+	    <button TYPE="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to Delete?')"> <span class="glyphicon glyphicon-trash" ></span> Delete</button>
       </h4>
 
       <input type="text" name="mid"  value="<?php echo $mid ?>" hidden>
@@ -29,7 +130,8 @@ foreach ($menu as $menu1) {
 			  <table id="menu_table" class="table table-bordered">
 			   <thead>
 			    <tr>
-				   <th><center>Name</th>
+						<th></th>
+						<th><center>Name</th>
                         <th><center>Type</th>
                         <th><center>Description</th>
                         <th><center>Image</th>
@@ -45,6 +147,13 @@ foreach ($menu as $menu1) {
 foreach ($menuitem as $menuitem1) {
 	?>
 			  <tr>
+			  <td><center>
+			   @if($menuitem1->item_type!="template" or $menutype!="trop" )
+               <input type="checkbox" name="item_id[]" value="<?php echo $menuitem1->mtid ?>">
+			   @endif
+			 
+			  </center>
+			  </td>
 			  <td><center>
                Name
                <input type="text" name="item_name[<?Php echo $menuitem1->mtid; ?>][]"  size="15" value="<?Php echo $menuitem1->item_name; ?>"  @if($menuitem1->item_type=="template" and  $menutype=="trop")style="background-color:gray;" readonly @endif />
@@ -90,8 +199,9 @@ foreach ($menuitem as $menuitem1) {
 			   </td>
 			   <td>
 			   <center>
-               image
-               <input type="text" name="image[<?Php echo $menuitem1->mtid; ?>][]" value="<?php echo $menuitem1->item_image; ?>"size="12"@if($menuitem1->item_type=="template" and  $menutype=="trop")style="background-color:gray;" readonly @endif />
+          
+			   <img id="image{{$menuitem1->mtid}}" src="{{asset($menuitem1->item_image)}}" width="20%">
+           
 			   </center>
 			   </td>
 			   <td>

@@ -17,143 +17,9 @@ $_SESSION["file_path"] = 'uploads' . $post_path . '/file';
     <h2><i class="fa {{empty($post->post_icon) ? 'fa-file-text' : $post->post_icon}}"></i> {{$post->post_title}}</h2>
     <br>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h3 class="box-title">Basic Detail</h3>
-                </div>
-                <form action="{{asset('admin/post/update/'.Request::segment(4))}}" method="post">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control" name="post_status">
-                                        <option value="1" {{($post->post_status == 1)?'selected':''}}>Active</option>
-                                        <option value="0" {{($post->post_status == 0)?'selected':''}}>Deactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Type</label>
-                                    <select class="form-control" name="post_type">
-                                        <option value="post" {{($post->post_type == "post")?'selected':''}}>Post</option>
-                                        <option value="news" {{($post->post_type == "news")?'selected':''}}>News Post</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Author Contact</label>
-                                    <input value="{{$post->author_contact}}" type="text" class="form-control" placeholder="Phone Number" name="author_contact">
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <p class="lead">
-                                        <i class="fa {{empty($post->post_icon) ? 'fa-file-text' : $post->post_icon}} fa-3x picker-target"></i>
-                                    </p>
-                                    <label>Icon</label>
-                                    <input name="post_icon" value="{{$post->post_icon}}" class="form-control icp icp-auto" type="text" />
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Title</label>
-                                    <input value="{{$post->post_title}}" type="text" class="form-control" placeholder="Post Title" name="post_title">
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Detail</label>
-                                    <textarea type="text" class="form-control" id="post_detail" name="post_detail">
-                                    {{$post->post_detail}}
-                                    </textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input value="{{$post->post_name}}" type="text" class="form-control" placeholder="Post Name" name="post_name">
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Event Date</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
-                                        </div>
-                                        <input type="text" class="form-control pull-right" id="eventdate" name="post_event_date">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Category</label>
-                                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;" name="post_cat[]">
-                                        {{--*/ $cats = DB::table('category')->where('tid', '=', Session::get('trop_id'))->get()/*--}}
-                                        @foreach($cats as $cat)
-                                            <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Thumbnail</label>
-                                    <br>
-                                    <span class="btn btn-primary fileinput-button">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <span>Select thumbnail file</span>
-                                        <input id="fileupload" type="file" name="files">
-                                    </span><br><br>
-                                    <div id="progress" class="progress">
-                                        <div class="progress-bar progress-bar-success"></div>
-                                    </div>
-                                    <input type="hidden" id="post_thumbnail" name="post_thumbnail" value="{{$post->post_thumbnail}}">
-                                    <img id="img_post_thumbnail" src="{{asset($post->post_thumbnail)}}" width="83%">
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <button class="btn btn-success btn-lg btn-block" type="submit"><i class="fa fa-save"></i> Update Post Detail</button>
-                                    <br>
-                                    <a class="btn btn-default btn-lg btn-block" href="{{asset('/post/' . Request::segment(4))}}" target="_blank"><i class="fa fa-tv"></i> Preview</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                </form>
-                <script>
-                CKEDITOR.replace('post_detail',{
-
-                    wordcount: {
-                        showCharCount: true,
-                        showWordCount: false,
-                        maxWordCount: 4000,
-                        maxCharCount: 488,
-
-                    },
-                    toolbar: [[ 'Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo' ],]
-
-                });
-
-                </script>
-            </div>
-        </div>
-    </div>
-    <!-- /.row -->
     <!-- Step 1 -->
-    <h3>Component <small> Click the icon to add component</small></h3>
+    <h3>1 | Component <small> Click the icon to add component</small></h3>
     <br>
     <div class="row">
         <div class="col-md-12">
@@ -184,8 +50,8 @@ $_SESSION["file_path"] = 'uploads' . $post_path . '/file';
         </div>
     </div>
     <!-- /.row -->
-    <!-- Step 1 -->
-    <h3>Post <small> Sort your component and preview</small></h3>
+    <!-- Step 2 -->
+    <h3>2 | Post <small> Sort your component and preview</small></h3>
     <br>
     <div class="row">
         <div class="col-md-12">
@@ -316,6 +182,146 @@ $_SESSION["file_path"] = 'uploads' . $post_path . '/file';
         </div>
     </div>
     <!-- /.row -->
+
+    <h3>3 | Update Detail <small> Update or edit detail</small></h3>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-header">
+                    <h3 class="box-title">Basic Detail</h3>
+                </div>
+                <form action="{{asset('admin/post/update/'.Request::segment(4))}}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" name="post_status">
+                                        <option value="1" {{($post->post_status == 1)?'selected':''}}>Active</option>
+                                        <option value="0" {{($post->post_status == 0)?'selected':''}}>Deactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <select class="form-control" name="post_type">
+                                        <option value="post" {{($post->post_type == "post")?'selected':''}}>Post</option>
+                                        <option value="news" {{($post->post_type == "news")?'selected':''}}>News Post</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Author Contact</label>
+                                    <input value="{{$post->author_contact}}" type="text" class="form-control" placeholder="Phone Number" name="author_contact">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <p class="lead">
+                                        <i class="fa {{empty($post->post_icon) ? 'fa-file-text' : $post->post_icon}} fa-3x picker-target"></i>
+                                    </p>
+                                    <label>Icon</label>
+                                    <input name="post_icon" value="{{$post->post_icon}}" class="form-control icp icp-auto" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input value="{{$post->post_title}}" type="text" class="form-control" placeholder="Post Title" name="post_title">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Detail</label>
+                                    <textarea type="text" class="form-control" id="post_detail" name="post_detail">
+                                    {{$post->post_detail}}
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input value="{{$post->post_name}}" type="text" class="form-control" placeholder="Post Name" name="post_name">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Event Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="eventdate" name="post_event_date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;" name="post_cat[]">
+                                        {{--*/ $cats = DB::table('category')->where('tid', '=', Session::get('trop_id'))->get()/*--}}
+                                        @foreach($cats as $cat)
+                                            <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Thumbnail</label>
+                                    <br>
+                                    <span class="btn btn-primary fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Select thumbnail file</span>
+                                        <input id="fileupload" type="file" name="files">
+                                    </span><br><br>
+                                    <div id="progress" class="progress">
+                                        <div class="progress-bar progress-bar-success"></div>
+                                    </div>
+                                    <input type="hidden" id="post_thumbnail" name="post_thumbnail" value="{{$post->post_thumbnail}}">
+                                    <img id="img_post_thumbnail" src="{{asset($post->post_thumbnail)}}" width="83%">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <button class="btn btn-success btn-lg btn-block" type="submit"><i class="fa fa-save"></i> Save</button>
+                                    <br>
+                                    <a class="btn btn-default btn-lg btn-block" href="{{asset('/post/' . Request::segment(4))}}" target="_blank"><i class="fa fa-tv"></i> Preview</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </form>
+                <script>
+                CKEDITOR.replace('post_detail',{
+
+                    wordcount: {
+                        showCharCount: true,
+                        showWordCount: false,
+                        maxWordCount: 4000,
+                        maxCharCount: 488,
+
+                    },
+                    toolbar: [[ 'Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo' ],]
+
+                });
+
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+
     <!-- Step 1 -->
     <!--<h3>Step 1 | Select Your Template <small>Please Choose Your Template By Check Radio Button</small></h3>
         <br>

@@ -22,8 +22,8 @@ $canrole = ['delete-trop'];
 		 @if(($per::can($can_access)))
 	
          <ol class="breadcrumb" style="background-color:white" >
-            <li class="active"><font color="black">Trop Name <input value="" name="trop"  maxlength="20">Title<input value="" name="trop_title"  maxlength="30">
-			SubTitle<input value="" name="trop_subtitle"  maxlength="30">
+            <li class="active"><font color="black">Trop Name <input value="" name="trop"  maxlength="100">Title<input value="" name="trop_title"  maxlength="100">
+			SubTitle<input value="" name="trop_subtitle"  maxlength="100">
 			<INPUT  TYPE="submit" VALUE="Create" class="btn btn-success" style="height:30px" onclick="return confirm('Are you sure you want to create trop ?')"></li>
          </ol>
 		 @endif

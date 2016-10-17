@@ -55,7 +55,7 @@
 <!-- content 2 | slide -->
 <div class="row">
     <div class="metrop-text-head">
-        <h2>ข่าวสารที่กำลังจะเกิดขึ้น</h2>
+        <h2>Upcoming Event & Activities</h2>
     </div>
     <div class="news-slider home_slide">
         <ul>
@@ -92,13 +92,13 @@
 <!-- content 2 | news -->
 <div class="row">
     <div class="metrop-text-head">
-        <h2>{{empty($news_category['cat_title']->cat_title)? 'ข่าวสาร' : $news_category['cat_title']->cat_title}}</h2>
+        <h2>Events & Activities{{--empty($news_category['cat_title']->cat_title)? 'ข่าวสาร' : $news_category['cat_title']->cat_title--}}</h2>
     </div>
     {{-- */$posts = App\Library\Tools::sortPost($news_category['posts'],'event_start_date') /* --}}
     @foreach($posts as $news)
     <div class="col-md-4 col-sm-6">
         <div class="metrop-thumbnail">
-            <img class="img-responsive" src="{{ asset($news['post_thumbnail']) }}" alt="">
+            <a href="{{ asset('post/'. $news['pid']) }}"><img class="img-responsive" src="{{ asset($news['post_thumbnail']) }}" alt=""></a>
         </div>
         <div class="metrop-news-group-content">
             <div class="metrop-news-label">
@@ -110,7 +110,7 @@
 
             <h3 class="metrop-news-head">{{$news['post_title']}}</h3>
             <p class="metrop-news-content">{{$news['post_detail']}}</p>
-            <h5 style="color: rgba(86, 143, 199, 0.79);">{{$str_date}}</h5>
+            <h5 style="color: rgba(108, 150, 175, 0.88);">{{$str_date}}</h5>
             <div class="metrop-news-group-footer">
                 <a class="btn btn-default" href="{{ asset('post/'. $news['pid']) }}">อ่านข่าวต่อ</a>
                 <span>
@@ -125,14 +125,14 @@
     <div class="col-md-12 col-sm-12 text-center" style="margin:120px 0 120px 0;">
         <h3 class="metrop-news-head">สนใจอ่านข่าวอื่นๆเพิ่มเติมหรือไม่?</h3>
         <p>ถ้าคุณสนใจอ่านข่าวสารอื่นๆเพิ่มเติมสามารถ Click ได้ที่ปุ่มด้านล่างนี้</p>
-        <a class="btn btn-primary" target="_blank" href="{{ asset('category/'. $news_category['cat_title']->catid) }}">อ่านเพิ่มเติม</a>
+        <a class="btn btn-primary"  href="{{ asset('category/'. $news_category['cat_title']->catid) }}">อ่านเพิ่มเติม</a>
     </div>
     <!-- /.col-md-4 -->
     @else
     <div class="col-md-4 col-sm-6">
         <h3 class="metrop-news-head center-y">สนใจอ่านข่าวอื่นๆเพิ่มเติมหรือไม่?</h3>
         <p>ถ้าคุณสนใจอ่านข่าวสารอื่นๆเพิ่มเติมสามารถ Click ได้ที่ปุ่มด้านล่างนี้</p>
-        <a class="btn btn-primary" target="_blank" href="{{ asset('category/'. $news_category['cat_title']->catid) }}">อ่านเพิ่มเติม</a>
+        <a class="btn btn-primary"  href="{{ asset('category/'. $news_category['cat_title']->catid) }}">อ่านเพิ่มเติม</a>
     </div>
     <!-- /.col-md-4 -->
     @endif
@@ -146,7 +146,7 @@
         <h2>Call Center</h2>
     </div>
     <div class="col-lg-12">
-		<div class="col-md-12">
+		<div class="col-md-12 hotline">
 			<style>
 				td.success{
 					font-weight: bolder;

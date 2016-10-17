@@ -150,6 +150,8 @@ foreach ($troprela as $rela) {
          <td><center>
 		 <?php if ($rela->user_level == 3) {echo "Admin Trop";} else {?>
 		 <a href="<?=asset('/admin/trop/deladmin/')?><?php echo '/' . $rela->trop_rela_id; ?>"><font color="white">
+		 
+		
 	     <button class="btn btn-danger"   type="button" style="height:33px" onclick="return confirm('Are you sure you want to delete ::{{$em->FullNameEng}} ?')">
 		 <span class="glyphicon glyphicon-trash"></span>
 		  Delete</font>

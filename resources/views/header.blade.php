@@ -1,5 +1,8 @@
-@inject('menu', 'App\Http\Controllers\FrontMenuController') {{-- */$menus = $menu->index()/* --}}
-@inject('fav_app', 'App\Http\Controllers\FrontFavoriteController') {{-- */$fav_apps = $fav_app->fetch_fav_app()/* --}}
+@inject('menu', 'App\Http\Controllers\FrontMenuController')
+{{-- */$menus = $menu->index()['menus']/* --}}
+{{-- */$meeting_menus = $menu->index()['meeting_menus']/* --}}
+@inject('fav_app', 'App\Http\Controllers\FrontFavoriteController')
+{{-- */$fav_apps = $fav_app->fetch_fav_app()/* --}}
 <!-- Navigation -->
 <header class="metrop-nav cd-main-header">
     <div class="cd-logo">
@@ -37,7 +40,7 @@
 <nav class="cd-nav">
     <ul id="cd-primary-nav" class="cd-primary-nav is-fixed">
         <li data-toggle="tooltip" data-placement="bottom" title="หน้าแรก">
-            <a href="{{asset('/')}}" class="npt_stat" data-name="home" data-where="top-nav">
+            <a href="{{asset('/')}}" class="npt_stat" data-name="home" data-where="top-nav" target="_parent">
                 <i class="fa fa-home" aria-hidden="true"></i> Home
             </a>
         </li>
@@ -51,14 +54,14 @@
                 <i class="fa fa-phone" aria-hidden="true"></i> Phone Book
             </a>
         </li>
-        <li data-toggle="tooltip" data-placement="bottom" title="Application ทั้งหมด">
-            <a href="{{asset('/application')}}" class="npt_stat" data-name="application" data-where="top-nav">
-                <i class="fa fa-desktop" aria-hidden="true"></i> MSC App
-            </a>
-        </li>
         <li data-toggle="tooltip" data-placement="bottom" title="Policy ทั้งหมด">
             <a href="{{asset('/')}}" class="npt_stat" data-name="policy" data-where="top-nav">
                 <i class="fa fa-file-text" aria-hidden="true"></i> Policy
+            </a>
+        </li>
+        <li data-toggle="tooltip" data-placement="bottom" title="Application ทั้งหมด">
+            <a href="{{asset('/application')}}" class="npt_stat" data-name="application" data-where="top-nav">
+                <i class="fa fa-desktop" aria-hidden="true"></i> MSC App
             </a>
         </li>
         <li class="disible-dasktop">
@@ -142,6 +145,56 @@
                 @endforelse
             </ul>
         </li>
+
+        <!-- Meeting Document -->
+        @if($user->can(['view-menu-'.Config::get('newportal.menubar.meetingdocument.id')]))
+
+        <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="Meeting Document">
+            <a href="{{asset('/')}}"><i class="fa fa-file-text"></i> Meeting Document</a>
+
+                <ul class="cd-secondary-nav is-hidden">
+                    <li class="go-back"><a href="#0">Menu</a></li>
+
+<?php
+
+$main_cat_list = [];
+
+foreach ($meeting_menus as $menu) {
+	$cat_name = $menu->item_description;
+	if (strpos($cat_name, '~') > -1) {
+		$cat_name = explode('~', $cat_name)[0];
+	}
+	if (!in_array($cat_name, $main_cat_list)) {
+		array_push($main_cat_list, $cat_name);
+	}
+
+}
+?>                  <!-- Loop Here-->
+                    @foreach($main_cat_list as $main_cat)
+
+                    <li class="has-children">
+                        <a>{{$main_cat}}</a>
+
+                        <ul class="is-hidden">
+                            <li class="go-back"><a href="#0">Meething Document</a></li>
+                            @foreach($meeting_menus as $menu)
+                                @if(strpos($menu->item_description, $main_cat) > -1)
+                                    <li>
+                                        <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" data-name="{{$menu->item_name}}" data-where="department-bar" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
+                                        {{$menu->item_name}}
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </li>
+                    @endforeach
+
+                </ul>
+        </li>
+
+        @endif
+
     </ul>
     <!-- primary-nav -->
 </nav>

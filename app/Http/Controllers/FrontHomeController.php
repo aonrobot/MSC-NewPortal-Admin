@@ -35,7 +35,7 @@ class FrontHomeController extends Controller {
 
 		$slide = DB::select(" select * from cp_slide_item where slide_id = ? ORDER BY slide_item_sort ASC", [$slide_id]);
 
-		$categorys = Category::where('cat_type', '=', 'administrator')->get();
+		$categorys = Category::where('cat_type', '=', 'administrator')->whereNotIn('catid', [$news_category_id])->get();
 		$category_relas = Category_rela::where('catid', '=', $news_category_id)->take(5)->get();
 
 		if (empty(Category::where('catid', '=', $news_category_id)->get()[0])) {

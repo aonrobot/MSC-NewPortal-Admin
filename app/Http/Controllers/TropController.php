@@ -15,6 +15,7 @@ use App\trop_rela;
 use DB;
 use Illuminate\Http\Request;
 use Session;
+use Storage;
 
 class tropController extends Controller {
 	/**

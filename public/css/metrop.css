@@ -704,7 +704,7 @@ body {
 
 .metrop-news-group-content {
     background-color: #fcfcfc;
-    padding: 20px;
+    padding: 10px 20px 30px 20px;
     border-radius: 0px;
     box-shadow: 0.5px 2px 2px rgba(0, 0, 0, .15);
     margin-bottom: 25px; 
@@ -805,7 +805,8 @@ a:link {
 
 .metrop-news-head {
     overflow: hidden;
-    height: 50px;
+    height: 55px;
+    padding-top: 5px;
 }
 .metrop-news-content {
     font-weight: 200;
@@ -817,6 +818,7 @@ a:link {
     overflow: hidden;
     height: 80px;
     margin-top: 0px;
+	padding-top: 5px;
 }
 .metrop-news-bigcontent {
     font-weight: 200;

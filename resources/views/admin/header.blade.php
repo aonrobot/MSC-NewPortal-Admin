@@ -33,7 +33,7 @@
                                     <a href="#">
                                         <div class="pull-left">
                                             <!-- User Image -->
-                                            <img src="{{asset('http://appmsc.metrosystems.co.th/epages/Employeepic/' . substr(Session::get('em_info')->EmpCode, 1) . '.jpg')}}" class="img-circle" alt="User Image">
+                                            <img src="{{App\Library\Services::getEmployeeImage(intval(Session::get('em_info')->EmpCode))}}" class="img-circle" alt="User Image">
                                         </div>
                                         <!-- Message title and timestamp -->
                                         <h4>
@@ -118,14 +118,14 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <img src="{{asset('http://appmsc.metrosystems.co.th/epages/Employeepic/' . substr(Session::get('em_info')->EmpCode, 1) . '.jpg')}}" class="user-image" alt="User Image">
+                        <img src="{{App\Library\Services::getEmployeeImage(intval(Session::get('em_info')->EmpCode))}}" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs">{{  $em_info->FirstNameEng }} {{$em_info->LastNameEng}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="{{asset('http://appmsc.metrosystems.co.th/epages/Employeepic/' . substr(Session::get('em_info')->EmpCode, 1) . '.jpg')}}" class="img-circle" alt="User Image">
+                            <img src="{{App\Library\Services::getEmployeeImage(intval(Session::get('em_info')->EmpCode))}}" class="img-circle" alt="User Image">
                             <p>
                                 <b>{{  $em_info->FirstNameEng }} {{$em_info->LastNameEng}} </b><br> {{$em_info->PositionName}}
                                 <small>{{$em_info->OrgNameEng}}</small>

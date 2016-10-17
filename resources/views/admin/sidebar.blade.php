@@ -8,7 +8,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{asset('http://appmsc.metrosystems.co.th/epages/Employeepic/' . substr(Session::get('em_info')->EmpCode, 1) . '.jpg')}}" class="img-circle" alt="User Image">
+          <img src="{{App\Library\Services::getEmployeeImage(intval(Session::get('em_info')->EmpCode))}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{  $em_info->FirstNameEng }} <br> {{$em_info->LastNameEng}}</p>
@@ -67,7 +67,10 @@
           <a href="{{asset('/admin/employee/list')}}"><i class="fa fa-link"></i> <span>User Setting</span></a>
         </li>
 		    <li ng-class="getClass('/admin/employee/create')">
-          <a href="{{asset('/admin/role/setting')}}"><i class="fa fa-link"></i> <span>Role Setting</span></a>
+          <a href="{{asset('/admin/role/setting')}}"><i class="fa fa-link"></i> <span>Roles Setting</span></a>
+        </li>
+        <li>
+          <a href="{{asset('/admin/permission/index')}}"><i class="fa fa-link"></i> <span>Permissions Setting</span></a>
         </li>
 		    <li ng-class="getClass('/admin/employee/create')">
           <a href="{{asset('/admin/trop/edit/')}}<?php echo '/' . $trop_tid; ?>"><i class="fa fa-link"></i> <span>Newportal Setting</span></a>

@@ -1,7 +1,8 @@
 @extends('front_template') @section('head_image')
 <header class="intro-header-empty">
 </header>
-@stop @section('content')
+@stop
+@section('content')
 <br>
 <style>
 .application {
@@ -134,7 +135,7 @@
                   $fav_count = DB::select('select * from favorite_app where app_id = ? and fid = ?',[$app->app_id, $fid])
 
                 /*--}}
-                <div class="col-md-3 mix {{$app->group_name}}" data-app-name="{{$app->app_name}}" style="background: {{$app->group_color}};">
+                <div class="col-md-3 mix {{$app->group_name}}" data-group-name="{{$app->group_name}}" data-app-name="{{$app->app_name}}" style="background: {{$app->group_color}};">
                     <h4 class="app-title">
                     <a href="{{$app->app_link}}" target="_blank">
                       {{$app->app_name}} <br><br>

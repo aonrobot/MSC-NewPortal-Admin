@@ -19,6 +19,16 @@ return [
 
 	],
 
+	'menubar' => [
+		'department' => [
+			'id' => '126',
+		],
+		'meetingdocument' => [
+			'id' => '208',
+		],
+
+	],
+
 	'trop' => [
 		'aboutmsc' => [
 			'url' => 'trop/10086',

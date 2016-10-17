@@ -28,34 +28,32 @@
             <thead>
                 <tr>
                     <th>รูปภาพ</th>
-                    <th>ชื่อภาษาไทย</th>
-
+                    <th>ชื่อ ไทย-อังกฤษ</th>
                     <th>ชื่อเล่น</th>
-
+                    <th>อีเมล์</th>
                     <th>เบอร์โทร</th>
-                    <th>ตึก</th>
+                    <th>อาคาร</th>
                     <th>บริษัท</th>
-                    <th>แผนก</th>
+                    <th>หน่วยงาน</th>
                     <th style="display:none">ForBo</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($phonebook as $pb)
-                {{--*/ $img_url = asset('http://appmsc.metrosystems.co.th/epages/Employeepic/' . intval($pb->EmpCode) . '.jpg') /*--}} {{--*/ $img404_url = asset('images/avatar-404.jpg') /*--}}
-
+                {{--*/ $img_url = App\Library\Services::getEmployeeImage($pb->EmpCode) /*--}}
+                {{--*/ $img_404 = asset('/images/avatar-404.jpg') /*--}}
+                {{--*/ $image = App\Library\Tools::is_url_exist($img_url) ? $img_url : $img_404 /*--}}
                 <tr>
-
                     <td>
                         <div id="div_avatar" style="width:200;height:100;">
-                            {{--*/$image_url =  App\Library\Tools::is_url_exist($img_url) ? $img_url : $img404_url /*--}}
-                            <a href="{{asset($image_url)}}" data-toggle="lightbox" data-title="{{ $pb->FullNameEng }}">
-                          <img id="avatar" src="{{asset($image_url)}}" class="main-img img-responsive" alt="{{ $pb->FullNameEng }}">
+                            <a href="{{$image}}" data-toggle="lightbox" data-title="{{ $pb->FullNameEng }}">
+                          <img id="avatar" src="{{$image}}" class="main-img img-responsive" alt="{{ $pb->FullNameEng }}">
                         </a>
                         </div>
                     </td>
-                    <td>{{$pb->FullName}} <br>({{$pb->FullNameEng}})</td>
-
+                    <td>{{$pb->FirstName}} {{$pb->LastName}}<br>(<span style="font-size: 12px">{{$pb->FullNameEng}}</span>)</td>
                     <td>{{$pb->NickName}}</td>
+                    <td>{{$pb->email}}</td>
                     <td>{{$pb->EXTNO}}</td>
                     <td>{{$pb->LOCATE}}</td>
                     <td>{{$pb->OrgCode}}</td>
@@ -79,12 +77,12 @@ var table = $('#phonebook').DataTable({
 
     }],
     "order": [
-        [1, "desc"]
+        [1, "asc"]
     ]
 });
 
 $('.search_company_btn').click(function(){
-    table.columns(5).search( $(this).data('value') ).draw();
+    table.columns(6).search( $(this).data('value') ).draw();
 });
 
 $('#avatar').error(function() {

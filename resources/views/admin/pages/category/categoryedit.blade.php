@@ -59,8 +59,15 @@
 <td><center><input type="checkbox" name="rela_id[]" value="<?php echo $post->cat_rela_id ?>"><?php echo $post->pid?></center></td>
 <td><center><?php echo $post->post_name?></center></td>
 <td><center><?php echo $post->post_title?></center></td>
-<td><center></center><?php echo $post->post_detail?></center></td>
-<td><center><a href="<?=asset('/admin/category/delpost1/') ?><?php echo '/'.$post->cat_rela_id;?>"><font color="white">
+<td><center><?php echo $post->post_detail?></center></td>
+<td><center>
+<a href="{{asset('admin/post/edit/'.$post->pid)}}" target="_blank">
+<font color="white">
+<button class="btn btn-primary"   type="button" style="height:33px"  onclick="return confirm('Are you sure you want to delete :: <?php echo $post->post_name?> ?')"><span class="fa fa-pencil" ></span> 
+View</font></button>
+</a>
+
+<a href="<?=asset('/admin/category/delpost1/') ?><?php echo '/'.$post->cat_rela_id;?>"><font color="white">
 <button class="btn btn-danger"   type="button" style="height:33px"  onclick="return confirm('Are you sure you want to delete :: <?php echo $post->post_name?> ?')"><span class="glyphicon glyphicon-trash" ></span>
 Delete</font></button></a></center></td>
 

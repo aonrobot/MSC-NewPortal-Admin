@@ -22,6 +22,10 @@
         border: 1px solid rgba(67,87,108,0.8);
     }
 
+    #content p{
+        margin: 0;
+    }
+
 </style>
 <div class="row metrop-row-content">
     <div class="col-md-12">
@@ -33,13 +37,15 @@
             <li><a href="news.html">Cat</a></li>
             <li class="active"> {{$post->post_title}}</li>-->
         </ol>
-
+        <div class="col-md-12 text-right" style="margin-bottom: 15px;padding-right: 2px;color: rgba(108, 150, 175, 0.88);">
+            <h4><i class="fa fa-clock-o"></i> {{App\Library\Tools::thaiDate(date('Y-m-d',strtotime($post['event_start_date'])),3)}}</h4>
+        </div>
         <hr>
 		{{--*/$orgid = 0/*--}}
         @foreach(json_decode($components) as $component)
 
             @if($component->name == "cp_content")
-                <div style="list-style-type: decimal;list-style: initial;">
+                <div id="content" style="list-style-type: decimal;list-style: initial;">
                 {{-- */ $content = DB::select('select content_content from cp_content where content_id = '.$component->id) /* --}}
                 {!! $content[0]->content_content !!}
                 </div>
@@ -71,7 +77,7 @@
                 {{-- */ $gallerys = DB::table('cp_gallery_item')->where('gallery_id', $component->id)->get() /* --}}
 
                 <div class="row">
-                    <div class="grid">
+                    <!--<div class="grid">
                         @foreach($gallerys as $gallery)
                         <div class="grid__item" data-size="1280x853">
                             <a href="{{asset($gallery->item_path)}}" class="img-wrap"><img src="{{asset($gallery->item_path)}}" alt="{{$gallery->item_alt}}" />
@@ -81,11 +87,20 @@
                         @endforeach
                     </div>
                     <!-- /grid -->
-                    <div class="preview">
+                    <!--<div class="preview">
                         <button class="action action--close"><i class="fa fa-times"></i><span class="text-hidden">Close</span></button>
                         <div class="description description--preview"></div>
                     </div>
                     <!-- /preview -->
+                    <div class="col-md-12">
+                        <div id="aniimated-thumbnials">
+                            @foreach($gallerys as $gallery)
+                          <a href="{{asset($gallery->item_path)}}">
+                            <img src="{{asset($gallery->item_path)}}" />
+                          </a>
+                          @endforeach
+                        </div>
+                    </div>
                 </div>
                 <!-- grid row -->
                 <br>
@@ -147,6 +162,12 @@ $EmpCode = str_repeat("0", $len) . $post->emid;
     });
 
     $(document).ready( function() {
+
+        $('#aniimated-thumbnials').lightGallery({
+            thumbnail:true,
+        });
+
+        $("#aniimated-thumbnials").justifiedGallery();
 
         function openfile(url){
             window.open(url.replace('{{Config::get('newportal.root_folder')}}' + '/public/','{{Config::get('newportal.root_url')}}' + '/'),'_blank');

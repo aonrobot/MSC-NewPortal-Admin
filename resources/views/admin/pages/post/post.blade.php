@@ -6,69 +6,111 @@ div .dataTables_filter {
 }
 </style>
 <div class="row">
+
     <div class="col-md-4">
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-plus"></i> Create New Post</h3>
-            </div>
-            <div class="box-body">
-                <form data-toggle="validator" role="form" id="form">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Post Name" name="post_name" required>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <label>Title</label>
-                                <input type="text" class="form-control" placeholder="Post Title" name="post_title" required>
-                            </div>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <label>Type</label>
-                                <select class="form-control" name="post_type" id="post_type" required>
-                                    <option value="post">Post</option>
-                                    <option value="news">News Post</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12" id="event_date_zone">
-                            <div class="form-group">
-                                <label>Event Date</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                    <input type="text" class="form-control pull-right" id="eventdate" name="post_event_date" required>
-                                 </div>
-                            </div>
-                        </div>
 
-                        <!--<div class="col-xs-12">
-                            <div class="form-group">
-                                <label>Trop</label>
-                                <select class="form-control" name="tid">
+        <!-- Statistic -->
+        <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
 
-                                </select>
-                            </div>
-                        </div>-->
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <input type="submit" class="btn btn-success right" value="Create Post">
-                        </div>
-                    </div>
-                </form>
+                <div class="info-box-content">
+                  <span class="info-box-text">Post</span>
+                  <span class="info-box-number">{{count($postList)}}</span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.box-body -->
+            <!-- /.info-box -->
         </div>
-        <!-- /.box -->
+        <!-- /.col -->
+        <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa fa-pencil"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Author</span>
+                    <?php
+$author = [];
+foreach ($postList as $post) {
+	array_push($author, $post->emid);
+}
+?>
+                  <span class="info-box-number">{{count(array_count_values($author))}}</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
+         <!-- Create Post -->
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-plus"></i> Create New Post</h3>
+                </div>
+                <div class="box-body">
+                    <form data-toggle="validator" role="form" id="form">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Name</label><label-red> *</label-red>
+                                    <input type="text" class="form-control" placeholder="Post Name" name="post_name" required>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Title</label><label-red> *</label-red>
+                                    <input type="text" class="form-control" placeholder="Post Title" name="post_title" required>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Type</label><label-red> *</label-red>
+                                    <select class="form-control" name="post_type" id="post_type" required>
+                                        <option value="post">Post</option>
+                                        <option value="news">News Post</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" id="event_date_zone">
+                                <div class="form-group">
+                                    <label>Event Date</label><label-red> *</label-red>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="eventdate" name="post_event_date" required>
+                                     </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Trop</label>
+                                    <select class="form-control" name="tid">
+
+                                    </select>
+                                </div>
+                            </div>-->
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <input type="submit" class="btn btn-success right" value="Create Post">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+
     </div>
+
     <div class="col-md-8">
+    <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title"><i class="fa fa-list-ol"></i> Your Post</h3>
@@ -97,7 +139,7 @@ div .dataTables_filter {
                                 <a id="editPostBtn" href="{{asset('admin/post/edit/'.$post->pid)}}"  class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
                             </td>
                             <td>
-                                <a id="removePostBtn" href="{{asset('admin/post/destroy/'.$post->pid)}}" value="{{$post->pid}}" class="btn btn-danger"><i class="fa fa-trash"></i> Remove</a>
+                                <a value="{{$post->pid}}" class="btn btn-danger removePostBtn"><i class="fa fa-trash"></i> Remove</a>
                             </td>
                         </tr>
                         @endforeach
@@ -107,6 +149,7 @@ div .dataTables_filter {
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
+    </div>
     </div>
 
 </div>
@@ -129,6 +172,7 @@ div .dataTables_filter {
         </div>
     </div>
 </div>
+
 <script>
 $(function() {
 
@@ -179,12 +223,12 @@ $(function() {
 
     //
     //
-    $('#event_date_zone').hide();
-    $('#eventdate').click(function(){
+    $('#eventdate').val(moment().format('YYYY/MM/DD h:mm A') + ' - ' + moment().format('YYYY/MM/DD h:mm A'));
+    $('#post_type').click(function(){
         if($(this).val() == 'news'){
-            $('#event_date_zone').show();
+            $('#eventdate').val('');
         }else{
-            $('#event_date_zone').hide();
+            $('#eventdate').val(moment().format('YYYY/MM/DD h:mm A') + ' - ' + moment().format('YYYY/MM/DD h:mm A'));
         }
     });
 
@@ -231,7 +275,7 @@ $(function() {
       }
     });
 
-    $('#removePostBtn').click(function() {
+    $('.removePostBtn').click(function() {
 
         if(confirm("Do you want to delete?")){
 
@@ -243,13 +287,11 @@ $(function() {
 
           var pid = $(this).attr('value');
 
-          console.log(pid);
-
           $.ajax({
               url: '{{Config::get('newportal.root_url')}}' + '/admin/post/destroy/' + pid,
               type: 'GET',
               success: function(data) {
-                toastr["success"]("Delete Post Success");
+                location.reload();
               }
           });
         }

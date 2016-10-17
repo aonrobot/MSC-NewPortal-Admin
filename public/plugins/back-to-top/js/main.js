@@ -18,7 +18,7 @@ jQuery(document).ready(function($){
 		( $(this).scrollTop() > offset) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
 		( $(this).scrollTop() > offset_opacity ) ? $back_to_top.addClass('cd-fade-out') : $back_to_top.removeClass('cd-fade-out');
 
-		if($(this).scrollTop() < n && $(this).scrollTop() >= n - offset -500){
+		if(($(this).scrollTop() < n && $(this).scrollTop() >= n - offset - 300) || $(this).scrollTop() > n){
 			$back_to_top.css("background-image", "url(/newportal/plugins/back-to-top/img/up-arrow.svg)");
 			$back_to_top.data('goto',"top");
 		}else{

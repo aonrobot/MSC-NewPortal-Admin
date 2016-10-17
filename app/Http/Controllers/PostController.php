@@ -43,7 +43,7 @@ class PostController extends Controller {
 		$input = $request->all();
 
 		//Event Date
-		if (!empty($input['post_event_date'])) {
+		if (!empty($input['post_event_date']) && !is_null($input['post_event_date'])) {
 			$event_date = $input['post_event_date'];
 		} else {
 			$event_date = date("YYYY/MM/DD h:mm A") . ' - ' . date("YYYY/MM/DD h:mm A");
@@ -63,6 +63,7 @@ class PostController extends Controller {
 		$post->post_title = htmlentities($input['post_title']);
 		$post->post_name = htmlentities($input['post_name']);
 		$post->post_type = $input['post_type'];
+		$post->post_status = 1;
 		$post->event_start_date = $event_start_date;
 		$post->event_end_date = $event_end_date;
 		$post->save();

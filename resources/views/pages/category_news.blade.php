@@ -30,7 +30,9 @@
                     <a href="{{ asset('post/' . $posts[0]['pid']) }}">{{$posts[0]['post_title']}}</a>
                 </h3>
         <p class="metrop-news-bigcontent">{{$posts[0]['post_detail']}}</p>
-        <a class="btn btn-default" href="{{ asset('post/' . $posts[0]['pid']) }}">อ่านข่าวต่อ</a>
+        {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($posts[0]['event_start_date'])),3)/*--}}
+        <h5 style="color: rgba(108, 150, 175, 0.88);">{{$str_date}}</h5>
+        <a class="btn btn-default" style="float: right;" href="{{ asset('post/' . $posts[0]['pid']) }}">อ่านข่าวต่อ</a>
     </div>
 </div>
 @else
@@ -52,13 +54,16 @@
     <div class="col-md-4">
         <div class="metrop-news-group-content">
             <a href="{{ asset('post/' . $posts[$index]['pid']) }}">
-                <img class="img-responsive" src="{{ asset($posts[$index]['post_thumbnail']) }}" alt="">
+                <img class="img-responsive" src="{{ asset($posts[$index]['post_thumbnail']) }}" alt="" style="height:200px">
             </a>
             <h3 class="metrop-news-head">
                       <a href="{{ asset('post/' . $posts[$index]['pid']) }}">{{ $posts[$index]['post_title'] }}</a>
                   </h3>
             <p class="metrop-news-content">{{ $posts[$index]['post_detail'] }}</p><br>
-            <a class="btn btn-default" href="{{ asset('post/' . $posts[$index]['pid']) }}">อ่านข่าวต่อ</a>
+            {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($posts[$index]['event_start_date'])),3)/*--}}
+
+            <a class="btn btn-default" style="float: right" href="{{ asset('post/' . $posts[$index]['pid']) }}">อ่านข่าวต่อ</a>
+            <h5 style="color: rgba(108, 150, 175, 0.88); ">{{$str_date}}</h5>
         </div>
     </div>
     @if($j+($i*3) == count($posts))

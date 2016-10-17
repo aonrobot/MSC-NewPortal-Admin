@@ -25,7 +25,8 @@
 foreach ($employee as $emp) {
 	$em = App\MainEmployee::where('EmpCode', '=', $emp->EmpCode)->first()
 	?>
-		  {{--*/ $img_url = asset('http://appmsc.metrosystems.co.th/epages/Employeepic/' . intval($emp->EmpCode) . '.jpg') /*--}} {{--*/ $img404_url = asset('images/avatar-404.jpg') /*--}}
+		  {{--*/ $img_url = App\Library\Services::getEmployeeImage(intval($emp->EmpCode)) /*--}}
+        {{--*/ $img404_url = asset('images/avatar-404.jpg') /*--}}
                      <tr>
 
                         <td><center><?php echo $emp->emid ?></td>

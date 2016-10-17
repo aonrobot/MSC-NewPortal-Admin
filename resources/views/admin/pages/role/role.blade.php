@@ -1,10 +1,18 @@
 @extends('admin.admin_template')
 @section('content')
 <?php $trop_tid = Session::get('trop_id');?>
-<form action="<?=asset('/admin/category/insert')?>" method="get">
+<form action="<?=asset('/admin/role/insert')?>" method="get">
    <div class="row">
       <div class="col-md-12">
 	  <h2><i class="fa fa-clone" aria-hidden="true"></i> Setting Role </h2>
+	     <ol class="breadcrumb" style="background-color:white" >
+            <li class="active"><font color="black">
+			Role Name <input value="" name="Role_Name"  maxlength="100">
+			Display Name<input value="" name="Display_Name"  maxlength="100">
+			Description<input value="" name="Description"  maxlength="100">
+			<INPUT  TYPE="submit" VALUE="Create" class="btn btn-success" style="height:30px" onclick="return confirm('Are you sure you want to create Role?')">
+			</li>
+         </ol>
       
 		 
     <!--    <ol class="breadcrumb" style="background-color:white">

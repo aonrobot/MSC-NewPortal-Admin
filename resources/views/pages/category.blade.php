@@ -28,7 +28,7 @@
                 {{--*/$img_url = App\Library\Tools::have_link($posts[$index]['post_thumbnail'])/*--}}
                 <img class="img-responsive" src="{{asset($img_url)}}" alt="" style="height:148px">
             </a>
-            <h4 class="metrop-news-head" style="height: 34px;">
+            <h4 class="metrop-news-head" style="height: 60px;">
                 <a href="{{ asset('post/' . $posts[$index]['pid']) }}">{{ $posts[$index]['post_title'] }}</a>
             </h4>
             @if(!empty($posts[$index]['post_detail']) and $posts[$index]['post_detail'] != null)

@@ -18,8 +18,8 @@ foreach ($menu as $menu1) {
 		 @if($template_name)
 		    Template Name : <input type="text" name="title" size="13" value="<?Php echo $template_name; ?>" disabled >
 	     @endif
-		    <button TYPE="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to update?')"> <span class="glyphicon glyphicon-floppy-disk"></span></button>
-	      	 <input type=button value="Refresh"class="btn btn-primary"  onClick="javascript:location.reload();">
+		    <button TYPE="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to update?')"> <span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+	        <button TYPE="button" class="btn btn-warning" onClick="javascript:location.reload();"> <span class="glyphicon glyphicon-refresh"></span></button>
 			 <a href="<?=asset('/admin/menu/listitemdel/')?><?php echo '/' . $mid; ?>">
 			 <button class="btn btn-danger"   type="button" style="height:33px" ><span class="glyphicon glyphicon-trash" ></span> Delete </font></button>
 			 </a>
@@ -145,7 +145,7 @@ foreach ($menuitem as $menuitem1) {
 			   </div>
 
             <div id="ctrl-exmple" ng-controller="menu.edit as menu">
-               <button ng-click="menu.addMenu()" id="addbutton" type="button"class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></button>
+               <button ng-click="menu.addMenu()" id="addbutton" type="button"class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add</button>
 			
 			   
                <ul ng-repeat="contact in menu.contacts">
