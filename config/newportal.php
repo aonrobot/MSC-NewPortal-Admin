@@ -12,9 +12,17 @@ return [
 
 	'upload_url' => "http://mis_test.metrosystems.co.th/newportal/uploads",
 
+	'upload_folder' => '/uploads',
+
 	'role' => [
 		'user' => [
 			'id' => '7',
+		],
+		'trop_assistant' => [
+			'id' => '6',
+		],
+		'trop_admin' => [
+			'id' => '3',
 		],
 
 	],
@@ -33,6 +41,11 @@ return [
 		'aboutmsc' => [
 			'url' => 'trop/10086',
 		],
+
+	],
+
+	'post' => [
+		'default_type' => ['post', 'news'],
 
 	],
 

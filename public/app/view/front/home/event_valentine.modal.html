@@ -1,0 +1,125 @@
+<!-- Event | Love Event -->
+<div class="row">
+    <div class="metrop-text-head">
+        <h2>ssHappy Valentine's Day <i class="fa fa-heart"></i></h2>
+    </div>
+    @if($sentHeart)
+    <div id="haveHeart" class="col-md-5">
+        <h3><i class="fa fa-gittip" style="color:#E26A6A"></i> ใครกันนะ... ที่คุณอยากจะ<span style="color:#F16278;">ส่งหัวใจ</span>ให้ในวันดีๆแบบนี้ <br>
+            <small style="font-size: 70%">สามารถค้นหาชื่อเล่น หรือ ชื่อจริงได้เท่านั้นนะคะ</small>
+        </h3>
+        <form class="typeahead" role="search">
+            <div id="scrollable-dropdown-menu" class="form-group">
+                <input id="inputHeart" style="font-size: 22px" type="search" name="q" class="form-control typeahead-input" placeholder="พิมพ์ชื่อคนที่คุณอยากให้หัวใจ" autocomplete="off">
+            </div>
+            <div class="form-group text-right">
+                <a id="sendHeart" class="btn btn-primary">ส่ง <i class="fa fa-heart" style="color:#FFF"></i> </a>
+            </div>
+        </form>
+    </div>
+    @else
+    <div id="notHaveHeart" class="col-md-5" style="padding-right: 45px;">
+        <h3>ไม่เหลือ <i class="fa fa-heart" style="color:#E26A6A"></i> ส่งให้ใครแล้ว <br></h3>
+    </div>
+    @endif
+    <div id="showHeart" class="col-md-7">
+        <h3><i class="fa fa-gittip" style="color:#E26A6A"></i> ใครส่งหัวใจให้คุณบ้างในวันนี้</h3>
+        <hr>
+        <div class="row allHeart">
+            @forelse($receiveHeart as $rh)
+            <div class="col-md-4 heartReceive">
+                @php
+                    $strzero = str_repeat("0", 6 - strlen($rh->empCodeSend));
+                    $strshow = $strzero . $rh->empCodeSend;
+
+                    $userInfo = App\MainEmployee::where('EmpCode', $strshow)->first();
+
+                    $nickName = $userInfo['NickName'];
+
+                    $orgUnitName = explode('-',$userInfo['OrgUnitName'])[0];
+
+                    if($nickName == '') $nickName = $userInfo['FirstName'];
+
+                @endphp
+                <span><i class="fa fa-heart" style="color:#E26A6A"></i> {{$nickName . '@' . $orgUnitName}}</span>
+            </div>
+            @empty
+            <div class="col-md-12 heartReceive">
+                <h4>^.^</h4>
+            </div>
+            @endforelse
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<hr>
+
+<script>
+$(function() {
+    'use strict';
+
+    //For Event Valentine
+    //
+
+    var engine = new Bloodhound({
+        remote: {
+            url: 'valentine/find?q=%QUERY%',
+            wildcard: '%QUERY%'
+        },
+        datumTokenizer: Bloodhound.tokenizers.whitespace('q'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+    });
+
+    engine.initialize();
+
+    $("#scrollable-dropdown-menu .typeahead-input").typeahead({
+        //hint: true,
+        highlight: true,
+        minLength: 1
+    }, {
+        displayKey: 'EmpCode',
+        source: engine.ttAdapter(),
+
+        // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+        name: 'usersList',
+        limit: 10,
+
+        display: function(item){ return item.EmpCode+'– @'+ item.FirstName + ' ' + item.LastName +' ('+item.NickName+')'},
+
+        // the key from the array we want to display (name,id,email,etc...)
+        templates: {
+            empty: [
+
+                '<div class="list-group search-results-dropdown"><div class="list-group-item">ค้นหาไม่พบ.</div></div>'
+            ],
+            header: [
+                '<div class="list-group search-results-dropdown">'
+            ],
+            suggestion: function (data) {
+                var img_link = 'http://appmetro.metrosystems.co.th/empimages/' + parseInt(data.EmpCode) + '.jpg?' + Math.floor((Math.random() * 10000) + 1)
+
+                return '<a class="list-group-item">'+
+                            '<img src="'+ img_link +'" class="img-reponsive" height="80"><br><br>'+
+                            data.NickName + ' - ' + data.OrgUnitName    +
+                         '</a>'
+            }
+        }
+    });
+
+    $('#sendHeart').click(function(){
+
+        $.get("valentine/store",{sendToId: $('#inputHeart').val()})
+            .done(function(data){
+                data = JSON.parse(data);
+
+                if(data.type == 1)
+                    swal("ส่งหัวใจเรียบร้อยแล้ว", ":)", "success");
+                else
+                    swal("ส่งหัวใจไม่สำเร็จ", data.message, "error");
+            })
+     });
+
+    //
+    //End For Event Valentine
+});
+</script>

@@ -89,7 +89,7 @@ return [
 
 		'MSCMain' => [
 			'driver' => 'sqlsrv',
-			'host' => 'MSCDTA\MSCDATA', // Provide IP address here
+			'host' => 'MIS_Test', // Provide IP address here
 			'database' => 'MSCMain',
 			'username' => 'sa',
 			'password' => 'Leave&Time',

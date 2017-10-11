@@ -1,0 +1,61 @@
+<div id="edit_redirect_modal" class="modal fade">
+    <div class="modal-dialog" style="width: 62.2%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-paper-plane"></i> Edit redirect component</h3>
+            </div>
+            <div class="modal-body">
+                Url : <input id="edit_url_input" name="url"><br><br>
+                Target :
+                <select id="edit_target_select">
+                    <option value="_blank"> New Tab</option>
+                    <option value="_self"> Same Tab</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="edit_redirect_btn" type="button" class="btn btn-primary">Save Change</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/*jslint unparam: true, regexp: true */
+/*global window, $ */
+$(function() {
+    'use strict';
+
+    var scope = angular.element($("edit-redirect-modal")).scope();
+
+    $('#edit_redirect_modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var id = button.data('id') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      $.ajax({
+            url: '/newportal/admin/component/fetch/redirect/' + id,
+            async: true,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                scope.edit_redirect_id = id;
+                $('#edit_url_input').val(data.url);
+                $('#edit_target_select').val(data.target);
+            },
+
+        });
+      /*var modal = $(this)
+      modal.find('.modal-title').text('New message to ' + recipient)
+      modal.find('.modal-body input').val(recipient)*/
+    })
+
+    $('#edit_redirect_btn').click(function() {
+        scope.$apply(function() {
+            scope.edit_url = $('#edit_url_input').val();
+            scope.edit_target = $('#edit_target_select').val();
+            scope.edit_redirect();
+        })
+    });
+});
+</script>

@@ -48,66 +48,79 @@ class ComponentController extends Controller {
 
 		switch ($component) {
 
-		case "video":
+			case "video":
 
-			$ref_id = DB::table('cp_video')->insertGetId([
-				'video_path' => $url,
-				'video_name' => $filename,
-				'video_name_origin' => $filename_origin,
-				'video_type' => 'MP4',
-				'created_at' => $date_now,
-				'updated_at' => $date_now,
-			]);
-
-			break;
-
-		case "image":
-
-			$ref_id = DB::table('cp_image')->insertGetId([
-				'image_path' => str_replace(Config::get('newportal.upload_url'), '/uploads', $url),
-				'image_name' => $filename,
-				'image_name_origin' => $filename_origin,
-				'image_alt' => $filename_origin,
-				'image_type' => 'JPEG',
-				'created_at' => $date_now,
-				'updated_at' => $date_now,
-			]);
-
-			break;
-
-		case "content":
-
-			$ref_id = DB::table('cp_content')->insertGetId([
-				'content_content' => $input['content'],
-				'content_type' => 'text',
-				'created_at' => $date_now,
-				'updated_at' => $date_now,
-			]);
-
-			break;
-
-		case "gallery":
-
-			$ref_id = DB::table('cp_gallery')->insertGetId([
-				'gallery_name' => 'post ' . $pid,
-				'gallery_title' => 'gallery title',
-				'created_at' => $date_now,
-				'updated_at' => $date_now,
-			]);
-
-			for ($i = 0; $i < count($filenames); $i++) {
-
-				DB::table('cp_gallery_item')->insert([
-					'gallery_id' => $ref_id,
-					'item_path' => str_replace(Config::get('newportal.upload_url'), '/uploads', $urls[$i]),
-					'item_alt' => $filenames[$i],
+				$ref_id = DB::table('cp_video')->insertGetId([
+					'video_path' => $url,
+					'video_name' => $filename,
+					'video_name_origin' => $filename_origin,
+					'video_type' => 'MP4',
 					'created_at' => $date_now,
 					'updated_at' => $date_now,
 				]);
-			}
 
-			break;
+				break;
+
+			case "image":
+
+				$ref_id = DB::table('cp_image')->insertGetId([
+					'image_path' => str_replace(Config::get('newportal.upload_url'), '/uploads', $url),
+					'image_name' => $filename,
+					'image_name_origin' => $filename_origin,
+					'image_alt' => $filename_origin,
+					'image_type' => 'JPEG',
+					'created_at' => $date_now,
+					'updated_at' => $date_now,
+				]);
+
+				break;
+
+			case "content":
+
+				$ref_id = DB::table('cp_content')->insertGetId([
+					'content_content' => $input['content'],
+					'content_type' => 'text',
+					'created_at' => $date_now,
+					'updated_at' => $date_now,
+				]);
+
+				break;
+
+			case "gallery":
+
+				$ref_id = DB::table('cp_gallery')->insertGetId([
+					'gallery_name' => 'post ' . $pid,
+					'gallery_title' => 'gallery title',
+					'created_at' => $date_now,
+					'updated_at' => $date_now,
+				]);
+
+				for ($i = 0; $i < count($filenames); $i++) {
+
+					DB::table('cp_gallery_item')->insert([
+						'gallery_id' => $ref_id,
+						'item_path' => str_replace(Config::get('newportal.upload_url'), '/uploads', $urls[$i]),
+						'item_alt' => $filenames[$i],
+						'created_at' => $date_now,
+						'updated_at' => $date_now,
+					]);
+				}
+
+				break;
+
+			case "redirect":
+
+				$ref_id = DB::table('cp_redirect')->insertGetId([
+					'redirect_url' => $input['url'],
+					'redirect_target' => $input['target'],
+					'created_at' => $date_now,
+					'updated_at' => $date_now,
+				]);
+
+				break;
 		}
+
+		
 
 		$comid = DB::table('component')->insertGetId([
 			'pid' => $pid,
@@ -131,6 +144,11 @@ class ComponentController extends Controller {
 		} else if ($component == 'gallery') {
 
 			return json_encode(['comid' => $comid, 'id' => $ref_id]);
+
+		} else if ($component == 'redirect') {
+
+			return json_encode(['comid' => $comid, 'id' => $ref_id]);
+
 		}
 	}
 
@@ -144,15 +162,26 @@ class ComponentController extends Controller {
 
 		switch ($component) {
 
-		case "content":
+			case "content":
 
-			$ref_id = DB::table('cp_content')->where('content_id', $input['id'])
-				->update([
-					'content_content' => $input['content'],
-					'updated_at' => $date_now,
-				]);
+				$ref_id = DB::table('cp_content')->where('content_id', $input['id'])
+					->update([
+						'content_content' => $input['content'],
+						'updated_at' => $date_now,
+					]);
 
-			break;
+				break;
+
+			case "redirect":
+
+				$ref_id = DB::table('cp_redirect')->where('redirect_id', $input['id'])
+					->update([
+						'redirect_url' => $input['url'],
+						'redirect_target' => $input['target'],
+						'updated_at' => $date_now,
+					]);
+
+				break;
 
 		}
 	}
@@ -198,6 +227,13 @@ class ComponentController extends Controller {
 		} else if ($type == 'file') {
 
 			DB::table('component')->where('comid', '=', $comid)->delete();
+
+		} else if ($type == 'redirect') {
+
+			DB::table('cp_' . $type)->where($type . '_id', '=', $id)->delete();
+
+			DB::table('component')->where('comid', '=', $comid)->delete();
+
 		}
 
 	}
@@ -225,6 +261,12 @@ class ComponentController extends Controller {
 		if ($component == 'content') {
 			$content = DB::table('cp_content')->where('content_id', '=', $id)->first();
 			return $content->content_content;
+		}
+		else if ($component == 'redirect') {
+
+			$redirect = DB::table('cp_redirect')->where('redirect_id', '=', $id)->first();
+
+			return json_encode([ "url" => $redirect->redirect_url, "target" => $redirect->redirect_target]);
 		}
 	}
 

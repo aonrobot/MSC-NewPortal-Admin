@@ -58,7 +58,7 @@ class EmployeeController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	    public function show()
+	public function show()
      {
         $employee_detail = employee::all();
 		
@@ -67,20 +67,28 @@ class EmployeeController extends Controller {
         return view('admin.pages.employee.employee_list', ['employee' => $employee_detail,'tel' => $tel]);
      }
 	 
-        public function editdetail($id){
+    public function editdetail($id){
 	    
-		$employee = employee::where('emid', '=', $id ) 
-		 ->get();	
+		$employee = employee::where('emid', '=', $id )->get();	
+
+		$emid = $employee[0]->emid;
 		 
 		$trop_list = trop_rela::join('trop','trop_rela.tid', '=', 'trop.tid')
 			  ->where('trop_rela.emid','=',$id)
               ->select('emid','trop.tid','trop_name','trop_title','trop_type','trop_status')
         	  ->get();
 			  
-		$roles =DB::select('select*from roles');
-		$roles1 =DB::select('select*from role_user where employee_id ='.$id);
+		$roles = DB::select('select * from role_user ru join roles r on ru.role_id = r.id where ru.employee_id = ' . $emid);
+
+		$roles_can_select = DB::select('SELECT * FROM roles r WHERE NOT EXISTS (SELECT * FROM role_user ru WHERE employee_id = ? and r.id = ru.role_id)',[$emid]);
+
+		/*$roles_can_select = DB::table('roles')->whereNotExists(function($query){
+
+			$query->select(DB::raw(1))->from('role_user')->whereRaw('employee_id = '.$emid.' and roles.id = role_user.role_id');
+
+		})->get();*/
 		
-      	return view('admin.pages.employee.employee_setting', ['em_id' => $employee,'trop_em' => $trop_list,'role'=>$roles,'role_select'=>$roles1]);
+      	return view('admin.pages.employee.employee_setting', ['employee' => $employee[0],'trop_em' => $trop_list, 'roles'=>$roles, 'roles_can_select'=>$roles_can_select]);
 	}	
 
 	
@@ -118,6 +126,22 @@ class EmployeeController extends Controller {
 	 */
 	public function destroy($id) {
 		//
+	}
+
+	public function addRole(Request $request){
+
+		$input = $request->all();
+
+		DB::table('role_user')->insert(['employee_id' => $input['emid'], 'role_id' => $input['role_id']]);
+
+		return redirect('/admin/employee/setting/'.$input['emid']);
+	}
+
+	public function deleteRole($id, $role_id){
+
+		DB::table('role_user')->where('employee_id', $id)->where('role_id', $role_id)->delete();
+
+		return redirect('/admin/employee/setting/'. $id);
 	}
 
 	public function addTest(){

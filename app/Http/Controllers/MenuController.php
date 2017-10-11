@@ -32,7 +32,7 @@ class menuController extends Controller
 		  $menu_template = menu::where('mid', '=', $menu0[0]->menu_template_id)
 		 ->first()->menu_name;
 		  $trops = trop::orderBy('trop_status', 'ASC')->get();
-		  $post1 = post::where('tid','=',$trop_id)->get();
+		  $post1 = post::orderBy('post_name')->get();
 		  $category1 = category::where('tid', '=',$menu0[0]->tid)->get();
 		 
 	error_reporting(E_ALL ^ E_NOTICE);
@@ -178,7 +178,7 @@ $rela = menu_rela::where('mid', '=', $mid )
 			$sum = "post/".$type_name[$rela1->mtid][0];
 			}
 			else if($type[$rela1->mtid][0]=="file"){
-			$sum = "file/".$Linkfile[$rela1->mtid][0];
+			$sum = substr("".$Linkfile[$rela1->mtid][0], 1);
 			}
 			else {
 			$sum=$type[$rela1->mtid][0]."/".$type_name[$rela1->mtid][0];

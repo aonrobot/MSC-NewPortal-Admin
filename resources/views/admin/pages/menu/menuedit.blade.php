@@ -1,4 +1,8 @@
 @extends('admin.admin_template') @section('content')
+
+<?php
+print_r($_SESSION);
+?>
 <input type="hidden" id="trop_id" value="{{ Session::get('trop_id') }}">
 <!-- Main Content -->
 <form class="form-horizontal" method="POST" action="<?=asset('/admin/menu/update')?>">
@@ -20,9 +24,9 @@ foreach ($menu as $menu1) {
 	     @endif
 		    <button TYPE="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to update?')"> <span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
 	        <button TYPE="button" class="btn btn-warning" onClick="javascript:location.reload();"> <span class="glyphicon glyphicon-refresh"></span></button>
-			 <a href="<?=asset('/admin/menu/listitemdel/')?><?php echo '/' . $mid; ?>">
-			 <button class="btn btn-danger"   type="button" style="height:33px" ><span class="glyphicon glyphicon-trash" ></span> Delete </font></button>
-			 </a>
+			<a href="<?=asset('/admin/menu/listitemdel/')?><?php echo '/' . $mid; ?>">
+			<button class="btn btn-danger"   type="button" style="height:33px" ><span class="glyphicon glyphicon-trash" ></span> Delete </font></button>
+			</a>
         </i>
       </h4>
 
@@ -62,7 +66,7 @@ foreach ($menuitem as $menuitem1) {
                   <option value="category" <?php if ($check_link[0] == "category") {echo "selected";}?>>Category</option>
                   <option value="post_option" <?php if ($check_link[0] == "post") {echo "selected";}?>>Post</option>
 				  <option value="trop" <?php if ($check_link[0] == "trop") {echo "selected";}?>>Trop</option>
-				  <option value="file"<?php if ($check_link[0] == "file") {echo "selected";}?>>File</option>
+				  <option value="file"<?php if ($check_link[0] == "uploads") {echo "selected";}?>>File</option>
                   <option value="other"<?php if ($check_link[0] == "http:") {echo "selected";}?>>Other</option>
 			   </select>
 
@@ -85,7 +89,30 @@ foreach ($menuitem as $menuitem1) {
 			   
 			   <input id="link" type="text" name="link[<?Php echo $menuitem1->mtid; ?>][]"  value="<?php echo $menuitem1->item_link; ?>"size="12" >
 			   
-			   <input id="linkfile" type="text" name="linkfile[<?Php echo $menuitem1->mtid; ?>][]"  value="<?php echo $menuitem1->item_link; ?>"size="12" >
+			   <!-- File -->
+
+			   <div id="linkfile">
+
+			   	   <br>
+			   	   {{--*/ $file_name = array_pop(explode('/',$menuitem1->item_link))/*--}}
+				   <p id="file{{$menuitem1->mtid}}" class="block-inline" style="font-size: 18px"><a href="{{'/newportal/'.$menuitem1->item_link}}" target="_blank">{{$file_name}}</a></p> <!-- File ID -->
+				   <br>
+				   <span class="btn btn-primary fileinput-button" >
+	                    <i class="glyphicon glyphicon-plus"></i>
+	                        <span> Choose file</span>
+	                        <input class="menuFileUpload" id="{{$menuitem1->mtid}}" type="file" name="files"> <!-- Upload Btn ID -->
+	               </span><br><br>
+
+	               <div id="progress{{$menuitem1->mtid}}" class="progress"> <!-- Progress ID -->
+	                    <div class="progress-bar progress-bar-success"></div>
+	               </div>
+
+	               <input id="fileInput{{$menuitem1->mtid}}" type="hidden" name="linkfile[<?Php echo $menuitem1->mtid; ?>][]"  value="<?php echo $menuitem1->item_link; ?>" size="12" > <!-- Input File Name ID -->
+	               <br>
+
+			   </div>
+
+               <!-- End File -->
 			   
 			   </center>
 			   </td>
@@ -235,6 +262,37 @@ foreach ($menuitem as $menuitem1) {
             $.each(data.result.files, function (index, file) {
                 $('#imageInput'+e['target']['id']).val('/uploads/trop/' + tropId + '/' + object + '/' + objectId + '/thumbnail/' + file.name);
                 $('#image'+e['target']['id']).attr('src',file.url)
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress'+$(this).attr('id')+' .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+    // File Upload
+    var file_object = "file";
+    var file_url = '/newportal/admin/upload/file/' + object + '/' + tropId + '/' + objectId;
+
+    $('.menuFileUpload').click(function(){
+   	  $('#progress'+$(this).attr('id')+' .progress-bar').css('width','0%');
+   	  var id = $(this).attr('id');
+    });
+    $('.menuFileUpload').fileupload({
+        url: file_url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('#fileInput'+e['target']['id']).val('/uploads/trop/' + tropId + '/' + object + '/' + objectId + '/file/' + file.name);
+                $('#file'+e['target']['id']).empty();
+                var file_name = file.url.split('/');
+                file_name = file_name.pop();
+                $('#file'+e['target']['id']).append("<a href='" + file.url + "' target='_blank'>" + file_name + "</a>")
             });
         },
         progressall: function (e, data) {

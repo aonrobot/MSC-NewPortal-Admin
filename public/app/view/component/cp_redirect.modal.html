@@ -1,0 +1,39 @@
+<div id="cp_redirect_modal" class="modal fade">
+    <div class="modal-dialog" style="width: 62.2%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title"><i class="fa fa-paper-plane"></i> Add Redirect component</h3>
+            </div>
+            <div class="modal-body">
+                Url : <input id="url_input" name="url"><br><br>
+                Target :
+                <select id="target_select">
+                    <option value="_blank"> New Tab</option>
+                    <option value="_self"> Same Tab</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="add_redirect_btn" type="button" class="btn btn-primary">Add Redirect</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+/*jslint unparam: true, regexp: true */
+/*global window, $ */
+$(function() {
+    'use strict';
+
+    var scope = angular.element($("cp-redirect-modal")).scope();
+
+    $('#add_redirect_btn').click(function() {
+        scope.$apply(function() {
+            scope.url = $('#url_input').val();
+            scope.target = $('#target_select').val();
+            scope.add_redirect();
+        })
+    });
+});
+</script>

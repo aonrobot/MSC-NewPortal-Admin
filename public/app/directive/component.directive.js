@@ -38,11 +38,27 @@ app.directive('cpFileModal', function(){
 	};
 });
 
+app.directive('cpRedirectModal', function(){
+	return {
+		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
+		templateUrl: '/newportal/app/view/component/cp_redirect.modal.html',
+		controller: 'component.cpRedirect'
+	};
+});
+
 //Edit
 app.directive('editContentModal', function(){
 	return {
 		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
 		templateUrl: '/newportal/app/view/component/edit/edit_content.modal.html',
 		controller: 'component.editContent'
+	};
+});
+
+app.directive('editRedirectModal', function(){
+	return {
+		restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
+		templateUrl: '/newportal/app/view/component/edit/edit_redirect.modal.html',
+		controller: 'component.editRedirect'
 	};
 });

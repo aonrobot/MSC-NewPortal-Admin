@@ -95,18 +95,25 @@ class DashboardController extends Controller {
 		$emid = Session::get('emid');
 		//  $user=DB::select('select employee_id,ru.role_id,name from role_user ru join roles r on ru.role_id = r.id where employee_id='.$emid);
 		$user = employee::where('emid', '=', $emid)->first();
+
 		if ($user->hasRole(['admin', 'owner'])) {
-			$trops = trop::join('request', 'trop.tid', '=', 'request.object_id')
-				->orderBy('trop_status', 'ASC')
-				->get();
+			$trops = trop::where('trop_type', '!=', 'meeting')->orderBy('trop_status', 'ASC')->get();
+			$meets = trop::where('trop_type', '=', 'meeting')->orderBy('trop_status', 'ASC')->get();
 			$tropadmin = 0;
 		}
 		if ($user->hasRole(['trop_admin', 'trop_assistant'])) {
-			$trops = trop::join('request', 'trop.tid', '=', 'request.object_id')
-				->join('trop_rela', 'trop.tid', '=', 'trop_rela.tid')
+			$trops = trop::join('trop_rela', 'trop.tid', '=', 'trop_rela.tid')
 				->where('trop_rela.emid', '=', $emid)
+				->where('trop.trop_type', '!=', 'meeting')
 				->orderBy('trop_status', 'ASC')
 				->get();
+
+			$meets = trop::join('trop_rela', 'trop.tid', '=', 'trop_rela.tid')
+				->where('trop_rela.emid', '=', $emid)
+				->where('trop.trop_type', '=', 'meeting')
+				->orderBy('trop_status', 'ASC')
+				->get();
+
 			$tropadmin = "";
 		}
 
@@ -115,7 +122,7 @@ class DashboardController extends Controller {
 			abort('404');
 		}
 
-		return view('admin.pages.dashboard', ['trops' => $trops, 'tropadmin' => $tropadmin]);
+		return view('admin.pages.dashboard', ['trops' => $trops, 'meets' => $meets, 'tropadmin' => $tropadmin]);
 	}
 
 	/**

@@ -3,9 +3,27 @@
 
 <?php
 
-$_SESSION["file_path"] = 'uploads' . $post_path . '/file';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Create upload folder if not exist
+if(!file_exists(Config::get('newportal.upload_dir') . $post_path . '/upload')){
+
+    Storage::disk('uploads')->makeDirectory(substr($post_path, 1) . '/upload');
+}
+
+$_SESSION["file_path"] = '/newportal/uploads' . $post_path . '/upload';
+
+$user = Session::get('user');
+
 
 ?>
+
+<div id="loader_create" class="loader"><div><img src="{{asset('loader.gif')}}"><h4>Creating....</h4></div></div>
+
+<div id="loader_edit" class="loader"><div><img src="{{asset('loader.gif')}}"><h4>Editing....</h4></div></div>
+
 
 <link rel="stylesheet" href="{{asset('/plugins/nestable/nestable.css')}}">
 <input type="hidden" id="post_path" value="{{ Session::get('post_path') }}">
@@ -17,11 +35,212 @@ $_SESSION["file_path"] = 'uploads' . $post_path . '/file';
     <h2><i class="fa {{empty($post->post_icon) ? 'fa-file-text' : $post->post_icon}}"></i> {{$post->post_title}}</h2>
     <br>
 
-
-    <!-- Step 1 -->
-    <h3>1 | Component <small> Click the icon to add component</small></h3>
+    <h3>1 | Update Detail <small> Update or edit detail</small></h3>
     <br>
     <div class="row">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-header">
+                    <h3 class="box-title">Basic Detail</h3>
+                </div>
+                <form action="{{asset('admin/post/update/'.Request::segment(4))}}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" name="post_status">
+                                        <option value="1" {{($post->post_status == 1)?'selected':''}}>Active</option>
+                                        <option value="0" {{($post->post_status == 0)?'selected':''}}>Deactive</option>
+                                    </select>
+                                </div>
+                                 <div class="form-group">
+                                    <label>Permission</label>
+                                    <select class="form-control" name="post_permission">
+                                        <option value="1" {{($post->post_permission == 1)?'selected':''}}>Active</option>
+                                        <option value="0" {{($post->post_permission == 0)?'selected':''}}>Deactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <select class="form-control" name="post_type">
+                                        <option value="post" {{($post->post_type == "post")?'selected':''}}>Post</option>
+                                        <option value="news" {{($post->post_type == "news")?'selected':''}}>News Post</option>
+                                        <option value="policy" {{($post->post_type == "policy")?'selected':''}}>Policy Post</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            @if(intval($user->EmpCode) == $post->emid or Session::get('trop_id') == 0)
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Change Post Owner</label>
+                                    <select class="form-control select2" data-placeholder="Select a New Author" style="width: 100%;" name="post_owner">
+                                        
+                                        {{--*/ 
+                                            if(Session::get('trop_id') == 0){
+                                                $employees = DB::table('employee')->orderBy('Login','ASC')->get();
+                                            }
+                                            else{
+                                                $employees = DB::table('employee')->join('trop_rela','employee.emid','=','trop_rela.emid')->where('trop_rela.tid', Session::get('trop_id'))->get();
+                                            }
+                                        /*--}}
+
+                                        @foreach($employees as $employee)
+                                            <option @if(intval($employee->EmpCode) == $post->emid) selected @endif value="{{intval($employee->EmpCode)}}">{{$employee->Login}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            @endif
+
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Author Contact</label>
+                                    <input value="{{$post->author_contact}}" type="text" class="form-control" placeholder="Phone Number" name="author_contact">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <p class="lead">
+                                        <i class="fa {{empty($post->post_icon) ? 'fa-file-text' : $post->post_icon}} fa-3x picker-target"></i>
+                                    </p>
+                                    <label>Icon</label>
+                                    <input name="post_icon" value="{{$post->post_icon}}" class="form-control icp icp-auto" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input value="{{$post->post_title}}" type="text" class="form-control" placeholder="Post Title" name="post_title">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Detail</label>
+                                    <textarea type="text" class="form-control" id="post_detail" name="post_detail">
+                                    {{$post->post_detail}}
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input value="{{$post->post_name}}" type="text" class="form-control" placeholder="Post Name" name="post_name">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Event Date</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="eventdate" name="post_event_date">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a Category" style="width: 100%;" name="post_cat[]">
+                                        
+                                        {{--*/ 
+                                                if(Session::get('trop_id') == 0){
+                                                    $cats = DB::table('category')->get();
+                                                }else{
+                                                    $cats = DB::table('category')->where('tid', '=', Session::get('trop_id'))->get();
+                                                }
+                                                
+                                        /*--}}
+                                        @foreach($cats as $cat)
+                                            <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
+                                        @endforeach
+                                        {{--*/ $cats = DB::table('category')->get() /*--}}
+                                        @foreach($cats as $cat)
+                                            @if($user->can(['view-category-' . $cat->catid]))
+                                                <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>Thumbnail</label>
+                                    <br>
+                                    <span class="btn btn-primary fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Select thumbnail file</span>
+                                        <input id="fileupload" type="file" name="files">
+                                    </span><br><br>
+                                    <div id="progress" class="progress">
+                                        <div class="progress-bar progress-bar-success"></div>
+                                    </div>
+                                    <input class="form-control" type="hidden" id="post_thumbnail" name="post_thumbnail" value="{{$post->post_thumbnail}}">
+                                    <img id="img_post_thumbnail" src="{{asset($post->post_thumbnail)}}" width="83%">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <button class="btn btn-success btn-lg btn-block" id="save_btn" type="submit"><i class="fa fa-save"></i> Save</button>
+                                    <br>
+                                    <a class="btn btn-default btn-lg btn-block" href="{{asset('/post/' . Request::segment(4))}}" target="_blank"><i class="fa fa-tv"></i> Preview</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </form>
+                <script>
+                CKEDITOR.replace('post_detail',{
+
+                    wordcount: {
+                        showCharCount: true,
+                        showWordCount: false,
+                        maxWordCount: 4000,
+                        maxCharCount: 488,
+
+                    },
+                    toolbar: [[ 'Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo' ],]
+
+                });
+
+                </script>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row" id="alert_zone" style="display:none;">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body" style="padding:0px;">
+                    <div class="col-md-12">
+                        <div class="panel-heading text-center">
+
+                            <h2>กรุณากด Save ข้อมูลด้านบนให้เรียบร้อยก่อนครับ เพื่อเปิดใช้งานส่วนด้านล่าง <i class="fa fa-heart" style="color:#E26A6A"></i></h2>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 1 -->
+    <h3>2 | Component <small> Click the icon to add component</small></h3>
+    <br>
+    <div class="row" id="add_component_zone">
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header">
@@ -45,15 +264,18 @@ $_SESSION["file_path"] = 'uploads' . $post_path . '/file';
                     <div class="col-md-1">
                         <a href="#" data-toggle="modal" data-target="#cp_file_modal"><span class="info-box-icon bg-yellow"><i class="fa fa-file-archive-o"></i></span><p>Archive File</p></a>
                     </div>
+                    <div class="col-md-1">
+                        <a href="#" data-toggle="modal" data-target="#cp_redirect_modal"><span class="info-box-icon bg-yellow"><i class="fa fa-paper-plane"></i></span><p>Redirect</p></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /.row -->
     <!-- Step 2 -->
-    <h3>2 | Post <small> Sort your component and preview</small></h3>
+    <h3>3 | Post <small> Sort your component and preview</small></h3>
     <br>
-    <div class="row">
+    <div class="row" id="sort_component_zone">
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header">
@@ -145,21 +367,46 @@ $_SESSION["file_path"] = 'uploads' . $post_path . '/file';
                             </li>
                             @endif
 
+                            @if($com->ref_table_name == 'cp_redirect')
+
+                            <script type="text/javascript">
+                                $('.fa-paper-plane').closest('.box-body').hide();
+                            </script>
+
+                            {{--*/$cp_redirect = DB::select('select * from cp_redirect where redirect_id = ?',[$com->ref_id])/*--}}
+                            <li class="dd-item dd3-item" data-component="cp_redirect" data-id="{{$cp_redirect[0]->redirect_id}}" data-comid="{{$com->comid}}">
+
+                                <div class="dd-handle dd3-handle">Drag</div>
+                                <a class="btn btn-default hide-com-btn" data-toggle="collapse" data-target="{{'#com'.$com->comid}}">Show / Hide</a>
+
+                                <h4><i class="fa fa-paper-plane"> Redirect this post</i></h4>
+
+                                <div class="dd3-content collapse" id="{{'com'.$com->comid}}">
+                                    <hr>
+                                    {{ $cp_redirect[0]->redirect_url }} ({{ $cp_redirect[0]->redirect_target }})
+                                    <br><br>
+                                    <a class="btn btn-danger removeComponent"  ng-click="delete"><i class="fa fa-trash-o"></i> Remove This Content</a>
+                                    <a class="btn btn-primary" data-toggle="modal" data-target="#edit_redirect_modal" data-id="{{$cp_redirect[0]->redirect_id}}" ng-click="edit"><i class="fa fa-pencil"></i> Edit Redirect</a>
+                                </div>
+
+                            </li>
+                            @endif
+
                             @if($com->ref_table_name == 'cp_file')
                             <li class="dd-item dd3-item" data-component="cp_file" data-id="0" data-comid="{{$com->comid}}">
 
                                 <div class="dd-handle dd3-handle">Drag</div>
                                 <a class="btn btn-default hide-com-btn" data-toggle="collapse" data-target="{{'#com'.$com->comid}}">Show / Hide</a>
 
-                                <h4><i class="fa fa-align-left"> Archive File</i></h4>
+                                <h4><i class="fa fa-file-archive-o"> Archive File</i></h4>
 
                                 <div class="dd3-content collapse" id="{{'com'.$com->comid}}">
                                     <hr>
                                     <!--<iframe src="{{asset('plugins/fileman/index.html?integration=custom&type=files&txtFieldId=txtSelectedFile')}}" style="width:100%;height:500px" frameborder="0">
                                     </iframe>-->
                                     <br>
-                                    <h3>Copy This To Explorer</h3><br>
-                                    <h3><mark>\\172.16.43.202\d$\MSCNewPortal\public\uploads{{str_replace("/","\\",$post_path)}}\file</mark></h3>
+                                    <h3>Click below button to manage file <3</h3><br>
+                                    <h3><a class="btn btn-primary btn-lg btn-block" href="{{asset('/admin/file?pid=' . Request::segment(4))}}" target="_blank"><i class="fa fa-file-o"></i> Manage File</a></h3>
                                     <br>
 
                                     <br>
@@ -182,145 +429,6 @@ $_SESSION["file_path"] = 'uploads' . $post_path . '/file';
         </div>
     </div>
     <!-- /.row -->
-
-    <h3>3 | Update Detail <small> Update or edit detail</small></h3>
-    <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h3 class="box-title">Basic Detail</h3>
-                </div>
-                <form action="{{asset('admin/post/update/'.Request::segment(4))}}" method="post">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control" name="post_status">
-                                        <option value="1" {{($post->post_status == 1)?'selected':''}}>Active</option>
-                                        <option value="0" {{($post->post_status == 0)?'selected':''}}>Deactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Type</label>
-                                    <select class="form-control" name="post_type">
-                                        <option value="post" {{($post->post_type == "post")?'selected':''}}>Post</option>
-                                        <option value="news" {{($post->post_type == "news")?'selected':''}}>News Post</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Author Contact</label>
-                                    <input value="{{$post->author_contact}}" type="text" class="form-control" placeholder="Phone Number" name="author_contact">
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <p class="lead">
-                                        <i class="fa {{empty($post->post_icon) ? 'fa-file-text' : $post->post_icon}} fa-3x picker-target"></i>
-                                    </p>
-                                    <label>Icon</label>
-                                    <input name="post_icon" value="{{$post->post_icon}}" class="form-control icp icp-auto" type="text" />
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Title</label>
-                                    <input value="{{$post->post_title}}" type="text" class="form-control" placeholder="Post Title" name="post_title">
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Detail</label>
-                                    <textarea type="text" class="form-control" id="post_detail" name="post_detail">
-                                    {{$post->post_detail}}
-                                    </textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input value="{{$post->post_name}}" type="text" class="form-control" placeholder="Post Name" name="post_name">
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Event Date</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
-                                        </div>
-                                        <input type="text" class="form-control pull-right" id="eventdate" name="post_event_date">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Category</label>
-                                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;" name="post_cat[]">
-                                        {{--*/ $cats = DB::table('category')->where('tid', '=', Session::get('trop_id'))->get()/*--}}
-                                        @foreach($cats as $cat)
-                                            <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label>Thumbnail</label>
-                                    <br>
-                                    <span class="btn btn-primary fileinput-button">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <span>Select thumbnail file</span>
-                                        <input id="fileupload" type="file" name="files">
-                                    </span><br><br>
-                                    <div id="progress" class="progress">
-                                        <div class="progress-bar progress-bar-success"></div>
-                                    </div>
-                                    <input type="hidden" id="post_thumbnail" name="post_thumbnail" value="{{$post->post_thumbnail}}">
-                                    <img id="img_post_thumbnail" src="{{asset($post->post_thumbnail)}}" width="83%">
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <button class="btn btn-success btn-lg btn-block" type="submit"><i class="fa fa-save"></i> Save</button>
-                                    <br>
-                                    <a class="btn btn-default btn-lg btn-block" href="{{asset('/post/' . Request::segment(4))}}" target="_blank"><i class="fa fa-tv"></i> Preview</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                </form>
-                <script>
-                CKEDITOR.replace('post_detail',{
-
-                    wordcount: {
-                        showCharCount: true,
-                        showWordCount: false,
-                        maxWordCount: 4000,
-                        maxCharCount: 488,
-
-                    },
-                    toolbar: [[ 'Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo' ],]
-
-                });
-
-                </script>
-            </div>
-        </div>
-    </div>
-    <!-- /.row -->
-
 
     <!-- Step 1 -->
     <!--<h3>Step 1 | Select Your Template <small>Please Choose Your Template By Check Radio Button</small></h3>
@@ -520,8 +628,10 @@ $_SESSION["file_path"] = 'uploads' . $post_path . '/file';
     <cp-content-modal></cp-content-modal>
     <cp-gallery-modal></cp-gallery-modal>
     <cp-file-modal></cp-file-modal>
+    <cp-redirect-modal></cp-redirect-modal>
 
     <edit-content-modal></edit-content-modal>
+    <edit-redirect-modal></edit-redirect-modal>
 
 </div>
 <script>
@@ -600,6 +710,24 @@ $(function() {
     $('#fileupload').fileupload({
         url: url,
         dataType: 'json',
+        disableImageResize: false,
+        process:[
+            {
+                action: 'load',
+                fileTypes: /^image\/(gif|jpeg|png)$/,
+                maxFileSize: 20000000 // 20MB
+            },
+            {
+                action: 'resize',
+                maxWidth: 900,
+                maxHeight: 506,
+                minWidth: 400,
+                minHeight: 225
+            },
+            {
+                action: 'save'
+            }
+        ],
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
                 $('#post_thumbnail').val('/uploads/trop/' + tropId + '/' + object + '/' + objectId + '/thumbnail/' + file.name);
@@ -615,6 +743,7 @@ $(function() {
         }
     }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
 
     $('.dd').nestable({ maxDepth : 1}).change(function(){
         var sort = $('.dd').nestable('serialize');
@@ -665,7 +794,18 @@ $(function() {
             async: true,
             type: 'POST',
             success: function(data) {
-                //alert(data);
+                swal({
+
+                    title: "ลบเรียบร้อย",
+                    text: "component ของคุณถูกลบเรียบร้อย",
+                    showConfirmButton: true,
+                    type: "success",
+                    confirmButtonText: "ปิด"
+
+                });
+                
+                $('.fa-paper-plane').closest('.box-body').show();
+
             },
 
         });
@@ -673,6 +813,27 @@ $(function() {
         $(this).closest("li").hide(500, function() {
             $(this).remove();
         });
+    });
+
+    $('#save_btn').prop('disabled',true);
+
+    $('.form-control').change(function(){
+        $('#save_btn').prop('disabled',false);
+        $('#add_component_zone').hide(500);
+        $('#sort_component_zone').hide(500);
+        $('#alert_zone').show(500);
+    });
+    CKEDITOR.instances['post_detail'].on('blur',function() {
+        $('#save_btn').prop('disabled',false);
+        $('#add_component_zone').hide(500);
+        $('#sort_component_zone').hide(500);
+        $('#alert_zone').show(500);
+    });
+    $('#img_post_thumbnail').load(function(){
+        $('#save_btn').prop('disabled',false);
+        $('#add_component_zone').hide(500);
+        $('#sort_component_zone').hide(500);
+        $('#alert_zone').show(500);
     });
 
 });

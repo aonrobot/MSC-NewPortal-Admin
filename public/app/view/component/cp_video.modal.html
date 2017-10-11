@@ -1,3 +1,9 @@
+<style type="text/css">
+    video {
+    width: 100%;
+    height: auto;
+}
+</style>
 <div id="cp_video_modal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -20,7 +26,7 @@
                     <div class="progress-bar progress-bar-success"></div>
                 </div>
                 <!-- The container for the uploaded files -->
-                <div id="video-files" class="files"></div>
+                <div id="video-files" class="files img-responsive"></div>
             </div>
             <div class="modal-footer">
                 <p class="text-left">Support video type : MPEG, MP4</p>
@@ -43,6 +49,7 @@ $(function() {
     $('#add_video_btn').hide();
     $('#add_video_btn').click(function(){
         $('.upload_video_btn').trigger('click');
+        //$("#loader_create").fadeIn("slow");
     });
 
     // Initial Button
@@ -66,6 +73,8 @@ $(function() {
     var post_path = $('#post_path').val().split('/');
     var trop = post_path[2];
     var post = post_path[4];
+
+    console.log('/newportal/admin/upload/video/' + trop + '/' + post)
 
     var url = '/newportal/admin/upload/video/' + trop + '/' + post,
         uploadButton = $('<button/>')
@@ -113,12 +122,14 @@ $(function() {
 
     $('#video-upload').fileupload({
             url: url,
+            method: 'POST',
             dataType: 'json',
             autoUpload: false,
             singleFileUploads: true,
             limitMultiFileUploads: 1,
-            loadVideoFileTypes: /^video\/.*$/,
-            acceptFileTypes: /(\.|\/)(mp4|mpe?g)$/i
+            acceptFileTypes: /(\.|\/)(mp4|mpe?g)$/i,
+            maxFileSize: 4000 * 1024 * 1024
+
 
         }).change(function(){
             $('.video-input-button').css("pointer-events", "none").addClass('disabled');
@@ -219,6 +230,7 @@ $(function() {
             });
         }).on('fileuploadfail', function(e, data) {
             $.each(data.files, function(index) {
+                console.log(e)
                 var error = $('<span class="text-danger"/>').text('File upload failed.');
                 $(data.context.children()[index])
                     .append('<br>')

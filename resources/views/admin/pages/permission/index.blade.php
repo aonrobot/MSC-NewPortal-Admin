@@ -18,7 +18,7 @@
                             <select class="form-control" id="action_select" name="action">
                               <option value="view">View</option>
                               <option value="create">Create</option>
-                              <option value="create">Update</option>
+                              <option value="update">Update</option>
                               <option value="delete">Delete</option>
                             </select>
                         </div>

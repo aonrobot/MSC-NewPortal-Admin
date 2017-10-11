@@ -22,12 +22,6 @@
 */
 include '../system.inc.php';
 include 'functions.inc.php';
-require_once('Encoding.php'); 
-use \ForceUTF8\Encoding;
-
-function utf8_urldecode($str){
-	return html_entity_decode(preg_replace("/%u([0-9a-f]{3,4})/i", "&#x\\1;", urldecode($str)), null, 'UTF-8');
-}
 
 verifyAction('CREATEDIR');
 checkAccess('CREATEDIR');
@@ -37,7 +31,7 @@ $name = trim(empty($_POST['n'])?'':$_POST['n']);
 verifyPath($path);
 
 if(is_dir(fixPath($path))){
-  if(mkdir(fixPath($path).'/'. iconv("utf-8","tis-620",$name), octdec(DIRPERMISSIONS)))
+  if(mkdir(fixPath($path).'/'.$name, octdec(DIRPERMISSIONS)))
     echo getSuccessRes();
   else
     echo getErrorRes(t('E_CreateDirFailed').' '.basename($path));

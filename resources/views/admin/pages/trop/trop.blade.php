@@ -111,8 +111,8 @@ $canrole = ['delete-trop'];
                      <tr>
                         <th><center>Id_Trop</th>
                         <th><center>Name</th>
+						<th><center>Title</th>
 						<th><center>Subtitle</th>
-                        <th><center>Type</th>
                         <th><center>Status</th>
 						<th></th>
                         
@@ -124,15 +124,13 @@ $canrole = ['delete-trop'];
                         <tr>
                         <td><center><?php echo $trop->tid?></center></td>
                         <td><center><?php echo $trop->trop_name?></center></td>
-						 <td><center><?php echo $trop->trop_title?></center></td>
+						<td><center><?php echo $trop->trop_title?></center></td>
                         <td><center><?php echo $trop->trop_subtitle?></center></td>
-						
                         <td><center>
                            <?php  if(!$trop->trop_status){?><font size="3" color="red"><span class="glyphicon glyphicon-remove"></span>
                            <?php }if($trop->trop_status){?><font size="3" color="green"><span class="glyphicon glyphicon-ok"><?php } ?>
 						   </font></center>
                         </td>
-                       
                         <td>
                            <center> 
 						   <a href="<?=asset('/admin/trop/edit/') ?><?php echo '/'.$trop->tid;?>">
@@ -142,7 +140,6 @@ $canrole = ['delete-trop'];
 						   </button>
 						    -->
 						   </a>					
-						
                            <?php  if($user->can('delete-trop') or $per::can($can_access_del)){?>			   
 				    	   <a href="<?=asset('/admin/trop/edit/') ?><?php echo '/'.$trop->tid;?>">
 						     <button class="btn btn-default"  type="button" style="background-color:white;height:33px"><span class="glyphicon glyphicon-pencil"></span>
@@ -155,21 +152,16 @@ $canrole = ['delete-trop'];
 						   </button>
 						   </a>
 						   <?php }?>
-						
 						   </center>
                         </td>
                      </tr>
-					
 					   <?php } } ?>
                   </tbody>
                </table>
             </div>
          </div>
-		 
-		
       </div>
    </div>
-
 </form>
 
 <script>

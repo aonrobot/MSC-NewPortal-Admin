@@ -1,5 +1,38 @@
 @inject('categoryController', 'App\Http\Controllers\FrontCategoryController')
 @extends('front_template') @section('head_image')
+
+<style>
+    /*For Event Valentine*/
+    #scrollable-dropdown-menu .tt-menu {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    span.twitter-typeahead{
+        display: block!important;
+    }
+    div.tt-menu{
+        width: 100%;
+    }
+    .heartReceive{
+        margin-bottom: 12px;
+    }
+    .allHeart{
+        overflow-y: scroll;
+        height: 200px;
+    }
+    #haveHeart{
+        padding-right: 35px;
+    }
+    #notHaveHeart{
+        text-align: center;
+    }
+    #showHeart{
+        border: solid 5px rgba(255, 134, 155, 0.78);
+        border-radius: 1.1em;
+        padding: 0 45px 25px 35px;
+    }
+</style>
+
 <!-- Page Header -->
 @if(!empty($slide_heads))
 <header class="intro-header">
@@ -15,6 +48,8 @@
 <header class="intro-header-empty">
 </header>
 @endif @stop @section('content')
+
+@if(Session::get('user')->status != 'outsource')
 <!-- content 1 | info -->
 <!--<div class="row" id="em_info">
     <div class="col-lg-12">
@@ -49,8 +84,11 @@
         </div>
     </div>
     <!-- /.col-lg-12
-</div> -->
+</div>
 <!-- /.row -->
+@endif
+
+<!-- include('pages.events.valentine.index') -->
 
 <!-- content 2 | slide -->
 <div class="row">
@@ -107,8 +145,9 @@
                                 New</span>-->
             </div>
             {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($news['event_start_date'])),3)/*--}}
-
-            <h3 class="metrop-news-head">{{$news['post_title']}}</h3>
+            <a href="{{ asset('post/'. $news['pid']) }}">
+                <h3 class="metrop-news-head">{{$news['post_title']}}</h3>
+            </a>
             <p class="metrop-news-content">{{$news['post_detail']}}</p>
             <h5 style="color: rgba(108, 150, 175, 0.88);">{{$str_date}}</h5>
             <div class="metrop-news-group-footer">
@@ -158,6 +197,10 @@
 						<th style="width:20%">Name</th>
 						<th>Number</th>
 					</tr>
+                    <tr>
+                        <td class="active">ITS Call Center</td>
+                        <td class="success">#78484</td>
+                    </tr>
 					<tr>
 						<td class="active">AR Call Center</td>
 						<td class="success">#74444</td>
@@ -170,10 +213,7 @@
 						<td class="active">HR Call Center</td>
 						<td class="success">#79999</td>
 					</tr>
-					<tr>
-						<td class="active">ITS Call Center</td>
-						<td class="success">#71111</td>
-					</tr>
+
 				</table>
 			</div>
 		</div>
@@ -182,7 +222,7 @@
 <!-- /.row -->
 
 <hr>
-<!-- content 3 | Calendar -->
+<!-- content 3 | Calendar
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default metrop-news-group-content">
@@ -198,9 +238,9 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!-- /.col-lg-12-->
-<!--<div class="row disible-sm">
+<div class="row disible-sm">
     <div class="metrop-text-head">
         <h2>ปฏิทินกิจกรรมประจำปี</h2>
     </div>
@@ -216,65 +256,6 @@
                         </div>
                     </div>
                     <script>
-                    function editEvent(event) {
-                        $('#event-modal input[name="event-index"]').val(event ? event.id : '');
-                        $('#event-modal input[name="event-name"]').val(event ? event.name : '');
-                        $('#event-modal input[name="event-location"]').val(event ? event.location : '');
-                        $('#event-modal input[name="event-start-date"]').datepicker('update', event ? event.startDate : '');
-                        $('#event-modal input[name="event-end-date"]').datepicker('update', event ? event.endDate : '');
-                        $('#event-modal').modal();
-                    }
-
-                    function deleteEvent(event) {
-                        var dataSource = $('#calendar').data('calendar').getDataSource();
-
-                        for (var i in dataSource) {
-                            if (dataSource[i].id == event.id) {
-                                dataSource.splice(i, 1);
-                                break;
-                            }
-                        }
-
-                        $('#calendar').data('calendar').setDataSource(dataSource);
-                    }
-
-                    function saveEvent() {
-                        var event = {
-                            id: $('#event-modal input[name="event-index"]').val(),
-                            name: $('#event-modal input[name="event-name"]').val(),
-                            location: $('#event-modal input[name="event-location"]').val(),
-                            startDate: $('#event-modal input[name="event-start-date"]').datepicker('getDate'),
-                            endDate: $('#event-modal input[name="event-end-date"]').datepicker('getDate')
-                        }
-
-                        var dataSource = $('#calendar').data('calendar').getDataSource();
-
-                        if (event.id) {
-                            for (var i in dataSource) {
-                                if (dataSource[i].id == event.id) {
-                                    dataSource[i].name = event.name;
-                                    dataSource[i].location = event.location;
-                                    dataSource[i].startDate = event.startDate;
-                                    dataSource[i].endDate = event.endDate;
-                                }
-                            }
-                        } else {
-                            var newId = 0;
-                            for (var i in dataSource) {
-                                if (dataSource[i].id > newId) {
-                                    newId = dataSource[i].id;
-                                }
-                            }
-
-                            newId++;
-                            event.id = newId;
-
-                            dataSource.push(event);
-                        }
-
-                        $('#calendar').data('calendar').setDataSource(dataSource);
-                        $('#event-modal').modal('hide');
-                    }
 
                     function redirect(url) {
                         window.open(url, "_self");
@@ -284,19 +265,9 @@
                         var currentYear = new Date().getFullYear();
                         var d = new Date();
                         $('#calendar').calendar({
-                            enableContextMenu: true,
+                            enableContextMenu: false,
                             enableRangeSelection: true,
                             minDate: new Date(currentYear, d.getMonth(), d.getDate()),
-                            contextMenuItems: [{
-                                text: 'Update',
-                                click: editEvent
-                            }, {
-                                text: 'Delete',
-                                click: deleteEvent
-                            }],
-                            selectRange: function(e) {
-                                //editEvent({ startDate: e.startDate, endDate: e.endDate });
-                            },
                             clickDay: function(e) {
                                 if (e.events.length > 0) {
                                     if (e.events[0].linkUrl) {
@@ -336,71 +307,106 @@
                             },
                             dataSource: [{
                                 id: 0,
-                                name: 'Google I/O',
-                                location: 'San Francisco, CA',
-                                startDate: new Date(currentYear, 4, 28),
-                                endDate: new Date(currentYear, 4, 29)
+                                name: 'หยุดชดเชยวันขึ้นปีใหม่',
+                                location: '',
+                                startDate: new Date(2017, 0, 2),
+                                endDate: new Date(2017, 0, 3)
                             }, {
                                 id: 1,
-                                name: 'Microsoft Convergence',
-                                location: 'New Orleans, LA',
-                                startDate: new Date(currentYear, 2, 16),
-                                endDate: new Date(currentYear, 2, 19)
+                                name: 'วันตรุษจีน',
+                                location: '',
+                                startDate: new Date(2017, 0, 27),
+                                endDate: new Date(2017, 0, 30)
                             }, {
                                 id: 2,
-                                name: 'Microsoft Build Developer Conference',
-                                location: 'San Francisco, CA',
-                                startDate: new Date(currentYear, 3, 29),
-                                endDate: new Date(currentYear, 4, 1)
+                                name: 'ชดเชยวันมาฆบูชา',
+                                location: '',
+                                startDate: new Date(2017, 1, 13),
+                                endDate: new Date(2017, 1, 13)
                             }, {
                                 id: 3,
-                                name: 'Apple Special Event',
-                                location: 'San Francisco, CA',
-                                startDate: new Date(currentYear, 8, 1),
-                                endDate: new Date(currentYear, 8, 1)
+                                name: 'วันจักรี',
+                                location: '',
+                                startDate: new Date(2017, 3, 6),
+                                endDate: new Date(2017, 3, 6)
                             }, {
                                 id: 4,
-                                name: 'Apple Keynote',
-                                location: 'San Francisco, CA',
-                                startDate: new Date(currentYear, 8, 9),
-                                endDate: new Date(currentYear, 8, 9)
+                                name: 'วันสงการนต์',
+                                location: '',
+                                startDate: new Date(2017, 3, 13),
+                                endDate: new Date(2017, 3, 14)
                             }, {
                                 id: 5,
-                                name: 'Chrome Developer Summit',
-                                location: 'Mountain View, CA',
-                                startDate: new Date(currentYear, 10, 17),
-                                endDate: new Date(currentYear, 10, 18)
+                                name: 'วันแรงงานแห่งชาติ',
+                                location: '',
+                                startDate: new Date(2017, 4, 1),
+                                endDate: new Date(2017, 4, 1)
                             }, {
                                 id: 6,
-                                name: 'F8 2015',
-                                location: 'San Francisco, CA',
-                                startDate: new Date(currentYear, 2, 25),
-                                endDate: new Date(currentYear, 2, 26)
+                                name: 'วันฉัตรมงคล',
+                                location: '',
+                                startDate: new Date(2017, 4, 5),
+                                endDate: new Date(2017, 4, 5)
                             }, {
                                 id: 7,
-                                name: 'Yahoo Mobile Developer Conference',
-                                location: 'New York',
-                                startDate: new Date(currentYear, 7, 25),
-                                endDate: new Date(currentYear, 7, 26),
+                                name: 'วันวิสาขบูชา',
+                                location: '',
+                                startDate: new Date(2017, 4, 10),
+                                endDate: new Date(2017, 4, 10),
                                 linkUrl: 'event.html'
                             }, {
                                 id: 8,
-                                name: 'Android Developer Conference',
-                                location: 'Santa Clara, CA',
-                                startDate: new Date(currentYear, 11, 1),
-                                endDate: new Date(currentYear, 11, 4)
+                                name: 'ชดเชยวันอาสาฬหบูชา',
+                                location: '',
+                                startDate: new Date(2017, 6, 10),
+                                endDate: new Date(2017, 6, 10)
                             }, {
                                 id: 9,
-                                name: 'LA Tech Summit',
-                                location: 'Los Angeles, CA',
-                                startDate: new Date(currentYear, 10, 17),
-                                endDate: new Date(currentYear, 10, 17)
+                                name: 'วันเฉลิมพระชนมพรรษา ร.10',
+                                location: '',
+                                startDate: new Date(2017, 6, 28),
+                                endDate: new Date(2017, 6, 28)
+                            },{
+                                id: 10,
+                                name: 'ชดเชยวันเฉลิมพระชนมพรรษา สมเด็จพระนางเจ้า พระบรมราชาชินีนาถ',
+                                location: '',
+                                startDate: new Date(2017, 7, 14),
+                                endDate: new Date(2017, 7, 14)
+                            }, {
+                                id: 11,
+                                name: 'วันคล้ายวันสวรรคต ร.9',
+                                location: '',
+                                startDate: new Date(2017, 9, 13),
+                                endDate: new Date(2017, 9, 13)
+                            },{
+                                id: 12,
+                                name: 'วันปิยมหาราช',
+                                location: '',
+                                startDate: new Date(2017, 9, 23),
+                                endDate: new Date(2017, 9, 23)
+                            }, {
+                                id: 13,
+                                name: 'วันพระราชพิธีถวายพระเพลิงพระบรมศพ ร.9',
+                                location: '',
+                                startDate: new Date(2017, 9, 26),
+                                endDate: new Date(2017, 9, 26)
+                            },{
+                                id: 14,
+                                name: 'วันเฉลิมพระชนมพรรษา พระบาทสมเด็จพระเจ้าอยู่หัว',
+                                location: '',
+                                color: '#000',
+                                startDate: new Date(2017, 11, 5),
+                                endDate: new Date(2017, 11, 5)
+                            }, {
+                                id: 15,
+                                name: 'หยุดชดเชยวันพระราชทานรัฐธรรมนูญ',
+                                location: '',
+                                startDate: new Date(2017, 11, 11),
+                                endDate: new Date(2017, 11, 11)
                             }]
-                        });
+                        }).setYear(2017);
 
-                        $('#save-event').click(function() {
-                            saveEvent();
-                        });
+                        $('th.prev, .year-neighbor, .year-neighbor2, th.next').hide();
 
                     });
                     </script>
@@ -454,44 +460,51 @@
         </div>
     </div>
 </div>
+
+<br><hr>
+
+<div class="row text-center">
+
+    <a href="http://appmsc.metrosystems.co.th/mscportal/homeportal.php" target="_blank"><i class="fa fa-history"></i> See Portal in old version.</a>
+
+</div>
+
+<!--<script src="{{asset('plugins/snow/jquery.snow.min.1.0.js')}}"></script>-->
+
 <script>
 jQuery(document).ready(function($) {
+
+    //For Snow Day
+    //$.fn.snow({minSize: 10, maxSize: 20, newOn: 400, flakeColor : '#eeeeee'});
 
     $('.metrop-news-group-content').hover(function(){
         //$('.metrop-news-group-content-img').css();
     });
 
     $('.header-slider').unslider({
+        autoplay: true,
         arrows: false,
+        animation: 'horizontal',
         @if(!empty($slide_setting['home_head']))
-        speed: {
-            {
-                is_null($slide_setting['home_head'][0] - > slide_speed) ? 1500 : $slide_setting['home_head'][0] - > slide_speed
-            }
-        },
-        delay: {
-            {
-                is_null($slide_setting['home_head'][0] - > slide_delay) ? 1500 : $slide_setting['home_head'][0] - > slide_delay
-            }
-        }
+        speed: {{is_null($slide_setting['home_head'][0] -> slide_speed) ? 1500 : $slide_setting['home_head'][0] -> slide_speed}},
+        delay: {{is_null($slide_setting['home_head'][0] -> slide_delay) ? 1500 : $slide_setting['home_head'][0] -> slide_delay}}
         @endif
     });
 
     $('.news-slider').unslider({
         autoplay: true,
         arrows: false,
+        animation: 'horizontal',
         @if(!empty($slide_setting['home']))
-        speed: {
-            {
-                is_null($slide_setting['home'][0] - > slide_speed) ? 1500 : $slide_setting['home'][0] - > slide_speed
-            }
-        },
-        delay: {
-            {
-                is_null($slide_setting['home'][0] - > slide_delay) ? 1500 : $slide_setting['home'][0] - > slide_delay
-            }
-        }
+        speed: {{is_null($slide_setting['home'][0] -> slide_speed) ? 1500 : $slide_setting['home'][0] -> slide_speed}},
+        delay: {{is_null($slide_setting['home'][0] -> slide_delay) ? 1500 : $slide_setting['home'][0] -> slide_delay}}
         @endif
+    });
+
+    $('.header-slider').hover(function() {
+        $('.header-slider').unslider("stop");
+    }, function() {
+        $('.header-slider').unslider("start");
     });
 
     $('.news-slider').hover(function() {
@@ -506,6 +519,7 @@ jQuery(document).ready(function($) {
     $('#collapseEmpInfo').on('shown.bs.collapse', function () {
         $('#collapseIcon').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
     });
+
 
 });
 </script>

@@ -49,9 +49,11 @@ if(jQuery) (function($){
 			$(this).each( function() {
 				
 				function showTree(c, t) {
+
 					$(c).addClass('wait');
-					$(".jqueryFileTree.start").remove();
-					$.post(o.script, { dir: t }, function(data) {
+					//$(".jqueryFileTree.start").remove();
+
+					$.post(o.script, { _token: o.token, dir: t, pid: o.pid }, function(data) {
 						$(c).find('.start').html('');
 						$(c).removeClass('wait').append(data);
 						if( o.root == t ) $(c).find('UL:hidden').show(); else $(c).find('UL:hidden').slideDown({ duration: o.expandSpeed, easing: o.expandEasing });
@@ -85,7 +87,7 @@ if(jQuery) (function($){
 					if( o.folderEvent.toLowerCase != 'click' ) $(t).find('LI A').bind('click', function() { return false; });
 				}
 				// Loading message
-				$(this).html('<ul class="jqueryFileTree start"><li class="wait">' + o.loadMessage + '<li></ul>');
+				$(this).html('<ul class="jqueryFileTree start"><li class=""><i class="fa fa-spinner fa-pulse fa-fw"></i><span class="sr-only"></span> ' + o.loadMessage + '<li></ul>');
 				// Get the initial file list
 				showTree( $(this), escape(o.root) );
 			});

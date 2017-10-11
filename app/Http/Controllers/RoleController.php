@@ -137,8 +137,11 @@ class RoleController extends Controller
 	$i1=count($emp_id);
 		  for($i=0;$i<$i1;$i++)
 		  {	  
-			  role_user::where('employee_id', $emp_id[$i])
-			 ->update(['role_id' => $roleid]);
+                $roleUser = new role_user;
+                $roleUser->employee_id = $emp_id[$i];
+                $roleUser->role_id = $roleid;
+                $roleUser->save();
+                //role_user::insert(['employee_id', , 'role_id' => $roleid]);
 		  }
 		  
 		  
@@ -161,8 +164,7 @@ class RoleController extends Controller
 	  $i2=count($emp_check);
 		  for($i=0;$i<$i2;$i++)
 		  {
-         role_user::where('employee_id', $emp_check[$i])
-			 ->update(['role_id' => 7]);
+            role_user::where('employee_id', $emp_check[$i])->where('role_id', $roleid)->delete();
 		  }
 		  
       	return redirect('/admin/role/showedit/'.$roleid);

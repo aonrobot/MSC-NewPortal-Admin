@@ -13,7 +13,8 @@
     </div>
 </div>
 <!-- /.row -->
-{{-- */$posts = App\Library\Tools::sortPost($posts) /* --}}
+
+{{-- */$posts = App\Library\Tools::sortPost($posts, 'post_name', 'word', SORT_ASC) /* --}}
 
 {{-- */$row = 4 /* --}}
 
@@ -31,9 +32,12 @@
             <h4 class="metrop-news-head" style="height: 60px;">
                 <a href="{{ asset('post/' . $posts[$index]['pid']) }}">{{ $posts[$index]['post_title'] }}</a>
             </h4>
-            @if(!empty($posts[$index]['post_detail']) and $posts[$index]['post_detail'] != null)
+
+            <!-- Insert and false to force this if to false (hide detail)-->
+            
+            @if(!empty($posts[$index]['post_detail']) and $posts[$index]['post_detail'] != null and false)
             <p class="metrop-news-content" >{{ $posts[$index]['post_detail'] }}</p><br>
-            <a class="btn btn-default" href="{{ asset('post/' . $posts[$index]['pid']) }}">Read More</a>
+            <a class="btn btn-default" href="{{ asset('post/' . $posts[$index]['pid']) }}">อ่านข่าวต่อ</a>
             @endif
 
         </div>

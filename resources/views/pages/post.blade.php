@@ -1,8 +1,10 @@
 @extends('front_template')
+
 @section('head_image')
 <header class="intro-header-empty">
 </header>
 @stop
+
 @section('content')
 <style>
     .orgchart {
@@ -27,6 +29,12 @@
     }
 
 </style>
+
+<link href="{{asset('plugins/videojs/alt/video-js-cdn.min.css')}}" rel="stylesheet">
+
+<!-- If you'd like to support IE8 -->
+<script src="{{asset('plugins/videojs/ie8/videojs-ie8.min.js')}}"></script>
+
 <div class="row metrop-row-content">
     <div class="col-md-12">
         <h3 style="color:#229ce4;"><i class="fa {{empty($post->post_icon) ? 'fa-file-text' : $post->post_icon}}" style="color:#229ce4" aria-hidden="true"></i> {{$post->post_title}}</h3>
@@ -55,9 +63,17 @@
                 {{-- */ $video = DB::select('select * from cp_video where video_id = ' . $component->id) /* --}}
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
+
+                        <video id="example_video_1" class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"
+                          controls preload="auto" width="640" height="264"
+                          data-setup='{"fluid": true}'>
+                         <source src="{{ asset($video[0]->video_path) }}" type="video/mp4" />
+                         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                        </video>
+                        <!--
                         <video width="100%" controls>
                             <source src="{{ asset($video[0]->video_path) }}" type="video/mp4"> Your browser does not support HTML5 video.
-                        </video>
+                        </video> -->
                     </div>
                 </div>
             @endif
@@ -66,7 +82,7 @@
                 {{-- */ $image = DB::select('select * from cp_image where image_id = ' . $component->id) /* --}}
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        <a href="{{ asset($image[0]->image_path) }}" data-toggle="lightbox" data-title="{{ $image[0]->image_alt }}">
+                        <a href="{{ asset($image[0]->image_path) }}" data-toggle="lightbox" data-title="{{--*/ $image[0]->image_alt /*--}}">
                             <img src="{{ asset($image[0]->image_path) }}" class="img-responsive" alt="{{ $image[0]->image_alt }}">
                         </a>
                     </div>
@@ -154,6 +170,8 @@ $EmpCode = str_repeat("0", $len) . $post->emid;
 </div>
 <!-- /.row -->
 
+<script src="{{asset('plugins/videojs/video.min.js')}}"></script>
+
 <script type="text/javascript">
 
     $('#btn-export-hier').on('click', function() {
@@ -164,7 +182,7 @@ $EmpCode = str_repeat("0", $len) . $post->emid;
     $(document).ready( function() {
 
         $('#aniimated-thumbnials').lightGallery({
-            thumbnail:true,
+            thumbnail: true,
         });
 
         $("#aniimated-thumbnials").justifiedGallery();
@@ -174,10 +192,13 @@ $EmpCode = str_repeat("0", $len) . $post->emid;
         }
         $('#file-container').fileTree({
             root: '{{Config::get('newportal.root_folder')}}' + '/public/uploads/trop/{{$post->tid}}/post/{{Request::segment(2)}}/file/',
-            script: '{{asset('plugins/filetree/connectors/jqueryFileTree.php')}}',
+            script: '{{asset('api/file')}}',
+            pid: '{{Request::segment(2)}}',
+            token: "{{ csrf_token() }}",
             expandSpeed: 1000,
             collapseSpeed: 1000,
-            multiFolder: false
+            multiFolder: false,
+            loadMessage: "Loading File...."
         }, function(file) {
             openfile(file);
         });

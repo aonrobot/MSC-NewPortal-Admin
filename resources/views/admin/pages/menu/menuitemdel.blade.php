@@ -131,11 +131,11 @@ foreach ($menu as $menu1) {
 			   <thead>
 			    <tr>
 						<th></th>
-						<th><center>Name</th>
-                        <th><center>Type</th>
-                        <th><center>Description</th>
-                        <th><center>Image</th>
-						<th><center>Icon</th>
+						<th><center>Name</center></th>
+                        <th><center>Type</center></th>
+                        <th><center>Description</center></th>
+                        <th><center>Image</center></th>
+						<th><center>Icon</center></th>
 						<th><center></th>
 						<th></th>
 						<th></th>

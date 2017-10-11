@@ -38,7 +38,7 @@ $can_access = ['admin','owner','trop_admin'];
             </div>
         </div>
 @endif
- <h1>Trop </h1>
+ <h1>Department </h1>
         <div class="row">
 	
             <div class="col-md-12">
@@ -70,12 +70,39 @@ $can_access = ['admin','owner','trop_admin'];
                 </div>
             </div>
         </div>
-{{$user = Auth::user()}}
 
-@role('owner')
-    <p>This is visible to users with the admin role. Gets translated to
-    \Entrust::role('admin')</p>
-@endrole
+ <h1>Meeting Document </h1>
+        <div class="row">
+    
+            <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                    
+                  
+                    </div>
+                    <div class="box-body">
+                      
+                      
+                      <?php foreach($meets as $meet){
+                        if($meet->trop_status)
+                        {
+                            
+                      ?>
+                     
+                       <a href="<?=asset('/admin/trop/detail/') ?><?php echo '/'.$meet->tid;?>">
+
+                        <div class="col-md-2" style="margin-top: 15px;">
+                           <div class="bg-yellow" style="padding:25px 15px 5px 15px;">
+                                <i class="fa fa-file-text-o fa-3x"></i>
+                                 <h4><p style="word-break: break-all;">{{$meet->trop_name}}</p></h4>
+                            </div>
+                        </div>
+                        </a>
+                        <?php  }} ?>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 

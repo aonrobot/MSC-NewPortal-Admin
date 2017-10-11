@@ -28,15 +28,19 @@ Route::group(['middleware' => ['auth.ad']], function () {
 
 	Route::get('/application', 'FrontApplicationController@index');
 	//Add Favorite Application
-	Route::get('/favorite/add_application/{id?}', 'FrontFavoriteController@add_application');
-	Route::get('/favorite/remove_application/{id?}', 'FrontFavoriteController@remove_application');
+	
 
 	Route::get('/phonebook', 'FrontPhoneBookController@index');
+
+	Route::get('/calendar', 'FrontCalendarController@index');
 
 	//Route::get('/test', 'FrontFavoriteController@fetch_fav_app');
 
 	////////////////////////////////////////// Ajax //////////////////////////////////////////////////////////////////
 
+	Route::get('/favorite/add_application/{id?}', 'FrontFavoriteController@add_application');
+	Route::get('/favorite/remove_application/{id?}', 'FrontFavoriteController@remove_application');
+	
 	//Component Orgchart
 	Route::get('/component/orgchart/{id?}', 'ComponentController@orgChart');
 
@@ -58,13 +62,21 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	//File
 	Route::get('/admin/file', 'FileController@index');
 
+	Route::get('/admin/file/show/{pid?}', 'FileController@show');
+
+	Route::get('/admin/file/update', 'FileController@update');
+
+	Route::post('/admin/file/create', 'FileController@create');
+
 	//Upload
 	//Route::post('/admin/upload/image', 'UploadController@upload_image');
 	/*Route::post('/admin/upload/delete', 'UploadController@delete');*/
 	/*Route::post('/admin/upload/update_db', 'UploadController@update_db');*/
 	Route::post('/admin/upload/slide/{slideId?}', 'UploadController@slide');
 	Route::post('/admin/upload/{component?}/{trop?}/{post?}', 'UploadController@index');
+
 	Route::post('/admin/upload/thumbnail/{object?}/{tropId?}/{objectId?}', 'UploadController@thumbnail');
+	Route::post('/admin/upload/file/{object?}/{tropId?}/{objectId?}', 'UploadController@file');
 
 	//role
 	Route::get('/admin/role/insert', 'RoleController@store');
@@ -99,6 +111,9 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	Route::get('/admin/employee/create/store', 'EmployeeController@store');
 	Route::get('/admin/employee/update', 'EmployeeController@update');
 	Route::get('/admin/employee/addTest', 'EmployeeController@addTest');
+	Route::get('/admin/employee/role/add', 'EmployeeController@addRole');
+	Route::get('/admin/employee/role/delete/{id?}/{role_id?}', 'EmployeeController@deleteRole');
+
 	Route::get('/admin/role/create', 'RoleController@create');
 	//trop
 	Route::get('/admin/trop/detail/{id?}', 'tropController@index');
@@ -141,6 +156,40 @@ Route::group(['middleware' => ['auth.ad']], function () {
 	Route::get('/admin/slide/del/{id?}', 'SlideController@Del');
 	Route::get('/admin/slide/delitem/{id?}', 'SlideController@delitem');
 
+	//calendar
+	Route::get('/admin/calendar', 'CalendarController@index');
+	Route::get('/admin/calendar/store', 'CalendarController@store');
+	Route::get('/admin/calendar/edit/{id?}', 'CalendarController@edit');
+	Route::get('/admin/calendar/destroy/{id?}', 'CalendarController@destroy');
+
+	Route::get('/admin/calendar/event_store', 'CalendarController@event_store');
+
+	////////////////////////////////////////// Api Zone //////////////////////////////////////////////////////////
+
+	Route::get('/api/phonebook', function () {
+		return App\Library\Services::fetchPhonebook();
+	});
+	Route::get('/api/phonebook/its', function () {
+		return App\Library\Services::fetchPhonebook('ITS');
+	});
+	Route::get('/api/phonebook/building', function () {
+		return App\Library\Services::fetchPhonebook('BUILDING');
+	});
+	Route::get('/api/phonebook/mis', function () {
+		return App\Library\Services::fetchPhonebook('MIS');
+	});
+
+	//Calendar
+	Route::get('/api/calendar/meeting', function () {
+		return App\Library\Services::fetchEvent();
+	});
+
+	Route::post('/api/file', 'FrontFileController@show');
+
+	Route::get('/api/getImage', function (\Illuminate\Http\Request $request) {
+		return App\Library\Services::getEmployeeImage($request->input('empCode'));
+	});
+
 	////////////////////////////////////////// Static Zone //////////////////////////////////////////////////////////
 
 	//Backend
@@ -169,8 +218,29 @@ Route::group(['middleware' => ['auth.ad']], function () {
 		return View::make('pages.pcm.purchase');
 	});
 
-	//Test
-	Route::get('/test', function () {
-		return View::make('script.test');
-	});
 });
+
+//Event Valentine
+Route::group(['prefix' => 'valentine', 'namespace' => 'Event_Valentine'], function () {
+	Route::get('store', 'ValentineController@store');
+	Route::get('find', 'ValentineController@find');
+});
+
+//Test
+Route::group(['prefix' => 'test', 'namespace' => 'Test'], function () {
+	Route::get('new_home',function(){
+		return "Hello World";
+	});
+	Route::get('love', 'LoveController@index');
+	Route::get('searchEmp', function () {
+		return view('test.typeahead.index');
+	});
+	Route::get('searchEmp/find', 'SearchEmpController@find');
+});
+
+
+Route::get('testTTFB', function(){
+	return view('pages.static.testTTFB');
+});
+
+Route::get('testTTFB_meetdoc', 'FrontMenuController@index');

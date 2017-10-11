@@ -9,6 +9,7 @@ use Session;
 class FrontFavoriteController extends Controller {
 	//Fetch to head view(header.blade.php)
 	public function fetch_fav_app() {
+
 		$emid = intval(Session::get('em_info')->EmpCode);
 
 		$count = Favorite::where('emid', $emid)->count();
@@ -33,6 +34,7 @@ class FrontFavoriteController extends Controller {
 		return $fav_app;
 	}
 	public function ajax_fav_app() {
+		
 		echo '55';
 	}
 	public function add_application($id) {
@@ -44,6 +46,7 @@ class FrontFavoriteController extends Controller {
 		if ($count > 0) {
 			$fid = Favorite::where('emid', $emid)->first()->fid;
 		} else {
+
 			$fav = new Favorite;
 			$fav->emid = $emid;
 			$fav->fav_name = 'Favorite application';
@@ -54,7 +57,12 @@ class FrontFavoriteController extends Controller {
 			$fid = $fav->fid;
 		}
 
-		DB::insert('INSERT INTO favorite_app(fid, app_id) VALUES(?, ?)', [$fid, $id]);
+		$count_app = DB::table('favorite_app')->where('fid', $fid)->where('app_id', $id)->count();
+
+		if($count_app <= 0){
+
+			DB::insert('INSERT INTO favorite_app(fid, app_id) VALUES(?, ?)', [$fid, $id]);
+		}
 
 	}
 

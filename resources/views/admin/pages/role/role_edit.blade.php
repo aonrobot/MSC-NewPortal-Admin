@@ -9,7 +9,7 @@
             <font color="black">
             <div>
                 Permissions Add 
-               <select name="perid[]" class="form-control select2" multiple="multiple"  data-placeholder="Select a State" style="width: 80%;">
+               <select name="perid[]" class="form-control select2" multiple="multiple"  data-placeholder="Select a permission" style="width: 80%;">
                   <?php 
                      error_reporting(E_ALL ^ E_NOTICE);
                      			 foreach($select_per as $per){ 	
@@ -20,7 +20,7 @@
                      			 }
                      			 if($i==0){
                      ?>
-                  <option value="<?php echo  $per->id ?>"><?php echo  $per->name?></option>
+                  <option value="<?php echo  $per->id ?>"><?php echo  $per->display_name?></option>
                   <?php
                      }  }
                      ?>
@@ -50,8 +50,8 @@
  <thead>
 <tr>
 <th><center>Id</center></th>
-<th><center>Name</center></th>
 <th><center>Display</center></th>
+<th><center>Name</center></th>
 <th><center>Description</center></th>
 
 </tr>
@@ -62,9 +62,9 @@
    ?>
    
 <tr>
-<td><center><input type="checkbox" class="chk1" name="rela_id[]" value="<?php echo $show->id ?>"><?php echo $show->id?></center></td>
-<td><center><?php echo $show->name?></center></td>
+<td><center><input style="margin-right:12px;" type="checkbox" class="chk1" name="rela_id[]" value="<?php echo $show->id ?>"><?php echo $show->id?></center></td>
 <td><center><?php echo $show->display_name?></center></td>
+<td><center><?php echo $show->name?></center></td>
 <td><center><?php echo $show->description?></center></td>
 
 
@@ -94,7 +94,7 @@ Delete</font></button>
             <div>
               
 			   Employee Add 
-               <select name="emp_id[]" class="form-control select2" multiple="multiple"  data-placeholder="Select a State" style="width: 80%;">
+               <select name="emp_id[]" class="form-control select2" multiple="multiple"  data-placeholder="Select a Employee" style="width: 80%;">
                   <?php 
                      error_reporting(E_ALL ^ E_NOTICE);
                      			 foreach($employer_list as $emp){ 	
@@ -145,7 +145,7 @@ Delete</font></button>
    ?>
    
 <tr>
-<td><center><input type="checkbox" class="chk2" name="empcheck[]" value="<?php echo $show->employee_id ?>">[{{$em->EmpCode}}]</center></td>
+<td><center><input style="margin-right:12px;" type="checkbox" class="chk2" name="empcheck[]" value="<?php echo $show->employee_id ?>">[{{$em->EmpCode}}]</center></td>
 <td><center>{{$em->FirstNameEng}}   {{$em->LastNameEng}}</center></td>
 <td><center>{{$em->NickName}}</center></td>
 

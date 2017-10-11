@@ -21,8 +21,6 @@
   Contact: Lyubomir Arsov, liubo (at) web-lobby.com
 */
 include 'security.inc.php';
-
-
 function t($key){
   global $LANG;
   if(empty($LANG)){
@@ -77,15 +75,13 @@ function verifyPath($path){
   }
 }
 function fixPath($path){
-	
-  $get_path = explode("\\",__DIR__);
-  
-  $real_path = $get_path[0] . '\\' . $get_path[1] . '\\' . $get_path[2];
-  $path = $real_path.'/'.$path;
+  $path = str_replace("\\plugins\\fileman\\php", "", __DIR__) . "/" .$path;
   $path = str_replace('\\', '/', $path);
+
+  //Remove /newportal
+  $path = str_replace('/newportal', '', $path);
   
   $path = RoxyFile::FixPath($path);
-  
   return $path;
 }
 function gerResultStr($type, $str = ''){
@@ -102,13 +98,10 @@ function getFilesPath(){
   if(!$ret){
     $ret = RoxyFile::FixPath(BASE_PATH.'/Uploads');
     $tmp = $_SERVER['DOCUMENT_ROOT'];
-	
     if(mb_substr($tmp, -1) == '/' || mb_substr($tmp, -1) == '\\')
       $tmp = mb_substr($tmp, 0, -1);
-	
     $ret = str_replace(RoxyFile::FixPath($tmp), '', $ret);
   }
-  
   return $ret;
 }
 function listDirectory($path){
@@ -318,7 +311,6 @@ class RoxyFile{
   }
   static public function FixPath($path){
     $path = mb_ereg_replace('[\\\/]+', '/', $path);
-	
     return $path;
   }
   /**

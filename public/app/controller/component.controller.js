@@ -7,7 +7,11 @@ app.controller('component.cpVideo', function($scope) {
 
     $scope.add_video = function() {
 
+        $("#loader_create").fadeIn("slow");
+
         //Update Component DB
+
+        console.log("controller video");
 
         $.ajaxSetup({
             headers: {
@@ -46,6 +50,7 @@ app.controller('component.cpImage', function($scope) {
     $scope.image_name_origin = '';
 
     $scope.add_image = function() {
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -69,6 +74,8 @@ app.controller('component.cpImage', function($scope) {
 app.controller('component.cpContent', function($scope) {
 
     $scope.add_content = function() {
+
+        $("#loader_create").fadeIn("slow");
 
         //Update Component DB
         $.ajaxSetup({
@@ -102,7 +109,7 @@ app.controller('component.cpGallery', function($scope) {
 
     $scope.add_gallery = function() {
 
-    	console.log($scope.gallery_name);
+    	$("#loader_create").fadeIn("slow");
 
         $.ajaxSetup({
             headers: {
@@ -131,6 +138,8 @@ app.controller('component.cpFile', function($scope) {
 
     $scope.add_file = function() {
 
+        $("#loader_create").fadeIn("slow");
+
         //Update Component DB
         $.ajaxSetup({
             headers: {
@@ -141,6 +150,39 @@ app.controller('component.cpFile', function($scope) {
         $.ajax({
             url: '/newportal/admin/component/create',
             data: { component: 'file', path: $('#post_path').val() },
+            dataType: 'json',
+            async: true,
+            type: 'POST',
+            success: function(data) {
+                location.reload();
+            },
+
+        });
+
+        /* ---------------------------------------------------------------------------------- */
+    }
+    
+});
+
+app.controller('component.cpRedirect', function($scope) {
+
+    $scope.url = '';
+    $scope.target = '';
+
+    $scope.add_redirect = function() {
+
+        $("#loader_create").fadeIn("slow");
+
+        //Update Component DB
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            url: '/newportal/admin/component/create',
+            data: { component: 'redirect', path: $('#post_path').val(), url: $scope.url, target: $scope.target },
             dataType: 'json',
             async: true,
             type: 'POST',
@@ -168,6 +210,8 @@ app.controller('component.editContent', function($scope) {
 
     $scope.edit_content = function() {
 
+        $("#loader_edit").fadeIn("slow");
+
         //Update Component DB
         $.ajaxSetup({
             headers: {
@@ -178,6 +222,40 @@ app.controller('component.editContent', function($scope) {
         $.ajax({
             url: '/newportal/admin/component/update',
             data: { component: 'content', path: $('#post_path').val(), id : $scope.edit_content_id,  content: CKEDITOR.instances['edit_content_area'].getData() },
+            async: true,
+            type: 'POST',
+            success: function(data) {
+                location.reload();
+            },
+
+        });
+
+        /* ---------------------------------------------------------------------------------- */
+    }
+    
+});
+
+app.controller('component.editRedirect', function($scope) {
+
+    $scope.edit_redirect_id = 0;
+
+    $scope.edit_url = '';
+    $scope.edit_target = '';
+
+    $scope.edit_redirect = function() {
+
+        $("#loader_edit").fadeIn("slow");
+
+        //Update Component DB
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            url: '/newportal/admin/component/update',
+            data: { component: 'redirect', path: $('#post_path').val(), id : $scope.edit_redirect_id, url: $scope.edit_url, target: $scope.edit_target },
             async: true,
             type: 'POST',
             success: function(data) {

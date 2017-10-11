@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Component;
 use App\Post;
+use DB;
 
 class FrontPostController extends Controller {
-	public function index($id) {
+	public function index($id = 0) {
 
 		$post = Post::where('pid', '=', $id)->first();
 
-		if (empty($post)) {
+		if (empty($post) or $post->post_status == "0") {
 			abort(404, 'This post is not found');
 		}
 
@@ -29,6 +30,18 @@ class FrontPostController extends Controller {
 				    			}
 				    			array_push($component_array, ['name' => $component['ref_table_name'] , 'id' => $ids]);
 			*/
+
+			if($component['ref_table_name'] == "cp_redirect"){
+				$redirect = DB::table('cp_redirect')->where('redirect_id', $component['ref_id'])->first();
+
+				$url = $redirect->redirect_url;
+
+				if(strpos($url, 'http') === FALSE){
+					$url = 'http://' . $url;
+				}
+
+				return redirect($url);
+			}
 			array_push($component_array, ['name' => $component['ref_table_name'], 'id' => $component['ref_id']]);
 			//}
 		}

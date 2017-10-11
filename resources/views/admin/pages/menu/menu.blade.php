@@ -44,10 +44,10 @@ if ($trop_tid=="0") {?>
             <table id="menubar" class="table table-bordered table-hover">
 			<thead>
                <tr>
-			   <th><center>Menubar_id</th>
-               <th><center>Menubar_name</th>
-               <th><center>Menubar_type</th>
-               <th><center></th>
+			   <th><center>Menubar_id</center></th>
+               <th><center>Menubar_name</center></th>
+               <th><center>Menubar_type</center></th>
+               <th><center></center></th>
                </tr>
 			   </thead>
 			   <tbody>
@@ -82,10 +82,10 @@ if ($trop_tid=="0") {?>
             <table id="menu_template" class="table table-bordered table-hover">
 			<thead>
                <tr>
-			   <th><center>Template_id</th>
-               <th><center>Template_name</th>
-               <th><center>Template_type</th>
-               <th><center></th>
+			   <th><center>Template_id</center></th>
+               <th><center>Template_name</center></th>
+               <th><center>Template_type</center></th>
+               <th><center></center></th>
                </tr>
 			 </thead>
 		    <tbody>

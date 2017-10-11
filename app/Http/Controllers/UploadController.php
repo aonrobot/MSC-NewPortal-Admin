@@ -30,6 +30,18 @@ class UploadController extends Controller {
 		$upload_handler = new UploadHandler($options);
 	}
 
+	public function file($object, $tropId, $objectId) {
+
+		$path = '/trop/' . $tropId . '/' . $object . '/' . $objectId;
+
+		$options['upload_dir'] = Config::get('newportal.upload_dir') . $path . '/file/';
+		//Uploads custom folder
+		$options['upload_url'] = Config::get('newportal.upload_url') . $path . '/file/';
+
+		//Create handler with options
+		$upload_handler = new UploadHandler($options);
+	}
+
 	public function slide($slideId) {
 
 		$path = '/slide/' . $slideId;
@@ -345,6 +357,7 @@ class UploadHandler {
 			'max_height' => null,
 			'min_width' => 1,
 			'min_height' => 1,
+			'disableImageResize' => false,
 			// Set the following option to false to enable resumable uploads:
 			'discard_aborted_uploads' => true,
 			// Set to 0 to use the GD library to scale and orient images,
@@ -941,12 +954,12 @@ class UploadHandler {
 			$write_func = 'imagegif';
 			$image_quality = null;
 			break;
-		case 'png':
+		/*case 'png':
 			$src_func = 'imagecreatefrompng';
 			$write_func = 'imagepng';
 			$image_quality = isset($options['png_quality']) ?
 			$options['png_quality'] : 9;
-			break;
+			break;*/
 		default:
 			return false;
 		}

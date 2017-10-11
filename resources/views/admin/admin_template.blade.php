@@ -9,14 +9,7 @@ $can_access = ['admin', 'owner', 'trop_admin', 'trop_assistant'];
 </script>
 @endif
 @if($user->hasRole($can_access))
-<?php
 
-if (session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
-$_SESSION["user_id"] = $em_info->EmpCode;
-
-?>
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -30,10 +23,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </style>
 <head>
 
+
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Starter</title>
+    <title>New Portal | Admin</title>
     <!-- Tell the browser to be responsive to screen width -->
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -56,10 +50,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- fontawesome-iconpicker -->
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css')}}"></link>
 
+    <!-- Alert -->
+    <link rel="stylesheet" href="{{asset('plugins/sweetalert/sweetalert.css')}}">
+
     <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/AdminCustom.css')}}">
 
     <link rel="stylesheet" href="{{asset('dist/css/skins/skin-blue.min.css')}}">
+
+    <!-- Custom CSS -->
+
+    <link href="{{asset('css/metrop-admin.css')}}" rel="stylesheet">
 
 
     <!-- jQuery 2.2.3 -->
@@ -113,6 +114,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script src="{{asset('plugins/jqueryConfirm/jquery.confirm.min.js')}}"></script>
 
+    <!-- Alert -->
+    <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
+
     <!-- Flot JS -->
     <script src="{{asset('plugins/flot/jquery.flot.min.js')}}"></script>
     <script src="{{asset('plugins/flot/jquery.flot.resize.min.js')}}"></script>
@@ -161,10 +165,7 @@ desired effect
         <b><% page_path.length <= 1  ? 'Welcome To New Portal' : page_title %></b>
         <small><% $page_description %></small>-->
       </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                    <li class="active">Here</li>
-                </ol>
+                
             </section>
             <!-- Main content -->
             <section class="content">
@@ -251,7 +252,7 @@ desired effect
     <!-- AdminLTE App -->
     @include('admin.plugin')
 
-    <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>   <!-- Text select แอดมิน -->
+    <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>   <!-- Text select Admin -->
 
     <!--Nested Sortable-->
     <script src="{{asset('plugins/nestable/jquery.nestable.js')}}"></script>
@@ -261,6 +262,8 @@ desired effect
 
     <!-- fastclick JS -->
     <script src="{{asset('plugins/fastclick/fastclick.js')}}"></script>
+
+    
 
     <!-- AngularJS -->
     <script src="{{asset('plugins/angular/angular.js')}}"></script>

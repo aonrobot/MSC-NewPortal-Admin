@@ -82,6 +82,9 @@ foreach ($menu as $menu1) {
                      <option value="0">Cancel</option>
                   </select>
 				  @endif
+
+				  <input type="hidden" value="{{$detail1[0]->trop_type}}" name="type1">
+				  <input type="hidden" name="tid" value="{{Request::segment(4)}}">
 				  <INPUT class="btn btn-success" TYPE="submit" VALUE="update" onclick="return confirm('Are you sure you want to update trop?')">
 
          </ol>
@@ -90,7 +93,7 @@ if ($per::canrole($assistant) or $per::can($can_access)) {
 	?>
 	     <p>@if($trop_tid!='0')
 		  Admin Assistant List
-                 <select name="empid[]" class="form-control select2" multiple="multiple"  data-placeholder="Select a State" style="width: 30%;">
+                 <select name="empid[]" class="form-control select2" multiple="multiple"  data-placeholder="Select a Admin Assistant" style="width: 30%;">
                  <?php
 foreach ($employee as $em1) {
 		$i = 0;
@@ -148,7 +151,8 @@ foreach ($troprela as $rela) {
          <td><center>{{$em->FullNameEng}}</center></td>
          <td><center>{{$em->NickName}}</center></td>
          <td><center>
-		 <?php if ($rela->user_level == 3) {echo "Admin Trop";} else {?>
+         {{--*/ $trop_admin_id = Config::get('newportal.role.trop_admin.id')/*--}}
+		 <?php if ($rela->user_level == $trop_admin_id) {echo "Admin Trop";} else {?>
 		 <a href="<?=asset('/admin/trop/deladmin/')?><?php echo '/' . $rela->trop_rela_id; ?>"><font color="white">
 		 
 		

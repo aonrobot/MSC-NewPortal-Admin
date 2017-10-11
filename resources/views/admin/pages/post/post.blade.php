@@ -1,4 +1,13 @@
+{{--*/ $em_info = Session::get('em_info')/*--}}
+{{--*/ $user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first() /*--}}
+
 @extends('admin.admin_template') @section('content')
+
+<div id="loader_create" class="loader"><div><img src="{{asset('loader.gif')}}"><h4>Creating....</h4></div></div>
+
+<div id="loader_delete" class="loader"><div><img src="{{asset('loader.gif')}}"><h4>Deleting....</h4></div></div>
+
+<div id="loader" class="loader"><div><img src="{{asset('loader.gif')}}"><h4>Loading....</h4></div></div>
 
 <style>
 div .dataTables_filter {
@@ -70,6 +79,11 @@ foreach ($postList as $post) {
                                     <select class="form-control" name="post_type" id="post_type" required>
                                         <option value="post">Post</option>
                                         <option value="news">News Post</option>
+
+                                        @if(Session::get('trop_id') == 0)
+                                        <option value="policy">Policy Post</option>
+                                        @endif
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -130,10 +144,15 @@ foreach ($postList as $post) {
                     </thead>
                     <tbody>
                         @foreach($postList as $post)
+                        
+                        @if(!$user->can(['update-post-'.$post->pid]) && $post->post_permission == 1)
+                            @continue
+                        @endif
+
                         <tr @if(empty($post->trop_name)) style="background-color: #C5EFF7;" @endif>
                             <td>{{$post->pid}}</td>
                             <td>{{$post->post_name}}</td>
-                            <td>{{empty($post->trop_name) ? 'NewPortal' : $post->trop_name}}</td>
+                            <td>{{empty($post->trop_name) ? 'NewPortal' : $post->trop_name . ' (' . $post->tid . ')'}}</td>
                             <td><span class="badge" style="background-color:{{App\Library\Tools::emid2color($post->emid)}}">{{App\MainEmployee::where('EmpCode', '=' ,App\Employee::where('emid' , '=' , $post->emid)->first()->EmpCode)->first()->FirstNameEng}}</span></td>
                             <td>
                                 <a id="editPostBtn" href="{{asset('admin/post/edit/'.$post->pid)}}"  class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
@@ -142,6 +161,7 @@ foreach ($postList as $post) {
                                 <a value="{{$post->pid}}" class="btn btn-danger removePostBtn"><i class="fa fa-trash"></i> Remove</a>
                             </td>
                         </tr>
+
                         @endforeach
                     </tbody>
                 </table>
@@ -157,7 +177,6 @@ foreach ($postList as $post) {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3 class="modal-title"><i class="fa fa-plus"></i> Create Post Finish</h3>
             </div>
             <div class="modal-body">
@@ -241,10 +260,22 @@ $(function() {
     search_input.removeClass('col-sm-6');
     search_input.addClass('col-sm-12 text-center');
 
+    // Create Post
+
     $('#form').validator().on('submit', function (e) {
       if (e.isDefaultPrevented()) {
-        toastr["error"]("Please fill all field!!", "Fail");
+        swal({
+
+            title: "แย่จัง..ไม่สามารถสร้างโพสได้",
+            text: "กรุณาใส่ข้อมูลให้ครบก่อนนะครับ",
+            showConfirmButton: true,
+            type: "error",
+            confirmButtonText: "ปิด"
+
+        });
       } else {
+
+        $("#loader_create").fadeIn("slow"); // Loader animation
 
         $.ajaxSetup({
             headers: {
@@ -266,6 +297,8 @@ $(function() {
             dataType: 'json',
             type: 'POST',
             success: function(data) {
+
+                $("#loader_create").fadeOut("slow"); // Loader animation
                 $('#finish_modal_edit_link').attr('href','post/edit/' + data['pid']);
                 $('#finish_modal').modal('show');
             }
@@ -275,27 +308,59 @@ $(function() {
       }
     });
 
+    // Delete Post
+
     $('.removePostBtn').click(function() {
 
-        if(confirm("Do you want to delete?")){
+        var pid = $(this).attr('value');
 
-          $.ajaxSetup({
-              headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-          });
+        swal({
+            title: "แน่ใจนะ?",
+            text: "ถ้าคุณลบโพสนี้จะไม่สามารถกู้คืนได้รวมถึงข้อมูลทุกอย่างจะหายไปนะ",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "แน่ใจแล้ว, ลบเลย ><",
+            cancelButtonText: "ไม่ดีกว่า, กรุณายกเลิกเดี๋ยวนี้",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function(isConfirm){
+                if (isConfirm) {
 
-          var pid = $(this).attr('value');
+                    swal("ลบโพสเรียนร้อย", "คุณจะไม่สามารถกู้คืนโพสนี้ได้อีกตลอดไป", "success");
 
-          $.ajax({
-              url: '{{Config::get('newportal.root_url')}}' + '/admin/post/destroy/' + pid,
-              type: 'GET',
-              success: function(data) {
-                location.reload();
-              }
-          });
-        }
+                    $("#loader_delete").fadeIn("slow");
 
+                    //Ajax to delete
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        url: '{{Config::get('newportal.root_url')}}' + '/admin/post/destroy/' + pid,
+                        type: 'GET',
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                    /////////////////////
+
+                } else {
+                    swal("ยกเลิก", "โพสของคุณจะอยู่อย่างปลอดภัยเหมือนเดิม :)", "error");
+            }
+        });
+
+
+    });
+
+    //Edit Post
+
+    $('#editPostBtn').click(function(){
+
+        $("#loader").fadeIn("slow");
     });
 
 

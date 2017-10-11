@@ -4,23 +4,63 @@
 </header>
 @stop
 @section('content')
+
+{{--*/ $em_info = Session::get('em_info')/*--}}
+{{--*/ $user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first() /*--}}
+
+<link rel="stylesheet" href="{{asset('plugins/monthly/css/monthly.css')}}">
+
 <style>
     h4.menu_name{
         font-size: 16px;
         height: 32.5px;
         overflow: hidden;
     }
+
+    /* Table */
+    .monthly-day, .monthly-day-blank{
+        box-shadow: 0 0 0 1.5px #eaeaea;
+    }
+
+    .monthly-day-event > .monthly-day-number{
+        font-weight: bold;
+        font-size: 17px;
+    }
+    .monthly-today .monthly-day-number{
+        width: 22px;
+        height: 22px;
+        line-height: 23px;
+    }
+
+    .monthly-header-title a:last-of-type{
+        padding-top: 4px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .monthly-header-title a:link, .monthly-header-title a:visited{
+        padding-top: 4px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .monthly-next:after, .monthly-prev:after{
+        width: 14px;
+        height: 14px;
+    }
+    .monthly-day-title-wrap div{
+        font-size: 17px;
+    }
+
+    /* When Click Event */
+
+    .monthly-event-list-date{
+        font-size: 16px;
+    }
 </style>
+
 <div class="row">
     <div class="col-lg-12">
-        <?php
-$big_name = $trop->trop_title;
-$name = explode('||', $big_name);
-?>
-        <h1 class="page-header text-center" style="font-size:72px">{{$name[0]}}
-                    @if(count($name)>=2)
-                        <small>{{$name[1]}}</small>
-                    @endif
+        <h1 class="page-header text-center" style="font-size:72px">{{$trop->trop_title}}
+            <small>{{$trop->trop_subtitle}}</small>
         </h1>
     </div>
 </div>
@@ -31,7 +71,7 @@ $name = explode('||', $big_name);
         <div class="trop-slider">
             <ul>
                 @forelse($slide_items as $slide_item)
-                <li><img class="img-responsive" src="{{asset(str_replace('', ' ', $slide_item->slide_item_img_url))}}" /></li>
+                <li><a href="{{asset($slide_item->slide_item_content_link)}}" target="_blank"><img class="img-responsive" src="{{asset(str_replace('', ' ', $slide_item->slide_item_img_url))}}" /></a></li>
                 @empty
                 <div class="col-lg-12">
                     <div class="metrop-news-group-content text-center" style="margin:20px 0px 35px;">
@@ -54,8 +94,9 @@ $name = explode('||', $big_name);
     </div>
     @if(isset($menu->menu_item))
     <div class="col-lg-12">
-
+    @if($menu->menu_status != 'noTemplate')
         @foreach($menu->menu_item as $menu_item)
+
         @if($menu_item->item_type == 'template' && ($menu_item->item_link == '' || empty($menu_item->item_link) || is_null($menu_item->item_link)))
             <div class="col-md-3 col-sm-6" style="-webkit-filter: opacity(25%);">
                 <div class="panel panel-default text-center">
@@ -91,7 +132,9 @@ $name = explode('||', $big_name);
             </div>
         </div>
         @endif
+
         @endforeach
+    @endif
 
 		@foreach($menu->menu_item as $menu_item)
         @if($menu_item->item_type != 'template' && ($menu_item->item_link == '' || empty($menu_item->item_link) || is_null($menu_item->item_link)))
@@ -114,6 +157,11 @@ $name = explode('||', $big_name);
             @continue;
         @endif
         @if($menu_item->item_type != 'template')
+
+        @if(!$user->can(['view-menu_item-'.$menu_item->mtid]) and $trop->trop_type == 'meeting')
+            @continue
+        @endif
+
         <div class="col-md-3 col-sm-6">
             <div class="panel panel-default text-center">
                 <div class="panel-heading">
@@ -148,6 +196,20 @@ $name = explode('||', $big_name);
     </div>
     @endif
 </div>
+
+@if($trop->trop_type == "meeting")
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">Schedule Meeting</h2>
+    </div>
+    <div class="col-lg-12">
+        <div id="calendar" class="monthly">
+            
+        </div>
+    </div>
+</div>
+@endif
+
 <!-- Service Tabs
 <div class="row">
     <div class="col-lg-12">
@@ -310,6 +372,9 @@ $name = explode('||', $big_name);
     </div>
 </div>-->
 <!-- /.row -->
+
+<script src="{{asset('plugins/monthly/js/monthly.js')}}"></script>
+
 <script>
 @if(isset($slide_setting[0]))
 jQuery(document).ready(function($) {
@@ -319,6 +384,20 @@ jQuery(document).ready(function($) {
         speed: {{$slide_setting[0]->slide_speed}},
         delay: {{$slide_setting[0]->slide_delay}},
     });
+
+    @if($trop->trop_type == "meeting")
+
+        $('#calendar').monthly({
+            mode: 'event',
+            jsonUrl: '/newportal/plugins/monthly/events.json',
+            dataType: 'json'
+            //xmlUrl: '/newportal/plugins/monthly/events.xml'
+        });
+
+        $("a.monthly-today").trigger('click');
+        
+    @endif
+
 });
 @endif
 </script>

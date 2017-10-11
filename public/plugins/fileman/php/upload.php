@@ -22,12 +22,6 @@
 */
 include '../system.inc.php';
 include 'functions.inc.php';
-include 'database.php';
-include 'ChromePhp.php';
-
-session_start();
-
-ChromePhp::log($_SESSION["user_id"]);
 
 verifyAction('UPLOAD');
 checkAccess('UPLOAD');
@@ -35,7 +29,6 @@ checkAccess('UPLOAD');
 
 $isAjax = (isset($_POST['method']) && $_POST['method'] == 'ajax');
 $path = trim(empty($_POST['d'])?getFilesPath():$_POST['d']);
-
 verifyPath($path);
 $res = '';
 if(is_dir(fixPath($path))){
@@ -45,7 +38,6 @@ if(is_dir(fixPath($path))){
       $filename = $_FILES['files']['name'][$k];
       $filename = RoxyFile::MakeUniqueFilename(fixPath($path), $filename);
       $filePath = fixPath($path).'/'.$filename;
-	  
       $isUploaded = true;
       if(!RoxyFile::CanUploadFile($filename)){
         $errorsExt[] = $filename;
@@ -57,13 +49,6 @@ if(is_dir(fixPath($path))){
       }
       if(is_file($filePath)){
          @chmod ($filePath, octdec(FILEPERMISSIONS));
-		 
-		 //Insert Database New Portal
-		 $file_type = stripos($filePath, 'policy') != false || strpos($filePath, 'Policy') != false ? "policy" : "other";
-		 $insert_file = "INSERT INTO [file] (emid, used, session, file_location, file_type, file_file_name, updated_at, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-		 $params = array($_SESSION["user_id"], "0", session_id(), substr($filePath, strpos($filePath, "uploads") - 1), $file_type, $filename, date("Y-m-d h:i:sa"), date("Y-m-d h:i:sa"));
-		 sqlsrv_query( $conn, $insert_file, $params);
-
       }
       if($isUploaded && RoxyFile::IsImage($filename) && (intval(MAX_IMAGE_WIDTH) > 0 || intval(MAX_IMAGE_HEIGHT) > 0)){
         RoxyImage::Resize($filePath, $filePath, intval(MAX_IMAGE_WIDTH), intval(MAX_IMAGE_HEIGHT));

@@ -22,7 +22,7 @@
 		});
 	</script>
 
-    <iframe id="purchase_frame" src="http://appmsc.metrosystems.co.th/mscportal/purchase.php?iframe=true" width="100%" height="100%"></iframe>
+    <iframe id="purchase_frame" src="http://appmsc.metrosystems.co.th/mscportalold/purchase.php?iframe=true" width="100%" height="100%"></iframe>
 
 
 @stop

@@ -22,8 +22,6 @@
 */
 include '../system.inc.php';
 include 'functions.inc.php';
-include 'database.php';
-include 'ChromePhp.php';
 
 verifyAction('DELETEFILE');
 checkAccess('DELETEFILE');
@@ -32,20 +30,10 @@ $path = trim($_POST['f']);
 verifyPath($path);
 
 if(is_file(fixPath($path))){
-
-  $delete_path = '/' . $path;
-  if(unlink(fixPath($path))){
-	//Delete Database New Portal
-	$delete_file = "DELETE FROM [file] WHERE [file_location] = ?";
-	$stmt = sqlsrv_query($conn, $delete_file,  array($delete_path));
-	if( $stmt === false ) {
-		 die( print_r( sqlsrv_errors(), true));		 
-	}	
+  if(unlink(fixPath($path)))
     echo getSuccessRes();
-  }
-  else{
+  else
     echo getErrorRes(t('E_DeletеFile').' '.basename($path));
-  }
 }
 else
   echo getErrorRes(t('E_DeleteFileInvalidPath'));

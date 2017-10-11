@@ -12,7 +12,7 @@ $(function() {
     $('[data-toggle="tooltip"]').tooltip();
 
     //toast init
-    toastr.options = {
+    /*toastr.options = {
       "closeButton": true,
       "debug": false,
       "newestOnTop": true,
@@ -28,7 +28,7 @@ $(function() {
       "hideEasing": "linear",
       "showMethod": "fadeIn",
       "hideMethod": "fadeOut"
-    };
+    };*/  
 
     //light box
     $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {

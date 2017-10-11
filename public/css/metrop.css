@@ -28,8 +28,9 @@
 }
 @font-face {
     font-family: cloud_light;
-    src: url(../fonts/Cloud-Light.otf);
+    src: url(../fonts/Cloud-Light.otf);/*src: url(../fonts/Cloud-Light.otf);*/
 }
+
 
 body {
     font-family: 'cloud_light';

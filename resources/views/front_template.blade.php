@@ -1,6 +1,8 @@
+@if(Session::get('user')->status != 'outsource')
 {{App\Library\Statistic_lib::FirstOfDay()}}
 {{--*/ $em_info = Session::get('em_info')/*--}}
 {{--*/ $user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first() /*--}}
+@endif
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,25 +18,27 @@
 
     <!-- Custom Fonts -->
     <!-- Font Awesome -->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
     <!-- Ionicons -->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{asset('plugins/ionic/ionic.min.css')}}">
 
     <!-- Component CSS -->
     <link rel="stylesheet" href="{{asset('plugins/unslider/unslider.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/unslider/unslider-dots.css')}}">
-    <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}" />
+
     <link rel="stylesheet" href="{{asset('plugins/yearcalendar/bootstrap-year-calendar.min.css')}}" />
     <link rel="stylesheet" href="{{asset('plugins/lightbox/ekko-lightbox.min.css')}}">
-    <link rel="stylesheet" href="{{asset('plugins/orgchart/jquery.orgchart.css')}}">
-    <link rel="stylesheet" href="{{asset('plugins/imagehover/imagehover.css')}}">
+    <!-- <link rel="stylesheet" href="{{asset('plugins/orgchart/jquery.orgchart.css')}}"> -->
+    <link rel="stylesheet" href="{{asset('plugins/imagehover/imagehover.min.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/datatables/jquery.dataTables.min.css')}}">
-    <link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+    {{--  <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/datatables/responsive.bootstrap.min.css')}}">  --}}
+
     <link rel="stylesheet" href="{{asset('plugins/filetree/jqueryFileTree.css')}}">
-    <link rel="stylesheet" href="{{asset('plugins/lightgallery/css/lightgallery.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/lightgallery/css/lightgallery.min.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/justifiedgallery/justifiedGallery.min.css')}}">
+    <!-- Alert -->
+    <link rel="stylesheet" href="{{asset('plugins/sweetalert/sweetalert.min.css')}}">
 
     <!--Back to top css-->
     <link rel="stylesheet" href="{{asset('plugins/back-to-top/css/style.css')}}">
@@ -50,51 +54,50 @@
     <link href="{{asset('plugins/jQueryUI/jquery-ui-1.10.0.custom.css')}}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <!-- King 9 Gray Style -->
-    <link href="{{asset('css/graystyle.css')}}" rel="stylesheet">
+    <link href="{{asset('css/metrop.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/metrop-component.min.css')}}" rel="stylesheet">
 
-    <link href="{{asset('css/metrop.css')}}" rel="stylesheet">
-
-    <link href="{{asset('css/metrop-component.css')}}" rel="stylesheet">
-
-    <!-- IE 11 grayscale img-->
-    <link href="{{asset('plugins/grayscale/css/grayscale.css')}}" rel="stylesheet">
-
+    <!-- King 9 Gray Style-->
+    <!-- Template Color -->
+    <link href="{{asset('css/template_color/gray/grayscale.css')}}" rel="stylesheet">
+    <link href="{{asset('css/template_color/gray/graystyle.css')}}" rel="stylesheet">
 
     <!-- jQuery 2.2.3 -->
     <script src="{{asset('plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
-
-    <!-- jQuery UI -->
     <script src="{{asset('plugins/jQueryUI/jquery-ui.min.js')}}"></script>
-
-	<script src="{{asset('js/jquery.mobile.custom.min.js')}}"></script>
+    <script src="{{asset('js/jquery.mobile.custom.min.js')}}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <!-- Modernizr -->
-    <script src="{{asset('js/modernizr.js')}}"></script>
+    <script src="{{asset('js/modernizr.min.js')}}"></script>
+
+    @if(Request::path() != '/')
 
     <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
-
-    <script src="{{asset('plugins/orgchart/jquery.orgchart.js')}}"></script>
-
-    <script src="{{asset('plugins/filetree/jqueryFileTree.js')}}"></script>
-
-
+    {{--  <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/responsive.bootstrap.min.js')}}"></script>  --}}
+    <script src="{{asset('plugins/filetree/jqueryFileTree.min.js')}}"></script>
+    @endif
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="{{asset('plugins/html5shiv/dist/html5shiv.min.js')}}"></script>
+        <script src="{{asset('plugins/respond/dest/respond.min.js')}}"></script>
     <![endif]-->
 
 </head>
 
 <body>
 
-    <div class="portal-loader"><div><img src="{{asset('loader_gray.gif')}}"><h4>New Portal</h4></div></div>
+    <div class="portal-loader">
+        <div>
+            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+        </div>
+    </div>
 
-    @include('header')
+    @include('testTTFB_header')
 
     @yield('head_image')
     <!-- Main Content -->
@@ -108,50 +111,55 @@
     <hr>
     @include('footer')
 
+    @if (Request::path() != '/')
+        <script src="{{asset('plugins/lightbox/ekko-lightbox.min.js')}}"></script>
+        <!-- MixITUp JS -->
+        <script src="{{asset('plugins/mixitup/jquery.mixitup.min.js')}}"></script>
+    @endif
 
+    @if (strpos(Request::path(), "post") === 0)
+        <script src="{{asset('plugins/justifiedgallery/jquery.justifiedGallery.min.js')}}"></script>
+        <!-- LightGallery JS -->
+        <script src="{{asset('plugins/lightgallery/lib/picturefill.min.js')}}"></script>
+        <script src="{{asset('plugins/lightgallery/js/lightgallery.min.js')}}"></script>
+        <script src="{{asset('plugins/lightgallery/lib/jquery.mousewheel.min.js')}}"></script>
+        <script src="{{asset('plugins/lightgallery/lib/lg-thumbnail.min.js')}}"></script>
+    @endif
 
     <!-- Component JS -->
     <script type="text/javascript" src="{{asset('plugins/moment/moment.min.js')}}"></script>
     <script src="{{asset('plugins/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
     <script src="{{asset('plugins/masonry/masonry.pkgd.min.js')}}"></script>
-    <script src="{{asset('plugins/classie/classie.js')}}"></script>
-    <script src="{{asset('plugins/unslider/unslider.js')}}"></script>
-    <script type="text/javascript" src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('plugins/classie/classie.min.js')}}"></script>
+    <script src="{{asset('plugins/unslider/unslider-min.js')}}"></script>
+    <!-- <script type="text/javascript" src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script> -->
     <script type="text/javascript" src="{{asset('plugins/yearcalendar/bootstrap-year-calendar.min.js')}}"></script>
-    <script src="{{asset('plugins/lightbox/ekko-lightbox.min.js')}}"></script>
-    <script src="{{asset('plugins/back-to-top/js/main.js')}}"></script>
+    
+    <script src="{{asset('plugins/back-to-top/js/main.min.js')}}"></script>
 
     <!-- Imagehover JS -->
     <script src="{{asset('plugins/imagehover/imagehover.js')}}"></script>
 
-    <!-- MixITUp JS -->
-    <script src="{{asset('plugins/mixitup/jquery.mixitup.min.js')}}"></script>
+    <!-- JReject JS -->
+    <script src="{{asset('plugins/jreject/js/jquery.reject.min.js')}}"></script>
 
-    <!-- Toastr JS -->
     <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 
-    <!-- JReject JS -->
-    <script src="{{asset('plugins/jreject/js/jquery.reject.js')}}"></script>
+    <!-- Alert -->
+    <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
 
-    <!-- LightGallery JS -->
-    <script src="{{asset('plugins/lightgallery/lib/picturefill.min.js')}}"></script>
-    <script src="{{asset('plugins/lightgallery/js/lightgallery.min.js')}}"></script>
-    <script src="{{asset('plugins/lightgallery/lib/jquery.mousewheel.min.js')}}"></script>
-    <script src="{{asset('plugins/lightgallery/lib/lg-thumbnail.min.js')}}"></script>
+    @stack('page_vendor')
 
-    <!-- justifiedGallery -->
-    <script src="{{asset('plugins/justifiedgallery/jquery.justifiedGallery.min.js')}}"></script>
-
-    <!-- IE 11 grayscale img -->
-    <script type='text/javascript' src='{{asset('plugins/grayscale/js/grayscale.js')}}'></script>
+    <!--King 9 Gray Style-->
+    <!-- IE 11 grayscale img    -->
+    <script type='text/javascript' src="{{asset('plugins/grayscale/js/grayscale.js')}}"></script>
     <script type='text/javascript' src="{{asset('plugins/grayscale/js/functions.js')}}"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="{{asset('js/metrop.js')}}"></script>
-    <script src="{{asset('js/metrop-component.js')}}"></script>
 
-    <!-- Custom Component JS -->
-    <!--<script src="{{asset('plugins/gallery/gallery.js')}}"></script>-->
+    <!-- Custom Theme JavaScript -->
+    <script src="{{asset('js/metrop.min.js')}}"></script>
+    <script src="{{asset('js/metrop-component.min.js')}}"></script>
+
 
     <script>
 
@@ -186,11 +194,10 @@
             return false;
         });
 
+        @if(Session::get('user')->status != 'outsource')
 
         //Statistic
         jQuery(document).ready(function($) {
-
-
 
             crono = new Date().getTime();
 
@@ -208,11 +215,14 @@
                 })
             });
         });
+
+        @endif
+
     </script>
 
     <a href="#0" class="cd-top" data-goto="bottom">Top</a>
 
-    <div id="posi_result" style="position: fixed;height:60px;width:400px;right:30px;bottom:50px;display: none;">0</div>
+    <!--<div id="posi_result" style="position: fixed;height:60px;width:400px;right:30px;bottom:50px;display: none;">0</div>-->
 
 </body>
 

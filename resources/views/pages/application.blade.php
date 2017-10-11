@@ -184,11 +184,35 @@ $(function() {
               cache: false,
               type: 'GET',
               success: function(data) {
-                  toastr["success"]("Add application to favorite.", "Success");
+
+                  swal({
+
+                    title: "เพิ่มเรียบร้อย ^^",
+                    text: "เพิ่มเป็นแอพพลิเคชั่นที่ชื่นชอบเรียบร้อย",
+                    showConfirmButton: true,
+                    timer: 3500,
+                    type: "success",
+                    confirmButtonText: "ปิด"
+
+                  });
+
                   $('div[id="'+ id +'"]').removeClass('star').addClass('starActive');
+
+                  console.log(data);
+
+                  //location.reload();
               },
               error: function(error) {
-                  toastr["error"]("Add application to favorite.", "Error");
+                  swal({
+
+                    title: "แย่จัง T-T",
+                    text: "ไม่เพิ่มเป็นแอพพลิเคชั่นที่ชื่นชอบได้เลย",
+                    showConfirmButton: true,
+                    timer: 3500,
+                    type: "error",
+                    confirmButtonText: "ปิด"
+
+                  });
               }
           });
         }else{
@@ -200,11 +224,31 @@ $(function() {
               cache: false,
               type: 'GET',
               success: function(data) {
-                  toastr["success"]("Remove application to favorite.", "Success");
+                  swal({
+
+                    title: "ลบเรียบร้อย ^^",
+                    text: "ลบแอพพลิเคชั่นออกจากที่ชื่นชอบเรียบร้อย",
+                    showConfirmButton: true,
+                    timer: 3500,
+                    type: "success",
+                    confirmButtonText: "ปิด"
+
+                  });
                   $('div[id="'+ id +'"]').removeClass('starActive').addClass('star');
+
+                  //location.reload();
               },
               error: function(error) {
-                  toastr["error"]("Remove application to favorite.", "Error");
+                  swal({
+
+                    title: "แย่จัง T-T",
+                    text: "ไม่ลบแอพพลิเคชั่นออกจากที่ชื่นชอบได้เลย",
+                    showConfirmButton: true,
+                    timer: 3500,
+                    type: "error",
+                    confirmButtonText: "ปิด"
+
+                  });
               }
           });
         }

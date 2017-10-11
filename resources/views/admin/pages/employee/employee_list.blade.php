@@ -11,42 +11,27 @@
                <table id="employee_data" class="table table-bordered">
                   <thead>
                      <tr>
-						<th><center>ID</center></th>
-					    <th><center></center></th>
-                        <th><center>FullName</center></th>
-						<th><center>NickName</center></th>
-						<th><center>FullNameEng</center></th>
-                        <th><center>Tel.</center></th>
+						      <th><center>ID</center></th>
+                        <th><center>Login</center></th>
+						      <th><center>NickName</center></th>
+						      <th><center>FullNameEng</center></th>
                         <th><center></center></th>
                      </tr>
                   </thead>
                   <tbody>
                      <?php
-foreach ($employee as $emp) {
-	$em = App\MainEmployee::where('EmpCode', '=', $emp->EmpCode)->first()
-	?>
-		  {{--*/ $img_url = App\Library\Services::getEmployeeImage(intval($emp->EmpCode)) /*--}}
-        {{--*/ $img404_url = asset('images/avatar-404.jpg') /*--}}
+                        foreach ($employee as $emp) {
+                        $em = App\MainEmployee::where('EmpCode', $emp->EmpCode)->first();
+	                  ?>
                      <tr>
 
-                        <td><center><?php echo $emp->emid ?></td>
-				  <td>
-                        <a href="{{ App\Library\Tools::is_url_exist($img_url) ? $img_url : $img404_url }}" data-toggle="lightbox" data-title="{{ $em->FullNameEng }}">
-                          <img id="avatar" src="{{ App\Library\Tools::is_url_exist($img_url) ? $img_url : $img404_url }}" width="10%">
-                        </a>
-                  </td>
-				   <td><center>{{$em->FullName}}</td>
-				         <td><center>{{$em->NickName}}</td>
-                        <td><center>{{$em->FullNameEng}}</td>
-						<td><center>@foreach($tel as $pb)
-						@if($em->EmpCode==$pb->EmpCode)
-						{{$pb->EXTNO}}
-                        @endif
-						@endforeach</center></td>
-                        <td><center><a href="<?=asset('/admin/employee/setting/')?><?php echo '/' . $emp->emid; ?>"><button class="btn btn-default btn-sm" style="background-color:white;height:33px"  type="button"><i class="fa fa-cogs" aria-hidden="true"></i> setting </button></a></center></td>
+                        <td>{{$emp->EmpCode}}</td>
+      				      <td>{{$emp->Login}}</td>
+      				      <td>{{$em['NickName']}}</td>
+                        <td>{{$em['FullNameEng']}} ({{$em['FullName']}})</td>
+                        <td><center><a href="{{asset('/admin/employee/setting/')}}<?php echo '/' . $emp->emid; ?>"><button class="btn btn-default btn-sm" style="background-color:white;height:33px"  type="button"><i class="fa fa-cogs" aria-hidden="true"></i> setting </button></a></center></td>
                      </tr>
-                     <?php }
-;?>
+                     <?php };?>
                   </tbody>
                </table>
             </div>

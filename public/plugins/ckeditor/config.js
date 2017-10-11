@@ -3,6 +3,8 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
+ var roxyFileman = '/newportal/plugins/fileman/index.html';
+
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
@@ -25,4 +27,14 @@ CKEDITOR.editorConfig = function( config ) {
 	    showCharCount: true,
 
 	};
+
+	//Fileman
+
+	config.filebrowserBrowseUrl = roxyFileman;
+
+    config.filebrowserImageBrowseUrl = roxyFileman + '?type=image';
+
+    config.removeDialogTabs = 'link:upload;image:upload';
+
+    CKEDITOR.timestamp = '"+Replace(Replace(Replace(Replace(Replace(Replace(CurrDateTime()," ",""),"/",""),"\",""),"-",""),":",""),".","")+"';
 };

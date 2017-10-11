@@ -74,6 +74,7 @@ class PostController extends Controller {
 		Storage::disk('uploads')->makeDirectory('trop/' . $tid . '/post/' . $post->pid . '/policy');
 		Storage::disk('uploads')->makeDirectory('trop/' . $tid . '/post/' . $post->pid . '/file');
 		Storage::disk('uploads')->makeDirectory('trop/' . $tid . '/post/' . $post->pid . '/thumbnail');
+		Storage::disk('uploads')->makeDirectory('trop/' . $tid . '/post/' . $post->pid . '/upload');
 
 		$post_ins['pid'] = $post->pid;
 
@@ -172,6 +173,17 @@ class PostController extends Controller {
 		}
 		//
 
+		if(isset($input['post_owner'])){
+
+			DB::table('post')
+			->where('pid', $id)
+			->update([
+
+				'emid' => $input['post_owner'],
+
+			]);
+		}
+
 		DB::table('post')
 			->where('pid', $id)
 			->update([
@@ -183,6 +195,7 @@ class PostController extends Controller {
 				'post_detail' => strip_tags($input['post_detail']),
 				'post_thumbnail' => $input['post_thumbnail'],
 				'post_status' => $input['post_status'],
+				'post_permission' => $input['post_permission'],
 				'post_type' => $input['post_type'],
 				'updated_at' => $date_now,
 				'event_start_date' => $event_start_date,

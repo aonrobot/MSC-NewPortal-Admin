@@ -1,8 +1,13 @@
+@if(Session::get('user')->status != 'outsource')
+
 @inject('menu', 'App\Http\Controllers\FrontMenuController')
 {{-- */$menus = $menu->index()['menus']/* --}}
 {{-- */$meeting_menus = $menu->index()['meeting_menus']/* --}}
 @inject('fav_app', 'App\Http\Controllers\FrontFavoriteController')
 {{-- */$fav_apps = $fav_app->fetch_fav_app()/* --}}
+
+@endif
+
 <!-- Navigation -->
 <header class="metrop-nav cd-main-header">
     <div class="cd-logo">
@@ -35,6 +40,7 @@
     </form>
 </div>
 <!-- /.search-form-wrap -->
+
 <!-- /.header-search-form -->
 <div class="cd-overlay"></div>
 <nav class="cd-nav">
@@ -44,18 +50,26 @@
                 <i class="fa fa-home" aria-hidden="true"></i> Home
             </a>
         </li>
+
+        @if(Session::get('user')->status != 'outsource')
         <li data-toggle="tooltip" data-placement="bottom" title="เกี่ยวกับบริษัท">
             <a href="{{asset(Config::get('newportal.trop.aboutmsc.url'))}}" class="npt_stat" data-name="about" data-where="top-nav">
                 <i class="fa fa-globe" aria-hidden="true"></i> About MSC
             </a>
         </li>
+        @endif
+
         <li data-toggle="tooltip" data-placement="bottom" title="สมุดโทรศัพท์">
             <a href="{{asset('/phonebook')}}" class="npt_stat" data-name="phonebook" data-where="top-nav">
                 <i class="fa fa-phone" aria-hidden="true"></i> Phone Book
             </a>
         </li>
+
+        @if(Session::get('user')->status != 'outsource')
+
+        {{--*/ $policy_id = App\Library\Services::setting_getPostPolicyId()/*--}}
         <li data-toggle="tooltip" data-placement="bottom" title="Policy ทั้งหมด">
-            <a href="{{asset('/')}}" class="npt_stat" data-name="policy" data-where="top-nav">
+            <a href="{{asset('/post/' . $policy_id)}}" class="npt_stat" data-name="policy" data-where="top-nav">
                 <i class="fa fa-file-text" aria-hidden="true"></i> Policy
             </a>
         </li>
@@ -65,7 +79,7 @@
             </a>
         </li>
         <li class="disible-dasktop">
-            <a href="content_policy.html">
+            <a href="{{url('/calendar')}}">
                 <i class="fa  fa-calendar  text-danger" aria-hidden="true"></i> calendar
             </a>
         </li>
@@ -161,6 +175,7 @@ $main_cat_list = [];
 
 foreach ($meeting_menus as $menu) {
 	$cat_name = $menu->item_description;
+
 	if (strpos($cat_name, '~') > -1) {
 		$cat_name = explode('~', $cat_name)[0];
 	}
@@ -169,7 +184,10 @@ foreach ($meeting_menus as $menu) {
 	}
 
 }
-?>                  <!-- Loop Here-->
+
+?>                  
+                    @if(count($meeting_menus) != 0)
+                    <!-- Loop Here-->
                     @foreach($main_cat_list as $main_cat)
 
                     <li class="has-children">
@@ -178,22 +196,33 @@ foreach ($meeting_menus as $menu) {
                         <ul class="is-hidden">
                             <li class="go-back"><a href="#0">Meething Document</a></li>
                             @foreach($meeting_menus as $menu)
-                                @if(strpos($menu->item_description, $main_cat) > -1)
-                                    <li>
-                                        <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" data-name="{{$menu->item_name}}" data-where="department-bar" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
-                                        {{$menu->item_name}}
-                                        </a>
-                                    </li>
+
+                                @if(!$user->can(['view-menu_item-'.$menu->mtid]))
+                                    @continue
+                                @endif
+
+                                @if(!is_null($menu->item_description))
+                                    @if(strpos($menu->item_description, $main_cat) > -1)
+                                        <li>
+                                            <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" data-name="{{$menu->item_name}}" data-where="department-bar" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
+                                            {{$menu->item_name}}
+                                            </a>
+                                        </li>
+                                    @endif
                                 @endif
                             @endforeach
                         </ul>
                     </li>
                     @endforeach
 
+                    @endif
+
                 </ul>
         </li>
 
         @endif
+
+        @endif <!-- End Check OutSource-->
 
     </ul>
     <!-- primary-nav -->

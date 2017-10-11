@@ -63,7 +63,7 @@
 <td><center>
 <a href="{{asset('admin/post/edit/'.$post->pid)}}" target="_blank">
 <font color="white">
-<button class="btn btn-primary"   type="button" style="height:33px"  onclick="return confirm('Are you sure you want to delete :: <?php echo $post->post_name?> ?')"><span class="fa fa-pencil" ></span> 
+<button class="btn btn-primary" type="button" style="height:33px"><span class="fa fa-pencil" ></span> 
 View</font></button>
 </a>
 

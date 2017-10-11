@@ -1,14 +1,44 @@
 <?php
 namespace App\Library {
 
+	use App\MainEmployeeImage;
+	use App\Post;
+	use Config;
+
 	class Tools {
 
-		static public function sortPost($posts, $by = 'created_at') {
-			$times = [];
-			foreach ($posts as $post => $val) {
-				$times[$post] = strtotime($val[$by]);
+		static public function is_defaultType($pid) {
+
+			$post_type = Post::where('pid', $pid)->first()->post_type;
+
+			$default_type = Config::get('newportal.post.default_type');
+
+			if (in_array($post_type, $default_type)) {
+				return true;
+			} else {
+				return false;
 			}
-			array_multisort($times, SORT_DESC, $posts, SORT_DESC);
+		}
+
+		static public function sortPost($posts, $by = 'created_at', $type = 'time', $sort = SORT_DESC) {
+			$times = [];
+			$word = [];
+
+			switch ($type) {
+			case 'time':
+				foreach ($posts as $post => $val) {
+					$times[$post] = strtotime($val[$by]);
+				}
+				break;
+
+			case 'word':
+				foreach ($posts as $post => $val) {
+					$times[$post] = $val[$by];
+				}
+				break;
+			}
+
+			array_multisort($times, $sort, $posts, $sort);
 
 			return $posts;
 		}
@@ -130,6 +160,18 @@ namespace App\Library {
 
 		}
 
+		static public function is_avatar_exist($EmpCode) {
+
+			$count = MainEmployeeImage::where('EmpCode', $EmpCode)->count();
+
+			if ($count <= 0) {
+				return false;
+			} else {
+				return true;
+			}
+
+		}
+
 		static public function emid2color($emid) {
 			$hexNum = dechex($emid);
 			$lenHexNum = strlen($hexNum);
@@ -173,6 +215,8 @@ namespace App\Library {
 				return $str;
 			}
 		}
+
+		////////////////////////////////////////////////////////////////////////////
 
 		//taken from wordpress
 		static function utf8_uri_encode($utf8_string, $length = 0) {
@@ -303,5 +347,6 @@ namespace App\Library {
 			return asset('http://appmetro.metrosystems.co.th/empimages/' . intval($EmpCode) . '.jpg');
 
 		}
+
 	}
 }

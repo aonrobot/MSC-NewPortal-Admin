@@ -16,7 +16,10 @@
 </div>
 <!-- /.row -->
 
-{{--*/$posts = App\Library\Tools::sortPost($posts)/*--}}
+{{--*/$posts = App\Library\Tools::sortPost($posts, 'event_start_date')/*--}}
+
+
+@if($category->cat_subtype != 'not_news')
 
 @if(isset($posts[0]))
 <div class="row">
@@ -46,6 +49,8 @@
 @endif
 <hr>
 
+@endif
+
 @for($i = 0 ; $i < count($posts)/3 ; $i++)
 <!-- Projects Row -->
 <div class="row">
@@ -62,7 +67,7 @@
             <p class="metrop-news-content">{{ $posts[$index]['post_detail'] }}</p><br>
             {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($posts[$index]['event_start_date'])),3)/*--}}
 
-            <a class="btn btn-default" style="float: right" href="{{ asset('post/' . $posts[$index]['pid']) }}">อ่านข่าวต่อ</a>
+            <a class="btn btn-default" style="float: right" href="{{ asset('post/' . $posts[$index]['pid']) }}">{{$category->cat_subtype == 'not_news' ? 'รายละเอียด' : 'อ่านข่าวต่อ'}}</a>
             <h5 style="color: rgba(108, 150, 175, 0.88); ">{{$str_date}}</h5>
         </div>
     </div>

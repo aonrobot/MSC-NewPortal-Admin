@@ -12,10 +12,12 @@ use App\request1;
 use App\setting;
 use App\trop;
 use App\trop_rela;
+use App\Role_user;
 use DB;
 use Illuminate\Http\Request;
 use Session;
 use Storage;
+use Config;
 
 class tropController extends Controller {
 	/**
@@ -177,7 +179,8 @@ class tropController extends Controller {
 
 	public function edit(Request $request) //update
 	{
-		$trop_id = Session::get('trop_id');
+		//$trop_id = Session::get('trop_id');
+		$trop_id = $request->input('tid');
 		$trops = $request->input('idtrop');
 		$trops1 = $request->input('trop1');
 		$title = $request->input('title1');
@@ -190,7 +193,7 @@ class tropController extends Controller {
 		$subtitle = $request->input('subtitle');
 
 		trop::where('tid', $trops)
-			->update(['Trop_Name' => $trops1, 'Trop_type' => $type, 'trop_title' => $title, 'trop_subtitle' => $subtitle, 'trop_status' => $status]);
+			->update(['trop_Name' => $trops1, 'trop_type' => $type, 'trop_title' => $title, 'trop_subtitle' => $subtitle, 'trop_status' => $status]);
 		request1::where('object_id', $trops)
 			->update(['request_status' => $status]);
 		setting::where('set_type_id', '=', $trops)
@@ -205,15 +208,52 @@ class tropController extends Controller {
 			->where('set_subtype', '=', 'slide')
 			->update(['set_value' => $slidehome]);
 
+		///////////////////////  Add Permission //////////////////////////////
+
+		$user_id = Config::get('newportal.role.user.id'); // Find role user id
+
+		$trop_assistant_id = Config::get('newportal.role.trop_assistant.id'); // Find role trop_assistant id
+
 		if ($empid) {
 			$sum = "";
 			$i1 = count($empid);
 			for ($i = 0; $i < $i1; $i++) {
-				$tropDB = new trop_rela;
-				$tropDB->emid = $empid[$i];
-				$tropDB->tid = $trop_id;
-				$tropDB->user_level = 6;
-				$tropDB->save();
+
+				//Check duplicate trop_rela
+				$count_ulv = trop_rela::where('emid', $empid[$i])->where('tid', $trop_id)->where('user_level', $user_id)->count();
+
+				if(!$count_ulv){
+
+					$tropDB = new trop_rela;
+					$tropDB->emid = $empid[$i];
+					$tropDB->tid = $trop_id;
+					$tropDB->user_level = 6;
+					$tropDB->save();
+				}
+
+				$user_roles = Role_user::where('employee_id', $empid[$i])->get();
+
+				$can_access_admin = false; // Check user permission can access admin
+
+				foreach ($user_roles as $user_role) {
+
+					$can_access_admin = ($user_role->role_id <= $trop_assistant_id) ? true : false;
+
+					if($can_access_admin) break;
+
+				}
+				
+				if(!$can_access_admin){
+
+					$role_ins = new Role_user;
+
+		        	$role_ins->employee_id = $empid[$i];
+
+		        	$role_ins->role_id = $trop_assistant_id;
+
+		        	$role_ins->save();
+				}
+				
 			}
 		}
 
@@ -330,8 +370,23 @@ class tropController extends Controller {
 		return redirect('/admin/trop/create');
 	}
 	public function deladmin($id) {
+
+		//For Redirect
+
 		$detail1 = trop_rela::where('trop_rela_id', '=', $id)->get();
+
+		//For Update
+
+		$user_id = Config::get('newportal.role.user.id'); // Find role user id
+
+		$trop_assistant_id = Config::get('newportal.role.trop_assistant.id'); // Find role trop_assistant id
+
+		$empid = trop_rela::where('trop_rela_id', $id)->first()->emid; // Employee id
+
 		trop_rela::where('trop_rela_id', $id)->delete();
+
+		Role_user::where('employee_id', $empid)->where('role_id', $trop_assistant_id)->delete();
+
 		return redirect('/admin/trop/edit/' . $detail1[0]->tid);
 	}
 	/**

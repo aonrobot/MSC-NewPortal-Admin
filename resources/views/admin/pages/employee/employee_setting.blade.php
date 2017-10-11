@@ -1,72 +1,100 @@
 @extends('admin.admin_template')
 @section('content')
-<form action="<?=asset('/admin/employee/update')?>" method="get">
-   <div class="row metrop-row-content">
-      <div class="col-md-8">
-         <h2><?php  $em = App\MainEmployee::where('EmpCode', '=' , $em_id[0]->EmpCode)->first() ;
-            echo $em->FullNameEng;
-            ?></h2>
-         <div class="box-body">
-            <div class="form-group">
-               <label for="exampleInputEmail1">...</label>
-               <input type="email" class="form-control" id="exampleInputEmail1" placeholder="edit">
-            </div>
-            <div class="form-group">
-               <label for="exampleInputPassword1">...</label>
-               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="edit">
-            </div>
-            <div class="form-group">
-              	<span class="btn btn-primary fileinput-button" >
-                    <i class="glyphicon glyphicon-plus"></i>
-                        <span> Choose new image</span>
-                        <input class="menuImageUpload" id="" type="file" name="files"> <!-- Upload Btn ID -->
-                </span><br><br>
+<div class="row">
 
-                <ol class="breadcrumb" >
-			
-                   Setting   <select name="role_setting">
-					<option value="">-------------</option>
-						<?php
-							foreach($role as $roles){
-							error_reporting(E_ALL ^ E_NOTICE);
-						?>
-				<option value="<?php echo  $roles->id?>"<?php if($roles->id == $role_select[0]->role_id) echo"selected"; ?>><?php echo $roles->name?></option>
-            <?php                      }?>
-         </select> 
-		 <INPUT class="btn btn-success" TYPE="submit" VALUE="update" onclick="return confirm('Are you sure you want to update?')">
-		  <input value="<?php echo $em_id[0]->emid ?>" name="eid" type="hidden">
-                </ol>
-				
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <h1>{{$employee->EmpCode}} | {{$employee->Login}}</h1>
+      <hr>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <h2><i class="fa fa-id-card-o" aria-hidden="true"></i> Add New Role</h2>
+
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Select <b>Role</b></h3>
             </div>
-         </div>
-         <!-- /.box-body -->
-         <br>
-         <h3>
-            Trop List
-         </h3>
-         <table class="table table-bordered">
-            <tr>
-               <th><center>ID</th>
-               <th><center>Trop Name</th>
-               <th><center>Type</th>
-               <th><center>Status</th>
-               <th><center></th>
-            </tr>
-            <?php
-               foreach($trop_em as $trop_list){
-               ?>
-            <tr>
-               <center>
-			  
-               <td align="center" ><?php echo $trop_list->tid?></td>
-               <td align="center" ><?php echo $trop_list->trop_name?></td>
-               <td align="center" ><?php echo $trop_list->trop_type?></td>
-               <td align="center" ><?php echo $trop_list->trop_status?></td>
-               <td align="center" ><a href="<?=asset('/admin/employee/setting/') ?><?php echo '/'.$trop_list->emid;?>"> Del</a> </td>
-            </tr>
-            <?php };?>
-         </table>
-</form>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal" method="GET" action="{{asset('admin/employee/role/add/')}}">
+                <div class="box-body">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Role Name</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="role_item" name="role_id">
+                              <option value="">---ไม่มี---</option>
+                              @foreach($roles_can_select as $role)
+                                <option value="{{$role->id}}">{{$role->display_name}}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="emid" value="{{Request::segment(4)}}">
+
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button id="addRoleBtn" style="float:right;" type="submit" class="btn btn-success">
+                        <i class="fa fa-plus"></i> Add
+                    </button>
+                </div>
+                <!-- /.box-footer -->
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-8 col-sm-6 col-xs-12">
+        <h2><i class="fa fa-list-alt" aria-hidden="true"></i> Role List</h2>
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">List</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="roleTable" class="table table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Role Name</th>
+                          <th style="width: 20px">Delete</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach($roles as $role)
+                          <tr>
+                              <td>{{$role->id}}</td>
+                              <td>{{$role->display_name}}</td>
+                              <td>
+                                <a href="{{asset('admin/employee/role/delete/' . Request::segment(4) . '/' . $role->id)}}" value="{{$role->id}}" class="btn btn-danger confirm">
+                                    <i class="fa fa-trash"></i> Remove
+                                </a>
+                              </td>
+                          </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+
 </div>
-</div>
+
+<script>
+    $('#form').validator();
+    $('#roleTable').DataTable();
+    $(".confirm").confirm();
+
+    $('#addRoleBtn').hide();
+
+    $('#role_item').change(function(){
+      if($(this).val() == ""){
+        $('#addRoleBtn').hide('500');
+      }else{
+        $('#addRoleBtn').show('500');
+      }
+    });
+</script>
+
 @stop

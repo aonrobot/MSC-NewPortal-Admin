@@ -585,6 +585,7 @@
 			if (self.options.animateHeight) {
 				self._move(self.$context, {height: self.$slides.eq(to).outerHeight()}, false);
 			}
+			console.log(to, self.$slides.eq(to).outerHeight())
 		};
 
 		self._move = function($el, obj, callback, speed) {

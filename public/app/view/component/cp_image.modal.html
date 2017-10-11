@@ -23,7 +23,7 @@
                 <div id="image-files" class="files"></div>
             </div>
             <div class="modal-footer">
-                <p class="text-left">Support image type : JPEG, PNG</p>
+                <p class="text-left">Support image type : JPEG, PNG, GIF</p>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button id="add_image_btn" type="button" class="btn btn-primary">Add image</button>
             </div>
@@ -44,6 +44,7 @@ $(function() {
     $('#add_image_btn').hide();
     $('#add_image_btn').click(function(){
         $('.upload_image_btn').trigger('click');
+        $("#loader_create").fadeIn("slow");
     });
 
     // Initial Button
@@ -107,7 +108,7 @@ $(function() {
             singleFileUploads: true,
             limitMultiFileUploads: 1,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-            maxFileSize: 999000,
+            maxFileSize: 9999000,
             disableImageResize: /Android(?!.*Chrome)|Opera/
                 .test(window.navigator.userAgent),
             previewMaxWidth: 100,
