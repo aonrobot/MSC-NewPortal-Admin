@@ -71,7 +71,7 @@ a.btn-primary{
 
 .cd-top{
 	/*background:rgb(60, 60, 60)  inset:url(../images/down-arrow.svg) no-repeat  center 50% !important;*/
-	background:rgb(60, 60, 60)  url(../images/down-arrow.svg) no-repeat  center 50% !important;
+	background:rgb(60, 60, 60)  url(../../../images/up-arrow.svg) no-repeat  center 50% !important;
 }
 
 .metrop-row-content > div > h3 , .metrop-row-content > div > h3 > i{

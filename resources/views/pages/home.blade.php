@@ -83,8 +83,8 @@
             </div>
         </div>
     </div>
-    <!-- /.col-lg-12
-</div>
+     /.col-lg-12 -->
+<!--</div> -->
 <!-- /.row -->
 @endif
 

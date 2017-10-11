@@ -5,3 +5,6 @@
 Homestead.yaml
 Homestead.json
 .env
+.vscode/*
+.DS_Store
+/public/uploads/*

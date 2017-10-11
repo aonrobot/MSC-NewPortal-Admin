@@ -2,7 +2,7 @@
 
 @inject('menu', 'App\Http\Controllers\FrontMenuController')
 {{-- */$menus = $menu->index()['menus']/* --}}
-{{-- */$meeting_menus = $menu->index()['meeting_menus']/* --}}
+{{-- */$main_document_menu = $menu->index()['main_document_menu']/* --}}
 @inject('fav_app', 'App\Http\Controllers\FrontFavoriteController')
 {{-- */$fav_apps = $fav_app->fetch_fav_app()/* --}}
 
@@ -168,52 +168,29 @@
 
                 <ul class="cd-secondary-nav is-hidden">
                     <li class="go-back"><a href="#0">Menu</a></li>
+               
+                    @if(count($main_document_menu) != 0)
+                        <!-- Loop Here-->
+                        @foreach($main_document_menu as $key => $value)
 
-<?php
+                        <li class="has-children">
+                            <a>{{$key}}</a>
 
-$main_cat_list = [];
-
-foreach ($meeting_menus as $menu) {
-	$cat_name = $menu->item_description;
-
-	if (strpos($cat_name, '~') > -1) {
-		$cat_name = explode('~', $cat_name)[0];
-	}
-	if (!in_array($cat_name, $main_cat_list)) {
-		array_push($main_cat_list, $cat_name);
-	}
-
-}
-
-?>                  
-                    @if(count($meeting_menus) != 0)
-                    <!-- Loop Here-->
-                    @foreach($main_cat_list as $main_cat)
-
-                    <li class="has-children">
-                        <a>{{$main_cat}}</a>
-
-                        <ul class="is-hidden">
-                            <li class="go-back"><a href="#0">Meething Document</a></li>
-                            @foreach($meeting_menus as $menu)
-
-                                @if(!$user->can(['view-menu_item-'.$menu->mtid]))
-                                    @continue
-                                @endif
-
-                                @if(!is_null($menu->item_description))
-                                    @if(strpos($menu->item_description, $main_cat) > -1)
-                                        <li>
-                                            <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" data-name="{{$menu->item_name}}" data-where="department-bar" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
-                                            {{$menu->item_name}}
-                                            </a>
-                                        </li>
+                            <ul class="is-hidden">
+                                <li class="go-back"><a href="#0">Meething Document</a></li>
+                                @foreach($value as $menu)
+                                    @if(!$user->can(['view-menu_item-'.$menu['mtid']]))
+                                        @continue
                                     @endif
-                                @endif
-                            @endforeach
-                        </ul>
-                    </li>
-                    @endforeach
+                                    <li>
+                                        <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu['item_link'], "http")}}" href="{{asset($menu['item_link'])}}" data-name="{{$menu['item_name']}}" data-where="department-bar" @if(strpos($menu['item_link'], "http") !== false) target='_blank' @endif>
+                                        {{$menu['item_name']}}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
 
                     @endif
 

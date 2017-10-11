@@ -13,8 +13,8 @@
                         <a href="" target="_blank">
                             <img width="64px" height="64px" src="{{asset('images/footer_icon/MID.png')}}" alt="">
                         </a>
-                    </li>
-                    <li>-->
+                    </li>-->
+                    <li>
                         <a href="http://metroinfotech.co.th/" target="_blank">
                             <img width="128px" height="64px" src="{{asset('images/footer_icon/MIT.gif')}}" alt="">
                         </a>

@@ -62,6 +62,9 @@
     <link href="{{asset('css/template_color/gray/grayscale.css')}}" rel="stylesheet">
     <link href="{{asset('css/template_color/gray/graystyle.css')}}" rel="stylesheet">
 
+
+    <!-- Javascript Library -->
+
     <!-- jQuery 2.2.3 -->
     <script src="{{asset('plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
     <script src="{{asset('plugins/jQueryUI/jquery-ui.min.js')}}"></script>
@@ -97,7 +100,7 @@
         </div>
     </div>
 
-    @include('testTTFB_header')
+    @include('header')
 
     @yield('head_image')
     <!-- Main Content -->
@@ -151,9 +154,11 @@
     @stack('page_vendor')
 
     <!--King 9 Gray Style-->
-    <!-- IE 11 grayscale img    -->
+    <!-- if !IE 11 grayscale img -->
+    <!--[if !IE 9]>
     <script type='text/javascript' src="{{asset('plugins/grayscale/js/grayscale.js')}}"></script>
     <script type='text/javascript' src="{{asset('plugins/grayscale/js/functions.js')}}"></script>
+    <![endif]-->
 
 
     <!-- Custom Theme JavaScript -->
@@ -176,8 +181,8 @@
                 reject: {
                     safari: false, // Apple Safari
                     chrome: false, // Google Chrome
-                    firefox: true, // Mozilla Firefox
-                    msie: false, // Microsoft Internet Explorer
+                    firefox: false, // Mozilla Firefox
+                    msie: true, // Microsoft Internet Explorer
                     opera: true, // Opera
                     konqueror: true, // Konqueror (Linux)
                     unknown: true // Everything else
