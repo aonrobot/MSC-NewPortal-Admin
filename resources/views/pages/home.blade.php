@@ -264,10 +264,12 @@
                     $(function() {
                         var currentYear = new Date().getFullYear();
                         var d = new Date();
+
                         $('#calendar').calendar({
                             enableContextMenu: false,
-                            enableRangeSelection: true,
+                            enableRangeSelection: false,
                             minDate: new Date(currentYear, d.getMonth(), d.getDate()),
+                            maxDate: new Date(currentYear+1, 11, 31),
                             clickDay: function(e) {
                                 if (e.events.length > 0) {
                                     if (e.events[0].linkUrl) {
@@ -403,12 +405,116 @@
                                 location: '',
                                 startDate: new Date(2017, 11, 11),
                                 endDate: new Date(2017, 11, 11)
+                            }, {
+                                id: 16,
+                                name: 'วันขึ้นปีใหม่',
+                                location: '',
+                                startDate: new Date(2018, 0, 1),
+                                endDate: new Date(2018, 0, 1)
+                            }, {
+                                id: 17,
+                                name: 'ชดเชยวันสิ้นปี (อาทิตย์ที่ 31 ธันวาคม 2560)',
+                                location: '',
+                                startDate: new Date(2018, 0, 2),
+                                endDate: new Date(2018, 0, 2)
+                            }, {
+                                id: 18,
+                                name: 'วันตรุษจีน',
+                                location: '',
+                                startDate: new Date(2018, 1, 15),
+                                endDate: new Date(2018, 1, 16)
+                            }, {
+                                id: 19,
+                                name: 'วันมาฆบูชา',
+                                location: '',
+                                startDate: new Date(2018, 2, 1),
+                                endDate: new Date(2018, 2, 1)
+                            }, {
+                                id: 20,
+                                name: 'วันพระบาทสมเด็จพระพุทธยอดฟ้าจุฬาโลกมหาราช และวันที่ระลึกมหาจักรีบรมราชวงศ์',
+                                location: '',
+                                startDate: new Date(2018, 3, 6),
+                                endDate: new Date(2018, 3, 6)
+                            }, {
+                                id: 21,
+                                name: 'วันสงการนต์',
+                                location: '',
+                                startDate: new Date(2018, 3, 13),
+                                endDate: new Date(2018, 3, 13)
+                            }, {
+                                id: 22,
+                                name: 'ชดเชยวันสงการนต์',
+                                location: '',
+                                startDate: new Date(2018, 3, 16),
+                                endDate: new Date(2018, 3, 16)
+                            }, {
+                                id: 23,
+                                name: 'วันแรงงานแห่งชาติ',
+                                location: '',
+                                startDate: new Date(2018, 5, 1),
+                                endDate: new Date(2018, 5, 1)
+                            }, {
+                                id: 24,
+                                name: 'วันวิสาขบูชา',
+                                location: '',
+                                startDate: new Date(2018, 5, 29),
+                                endDate: new Date(2018, 5, 29)
+                            }, {
+                                id: 25,
+                                name: 'วันอาสาฬหบูชา',
+                                location: '',
+                                startDate: new Date(2018, 6, 27),
+                                endDate: new Date(2018, 6, 27)
+                            }, {
+                                id: 26,
+                                name: 'วันคล้ายวันเฉลิมพระชนมพรรษา พระบาทสมเด็จพระเจ้าอยู่หัวมหาวชิราลงกรณบดินทรเทพยวรางกูร',
+                                location: '',
+                                startDate: new Date(2018, 6, 30),
+                                endDate: new Date(2018, 6, 30)
+                            }, {
+                                id: 27,
+                                name: 'ชดเชยวันเฉลิมพระชนมพรรษา สมเด็จพระนางเจ้าพระบรมราชาชินีนาถในพระบาทสมเด็จพระปรมิทรมหาภูมิพลอดุลยเดช บรมนาถบพิตร',
+                                location: '',
+                                startDate: new Date(2018, 9, 13),
+                                endDate: new Date(2018, 9, 13)
+                            }, {
+                                id: 28,
+                                name: 'ชดเชยวันคล้ายวันสวรรคตพระบาทสมเด็จพระปรมินทรมหาภูมิพลอดุลยเดช บรมนาถบพิตร',
+                                location: '',
+                                startDate: new Date(2018, 9, 15),
+                                endDate: new Date(2018, 9, 15)
+                            }, {
+                                id: 29,
+                                name: 'วันปิยมหาราช',
+                                location: '',
+                                startDate: new Date(2018, 9, 23),
+                                endDate: new Date(2018, 9, 23)
+                            }, {
+                                id: 30,
+                                name: 'วันคล้ายวันเฉลิมพระชนมพรรษา พระบามสมเด็จพระปรมินทรมหาภูมิพลอดุลยเดช บรมนาถบพิตร วันชาติ และวันพ่อแห่งชาติ',
+                                location: '',
+                                startDate: new Date(2018, 11, 5),
+                                endDate: new Date(2018, 11, 5)
+                            }, {
+                                id: 31,
+                                name: 'วันพระราชทานรัฐธรรมนูญ',
+                                location: '',
+                                startDate: new Date(2018, 11, 10),
+                                endDate: new Date(2018, 11, 10)
+                            }, {
+                                id: 32,
+                                name: 'วันสิ้นปี',
+                                location: '',
+                                startDate: new Date(2018, 11, 31),
+                                endDate: new Date(2018, 11, 31)
                             }]
-                        }).setYear(2017);
+                        });
 
-                        $('th.prev, .year-neighbor, .year-neighbor2, th.next').hide();
+                        //$('th.prev, .year-neighbor, .year-neighbor2, th.next').hide();
 
                     });
+
+
                     </script>
                 </div>
             </div>
