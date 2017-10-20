@@ -150,25 +150,25 @@ $user = Session::get('user');
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <label>Category</label>
-                                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a Category" style="width: 100%;" name="post_cat[]">
-                                        
-                                        {{--*/ 
-                                                if(Session::get('trop_id') == 0){
-                                                    $cats = DB::table('category')->get();
-                                                }else{
-                                                    $cats = DB::table('category')->where('tid', '=', Session::get('trop_id'))->get();
-                                                }
-                                                
-                                        /*--}}
-                                        @foreach($cats as $cat)
-                                            <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
-                                        @endforeach
-                                        {{--*/ $cats = DB::table('category')->get() /*--}}
-                                        @foreach($cats as $cat)
-                                            @if($user->can(['view-category-' . $cat->catid]))
+                                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a Category" style="width: 100%;" name="post_cat[]">      
+                                        @php 
+                                            $all_cats = DB::table('category')->get();
+                                            $trop_cats = DB::table('category')->where('tid', '=', Session::get('trop_id'))->get();
+                                        @endphp
+                                        @if(Session::get('trop_id') == 0)  
+                                            @foreach($all_cats as $cat)
                                                 <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
-                                            @endif
-                                        @endforeach
+                                            @endforeach
+                                        @else
+                                            @foreach($trop_cats as $cat)
+                                                <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
+                                            @endforeach
+                                            @foreach($all_cats as $cat)
+                                                @if($user->can(['view-category-' . $cat->catid]))
+                                                    <option @if(in_array($cat->catid, $post_cat)) selected @endif value="{{$cat->catid}}">{{$cat->cat_name}}</option>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
