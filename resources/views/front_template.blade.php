@@ -175,7 +175,7 @@
 
         });
 
-        jQuery(document).ready(function($) {
+        /*jQuery(document).ready(function($) {
 
             $.reject({
                 reject: {
@@ -197,7 +197,7 @@
             }); // Customized Browsers
 
             return false;
-        });
+        });*/
 
         @if(Session::get('user')->status != 'outsource')
 
