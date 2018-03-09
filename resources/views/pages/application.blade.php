@@ -3,6 +3,10 @@
 </header>
 @stop
 @section('content')
+
+{{--*/ $em_info = Session::get('em_info')/*--}}
+{{--*/ $user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first() /*--}}
+
 <br>
 <style>
 .application {
@@ -110,6 +114,9 @@
               <span data-toggle="tooltip" data-placement="left" title="กรองทุกหมวดหมู่" style="">All</span>
             </button>
             @foreach($group as $g)
+                @if(!$user->can(['view-app_group-'.$g->group_id]))
+                    @continue
+                @endif
             <button class="btn btn-primary filter" data-filter=".{{$g->group_name}}" style="margin-top:15px; background: {{$g->group_color}};">
               <span data-toggle="tooltip" data-placement="top" title="กรองตามหมวดหมู่ {{$g->group_title}}">{{$g->group_title}}</span>
             </button>
@@ -135,6 +142,9 @@
                   $fav_count = DB::select('select * from favorite_app where app_id = ? and fid = ?',[$app->app_id, $fid])
 
                 /*--}}
+                @if(!$user->can(['view-app_group-'.$app->group_id]))
+                    @continue
+                @endif
                 <div class="col-md-3 mix {{$app->group_name}}" data-group-name="{{$app->group_name}}" data-app-name="{{$app->app_name}}" style="background: {{$app->group_color}};">
                     <h4 class="app-title">
                     <a href="{{$app->app_link}}" target="_blank">

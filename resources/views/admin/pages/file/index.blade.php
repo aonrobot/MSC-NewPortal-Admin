@@ -333,118 +333,135 @@ $(function() {
 
     $('#flylital_tree').jstree({
         'core' : {
-                  'data' : {
-                    'url' : 'file/show?pid={{Request::get('pid')}}',
-                    'data' : function (node) {
-                      return { 'id' : node.id };
+            'data' : {
+                'url' : 'file/show?pid={{Request::get('pid')}}',
+                //"dataType" : "json" // needed only if you do not supply JSON headers
+                'data' : function (node) {
+                    return { 'id' : node.id };
+                }
+            },
+            "check_callback" : function(o, n, p, i, m){
+                return true;
+            }
+        },
+        'contextmenu' : {
+            "items": function($node) {
+                var tree = $("#flylital_tree");
+                return {
+                    "Rename": {
+                        "separator_before": false,
+                        "separator_after": false,
+                        "label": "Rename",
+                        "action": function (obj) {
+                            tree.jstree('edit', $node);
+                        }
+                    },
+                    "Remove": {
+                        "separator_before": false,
+                        "separator_after": false,
+                        "label": "Remove",
+                        "action": function (obj) {
+                            tree.jstree('delete_node', $node);
+                        }
                     }
-                  },
-                  "check_callback" : function(o, n, p, i, m){
-                    return true;
-                  }
+                };
+            }
+        },
+        'types' : {
+            'file' : { 'valid_children' : [], 'icon' : 'file' },
+            'link' : { 'valid_children' : [], 'icon' : 'link' }
+        },
+        'unique' : {
+            'duplicate' : function (name, counter) {
+                return name + ' ' + counter;
+            }
+        },
+        "plugins" : [ 'state','dnd','types','contextmenu','unique' ]
+    })
+
+    .on("activate_node.jstree", function(e, data){
+        console.log(data);
+        //if(data.node.type == 'file' || data.node.type == 'link')
+            //window.open(data.node.a_attr.href, '_blank');
+    })
+
+    .on('move_node.jstree', function (e, data) {
+        //console.log(data.node.id + ' | ' + data.parent);
+        console.log(data);
+       
+        var jsonNode = $("#flylital_tree").jstree(true).get_json('#', { 'flat': true });
+     
+        /*$(function () {
+            $("#plugins8").jstree({
+                "core" : {
+                "check_callback" : true
                 },
-                'contextmenu' : {
-                    "items": function($node) {
-                        var tree = $("#flylital_tree");
-                        return {
-                            "Rename": {
-                                "separator_before": false,
-                                "separator_after": false,
-                                "label": "Rename",
-                                "action": function (obj) {
-                                    tree.jstree('edit', $node);
-                                }
-                            },
-                            "Remove": {
-                                "separator_before": false,
-                                "separator_after": false,
-                                "label": "Remove",
-                                "action": function (obj) {
-                                    tree.jstree('delete_node', $node);
-                                }
-                            }
-                        };
-                    }
-                },
-                'types' : {
-                    'file' : { 'valid_children' : [], 'icon' : 'file' },
-                    'link' : { 'valid_children' : [], 'icon' : 'link' }
-                },
-                'unique' : {
-                    'duplicate' : function (name, counter) {
-                        return name + ' ' + counter;
-                    }
-                },
-                "plugins" : [ 'state','dnd','types','contextmenu','unique' ]
-            })
-
-            .on("activate_node.jstree", function(e, data){
-                console.log(data);
-                //if(data.node.type == 'file' || data.node.type == 'link')
-                    //window.open(data.node.a_attr.href, '_blank');
-            })
-
-            .on('move_node.jstree', function (e, data) {
-                console.log(data.node.id + ' | ' + data.parent);
-                $.get('file/update?operation=move_node', { 'id' : data.node.id, 'parent' : data.parent, 'pid' : {{Request::get('pid')}} })
-                    .done(function (d) {
-                        console.log(d['status']);
-                        data.instance.refresh();
-                    })
-                    .fail(function () {
-                        data.instance.refresh();
-                });
-            })
-
-            .on('delete_node.jstree', function (e, data) {
-
-                var data = data;
-
-                swal({
-                  title: 'Are you sure?',
-                  text: "You won't be able to revert this!",
-                  type: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Yes, delete it!'
-                }).then(function() {
-
-                    $.get('file/update?operation=delete_node', { 'id' : data.node.id })
-                    .fail(function () {
-                        data.instance.refresh();
-                    });
-                    swal(
-                      'Deleted!',
-                      'Your file has been deleted.',
-                      'success'
-                    )
-
-                }, function(dismiss) {
-                  // dismiss can be 'cancel', 'overlay',
-                  // 'close', and 'timer'
-                  if (dismiss === 'cancel') {
-                    data.instance.refresh();
-                    swal(
-                      'Cancelled',
-                      'Your imaginary file is safe :)',
-                      'error'
-                    )
-                  }
-                })
-
-            })
-
-            .on('rename_node.jstree', function (e, data) {
-                $.get('file/update?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
-                    .done(function (d) {
-                        //data.instance.set_id(data.node, d.id);
-                        data.instance.refresh();
-                    })
-                    .fail(function () {
-                        data.instance.refresh();
-                    });
+                "plugins" : [ "unique", "dnd" ]
             });
+        });*/
+
+        console.log(jsonNode);
+
+        $.get('file/update?operation=move_node', { 'id' : data.node.id, 'parent' : data.parent, 'pid' : {{Request::get('pid')}} })
+            .done(function (d) {
+                console.log(d['status']);
+                data.instance.refresh();
+            })
+            .fail(function () {
+               data.instance.refresh();
+        });
+    })
+
+    .on('delete_node.jstree', function (e, data) {
+
+        var data = data;
+
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function() {
+
+            $.get('file/update?operation=delete_node', { 'id' : data.node.id })
+            .fail(function () {
+                data.instance.refresh();
+            });
+            swal(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+
+        }, function(dismiss) {
+            // dismiss can be 'cancel', 'overlay',
+            // 'close', and 'timer'
+            if (dismiss === 'cancel') {
+            data.instance.refresh();
+            swal(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+            )
+            }
+        })
+
+    })
+
+    .on('rename_node.jstree', function (e, data) {
+        $.get('file/update?operation=rename_node', { 'id' : data.node.id, 'text' : data.text })
+            .done(function (d) {
+                //data.instance.set_id(data.node, d.id);
+                data.instance.refresh();
+            })
+            .fail(function () {
+                data.instance.refresh();
+            });
+    });
+    
 
     //Select policy file
     $('#flylital_tree_policy').jstree({

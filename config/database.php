@@ -80,7 +80,7 @@ return [
 
 		'sqlsrv' => [
 			'driver' => 'sqlsrv',
-			'host' => 'MSCDTA\MSCDATA', // Provide IP address here
+			'host' => 'MIS_TEST', // Provide IP address here //MSCDTA\MSCDATA
 			'database' => 'mscnewportal',
 			'username' => 'sa',
 			'password' => 'Leave&Time',

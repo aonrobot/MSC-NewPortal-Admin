@@ -33,6 +33,7 @@
                               <option value="category">Category</option>
                               <option value="post">Post</option>
                               <option value="file">File</option>
+                              <option value="app_group">Application Group</option>
                             </select>
                         </div>
                     </div>
@@ -64,6 +65,11 @@
                               {{--*/ $posts = DB::table('post')->get() /*--}}
                               @foreach($posts as $post)
                                 <option value="{{$post->pid}}:{{$post->post_name}}" class="post">{{$post->post_name}}</option>
+                              @endforeach
+
+                              {{--*/ $app_groups = DB::table('application_group')->get() /*--}}
+                              @foreach($app_groups as $appg)
+                                <option value="{{$appg->group_id}}:{{$appg->group_name}}" class="app_group">{{$appg->group_name}}</option>
                               @endforeach
                             </select>
                         </div>

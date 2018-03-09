@@ -244,3 +244,10 @@ Route::get('testTTFB', function(){
 });
 
 Route::get('testTTFB_meetdoc', 'FrontMenuController@index');
+
+//Event Chinese New Year 
+
+Route::group(['prefix' => 'Chinese', 'namespace' => 'Event'], function () {
+	Route::get('index', 'ChineseController@index');
+	
+});

@@ -105,6 +105,8 @@
 
 @endif
 
+<!-- Now don't use -->
+
 @if(Session::get('user')->hasRole(['owner','admin','building']))
 
 <div id="building_modal" class="modal fade">
@@ -202,7 +204,9 @@ $('#its_phonebook').DataTable({
     "ajax": '/newportal/api/phonebook/its'
 });
 
-$('#building_phonebook').DataTable({
+//building_phonebook
+
+/*$('#building_phonebook').DataTable({
     "lengthMenu": [[5], [5]],
     "columnDefs": [{
         "width": "15%",
@@ -210,7 +214,7 @@ $('#building_phonebook').DataTable({
 
     }],
     "ajax": '/newportal/api/phonebook/building'
-});
+});*/
 
 
 $('#mis_phonebook').DataTable({

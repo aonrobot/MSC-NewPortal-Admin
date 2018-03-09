@@ -58,11 +58,14 @@
     <link href="{{asset('css/metrop-component.min.css')}}" rel="stylesheet">
 
     <!-- King 9 Gray Style-->
-    <!-- Template Color -->
+    <!-- Template Color 
     <link href="{{asset('css/template_color/gray/grayscale.css')}}" rel="stylesheet">
-    <link href="{{asset('css/template_color/gray/graystyle.css')}}" rel="stylesheet">
+    <link href="{{asset('css/template_color/gray/graystyle.css')}}" rel="stylesheet">-->
 
-
+<!-- christmas Style-->
+    <!-- Template Color -->
+    <!-- <link href="{{asset('css/template_color/christmas.css')}}" rel="stylesheet"> -->
+    
     <!-- Javascript Library -->
 
     <!-- jQuery 2.2.3 -->
@@ -72,7 +75,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <!-- Modernizr -->
-    <script src="{{asset('js/modernizr.min.js')}}"></script>
+    <script src="{{asset('js/modernizr.min.js')}}"></script> 
 
     @if(Request::path() != '/')
 
@@ -165,16 +168,19 @@
     <script src="{{asset('js/metrop.min.js')}}"></script>
     <script src="{{asset('js/metrop-component.min.js')}}"></script>
 
+    <!-- Custom By Season -->
+    <!-- Snow -->
+     <!-- <script src="{{asset('plugins/snow/jquery.snow.min.1.0.js')}}"></script>
+    <script>$.fn.snow({ minSize: 5, maxSize: 40, newOn: 600, flakeColor: '#b5d8f2' });</script> -->
 
     <script>
 
 
         jQuery(window).load(function () {
 
-            $(".portal-loader").fadeOut("slow");
+            $(".portal-loader").fadeOut("slow"); 
 
-        });
-
+        }); 
         /*jQuery(document).ready(function($) {
 
             $.reject({
@@ -197,7 +203,7 @@
             }); // Customized Browsers
 
             return false;
-        });*/
+        });*/ 
 
         @if(Session::get('user')->status != 'outsource')
 

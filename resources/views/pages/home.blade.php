@@ -88,7 +88,7 @@
 <!-- /.row -->
 @endif
 
-<!-- include('pages.events.valentine.index') -->
+<!-- include('pages.events.Chinese.index') -->
 
 <!-- content 2 | slide -->
 <div class="row">
@@ -451,14 +451,14 @@
                                 id: 23,
                                 name: 'วันแรงงานแห่งชาติ',
                                 location: '',
-                                startDate: new Date(2018, 5, 1),
-                                endDate: new Date(2018, 5, 1)
+                                startDate: new Date(2018, 4, 1),
+                                endDate: new Date(2018, 4, 1)
                             }, {
                                 id: 24,
                                 name: 'วันวิสาขบูชา',
                                 location: '',
-                                startDate: new Date(2018, 5, 29),
-                                endDate: new Date(2018, 5, 29)
+                                startDate: new Date(2018, 4, 29),
+                                endDate: new Date(2018, 4, 29)
                             }, {
                                 id: 25,
                                 name: 'วันอาสาฬหบูชา',
@@ -475,8 +475,8 @@
                                 id: 27,
                                 name: 'ชดเชยวันเฉลิมพระชนมพรรษา สมเด็จพระนางเจ้าพระบรมราชาชินีนาถในพระบาทสมเด็จพระปรมิทรมหาภูมิพลอดุลยเดช บรมนาถบพิตร',
                                 location: '',
-                                startDate: new Date(2018, 9, 13),
-                                endDate: new Date(2018, 9, 13)
+                                startDate: new Date(2018, 7, 13),
+                                endDate: new Date(2018, 7, 13)
                             }, {
                                 id: 28,
                                 name: 'ชดเชยวันคล้ายวันสวรรคตพระบาทสมเด็จพระปรมินทรมหาภูมิพลอดุลยเดช บรมนาถบพิตร',
