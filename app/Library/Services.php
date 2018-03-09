@@ -30,10 +30,8 @@ namespace App\Library {
 			$phonebook = DB::connection('MSCMain')->select("
 
 				SELECT DISTINCT Emp.OrgCode, Emp.EmpCode, Emp.OrgUnitCode, Emp.FirstName, Emp.LastName, Emp.NickName, Emp.FullName,
-				 				Emp.FullNameEng, Emp.OrgUnitName, Emp.email, Emp.phone3 EmpPhone,Emp.location EmpLocation,
-				 				isnull([LOCATE],'') [LOCATE] ,isnull(EXTNO,'') EXTNO,isnull(REMARK,'') REMARK, Phone.*
-				FROM MSCMain.dbo.EmployeeNew Emp left outer join MSCMain.dbo.EmpPhonebook Phone
-				ON Emp.EmpCode = Phone.EMPNO and Emp.OrgCode = Phone.COMCOD
+				 				Emp.FullNameEng, Emp.OrgUnitName, Emp.email, Emp.phone3 EmpPhone,Emp.location EmpLocation
+				FROM MSCMain.dbo.EmployeeNew Emp
 				WHERE Emp.WorkingStatus = 1
 					  and (Emp.OrgCode  = 'MSC'  or  Emp.OrgCode = 'MID' or  Emp.OrgCode  = 'MCC' or  Emp.OrgCode  = 'MIT' or  Emp.OrgCode  = 'HIS') and Emp.Login <> ''
 			");
@@ -79,7 +77,7 @@ namespace App\Library {
 				}
 				break;
 
-			case 'BUILDING':
+			/*case 'BUILDING':
 
 				foreach ($phonebook as $pb) {
 
@@ -104,7 +102,7 @@ namespace App\Library {
 
 					];
 				}
-				break;
+				break;*/
 
 			default:
 				foreach ($phonebook as $pb) {

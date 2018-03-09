@@ -38,7 +38,7 @@
         <a class="btn btn-danger search_company_btn" data-toggle="modal" data-target="#its_modal">ITS Mode</a>
         @endif
         @if(Session::get('user')->hasRole(['owner','admin','building']))
-        <a class="btn btn-danger search_company_btn" data-toggle="modal" data-target="#building_modal"><i></i>ค้นหาทะเบียนรถ</a>
+        <!--<a class="btn btn-danger search_company_btn" data-toggle="modal" data-target="#building_modal"><i></i>ค้นหาทะเบียนรถ</a>-->
         @endif
         @if(Session::get('user')->hasRole(['owner','admin','MIS','HR']))
         <a class="btn btn-danger search_company_btn" data-toggle="modal" data-target="#mis_modal"><i></i>Not Have Picture</a>
@@ -108,7 +108,7 @@
 <!-- Now don't use -->
 
 @if(Session::get('user')->hasRole(['owner','admin','building']))
-
+<!--
 <div id="building_modal" class="modal fade">
     <div class="modal-dialog" style="width: 80%;">
         <div class="modal-content">
@@ -138,7 +138,7 @@
         </div>
     </div>
 </div>
-
+-->
 @endif
 
 @if(Session::get('user')->hasRole(['owner','admin','MIS','HR']))
