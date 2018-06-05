@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,9 +36,7 @@
                 margin-bottom: 40px;
             }
         </style>
-
     </head>
-
     <body>
         <!-- Navigation -->
         <header class="metrop-nav">
@@ -63,7 +59,7 @@
                 <div class="col-md-12 text-center">
                     <h2><small>ขออภัยในความไม่สะดวกครับ{{empty(Session::get('em_info')) ? '' : ', คุณ'.Session::get('em_info')->FirstName .' '. Session::get('em_info')->LastName}}</small><h2>
                     <div style="border:1px solid">
-                        <h1><i class="fa fa-heart" style="color:#E26A6A"></i> Not Found This Page !!<br><small>{{$exception->getMessage()}}</small></h1>
+                        <h1><i class="fa fa-heart" style="color:#E26A6A"></i> เกิดปัญหาขัดข้องกับระบบ (505)<br><small>{{$exception->getMessage()}}</small></h1>
                     </div>
                     <hr>
                     <h2><small>Please contact your administrator or call 78456(pat@mis), 78451(aon@mis)</small> <h2>
@@ -76,9 +72,5 @@
         </div>
         <!-- /.row content -->
         <hr>
-
     </body>
-
 </html>
-
-

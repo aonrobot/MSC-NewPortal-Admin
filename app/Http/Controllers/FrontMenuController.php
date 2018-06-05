@@ -8,9 +8,12 @@ use Config;
 class FrontMenuController extends Controller {
 	public function index() {
 		$menu_depart = Menu::where('menu_type', 'menubar')->where('mid', Config::get('newportal.menubar.department.id'))->first();
+
+		$menu_test = Menu::where('menu_type', 'menubar')->where('mid', Config::get('newportal.menubar.test.id'))->first();
 		
 		$menu_meeting = Menu::where('menu_type', 'menubar')->where('mid', Config::get('newportal.menubar.meetingdocument.id'))->first();
 
+	
 		$meeting_menus = $menu_meeting->menu_item()->orderby('item_sort')->get();
 
 		$main_list = [];
@@ -45,5 +48,8 @@ class FrontMenuController extends Controller {
 		// return 0;
 
 		return ["menus" => $menu_depart->menu_item, 'main_document_menu' => $main_array];
+
+
+	
 	}
 }

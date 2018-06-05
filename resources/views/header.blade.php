@@ -51,21 +51,17 @@
             </a>
         </li>
 
-        @if(Session::get('user')->status != 'outsource')
         <li data-toggle="tooltip" data-placement="bottom" title="เกี่ยวกับบริษัท">
             <a href="{{asset(Config::get('newportal.trop.aboutmsc.url'))}}" class="npt_stat" data-name="about" data-where="top-nav">
                 <i class="fa fa-globe" aria-hidden="true"></i> About MSC
             </a>
         </li>
-        @endif
 
         <li data-toggle="tooltip" data-placement="bottom" title="สมุดโทรศัพท์">
             <a href="{{asset('/phonebook')}}" class="npt_stat" data-name="phonebook" data-where="top-nav">
                 <i class="fa fa-phone" aria-hidden="true"></i> Phone Book
             </a>
         </li>
-
-        @if(Session::get('user')->status != 'outsource')
 
         {{--*/ $policy_id = App\Library\Services::setting_getPostPolicyId()/*--}}
         <li data-toggle="tooltip" data-placement="bottom" title="Policy ทั้งหมด">
@@ -126,6 +122,8 @@
             </ul>
         </li>
 
+        @if($user->can(['view-menu-'.Config::get('newportal.menubar.department.id')]))
+
         <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">
             <a href="{{asset('/')}}"><i class="fa fa-group"></i> Department</a>
             <ul class="cd-nav-icons is-hidden">
@@ -133,6 +131,9 @@
                 <li class="see-all"><a href="#">{{empty($menus) ? 'Sorry, Not have a menu now.' : 'All Department'}}</a></li>
                 {{--*/$i = 0/*--}}
                 @forelse($menus as $menu)
+                @if(!$user->can(['view-menu_item-' . $menu->mtid]))
+                    @continue
+                @endif
                 <li>
                     <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" data-name="{{$menu->item_name}}" data-where="department-bar" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
                         {{--*/
@@ -160,6 +161,8 @@
             </ul>
         </li>
 
+        @endif
+
         <!-- Meeting Document -->
         @if($user->can(['view-menu-'.Config::get('newportal.menubar.meetingdocument.id')]))
 
@@ -168,7 +171,7 @@
 
                 <ul class="cd-secondary-nav is-hidden">
                     <li class="go-back"><a href="#0">Menu</a></li>
-               
+            
                     @if(count($main_document_menu) != 0)
                         <!-- Loop Here-->
                         @foreach($main_document_menu as $key => $value)
@@ -198,8 +201,41 @@
         </li>
 
         @endif
+        @if($user->can(['view-menu-'.Config::get('newportal.menubar.test.id')]))
+        <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="TEST">
+            <a href="{{asset('/')}}"><i class="fa fa-file-text"></i>TEST</a>
 
-        @endif <!-- End Check OutSource-->
+                <ul class="cd-secondary-nav is-hidden">
+                    <li class="go-back"><a href="#0">Menu</a></li>
+            
+                    @if(count($main_document_menu) != 0)
+                        <!-- Loop Here-->
+                        @foreach($main_document_menu as $key => $value)
+
+                        <li class="has-children">
+                            <a>{{$key}}</a>
+
+                            <ul class="is-hidden">
+                                <li class="go-back"><a href="#0">TEST</a></li>
+                                @foreach($value as $menu)
+                                    @if(!$user->can(['view-menu_item-'.$menu['mtid']]))
+                                        @continue
+                                    @endif
+                                    <li>
+                                        <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu['item_link'], "http")}}" href="{{asset($menu['item_link'])}}" data-name="{{$menu['item_name']}}" data-where="department-bar" @if(strpos($menu['item_link'], "http") !== false) target='_blank' @endif>
+                                        {{$menu['item_name']}}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+
+                    @endif
+
+                </ul>
+        </li>
+        @endif
 
     </ul>
     <!-- primary-nav -->

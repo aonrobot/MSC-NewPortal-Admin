@@ -11,6 +11,7 @@ use App\trop;
 use App\trop_rela;
 use App\category;
 use App\role_user;
+use App\Library\Services;
 use DB;
 
 class EmployeeController extends Controller {
@@ -62,14 +63,14 @@ class EmployeeController extends Controller {
      {
         $employee_detail = employee::all();
 		
-		$tel = DB::connection('MSCMain')->select("select Emp.*,isnull([LOCATE],'') [LOCATE] ,isnull(EXTNO,'') EXTNO,isnull(REMARK,'') REMARK from EmployeeNew Emp left outer join EmpPhonebook Phone on Emp.EmpCode = Phone.EMPNO and Emp.OrgCode = Phone.COMCOD WHERE Emp.OrgCode  = 'MSC'  or  Emp.OrgCode = 'MID' or  Emp.OrgCode  = 'MCC' or  Emp.OrgCode  = 'MIT' or  Emp.OrgCode  = 'HIS' ");
+		$tel = Services::getPhoneQuery();
 		
         return view('admin.pages.employee.employee_list', ['employee' => $employee_detail,'tel' => $tel]);
      }
 	 
     public function editdetail($id){
 	    
-		$employee = employee::where('emid', '=', $id )->get();	
+		$employee = employee::where('emid', '=', $id)->get();	
 
 		$emid = $employee[0]->emid;
 		 

@@ -24,30 +24,46 @@ class menuController extends Controller
 	 
 	 public function edit1($id)
     {	  
-       $trop_id = Session::get('trop_id');
-		  $menu0 = menu::where('mid', '=', $id)
-         ->select('mid','menu_name','menu_type','is_tem','menu_title','menu_template_id','tid')
-		 ->get();
-		  error_reporting(E_ALL ^ E_NOTICE);
-		  $menu_template = menu::where('mid', '=', $menu0[0]->menu_template_id)
-		 ->first()->menu_name;
-		  $trops = trop::orderBy('trop_status', 'ASC')->get();
-		  $post1 = post::orderBy('post_name')->get();
-		  $category1 = category::where('tid', '=',$menu0[0]->tid)->get();
-		 
-	error_reporting(E_ALL ^ E_NOTICE);
-		 foreach($menu0 as $menu1){
-		 $iditem=$menu1->mid;
-		 }
-		    $menuitem1 = menu_item::join('menu_rela','menu_rela.mtid', '=', 'menu_item.mtid')
-		   ->where('mid', '=', $iditem)
-           ->select('mid','menu_rela.mtid','item_parent_id','item_sort','item_icon','item_name','item_link','item_style','item_type','item_description','item_image')
-		   ->orderBy('item_sort', 'ASC')
-		   ->get();
-		   
+		$trop_id = Session::get('trop_id');
+		$user = Session::get('user');
+		
+		$menu0 = menu::where('mid', '=', $id)
+		->select('mid','menu_name','menu_type','is_tem','menu_title','menu_template_id','tid')
+		->get();
 
-		  
-		  return view('admin.pages.menu.menuedit', ['menuitem' => $menuitem1,'mid' => $id,'menu' => $menu0,'post' => $post1,'category' => $category1,'trop1' => $trops,'template_name' => $menu_template]);
+		if($trop_id != $menu0[0]->tid){
+			abort(404, "ไม่พบหน้าที่คุณเลือก");
+		}
+
+		error_reporting(E_ALL ^ E_NOTICE);
+		$menu_template = menu::where('mid', '=', $menu0[0]->menu_template_id)
+		->first()->menu_name;
+
+		$trops = trop::orderBy('trop_status', 'ASC')->get();
+
+		if($trop_id != 0){
+			$post1 = post::where('tid', $menu0[0]->tid)->orderBy('post_name')->get();
+			$category1 = category::where('tid', '=',$menu0[0]->tid)->get();
+		}else{
+			$post1 = post::orderBy('post_name')->get();
+			$category1 = category::get();
+		}
+
+		
+		
+		error_reporting(E_ALL ^ E_NOTICE);
+		foreach($menu0 as $menu1){
+			$iditem=$menu1->mid;
+		}
+		$menuitem1 = menu_item::join('menu_rela','menu_rela.mtid', '=', 'menu_item.mtid')
+		->where('mid', '=', $iditem)
+		->select('mid','menu_rela.mtid','item_parent_id','item_sort','item_icon','item_name','item_link','item_style','item_type','item_description','item_image')
+		->orderBy('item_sort', 'ASC')
+		->get();
+		
+
+		
+		return view('admin.pages.menu.menuedit', ['menuitem' => $menuitem1,'mid' => $id,'menu' => $menu0,'post' => $post1,'category' => $category1,'trop1' => $trops,'template_name' => $menu_template]);
 		  
 		  
     }

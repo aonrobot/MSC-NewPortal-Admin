@@ -32,15 +32,30 @@
     </div>
 </div>
 <!-- /.row -->
+
+@php
+
+    //for set permission btn
+    $OrgUnitCode = strtolower(Session::get('user')->org_code);
+
+    $is_its = strpos($OrgUnitCode, '837-') !== false;
+    $is_mis = strpos($OrgUnitCode, '831-') !== false;
+    $is_hr = strpos($OrgUnitCode, '611-') !== false;
+    
+    $its_mode = Session::get('user')->hasRole(['owner','admin','ITS']) || $is_its;
+    $not_have_pic_mode = Session::get('user')->hasRole(['owner','admin','MIS','HR']) || $is_mis || $is_hr;
+
+@endphp
+
 <div class="row">
     <div class="col-md-12">
-        @if(Session::get('user')->hasRole(['owner','admin','ITS']))
+        @if($its_mode)
         <a class="btn btn-danger search_company_btn" data-toggle="modal" data-target="#its_modal">ITS Mode</a>
         @endif
         @if(Session::get('user')->hasRole(['owner','admin','building']))
         <!--<a class="btn btn-danger search_company_btn" data-toggle="modal" data-target="#building_modal"><i></i>ค้นหาทะเบียนรถ</a>-->
         @endif
-        @if(Session::get('user')->hasRole(['owner','admin','MIS','HR']))
+        @if($not_have_pic_mode)
         <a class="btn btn-danger search_company_btn" data-toggle="modal" data-target="#mis_modal"><i></i>Not Have Picture</a>
         @endif
         <a class="btn btn-success search_company_btn" data-value="">ALL</a>
@@ -53,7 +68,7 @@
     </div>
 
     <div class="col-md-12">
-        <hr><h4>หากต้องการ <b><u>เปลี่ยนรูปภาพของท่าน</u></b> กรุณาแจ้งไปที่ HR Email <a href="mailto:jutamkon@METROSYSTEMS.CO.TH">jutamkon@metrosystems.co.th</a> หรือ <a href="mailto:SIRIWKON@METROSYSTEMS.CO.TH">siriwkon@metrosystems.co.th</a></h4><hr><br>
+        <hr><h4>หากต้องการ <b><u>เปลี่ยนรูปภาพของท่าน</u></b> กรุณาแจ้งไปที่ HR Email  <a href="mailto:THANANAP@METROSYSTEMS.CO.TH">thananap@metrosystems.co.th</a></h4><hr><br>
     </div>
 
     <div class="col-md-12">
@@ -74,7 +89,7 @@
     </div>
 </div>
 
-@if(Session::get('user')->hasRole(['owner','admin','ITS']))
+@if($its_mode)
 
 <div id="its_modal" class="modal fade">
     <div class="modal-dialog" style="width: 80%;">
@@ -141,7 +156,7 @@
 -->
 @endif
 
-@if(Session::get('user')->hasRole(['owner','admin','MIS','HR']))
+@if($not_have_pic_mode)
 
 <div id="mis_modal" class="modal fade">
     <div class="modal-dialog" style="width: 80%;">

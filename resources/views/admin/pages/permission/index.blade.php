@@ -116,7 +116,7 @@
                       @foreach($lists as $list)
                           <tr>
                               <td>{{$list->id}}</td>
-                              <td>{{$list->display_name}}</td>
+                              <td>{{$list->display_name}} ({{$list->name}})</td>
                               <td><a id="removePermissionBtn" href="{{asset('admin/permission/destroy/'.$list->id)}}" value="{{$list->id}}" class="btn btn-danger confirm"><i class="fa fa-trash"></i> Remove</a></td>
                           </tr>
                       @endforeach

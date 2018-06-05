@@ -15,28 +15,27 @@ $can_access = ['admin','owner','trop_admin'];
 
 @if(($per::can($can_access)))
 
- <h1>Trop Newportal</h1>
+ <h1>Admin Newportal</h1>
  <div class="row">
-	
-            <div class="col-md-12">
-                <div class="box box-info">
-                    <div class="box-header">
-                    </div>
-                    <div class="box-body">	 
-			
-					   <a href="<?=asset('/admin/trop/detail/') ?><?php echo '/'.$tropadmin;?>">
-                        <div class="col-md-2" style="margin-left: 670px; ">
-                           <div class="bg-yellow" style="padding:25px 15px 5px 15px;">
-                                <i class="fa fa-file-text-o fa-3x"></i>
-								 <h4><p style="word-break: break-all;">Newportal</p></h4>
-							</div>
-                        </div>
-						</a>
-										
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header">
+            </div>
+            <div class="box-body">	 
+    
+                <a href="<?=asset('/admin/trop/detail/') ?><?php echo '/'.$tropadmin;?>">
+                <div class="col-md-2 text-center">
+                    <div class="bg-yellow" style="padding:25px 15px 5px 15px;">
+                        <i class="fa fa-file-text-o fa-3x"></i>
+                        <h4><p style="word-break: break-all;">Admin Newportal</p></h4>
                     </div>
                 </div>
+                </a>
+                                
             </div>
         </div>
+    </div>
+</div>
 @endif
  <h1>Department </h1>
         <div class="row">

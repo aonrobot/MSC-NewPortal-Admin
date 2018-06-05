@@ -190,6 +190,10 @@ Route::group(['middleware' => ['auth.ad']], function () {
 		return App\Library\Services::getEmployeeImage($request->input('empCode'));
 	});
 
+	Route::get('/api/getUserInfo/{user?}', function ($user) {
+		return App\MainEmployee::where("login", $user)->get();
+	});
+
 	////////////////////////////////////////// Static Zone //////////////////////////////////////////////////////////
 
 	//Backend

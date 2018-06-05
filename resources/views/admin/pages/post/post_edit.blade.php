@@ -86,14 +86,21 @@ $user = Session::get('user');
                                                 $employees = DB::table('employee')->orderBy('Login','ASC')->get();
                                             }
                                             else{
-                                                $employees = DB::table('employee')->join('trop_rela','employee.emid','=','trop_rela.emid')->where('trop_rela.tid', Session::get('trop_id'))->get();
+                                                //$employees = DB::table('employee')->join('trop_rela','employee.emid','=','trop_rela.emid')->where('trop_rela.tid', Session::get('trop_id'))->get();
+                                                $employees = DB::table('post')->join('employee','post.emid','=','employee.emid')->where('post.tid', Session::get('trop_id'))->get();
                                             }
+                                            $list_employee = [];
                                         /*--}}
 
                                         @foreach($employees as $employee)
-                                            <option @if(intval($employee->EmpCode) == $post->emid) selected @endif value="{{intval($employee->EmpCode)}}">{{$employee->Login}}</option>
+                                            @if(!in_array($employee->emid, $list_employee))
+                                                <option @if($employee->emid == $post->emid) selected @endif value="{{intval($employee->EmpCode)}}">{{$employee->Login}}</option>
+                                                @php array_push($list_employee, $employee->emid); @endphp
+                                            @else
+                                                @continue
+                                            @endif
                                         @endforeach
-
+                                        @php unset($list_employee); @endphp
                                     </select>
                                 </div>
                             </div>

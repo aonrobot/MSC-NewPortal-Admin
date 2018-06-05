@@ -70,7 +70,7 @@ foreach ($menuitem as $menuitem1) {
                   <option value="other"<?php if ($check_link[0] == "http:") {echo "selected";}?>>Other</option>
 			   </select>
 
-               <select id="type_name" name="type_name[<?Php echo $menuitem1->mtid; ?>][]" class="series" style="width: 70px">
+               <select id="type_name" name="type_name[<?Php echo $menuitem1->mtid; ?>][]" class="series select2" style="width: 200px">
                   <option value="A">--</option>
                   <?php foreach ($category as $category1) {?>
                   <option value="<?php echo $category1->catid; ?>" class="category" <?php if ($check_link[0] == "category" and $check_link[1] == $category1->catid) {echo "selected";}?>>
@@ -78,7 +78,7 @@ foreach ($menuitem as $menuitem1) {
                   <?php }?>
                   <?php foreach ($post as $post1) {?>
                   <option value="<?php echo $post1->pid; ?>" class="post_option" <?php if ($check_link[0] == "post" and $check_link[1] == $post1->pid) {echo "selected";}?>>
-				  <?php echo $post1->post_name; ?></option>
+				  <?php echo $post1->post_name . ' ( Trop : ' . App\Trop::where('tid', $post1->tid)->get()[0]->trop_name . ' )'; ?></option>
                   <?php }?>
 				   <?php foreach ($trop1 as $trop0) {?>
                   <option value="<?php echo $trop0->tid; ?>" class="trop" <?php if ($check_link[0] == "trop" and $check_link[1] == $trop0->tid) {echo "selected";}?>><?php echo $trop0->trop_name; ?></option>
@@ -245,7 +245,9 @@ foreach ($menuitem as $menuitem1) {
    	});
 
    });
-
+  /* $(document).ready(function() { 
+    $("#myselect").select2({ width: 198 px });           
+});*/
    var tropId = $('#trop_id').val().split('/');
    var objectId = {{Request::segment(4)}};
    var object = "menu";

@@ -8,6 +8,14 @@ namespace App\Library {
 
 	class Services {
 
+		static private $sqlGetPhoneStr = "
+			SELECT DISTINCT Emp.OrgCode, Emp.EmpCode, Emp.OrgUnitCode, Emp.FirstName, Emp.LastName, Emp.NickName, Emp.FullName,
+							Emp.FullNameEng, Emp.OrgUnitName, Emp.email, Emp.phone3 EmpPhone,Emp.location EmpLocation
+			FROM MSCMain.dbo.EmployeeNew Emp
+			WHERE Emp.WorkingStatus = 1
+				and (Emp.OrgCode  = 'MSC'  or  Emp.OrgCode = 'MID' or  Emp.OrgCode  = 'MCC' or  Emp.OrgCode  = 'MIT' or  Emp.OrgCode  = 'HIS') and Emp.Login <> ''
+		";
+
 		static public function getEmployeeImage($EmpCode) {
 			return asset('http://appmetro.metrosystems.co.th/empimages/' . intval($EmpCode) . '.jpg?' . rand(0, 10000));
 
@@ -25,16 +33,14 @@ namespace App\Library {
 			return $upload_path;
 		}
 
+		static public function getPhoneQuery(){
+			$phonebook = DB::connection('MSCMain')->select(self::$sqlGetPhoneStr);
+			return $phonebook;
+		}
+
 		static public function fetchPhonebook($option = 'default') {
 
-			$phonebook = DB::connection('MSCMain')->select("
-
-				SELECT DISTINCT Emp.OrgCode, Emp.EmpCode, Emp.OrgUnitCode, Emp.FirstName, Emp.LastName, Emp.NickName, Emp.FullName,
-				 				Emp.FullNameEng, Emp.OrgUnitName, Emp.email, Emp.phone3 EmpPhone,Emp.location EmpLocation
-				FROM MSCMain.dbo.EmployeeNew Emp
-				WHERE Emp.WorkingStatus = 1
-					  and (Emp.OrgCode  = 'MSC'  or  Emp.OrgCode = 'MID' or  Emp.OrgCode  = 'MCC' or  Emp.OrgCode  = 'MIT' or  Emp.OrgCode  = 'HIS') and Emp.Login <> ''
-			");
+			$phonebook = DB::connection('MSCMain')->select(self::$sqlGetPhoneStr);
 
 			$data = [];
 
