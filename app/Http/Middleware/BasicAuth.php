@@ -40,7 +40,7 @@ class BasicAuth {
 				return response()->view('errors.NotEmp');
 			} else {
 
-				$emp = Employee::find($em[0]->EmpCode);
+				$emp = new Employee();
 				$emp->emid = intval($em[0]->EmpCode);
 				$emp->EmpCode = $em[0]->EmpCode;
 				$emp->Login = $user;
