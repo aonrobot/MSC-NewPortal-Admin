@@ -18,10 +18,17 @@
     }
 </style>
 
-
-
 <br>
 
+@if(Session::get('user')->status == 'outsource')
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-warning" role="alert">
+        <strong>หากท่านเป็นพนักงานบริษัท</strong>และ<strong>เห็นเมนูไม่ครบ</strong> กรุณาติดต่อ HR ext. 74342 เพื่อตรวจสอบข้อมูล Email ของท่านว่าถูกต้องหรือไม่?
+        </div>
+    </div>
+</div>
+@endif
 
 <!-- Page Header -->
 <div class="row">

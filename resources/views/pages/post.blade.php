@@ -164,7 +164,7 @@ $EmpCode = str_repeat("0", $len) . $post->emid;
             <br> ( {{ $author->PositionNameEng }} )
             <br> {{ $author->OrgNameEng }}
             <br>
-            <abbr title="Phone">Phone : </abbr> {{ $post->author_contact }}
+            <!--<abbr title="Phone">Phone : </abbr> {{ $post->author_contact }}-->
         </address>
     </div>
 </div>

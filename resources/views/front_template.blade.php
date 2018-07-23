@@ -1,7 +1,7 @@
 @if(Session::get('user')->status != 'outsource')
-{{App\Library\Statistic_lib::FirstOfDay()}}
-{{--*/ $em_info = Session::get('em_info')/*--}}
-{{--*/ $user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first() /*--}}
+    {{App\Library\Statistic_lib::FirstOfDay()}}
+    {{--*/ $em_info = Session::get('em_info')/*--}}
+    {{--*/ $user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first() /*--}}
 @endif
 <!DOCTYPE html>
 <html lang="en">

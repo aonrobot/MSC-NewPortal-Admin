@@ -71,7 +71,7 @@
             </div>
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
-                    <div class="crop">
+                    <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณจิระศักดิ์ ตรังคิณีนาถ.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณจิระศักดิ์ ตรังคิณีนาถ</h3>
@@ -85,7 +85,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
-                    <div class="crop">
+                    <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณอารีรัตน์ วิทูราภรณ์.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณอารีรัตน์ วิทูราภรณ์</h3>
@@ -117,7 +117,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
-                    <div class="crop">
+                    <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณยงยุทธ ศรีวันทนียกุล.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณยงยุทธ ศรีวันทนียกุล</h3>
@@ -126,7 +126,7 @@
             </div>
                 <div class="col-md-4">
                     <div class="metrop-about-group-content2">
-                        <div class="crop">
+                        <div class="notcrop">
                             <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณฐิติพงค์ จรณะจิตต์.jpg')}}" alt="">
                         </div>
                         <h3 class="metrop-about-head">คุณฐิติพงค์ จรณะจิตต์</h3>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="metrop-about-group-content2">
-                        <div class="crop">
+                        <div class="notcrop">
                             <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณอรวรรณ วิเชียรกวี.jpg')}}" alt="">
                         </div>
                         <h3 class="metrop-about-head">คุณอรวรรณ วิเชียรกวี</h3>
@@ -149,7 +149,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
-                    <div class="crop">
+                    <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณสุรเดช เลิศธรรมจักร์.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณสุรเดช เลิศธรรมจักร์</h3>
@@ -158,7 +158,7 @@
             </div>
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
-                    <div class="crop">
+                    <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณสมศักดิ์ มานะยิ่งเจริญ.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณสมศักดิ์ มานะยิ่งเจริญ</h3>
@@ -199,7 +199,7 @@
             </div>
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
-                    <div class="crop">
+                    <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณเนาวนิจ หลิมประเสริฐศิริ.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณเนาวนิจ หลิมประเสริฐศิริ</h3>
@@ -213,7 +213,7 @@
         <div class="row">    
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
-                    <div class="crop">
+                    <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณกฤษฎา พันธุ์ลำใย.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณกฤษฎา พันธุ์ลำใย</h3>
@@ -247,7 +247,7 @@
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
                     <div class="notcrop">
-                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณนิตยา ธนวิริยะกุล.jpg')}}" alt="">
+                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณนิตยา ธนวิริยะกุล.png')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณนิตยา ธนวิริยะกุล</h3>
                     <p class="metrop-about-content">ผู้อำนวยการกลุ่มบัญชี การเงินและธุรการ/ผู้อำนวยการสำนักเลขานุการ</p>

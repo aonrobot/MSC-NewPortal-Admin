@@ -7,7 +7,7 @@
 
 <style>
 	div>img.img-responsive{
-		height: 340px;
+		height: 280px;
 	}
 </style>
 

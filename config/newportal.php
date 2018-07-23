@@ -34,19 +34,31 @@ return [
 		'meetingdocument' => [
 			'id' => '208',
 		],
-
+		'AccountingKM' => [
+			'id' => '10270',
+		],
+		
 	],
 
 	'trop' => [
 		'aboutmsc' => [
 			'url' => 'trop/10086',
 		],
+		'Financialstatement' => [
+			'id' => '20221',
+			'url' => 'trop/20221',
+		],
 
 	],
 
 	'post' => [
 		'default_type' => ['post', 'news'],
+		'Financialstatement' => [
+			'url' => 'post/30724',
+		],
+
 
 	],
+
 
 ];

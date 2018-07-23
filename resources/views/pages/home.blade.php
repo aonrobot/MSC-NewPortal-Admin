@@ -39,7 +39,9 @@
     <div class="header-slider">
         <ul>
             @foreach($slide_heads as $slide_head)
-            <li><img class="img-responsive" src="{{asset($slide_head->slide_item_img_url)}}"></li>
+            <li>
+                <a href="{{$slide_head->slide_item_content_link}}" target="_blank"><img class="img-responsive" src="{{asset($slide_head->slide_item_img_url)}}"></a>
+            </li>
             @endforeach
         </ul>
     </div>
@@ -177,6 +179,46 @@
     @endif
 </div>
 <!-- /.row -->
+<hr>
+
+<div class="row">
+        <div class="row align-items-center"> 
+            <div class="col-sm-2" data-toggle="tooltip" title="คลิกเพื่อดูข่าวสารประเภทเยี่ยมชม">  
+             <a href="https://mscfamily.metrosystems.co.th/?page_id=652" target="_blank">
+             <img  class="img-responsive  center-block"  src="images/visitors.png" style="width: 80%;" alt="">
+            </div>
+
+            <div class="col-sm-4">
+             <h3>News</h3>
+             </a>
+             <p>ข่าวสาร ความเคลื่อนไหวของกิจกรรมต่าง ๆ การแนะนำผลิตภัณฑ์ หรือ Solutions ใหม่ ๆ ขององค์กร</p>
+            </div>
+       
+
+            <div class="col-sm-2" data-toggle="tooltip" title="เอกสารให้ดาวน์โหลดต่างๆ เช่น บัตรอวยพรปีใหม่, LOGO, E-letter">  
+             <a href="https://mscfamily.metrosystems.co.th/?p=13436" target="_blank">
+             <img  class="img-responsive  center-block" src="images/DocShare.png" style="width: 80%;" alt="">
+            </div>
+
+            <div class="col-sm-4"> 
+             <h3>Document Sharing</h3>
+             </a>
+             <p>คลังที่รวบรวมเอกสารต่างๆ เพื่อประโยชน์ต่อการใช้งานภายในองค์กร เช่น บัตรอวยพรปีใหม่, โลโก้บริษัท, กระดาษหัวจดหมายอิเล็กทรอนิกส์</p>
+            </div>
+        </div>
+</div>
+
+       <!-- <div class="col-sm-4" data-toggle="tooltip" title="เอกสารให้ดาวน์โหลดต่างๆ เช่น บัตรอวยพรปีใหม่, LOGO, E-letter" >  
+            <a href="https://mscfamily.metrosystems.co.th/?p=13436" target="_blank"> 
+             <div class="metrop-news-group-content-color" style="background: linear-gradient(141deg, #fc5c7d, #6a82fb);" >
+                 <div class="metrop-news-group-content metrop-news-group-content-img" style="background-image:url('{{ asset($posts[0]['post_thumbnail']) }}');">
+                     <div class="metrop-news-content">
+                     </div>
+                 </div>
+                    <p class="cat-label">Document Sharing</p>
+                </div>
+            </a>
+        </div> -->
 
 <hr>
 <!-- content 3 | Calendar -->
@@ -437,7 +479,7 @@
                                 endDate: new Date(2018, 3, 6)
                             }, {
                                 id: 21,
-                                name: 'วันสงการนต์',
+                                name: 'วันสงกรานต์',
                                 location: '',
                                 startDate: new Date(2018, 3, 13),
                                 endDate: new Date(2018, 3, 13)
@@ -538,7 +580,7 @@
             {{-- */$cat_posts = $categoryController->cat_posts($category->catid)/* --}}
             {{-- */$posts = App\Library\Tools::sortPost($cat_posts['posts']) /* --}}
             @if(isset($posts[0]))
-            <div class="col-sm-4" data-toggle="tooltip" title="คลิกเพื่อ อ่านข่าวประเภท {{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}">
+            <div class="col-sm-3" data-toggle="tooltip" title="คลิกเพื่อ อ่านข่าวประเภท {{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}">
                 <a href="{{asset('category/news/'.$category->catid)}}">
                 <div class="metrop-news-group-content-color" style="background: {{$color[rand(0,30)]}};">
                     <div class="metrop-news-group-content metrop-news-group-content-img" style="background-image:url('{{ asset($posts[0]['post_thumbnail']) }}');">
@@ -551,7 +593,7 @@
                 </a>
             </div>
             @else
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <a href="{{asset('category/news/'.$category->catid)}}">
                 <div class="metrop-news-group-content" style="background-color:{{$color[rand(0,24)]}};">
                     <div class="metrop-news-content">
