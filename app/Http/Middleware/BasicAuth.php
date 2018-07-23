@@ -29,7 +29,11 @@ class BasicAuth {
 			$value = str_replace('Basic ', '', $value);
 			Log::info(base64_decode($value));
 
-			$user = $_SERVER['LOGON_USER'];
+			if(env('APP_CONTAINER') == false){
+				$user = $_SERVER['LOGON_USER'];
+			} else {
+				$user = 'auttawir';
+			}
 
 			$user = str_replace("METROSYSTEMS\\", "", $user);
 
