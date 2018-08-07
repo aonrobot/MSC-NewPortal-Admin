@@ -81,18 +81,18 @@ return [
 		'sqlsrv' => [
 			'driver' => 'sqlsrv',
 			'host' => 'MIS_TEST', // Provide IP address here //MSCDTA\MSCDATA
-			'database' => 'mscnewportal',
-			'username' => 'sa',
-			'password' => 'Leave&Time',
+			'database' => env('DB_PORTAL_DATABASE'),
+			'username' => env('DB_PORTAL_USERNAME'),
+			'password' => env('DB_PORTAL_PASSWORD'),
 			'prefix' => '',
 		],
 
 		'MSCMain' => [
 			'driver' => 'sqlsrv',
 			'host' => 'MIS_Test', // Provide IP address here
-			'database' => 'MSCMain',
-			'username' => 'sa',
-			'password' => 'Leave&Time',
+			'database' => env('DB_MSCMAIN_DATABASE'),
+			'username' => env('DB_MSCMAIN_USERNAME'),
+			'password' => env('DB_MSCMAIN_PASSWORD'),
 			'prefix' => '',
 		],
 
