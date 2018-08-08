@@ -1,0 +1,75 @@
+
+body {
+    font-family: 'Prompt', sans-serif !important;
+}
+.metrob__nav { 
+    background-color: white;
+}
+.metrob__second-nav {
+    height: 45px;
+    background-color: #61B9C0;
+}
+
+.metrob__nav-search {
+    
+    border-color: transparent;
+    border-radius: 5px;
+    background: #F5F5F5;
+}
+
+.metrob__second-nav-menu {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.metrob__second-nav-menu > li > a { 
+    line-height: 1;
+    height: auto;
+}
+.disable__outline:focus {
+    outline: 0 !important;
+    border: 1px transparent solid !important; 
+    border-width: 1 !important; 
+    box-shadow: none !important;
+}
+.logo {
+    position: relative;
+}
+.logo img {
+    margin-top: 0 !important;
+}
+.flex { display: flex }
+.flex-v-center {
+    display: flex;
+    align-items: center;
+}
+.flex-h-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* SPACE SECTION */
+.m-r-5p {
+    margin-right: 5%;
+}
+.m-15 {
+    margin: 15px;
+}
+.p-t-5 {
+    padding-top: 5px;
+}
+/* END SPACE SECTION */
+
+
+/* TEXT STYLE SECTION */
+
+.nav__link-text {
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+/* END TEXT STYLE SECTION */

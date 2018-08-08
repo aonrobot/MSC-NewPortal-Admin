@@ -13,10 +13,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{asset('/favicon.ico')}}" type="image/x-icon" />
-    <title>New Portal | Metro Systems Corporation Public Company Limited</title>
+    <title>MSC Portal | Metro Systems Corporation Public Company Limited</title>
 
-
+    
     <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Prompt:400,700" rel="stylesheet">
     <!-- Font Awesome -->
 
     <!-- Ionicons -->
@@ -56,6 +57,10 @@
     <!-- Custom CSS -->
     <link href="{{asset('css/metrop.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/metrop-component.min.css')}}" rel="stylesheet">
+    <!-- Bright Custon CSS -->
+    <link href="{{asset('css/custom-style.css')}}" rel="stylesheet">
+
+
 
     <!-- King 9 Gray Style-->
     <!-- Template Color 

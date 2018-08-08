@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>New Portal | Metro Systems Corporation Public Company Limited</title>
+        <title>MSC Portal | Metro Systems Corporation Public Company Limited</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
