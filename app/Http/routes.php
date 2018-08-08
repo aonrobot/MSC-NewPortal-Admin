@@ -255,3 +255,4 @@ Route::group(['prefix' => 'Chinese', 'namespace' => 'Event'], function () {
 	Route::get('index', 'ChineseController@index');
 	
 });
+Route::get('Api/calendarevent','Api\CalendarEventController@index');

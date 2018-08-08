@@ -32,7 +32,7 @@ class BasicAuth {
 			if(env('APP_CONTAINER') == false){
 				$user = $_SERVER['LOGON_USER'];
 			} else {
-				$user = 'auttawir';
+				$user = env('FAKE_USER');
 			}
 
 			$user = str_replace("METROSYSTEMS\\", "", $user);

@@ -117,17 +117,24 @@
                 @if(!$user->can(['view-app_group-'.$g->group_id]))
                     @continue
                 @endif
-            <button class="btn btn-primary filter" data-filter=".{{$g->group_name}}" style="margin-top:15px; background: {{$g->group_color}};">
+                <button class="btn btn-primary filter" data-filter=".{{$g->group_name}}" style="margin-top:15px; background: {{$g->group_color}};">
               <span data-toggle="tooltip" data-placement="top" title="กรองตามหมวดหมู่ {{$g->group_title}}">{{$g->group_title}}</span>
             </button>
             @endforeach
+
+            <a href="http://mis_test.metrosystems.co.th:3333/d3/msclegal/menu/" target="_blank"><button class="btn btn-primary filter" style="margin-top:15px; background:#337ab7;">
+              <span data-toggle="tooltip" data-placement="top" title="">Legal Services</span>
+            </button></a>
+
             <hr>
             <div class="input-group input-group-lg" style="margin-top:15px;z-index:0" data-toggle="tooltip" data-placement="bottom" title="ค้นหา Application ทั้งหมด">
                 <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-search"></i></span>
                 <input type="text" class="form-control" id="filter" placeholder="Search" aria-describedby="sizing-addon1">
             </div>
         </div>
+      
         <hr>
+
         <div id="application" class="application">
             <div class="row">
                 {{--*/ $i = 0 /*--}}

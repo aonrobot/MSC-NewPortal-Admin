@@ -80,7 +80,7 @@ return [
 
 		'sqlsrv' => [
 			'driver' => 'sqlsrv',
-			'host' => 'MIS_TEST', // Provide IP address here //MSCDTA\MSCDATA
+			'host' => env('DB_HOST', 'MIS_TEST'), // Provide IP address here //MSCDTA\MSCDATA
 			'database' => 'mscnewportal',
 			'username' => 'sa',
 			'password' => 'Leave&Time',
@@ -89,7 +89,7 @@ return [
 
 		'MSCMain' => [
 			'driver' => 'sqlsrv',
-			'host' => 'MIS_Test', // Provide IP address here
+			'host' => env('DB_HOST', 'MIS_TEST'), // Provide IP address here
 			'database' => 'MSCMain',
 			'username' => 'sa',
 			'password' => 'Leave&Time',
