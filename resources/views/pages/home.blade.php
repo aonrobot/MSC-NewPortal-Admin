@@ -1,6 +1,7 @@
 @inject('categoryController', 'App\Http\Controllers\FrontCategoryController')
-@extends('front_template') @section('head_image')
+@extends('front_template') 
 
+@section('head_image')
 <style>
     /*For Event Valentine*/
     #scrollable-dropdown-menu .tt-menu {
@@ -33,25 +34,77 @@
     }
 </style>
 
-<!-- Page Header -->
-@if(!empty($slide_heads))
-<header class="intro-header">
-    <div class="header-slider">
-        <ul>
-            @foreach($slide_heads as $slide_head)
-            <li>
-                <a href="{{$slide_head->slide_item_content_link}}" target="_blank"><img class="img-responsive" src="{{asset($slide_head->slide_item_img_url)}}"></a>
-            </li>
-            @endforeach
-        </ul>
-    </div>
-</header>
-@else
-<header class="intro-header-empty">
-</header>
-@endif @stop @section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="metrob__greeting card">
 
+                </div>
+                <div class="metrob__quote card m-t-20 p-10">
+                </div>
+            </div>
+           
+            <div class="col-md-9 p-l-0 metrob__slide">
+                <!-- Page Header -->
+                @if(!empty($slide_heads))
+                <!-- Bootstrap Slide -->
+                <div id="myCarousel" class="carousel slide card" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @foreach($slide_heads as $key=>$slide_head)
+                                <li data-target="#myCarousel" data-slide-to="{{$key}}" class="active"></li>
+                                <li data-target="#myCarousel" data-slide-to="{{$key + 1}}"></li>
+                                <li data-target="#myCarousel" data-slide-to="{{$key + 2}}"></li>
+                            @endforeach
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @foreach($slide_heads as $key=>$slide_head)
+                                <div class="item active">
+                                    <a href="https://www.google.com" target="_blank">
+                                        <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                                    </a>
+                                </div>
+                                <div class="item">
+                                    <!-- <a href="{{$slide_head->slide_item_content_link}}" target="_blank"> -->
+                                    <a href="https://www.google.com" target="_blank">
+                                        <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                                    </a>
+                                </div>
+                                <div class="item">
+                                    <a href="https://www.google.com" target="_blank">
+                                        <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                                    </a>
+                                </div>
+                                        <!-- <img class="img-responsive" src="{{asset($slide_head->slide_item_img_url)}}" /> -->
+                                    <!-- </a> -->
+                              
+                            @endforeach
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                <!-- End Bootrap Slide -->
+                @else
+                <div class="row intro-header-empty"> 
+                </div>
+                @endif  
+            </div>
+        </div>
+    </div>
+@stop
+@section('content')
 @if(Session::get('user')->status != 'outsource')
+
 <!-- content 1 | info -->
 <!--<div class="row" id="em_info">
     <div class="col-lg-12">

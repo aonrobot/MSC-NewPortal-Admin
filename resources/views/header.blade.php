@@ -8,7 +8,6 @@
     {{-- */$fav_apps = $fav_app->fetch_fav_app()/* --}}
 
 @endif
-
 <!-- Navigation -->
 <header class="metrop-nav metrob__nav cd-main-header">
 
@@ -95,14 +94,14 @@
                                 @forelse($fav_apps as $fav_app)
                                 <li>
                                     <a class="cd-nav-item npt_stat" href="{{asset($fav_app->app_link)}}" data-name="{{$fav_app->app_title}}" data-where="favoriteApp-bar" target="_blank">
-                                        {{--*/
+                                        @php
 
                                             if(strlen($fav_app->app_title)>2)
                                                 $app_name = substr($fav_app->app_title,0,1) . substr($fav_app->app_title,-1,1);
                                             else
                                                 $app_name = substr($fav_app->app_title,0,2);
 
-                                        /*--}}
+                                        @endphp
                                         <div class="item-icon"><span style="font-size:3em;color:rgba(135, 187, 139, 0.39);">{{$app_name}}</span></div>
                                         <h3 {!!empty($fav_app->app_description) ? "style='margin-top:10px;'" : ''!!}>{{$fav_app->app_title}}</h3>
                                         <p>{{$fav_app->app_description}}</p>
@@ -119,7 +118,7 @@
                                 @endforelse
                             </ul>
                         </li>
-
+                       
                         @if($user->can(['view-menu-'.Config::get('newportal.menubar.department.id')]))
                                 
                             <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">

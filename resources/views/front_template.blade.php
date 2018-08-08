@@ -114,7 +114,7 @@
     <!-- Main Content -->
     <div class="cd-main-content container">
 
-    @yield('content')
+        @yield('content')
 
     </div>
     <!-- /.row content -->
