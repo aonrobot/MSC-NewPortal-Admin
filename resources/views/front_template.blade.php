@@ -16,8 +16,6 @@
     <title>MSC Portal | Metro Systems Corporation Public Company Limited</title>
 
     
-    <!-- Custom Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Prompt:400,700" rel="stylesheet">
     <!-- Font Awesome -->
 
     <!-- Ionicons -->
@@ -82,6 +80,12 @@
     <!-- Modernizr -->
     <script src="{{asset('js/modernizr.min.js')}}"></script> 
 
+
+    <!-- Slick Slide -->
+    <link href="{{asset('css/slick-theme.css')}}" rel="stylesheet">
+    <link href="{{asset('css/slick.css')}}" rel="stylesheet">
+    <script src="{{asset('js/slick.min.js')}}"></script>
+
     @if(Request::path() != '/')
 
     <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -112,7 +116,7 @@
 
     @yield('head_image')
     <!-- Main Content -->
-    <div class="cd-main-content container">
+    <div class="cd-main-content container bg-transparent">
 
         @yield('content')
 
