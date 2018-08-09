@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>New Portal | Metro Systems Corporation Public Company Limited</title>
+        <title>MSC Portal | Metro Systems Corporation Public Company Limited</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -20,14 +20,17 @@
 
         <!-- Custom Fonts -->
         <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-        <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+         <!-- Custom Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Prompt:300,400,700" rel="stylesheet">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'> -->
 
         <!-- jQuery -->
         <script src="{{asset('js/jquery.js')}}"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src="{{asset('js/bootstrap.min.js')}}"></script>
+       
 
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

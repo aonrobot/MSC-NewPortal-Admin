@@ -13,10 +13,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{asset('/favicon.ico')}}" type="image/x-icon" />
-    <title>New Portal | Metro Systems Corporation Public Company Limited</title>
+    <title>MSC Portal | Metro Systems Corporation Public Company Limited</title>
 
-
-    <!-- Custom Fonts -->
+    
     <!-- Font Awesome -->
 
     <!-- Ionicons -->
@@ -56,6 +55,10 @@
     <!-- Custom CSS -->
     <link href="{{asset('css/metrop.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/metrop-component.min.css')}}" rel="stylesheet">
+    <!-- Bright Custon CSS -->
+    <link href="{{asset('css/custom-style.css')}}" rel="stylesheet">
+
+
 
     <!-- King 9 Gray Style-->
     <!-- Template Color 
@@ -76,6 +79,12 @@
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <!-- Modernizr -->
     <script src="{{asset('js/modernizr.min.js')}}"></script> 
+
+
+    <!-- Slick Slide -->
+    <link href="{{asset('css/slick-theme.css')}}" rel="stylesheet">
+    <link href="{{asset('css/slick.css')}}" rel="stylesheet">
+    <script src="{{asset('js/slick.min.js')}}"></script>
 
     @if(Request::path() != '/')
 
@@ -107,9 +116,9 @@
 
     @yield('head_image')
     <!-- Main Content -->
-    <div class="cd-main-content container">
+    <div class="cd-main-content container bg-transparent">
 
-    @yield('content')
+        @yield('content')
 
     </div>
     <!-- /.row content -->
