@@ -321,9 +321,9 @@
                     <div class="col-sm-6 col-md-3 p-20">
                         <a href="{{ asset('post/'. $news['pid']) }}">
                             <div class="metrob__news-thumbnail">
-                                <img class="img-responsive" src="http://appmetro.metrosystems.co.th/newportal/uploads/trop/10175/post/30773/thumbnail/20180724085529_untitled_(15_of_19).jpg" alt="">
+                                <img class="img-responsive" src="../images/tn.jpg" alt="">
                             </div>
-                            {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($news['event_start_date'])),3)/*--}}
+                            {{--*/$str_date = (date('d-M-Y',strtotime($news['event_start_date'])))/*--}}
                             <div class="metrob__news">
                                 <div class="metrob__news-title">
                                     <h1> {{$news['post_title']}} </h1>
@@ -622,7 +622,7 @@
                 <div>
                     <h1>HAPPY BIRTHDAY</h1>
                     <hr class="separator__title" align="left" />
-                    <span class="light small">ร่วมแฮปปี้เบิดเดย์กับพนักงานที่เกิดในเดือนนี้ได้ที่นี้ (แต่ไม่ได้ไรนะ อิอิ)</span>
+                    <span class="light small">ร่วมแฮปปี้เบิดเดย์กับพนักงานที่เกิดในเดือนนี้ได้ที่นี้</span>
                 </div>
                 <div class="">
                     <h3 class="flex flex-v-center"><i class="fa fa-birthday-cake m-r-8" aria-hidden="true"></i> <span id="countCake">0</span></h3>
@@ -707,6 +707,7 @@
 	width: 50px;
     position: absolute;
     left: 50%;
+    bottom: 0;
 	z-index: 1;
     font-size: 30px;
     display: none;
@@ -825,14 +826,26 @@ function init(properties) {
 <div class="row m-t-30">
     <div class="col-md-12">
         <div class="slick">
-            <div class="col-md-3 slick__chip " style="background: url('../images/chips/AR.png'); ">
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/AR.png'); ">
                 <p class="slick__chip-title">AR Call Center</p>
                 <h2 class="slick__chip-number">#74444</h2>
             </div>
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/BP.png'); "></div>
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/BPM.jpg'); "></div>
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/HR.png'); "></div>
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/ITS.png'); "></div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/BP.png'); ">
+                <p class="slick__chip-title">BP Call Center</p>
+                <h2 class="slick__chip-number">#79999</h2>    
+            </div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/BPM.jpg'); ">
+                <p class="slick__chip-title">PCM Call Center</p>
+                <h2 class="slick__chip-number">#79999</h2>    
+            </div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/HR.png'); ">
+                <p class="slick__chip-title">HR Call Center</p> 
+                <h2 class="slick__chip-number">#79999</h2>    
+            </div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/ITS.png'); ">
+                <p class="slick__chip-title">ITS Call Center</p> 
+                <h2 class="slick__chip-number">#79999</h2>
+            </div>
         </div>
     </div>
 </div>
@@ -858,7 +871,21 @@ function init(properties) {
             speed: 300,
             slidesToShow: 3,
             centerMode: true,
-            draggable: true
+            draggable: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 550,
+                    settings: {
+                        slidesToShow: 1
+                    }
+                }
+            ],
         });
     });
 </script>          

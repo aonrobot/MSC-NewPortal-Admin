@@ -181,6 +181,7 @@ h1, h2, h3, h4, h5, h6 {
 .p-l-10 { padding-left: 10px }
 .p-l-20 { padding-left: 20px }
 .p-t-5  { padding-top: 5px }
+.p-t-10 { padding-top: 10px }
 .p-t-20 { padding-top: 20px }
 .p-t-25 { padding-top: 25px }
 .p-r-0  { padding-right: 0 }
@@ -211,6 +212,7 @@ h1, h2, h3, h4, h5, h6 {
 /* END TEXT STYLE SECTION */
 
 .slick__chip {
+
     background-position-y: top !important;
     background-position-x: center !important;
     background-repeat: no-repeat !important;

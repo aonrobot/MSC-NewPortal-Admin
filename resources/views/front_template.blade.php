@@ -17,7 +17,7 @@
 
     
     <!-- Font Awesome -->
-
+   
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{asset('plugins/ionic/ionic.min.css')}}">
 
@@ -85,6 +85,8 @@
     <link href="{{asset('css/slick-theme.css')}}" rel="stylesheet">
     <link href="{{asset('css/slick.css')}}" rel="stylesheet">
     <script src="{{asset('js/slick.min.js')}}"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Prompt:300,400,700" rel="stylesheet">
 
     @if(Request::path() != '/')
 
