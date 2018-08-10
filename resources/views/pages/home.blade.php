@@ -625,6 +625,9 @@
                     <hr class="separator__title" align="left" />
                     <span class="light small">ร่วมแฮปปี้เบิดเดย์กับพนักงานที่เกิดในเดือนนี้ได้ที่นี้ (แต่ไม่ได้ไรนะ อิอิ)</span>
                 </div>
+                <div class="">
+                    <h3 class="flex flex-v-center"><i class="fa fa-birthday-cake m-r-8" aria-hidden="true"></i> <span id="countCake">0</span></h3>
+                </div>
             </div>
             <div class="list__container max-h-450 m-t-10">
                 <div class="media list__hbd">
@@ -688,8 +691,8 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">
-                <h3 class="color__violet m-b-0"> 
+            <div class="text-center" id="congrats">
+                <h3 class="color__violet m-b-0 pointer"> 
                     <i class="fa fa-birthday-cake" aria-hidden="true"></i>
                     ร่วมอวยพรวันเกิด
                 </h3>
@@ -697,6 +700,128 @@
         </div>
     </div>
 </div>
+<!-- HBD Animation  -->
+<style>
+
+.particle {
+	height: 50px;
+	width: 50px;
+    position: absolute;
+    left: 50%;
+	z-index: 1;
+    font-size: 30px;
+    display: none;
+}
+
+.star {
+	color: #ffcc00;
+}
+
+.blob {
+	background: #fff2b3;
+	border-radius: 50%;
+	display: none;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+<script>
+    // Click "Congratulations!" to play animation
+var particles = ['.blob', '.star'],
+	$congratsSection = $('#congrats'),
+	$title = $('#title'),
+    cake = 0;
+    
+
+$(function() {
+	init({
+		numberOfStars: 20,
+		numberOfBlobs: 10
+	});
+});
+
+$congratsSection.click(fancyPopIn);
+$congratsSection.click(countCake);
+
+function countCake(){
+    cake += 1;
+    $("#countCake").html(cake);
+}
+
+function fancyPopIn() {
+	reset();
+	animateText();
+	
+	for (var i = 0, l = particles.length; i < l; i++) {
+		animateParticles(particles[i]);
+	}
+}
+
+function animateText() {
+	TweenMax.from($title, 0.65, {
+		scale: 0.4,
+		opacity: 0,
+		rotation: 15,
+		ease: Back.easeOut.config(5),
+	});
+}
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function animateParticles(selector) {
+	var xSeed = getRndInteger(350, 380);
+	var ySeed = getRndInteger(120, 170);
+	
+	$.each($(selector), function(i) {
+		var $particle = $(this);
+		var speed = getRndInteger(1, 4);
+		var rotation = getRndInteger(20, 100);
+		var scale = getRndInteger(0.8, 1.5);
+		var x = getRndInteger(-xSeed, xSeed);
+		var y = getRndInteger(-ySeed, ySeed);
+
+		TweenMax.to($particle, speed, {
+			x: x,
+			y: y,
+			ease: Power1.easeOut,
+			opacity: 0,
+			rotation: rotation,
+			scale: scale,
+			onStartParams: [$particle],
+			onStart: function($element) {
+				$element.css('display', 'block');
+			},
+			onCompleteParams: [$particle],
+			onComplete: function($element) {
+				$element.css('display', 'none');
+			}
+		});
+	});
+}
+
+function reset() {
+	for (var i = 0, l = particles.length; i < l; i++) {
+		$.each($(particles[i]), function() {
+			TweenMax.set($(this), { x: 0, y: 0, opacity: 1 });
+		});
+	}
+	
+	TweenMax.set($title, { scale: 1, opacity: 1, rotation: 0 });
+}
+
+function init(properties) {
+	for (var i = 0; i < properties.numberOfStars; i++) {
+	  $congratsSection.append('<div class="particle star fa fa-birthday-cake ' + i + '"></div>');
+	}
+	
+	for (var i = 0; i < properties.numberOfBlobs; i++) {
+	  $congratsSection.append('<div class="particle blob ' + i + '"></div>');
+	}	
+}
+</script>
+<!-- End HBD Animation -->
+
+
 <!-- Contact Slide -->
 <div class="row m-t-30">
     <div class="col-md-12">
