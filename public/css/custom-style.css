@@ -5,7 +5,9 @@ body {
     font-size: 14px;
     color: rgb(112, 112, 112);
 }
-
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Prompt', sans-serif !important;
+}
 .pointer { cursor: pointer }
 /* Change Width of Container  */
 .container {
@@ -218,6 +220,18 @@ body {
     border-radius: 10px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, .16);
 }
+.slick__chip-title {
+    text-align: center;
+    color: #fff;
+    margin: 0;
+}
+.slick__chip-number {
+    text-align: center;
+    margin-top:0;
+    color: #fff;
+    font-weight: 600 ;   
+}
+
 .header-slider {
     margin-bottom: 10px;
 }

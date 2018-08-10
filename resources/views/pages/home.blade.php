@@ -91,7 +91,7 @@
                                     <img class="media-object" src="../images/icon/Greeting.gif" />
                                 </div>
                                 <div class="media-body p-t-25">
-                                    <span id="currentDate" class="small light"></span>
+                                    <span id="currentDate" class="small light"></span> </br>
                                     <span id="currentTime" class="small light text-space"></span>
                                 </div>
                             </div>
@@ -105,7 +105,6 @@
                             </span>
                         </div>
                     </div>
-
                 </div>
                 <div class="metrob__quote card m-t-20 p-10">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -826,7 +825,10 @@ function init(properties) {
 <div class="row m-t-30">
     <div class="col-md-12">
         <div class="slick">
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/AR.png'); "></div>
+            <div class="col-md-3 slick__chip " style="background: url('../images/chips/AR.png'); ">
+                <p class="slick__chip-title">AR Call Center</p>
+                <h2 class="slick__chip-number">#74444</h2>
+            </div>
             <div class="col-md-3 slick__chip" style="background: url('../images/chips/BP.png'); "></div>
             <div class="col-md-3 slick__chip" style="background: url('../images/chips/BPM.jpg'); "></div>
             <div class="col-md-3 slick__chip" style="background: url('../images/chips/HR.png'); "></div>
