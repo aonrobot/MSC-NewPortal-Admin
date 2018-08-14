@@ -38,12 +38,15 @@
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     
     $( document ).ready(function() {
-        
+        timer() ;
+    });
+
+    function timer () {
         $("#currentDate").html( getFullDate() );
         $("#currentTime").html( getTime() );
         $("#greetingText").html( greetingText() );
-        
-    });
+    }
+    setInterval(timer, 1000);
 
     function getTime () {
         var d = new Date();
@@ -224,59 +227,68 @@
                 </div>    
             </div>
             <div class="list__container max-h-320">
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Welfare.svg" class="media-object" >
+                <a href="/category/90" class="list__container-link">
+                    <div class="media list__item">
+                        <div class="media-left">
+                            <img src="../images/icon/Welfare.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">Welfare</h4>
+                            <p class="small light">สวัสดิการต่างๆที่พนักงานได้รับ </p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Welfare</h4>
-                        <p class="small light">What is welfare. </p>
-                    </div>
-                </div>
+                </a>
                 <!--  -->
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Learning.svg" class="media-object" >
+                <a href="/category/10167" class="list__container-link">
+                    <div class="media list__item" >
+                        <div class="media-left">
+                            <img src="../images/icon/Learning.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">Learning and Development</h4>
+                            <p class="small light">Make you be master in your career path. </p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Learning and Development</h4>
-                        <p class="small light">Make you be master in your career path. </p>
-                    </div>
-                </div>
+                </a>
                 <!--  -->
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Enterprise.svg" class="media-object" >
+                <a href="/category/111" class="list__container-link">
+                    <div class="media list__item">
+                        <div class="media-left">
+                            <img src="../images/icon/Enterprise.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">Organization Effectiveness</h4>
+                            <p class="small light">ประสิทธิผลขององค์กร</p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Organization Effectiveness</h4>
-                        <p class="small light">sample text</p>
-                    </div>
-                </div>
+                </a>
                 <!--  -->
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Welfare.svg" class="media-object" >
+                <a href="/post/30605" class="list__container-link">
+                    <div class="media list__item">
+                        <div class="media-left">
+                            <img src="../images/icon/Document.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">คู่มือพนักงาน</h4>
+                            <p class="small light">คู่มือต่างๆที่พนักงานควรทราบ</p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Something</h4>
-                        <p class="small light">sample text</p>
-                    </div>
-                </div>
+                </a>
                 <!--  -->
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Welfare.svg" class="media-object" >
+                <a href="/category/88" class="list__container-link">
+                    <div class="media list__item">
+                        <div class="media-left">
+                            <img src="../images/icon/recruitment.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">Recruitment</h4>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Requitment</h4>
-                        <p class="small light">sample text</p>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
-    <div class="col-md-6 p-l-0 ">
+    <div class="col-md-6 p-l-0  p-r-0 ">
         <div class="col-xs-6 col-md-6 p-r-0 ">
             <div class="card p-20 card__turquoise text-center">
                 <a href="https://www.metrosystems.co.th" target="_blank"><span class="card__menu-text">metrosystems.co.th</span></a>
@@ -295,9 +307,51 @@
                 <span class="card__menu-text">หนังสือความมุ่งมั่น</span>
             </div>
         </div>
-        <div class="col-md-12 m-t-20 p-r-0">
-            <div class="card">
-                <h1></h1>    
+        <div class="col-xs-12 col-md-12 m-t-20 p-r-0">
+            <div class="card max-h-285" style="height: 285px;">
+                <div id="about_us" class="carousel slide card metrob__slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        @foreach($slide_heads as $key=>$slide_head)
+                        <li data-target="#about_us" data-slide-to="{{$key}}" class="active"></li>
+                        <li data-target="#about_us" data-slide-to="{{$key + 1}}"></li>
+                        <li data-target="#about_us" data-slide-to="{{$key + 2}}"></li>
+                        @endforeach
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner max-h-350">
+                        @foreach($slide_heads as $key=>$slide_head)
+                        <div class="item active">
+                            <a href="https://www.google.com" target="_blank">
+                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <!-- <a href="{{$slide_head->slide_item_content_link}}" target="_blank"> -->
+                            <a href="https://www.google.com" target="_blank">
+                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://www.google.com" target="_blank">
+                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                            </a>
+                        </div>
+                                <!-- <img class="img-responsive" src="{{asset($slide_head->slide_item_img_url)}}" /> -->
+                            <!-- </a> -->
+                        @endforeach
+                    </div>
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#about_us" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#about_us" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </div>
         </div> 
     </div>
@@ -718,7 +772,7 @@
 }
 
 .blob {
-	background: #fff2b3;
+	background: #fff298;
 	border-radius: 50%;
 	display: none;
 }
