@@ -110,6 +110,11 @@ h1, h2, h3, h4, h5, h6 {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
+.metrob__slide-motto {
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+}
 .metrob-row {
     margin: 25px 0 ;
 }
@@ -163,6 +168,7 @@ h1, h2, h3, h4, h5, h6 {
 .flex-space-between {   justify-content: space-between; }
 /* SPACE SECTION */
 .m-15   { margin: 15px }
+.m-t-5 { margin-top: 5px }
 .m-t-10 { margin-top: 10px }
 .m-t-20 { margin-top: 20px }
 .m-t-30 { margin-top: 30px }

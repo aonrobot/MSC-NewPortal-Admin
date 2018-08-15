@@ -308,39 +308,71 @@
             </div>
         </div>
         <div class="col-xs-12 col-md-12 m-t-20 p-r-0">
-            <div class="card max-h-285" style="height: 285px;">
+            <div class="max-h-285" style="height: 285px;">
                 <div id="about_us" class="carousel slide card metrob__slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
-                        @foreach($slide_heads as $key=>$slide_head)
-                        <li data-target="#about_us" data-slide-to="{{$key}}" class="active"></li>
-                        <li data-target="#about_us" data-slide-to="{{$key + 1}}"></li>
-                        <li data-target="#about_us" data-slide-to="{{$key + 2}}"></li>
-                        @endforeach
+                        <li data-target="#about_us" data-slide-to="1" class="active"></li>
+                        <li data-target="#about_us" data-slide-to="2" class="active"></li>
+                        <li data-target="#about_us" data-slide-to="3" class="active"></li>
+                        <li data-target="#about_us" data-slide-to="4" class="active"></li>
                     </ol>
 
                     <!-- Wrapper for slides -->
-                    <div class="carousel-inner max-h-350">
-                        @foreach($slide_heads as $key=>$slide_head)
-                        <div class="item active">
-                            <a href="https://www.google.com" target="_blank">
-                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
-                            </a>
+                    <div class="carousel-inner max-h-285" style="height: 285px;">
+                        <div class="item active p-20 text-center " style="height: 100%;">
+                            <div class="metrob__slide-motto">
+                                <div>
+                                    <h2>Corporate Social Resposibility</h2>
+                                </div>
+                                <div class="text-left" style="margin:0 auto; display: inline-block;">
+                                    <p class="m-t-5">
+                                        - กำกับดูแลกิจการที่ดี <br />
+                                        - ปฏิบัติต่อพนักงานอย่างเป็นธรรมและเคารพสิทธิมนุษยชน <br />
+                                        - ต่อต้านการทุจริตคอร์รัปชั่น <br />
+                                        - ปฏิบัตต่อผู้ร่วมค้าและเจ้าหนี้ด้วยความเป็นธรรม <br />
+                                        - ดูแลรักษาสิ่งแวดล้อม <br />
+                                        - พัฒนาชุมชนและสังคม <br />
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="item">
-                            <!-- <a href="{{$slide_head->slide_item_content_link}}" target="_blank"> -->
-                            <a href="https://www.google.com" target="_blank">
-                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
-                            </a>
+                        <div class="item p-20 text-center" style="height: 100%;">
+                            <div class="metrob__slide-motto">
+                                <div>
+                                    <h2>Vision</h2>
+                                </div>
+                                <div>
+                                    <p class="m-t-5">"เราจะเป็นองค์กรที่ทรงคุณค่า (Trust Worthy) ในสายตาของลูกค้าและคู่ค้า ทั้งในระดับประเทศและระดับภูมิภาค ที่จะช่วยผลักดันให้องค์กรของลูกค้า เกิดการเปลี่ยนผ่านสู่ยุคดิจิตอลอย่างสมบูรณ์แบบ ด้วยนวัตกรรมและบริการที่คุ้มค่าต่อการลงทุน"</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="item">
-                            <a href="https://www.google.com" target="_blank">
-                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
-                            </a>
+                        <div class="item p-20 text-center"  style="height: 100%;">
+                            <div class="metrob__slide-motto">
+                                <div>
+                                    <h2>Mission</h2>
+                                </div>
+                                <div>
+                                    <p class="m-t-5">"มุ่งมั่นสู่ความเป็นเลิศและบริหารธุรกิจด้วยความต่อเนื่องในยุคเศรษฐกิจดิจิตอล อย่างครบวงจร โดยบุคลากรระดับมืออาชีพ เพื่อความสำเร็จของลูกค้า ตลอดจนมีส่วนร่วมในการพัฒนาสังคมแห่งความรู้"</p>
+                                </div>
+                            </div>
                         </div>
-                                <!-- <img class="img-responsive" src="{{asset($slide_head->slide_item_img_url)}}" /> -->
-                            <!-- </a> -->
-                        @endforeach
+                        <div class="item p-20 text-center" style="height: 100%;">
+                            <div class="metrob__slide-motto">
+                                <div>
+                                    <h2>Metro Success Factors</h2>
+                                </div>
+                                <div class="text-left" style="margin:0 auto; display: inline-block;">
+                                    <p class="m-t-5">
+                                        - ภาวะผู้นำ <br />
+                                        - ความสามารถในการคิด ริเริ่มและการแก้ปัญหา <br />
+                                        - การสื่อสาร <br />
+                                        - การทำงานร่วมกัน <br />
+                                        - ความรู้ในงานและความเป็นมืออาชีพ <br />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Left and right controls -->
                     <a class="left carousel-control" href="#about_us" data-slide="prev">
@@ -399,6 +431,12 @@
     </div>
 </div>
 <script>
+
+
+    $('#about_us').carousel({
+        interval: false
+    }); 
+
 
     function redirect(url) {
         window.open(url, "_self");
