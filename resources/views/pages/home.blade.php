@@ -290,9 +290,11 @@
     </div>
     <div class="col-md-6 p-l-0  p-r-0 ">
         <div class="col-xs-6 col-md-6 p-r-0 ">
-            <div class="card p-20 card__turquoise text-center">
-                <a href="https://www.metrosystems.co.th" target="_blank"><span class="card__menu-text">metrosystems.co.th</span></a>
-            </div>
+            <a href="https://www.metrosystems.co.th" target="_blank">
+                <div class="card p-20 card__turquoise text-center">
+                    <span class="card__menu-text">metrosystems.co.th</span>
+                </div>
+            </a>
             
             <div class="card p-20 m-t-20 card__orange text-center">
                 <span class="card__menu-text">Anti - Corruption</span>
@@ -300,7 +302,7 @@
 
         </div>
         <div class="col-xs-6 col-md-6 p-r-0 ">
-            <div class="card p-20 card__green text-center">
+            <div class="card p-20 card__green text-center chips">
                 <span class="card__menu-text">Company Profile</span>
             </div>
             <div class="card p-20 m-t-20 card__violet text-center">

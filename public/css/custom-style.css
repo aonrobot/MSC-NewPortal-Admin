@@ -267,6 +267,7 @@ h1, h2, h3, h4, h5, h6 {
 .list__container {
     overflow: auto;
 }
+
 .list__item {
     height: 70px;
     background: #F6F7FB;
@@ -357,4 +358,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 ::-webkit-scrollbar-thumb:horizontal {
   min-width: 10px;
+}
+
+/* Change Icon Color in Nav Bar */
+.cd-primary-nav > .has-children > a::before, .cd-primary-nav > .has-children > a::after {
+    background: white;
+}
+.cd-primary-nav .cd-secondary-nav, .cd-primary-nav .cd-nav-gallery, .cd-primary-nav .cd-nav-icons{ 
+    width: 90vw ;
+    margin: 0 auto;
+    left: 0;
 }

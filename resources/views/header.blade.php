@@ -45,7 +45,7 @@
         </div>
 
         <div class="row metrob__second-nav flex flex-h-center flex-v-center">
-            <ul id="cd-primary-nav" class="cd-primary-nav is-fixed metrob__second-nav-menu flex-v-center">
+            <ul id="cd-primary-nav" class="cd-primary-nav is-fixed metrob__second-nav-menu flex-v-center" style="width: 100%;justify-content: center;">
 
                     @if(Session::get('user')->status != 'outsource')
                     <li data-toggle="tooltip" data-placement="bottom" title="Application ทั้งหมด" class="nav__link-text">

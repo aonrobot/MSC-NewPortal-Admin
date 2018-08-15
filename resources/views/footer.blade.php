@@ -35,7 +35,7 @@
                     </li>
                 </ul>
                 -->
-                <p class="copyright text-muted">Copyright &copy; New Portal | Metro Systems Corporation Public Company Limited 2016</p>
+                <p class="copyright text-muted">Copyright &copy; MSC Portal | Metro Systems Corporation Public Company Limited 2018</p>
             </div>
         </div>
     </div>
