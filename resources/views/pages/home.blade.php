@@ -38,12 +38,15 @@
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     
     $( document ).ready(function() {
-        
+        timer() ;
+    });
+
+    function timer () {
         $("#currentDate").html( getFullDate() );
         $("#currentTime").html( getTime() );
         $("#greetingText").html( greetingText() );
-        
-    });
+    }
+    setInterval(timer, 1000);
 
     function getTime () {
         var d = new Date();
@@ -91,7 +94,7 @@
                                     <img class="media-object" src="../images/icon/Greeting.gif" />
                                 </div>
                                 <div class="media-body p-t-25">
-                                    <span id="currentDate" class="small light"></span>
+                                    <span id="currentDate" class="small light"></span> </br>
                                     <span id="currentTime" class="small light text-space"></span>
                                 </div>
                             </div>
@@ -105,7 +108,6 @@
                             </span>
                         </div>
                     </div>
-
                 </div>
                 <div class="metrob__quote card m-t-20 p-10">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -225,59 +227,68 @@
                 </div>    
             </div>
             <div class="list__container max-h-320">
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Welfare.svg" class="media-object" >
+                <a href="/category/90" class="list__container-link">
+                    <div class="media list__item">
+                        <div class="media-left">
+                            <img src="../images/icon/Welfare.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">Welfare</h4>
+                            <p class="small light">สวัสดิการต่างๆที่พนักงานได้รับ </p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Welfare</h4>
-                        <p class="small light">What is welfare. </p>
-                    </div>
-                </div>
+                </a>
                 <!--  -->
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Learning.svg" class="media-object" >
+                <a href="/category/10167" class="list__container-link">
+                    <div class="media list__item" >
+                        <div class="media-left">
+                            <img src="../images/icon/Learning.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">Learning and Development</h4>
+                            <p class="small light">Make you be master in your career path. </p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Learning and Development</h4>
-                        <p class="small light">Make you be master in your career path. </p>
-                    </div>
-                </div>
+                </a>
                 <!--  -->
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Enterprise.svg" class="media-object" >
+                <a href="/category/111" class="list__container-link">
+                    <div class="media list__item">
+                        <div class="media-left">
+                            <img src="../images/icon/Enterprise.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">Organization Effectiveness</h4>
+                            <p class="small light">ประสิทธิผลขององค์กร</p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Organization Effectiveness</h4>
-                        <p class="small light">sample text</p>
-                    </div>
-                </div>
+                </a>
                 <!--  -->
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Welfare.svg" class="media-object" >
+                <a href="/post/30605" class="list__container-link">
+                    <div class="media list__item">
+                        <div class="media-left">
+                            <img src="../images/icon/Document.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">คู่มือพนักงาน</h4>
+                            <p class="small light">คู่มือต่างๆที่พนักงานควรทราบ</p>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Something</h4>
-                        <p class="small light">sample text</p>
-                    </div>
-                </div>
+                </a>
                 <!--  -->
-                <div class="media list__item">
-                    <div class="media-left">
-                        <img src="../images/icon/Welfare.svg" class="media-object" >
+                <a href="/category/88" class="list__container-link">
+                    <div class="media list__item">
+                        <div class="media-left">
+                            <img src="../images/icon/recruitment.svg" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading list__item-title">Recruitment</h4>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading list__item-title">Requitment</h4>
-                        <p class="small light">sample text</p>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
-    <div class="col-md-6 p-l-0 ">
+    <div class="col-md-6 p-l-0  p-r-0 ">
         <div class="col-xs-6 col-md-6 p-r-0 ">
             <div class="card p-20 card__turquoise text-center">
                 <a href="https://www.metrosystems.co.th" target="_blank"><span class="card__menu-text">metrosystems.co.th</span></a>
@@ -296,9 +307,51 @@
                 <span class="card__menu-text">หนังสือความมุ่งมั่น</span>
             </div>
         </div>
-        <div class="col-md-12 m-t-20 p-r-0">
-            <div class="card">
-                <h1></h1>    
+        <div class="col-xs-12 col-md-12 m-t-20 p-r-0">
+            <div class="card max-h-285" style="height: 285px;">
+                <div id="about_us" class="carousel slide card metrob__slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        @foreach($slide_heads as $key=>$slide_head)
+                        <li data-target="#about_us" data-slide-to="{{$key}}" class="active"></li>
+                        <li data-target="#about_us" data-slide-to="{{$key + 1}}"></li>
+                        <li data-target="#about_us" data-slide-to="{{$key + 2}}"></li>
+                        @endforeach
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner max-h-350">
+                        @foreach($slide_heads as $key=>$slide_head)
+                        <div class="item active">
+                            <a href="https://www.google.com" target="_blank">
+                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <!-- <a href="{{$slide_head->slide_item_content_link}}" target="_blank"> -->
+                            <a href="https://www.google.com" target="_blank">
+                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="https://www.google.com" target="_blank">
+                                <img class="img-responsive" src="../uploads/slide/04/image/slide1.png"  style="width:100%;"/>
+                            </a>
+                        </div>
+                                <!-- <img class="img-responsive" src="{{asset($slide_head->slide_item_img_url)}}" /> -->
+                            <!-- </a> -->
+                        @endforeach
+                    </div>
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#about_us" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#about_us" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </div>
         </div> 
     </div>
@@ -322,9 +375,9 @@
                     <div class="col-sm-6 col-md-3 p-20">
                         <a href="{{ asset('post/'. $news['pid']) }}">
                             <div class="metrob__news-thumbnail">
-                                <img class="img-responsive" src="http://appmetro.metrosystems.co.th/newportal/uploads/trop/10175/post/30773/thumbnail/20180724085529_untitled_(15_of_19).jpg" alt="">
+                                <img class="img-responsive" src="../images/tn.jpg" alt="">
                             </div>
-                            {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($news['event_start_date'])),3)/*--}}
+                            {{--*/$str_date = (date('d-M-Y',strtotime($news['event_start_date'])))/*--}}
                             <div class="metrob__news">
                                 <div class="metrob__news-title">
                                     <h1> {{$news['post_title']}} </h1>
@@ -623,7 +676,10 @@
                 <div>
                     <h1>HAPPY BIRTHDAY</h1>
                     <hr class="separator__title" align="left" />
-                    <span class="light small">ร่วมแฮปปี้เบิดเดย์กับพนักงานที่เกิดในเดือนนี้ได้ที่นี้ (แต่ไม่ได้ไรนะ อิอิ)</span>
+                    <span class="light small">ร่วมแฮปปี้เบิดเดย์กับพนักงานที่เกิดในเดือนนี้ได้ที่นี้</span>
+                </div>
+                <div class="">
+                    <h3 class="flex flex-v-center"><i class="fa fa-birthday-cake m-r-8" aria-hidden="true"></i> <span id="countCake">0</span></h3>
                 </div>
             </div>
             <div class="list__container max-h-450 m-t-10">
@@ -688,8 +744,8 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">
-                <h3 class="color__violet m-b-0"> 
+            <div class="text-center" id="congrats">
+                <h3 class="color__violet m-b-0 pointer"> 
                     <i class="fa fa-birthday-cake" aria-hidden="true"></i>
                     ร่วมอวยพรวันเกิด
                 </h3>
@@ -697,15 +753,153 @@
         </div>
     </div>
 </div>
+<!-- HBD Animation  -->
+<style>
+
+.particle {
+	height: 50px;
+	width: 50px;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+	z-index: 1;
+    font-size: 30px;
+    display: none;
+}
+
+.star {
+	color: #ffcc00;
+}
+
+.blob {
+	background: #fff298;
+	border-radius: 50%;
+	display: none;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+<script>
+    // Click "Congratulations!" to play animation
+var particles = ['.blob', '.star'],
+	$congratsSection = $('#congrats'),
+	$title = $('#title'),
+    cake = 0;
+    
+
+$(function() {
+	init({
+		numberOfStars: 20,
+		numberOfBlobs: 10
+	});
+});
+
+$congratsSection.click(fancyPopIn);
+$congratsSection.click(countCake);
+
+function countCake(){
+    cake += 1;
+    $("#countCake").html(cake);
+}
+
+function fancyPopIn() {
+	reset();
+	animateText();
+	
+	for (var i = 0, l = particles.length; i < l; i++) {
+		animateParticles(particles[i]);
+	}
+}
+
+function animateText() {
+	TweenMax.from($title, 0.65, {
+		scale: 0.4,
+		opacity: 0,
+		rotation: 15,
+		ease: Back.easeOut.config(5),
+	});
+}
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function animateParticles(selector) {
+	var xSeed = getRndInteger(350, 380);
+	var ySeed = getRndInteger(120, 170);
+	
+	$.each($(selector), function(i) {
+		var $particle = $(this);
+		var speed = getRndInteger(1, 4);
+		var rotation = getRndInteger(20, 100);
+		var scale = getRndInteger(0.8, 1.5);
+		var x = getRndInteger(-xSeed, xSeed);
+		var y = getRndInteger(-ySeed, ySeed);
+
+		TweenMax.to($particle, speed, {
+			x: x,
+			y: y,
+			ease: Power1.easeOut,
+			opacity: 0,
+			rotation: rotation,
+			scale: scale,
+			onStartParams: [$particle],
+			onStart: function($element) {
+				$element.css('display', 'block');
+			},
+			onCompleteParams: [$particle],
+			onComplete: function($element) {
+				$element.css('display', 'none');
+			}
+		});
+	});
+}
+
+function reset() {
+	for (var i = 0, l = particles.length; i < l; i++) {
+		$.each($(particles[i]), function() {
+			TweenMax.set($(this), { x: 0, y: 0, opacity: 1 });
+		});
+	}
+	
+	TweenMax.set($title, { scale: 1, opacity: 1, rotation: 0 });
+}
+
+function init(properties) {
+	for (var i = 0; i < properties.numberOfStars; i++) {
+	  $congratsSection.append('<div class="particle star fa fa-birthday-cake ' + i + '"></div>');
+	}
+	
+	for (var i = 0; i < properties.numberOfBlobs; i++) {
+	  $congratsSection.append('<div class="particle blob ' + i + '"></div>');
+	}	
+}
+</script>
+<!-- End HBD Animation -->
+
+
 <!-- Contact Slide -->
 <div class="row m-t-30">
     <div class="col-md-12">
         <div class="slick">
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/AR.png'); "></div>
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/BP.png'); "></div>
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/BPM.jpg'); "></div>
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/HR.png'); "></div>
-            <div class="col-md-3 slick__chip" style="background: url('../images/chips/ITS.png'); "></div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/AR.png'); ">
+                <p class="slick__chip-title">AR Call Center</p>
+                <h2 class="slick__chip-number">#74444</h2>
+            </div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/BP.png'); ">
+                <p class="slick__chip-title">BP Call Center</p>
+                <h2 class="slick__chip-number">#79999</h2>    
+            </div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/BPM.jpg'); ">
+                <p class="slick__chip-title">PCM Call Center</p>
+                <h2 class="slick__chip-number">#79999</h2>    
+            </div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/HR.png'); ">
+                <p class="slick__chip-title">HR Call Center</p> 
+                <h2 class="slick__chip-number">#79999</h2>    
+            </div>
+            <div class="col-md-3 slick__chip p-t-20" style="background: url('../images/chips/ITS.png'); ">
+                <p class="slick__chip-title">ITS Call Center</p> 
+                <h2 class="slick__chip-number">#79999</h2>
+            </div>
         </div>
     </div>
 </div>
@@ -731,7 +925,21 @@
             speed: 300,
             slidesToShow: 3,
             centerMode: true,
-            draggable: true
+            draggable: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 550,
+                    settings: {
+                        slidesToShow: 1
+                    }
+                }
+            ],
         });
     });
 </script>          

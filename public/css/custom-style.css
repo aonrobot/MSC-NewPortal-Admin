@@ -5,7 +5,10 @@ body {
     font-size: 14px;
     color: rgb(112, 112, 112);
 }
-
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Prompt', sans-serif !important;
+}
+.pointer { cursor: pointer }
 /* Change Width of Container  */
 .container {
     max-width: 1280px;
@@ -86,9 +89,6 @@ body {
     height: auto;
 }
 
-.metrob__slide {
-    min-height: 350px;
-}
 
 .metrob__slide .carousel-indicators {
     bottom: 0 !important;
@@ -167,6 +167,7 @@ body {
 .m-t-20 { margin-top: 20px }
 .m-t-30 { margin-top: 30px }
 .m-r-0  { margin-right: 0px }
+.m-r-8  { margin-right: 8px }
 .m-r-5p { margin-right: 5% }
 .m-l-0  { margin-left: 0px }
 .m-b-0  { margin-bottom:0px }
@@ -177,6 +178,7 @@ body {
 .p-l-10 { padding-left: 10px }
 .p-l-20 { padding-left: 20px }
 .p-t-5  { padding-top: 5px }
+.p-t-10 { padding-top: 10px }
 .p-t-20 { padding-top: 20px }
 .p-t-25 { padding-top: 25px }
 .p-r-0  { padding-right: 0 }
@@ -207,6 +209,7 @@ body {
 /* END TEXT STYLE SECTION */
 
 .slick__chip {
+
     background-position-y: top !important;
     background-position-x: center !important;
     background-repeat: no-repeat !important;
@@ -216,6 +219,18 @@ body {
     border-radius: 10px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, .16);
 }
+.slick__chip-title {
+    text-align: center;
+    color: #fff;
+    margin: 0;
+}
+.slick__chip-number {
+    text-align: center;
+    margin-top:0;
+    color: #fff;
+    font-weight: 600 ;   
+}
+
 .header-slider {
     margin-bottom: 10px;
 }
@@ -237,6 +252,9 @@ body {
 .max-h-350 {
     max-height: 350px;
 }
+.max-h-285 {
+    max-height: 285px;
+}
 .max-h-320 {
     max-height: 320px;
 }
@@ -250,6 +268,19 @@ body {
     overflow: hidden;
     padding: 10px;
 }
+
+.list__item:hover {
+    background: rgba(246,247,251, .4);
+    cursor:pointer;
+}
+.list__item .media-body {
+    vertical-align: middle;
+}
+.list__item .media-body p{
+    margin: 0;
+}
+
+
 .list__item img{ 
     width: 50px;
     height: 50px;
@@ -259,7 +290,13 @@ body {
     font-family: 'Prompt', sans-serif !important;   
     font-size: 20px; 
     color: #61B9C0;
-    font-weight: 600;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.list__container-link {
+    margin-top: 15px;
+    display: block;
 }
 
 .list__hbd {
