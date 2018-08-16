@@ -118,9 +118,9 @@
                                 @endforelse
                             </ul>
                         </li>
-                       
+                        
                         @if($user->can(['view-menu-'.Config::get('newportal.menubar.department.id')]))
-                                
+                            
                             <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">
                                 <a href="{{asset('/')}}"><i class="fa fa-group"></i> Department</a>
                                 <ul class="cd-nav-icons is-hidden">

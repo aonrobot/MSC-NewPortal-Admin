@@ -14,11 +14,11 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 1280px;
 }
 
+
 /* CARD */
 .card {
     font-family: 'Prompt', sans-serif !important;   
     background: #fff;
-    border : 1px solid transparent;
     border-radius: 10px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, .16);
 }
@@ -40,6 +40,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #6163BF;
     font-size: 30px;
 }
+
 
 .card__menu-text { font-size: 16px; color: #fff; }
 
@@ -251,6 +252,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .metrob__quote { 
     min-height: 150px;
+    background: url('../images/newemployee.jpg');
+    background-position-y: top !important;
+    background-position-x: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
 }
 .max-h-450 {
     max-height: 450px;
@@ -368,4 +374,18 @@ h1, h2, h3, h4, h5, h6 {
     width: 90vw ;
     margin: 0 auto;
     left: 0;
+}
+
+ 
+
+.btn-pill-primary {
+    background: #006dff;
+    font-family: inherit;
+    padding:  10px 15px;
+    border-color: transparent;
+    border-radius: 30px;
+}
+.btn-pill-primary:hover {
+    background: #004eff;
+    border-color: transparent;
 }

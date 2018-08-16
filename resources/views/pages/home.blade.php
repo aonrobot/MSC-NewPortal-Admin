@@ -109,8 +109,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="metrob__quote card m-t-20 p-10">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                <div class="metrob__quote card m-t-20 p-10" style=" display: flex; align-items: flex-end;">
+                    <h1 class="text-center"  style="color: #fff; font-weight: bold;">
+                        <!-- <span style="color: #f8c26b;">M</span>
+                        <span style="color: #b3b2db;">E</span>
+                        <span style="color: #5da3d7;">T</span>
+                        <span style="color: #92c9a9;">R</span>
+                        <span style="color: #e54b4f;">O</span>
+                        <span style="color: #d08c7d;">Way</span> -->
+                        New Employee August
+                    </h1>
+                    <!-- <a class="btn btn-primary btn-pill-primary pull-right m-t-10" href="http://appmetro.metrosystems.co.th/newportal/post/10471"> ดูเพิ่มเติม </a> -->
                 </div>
             </div>
            
