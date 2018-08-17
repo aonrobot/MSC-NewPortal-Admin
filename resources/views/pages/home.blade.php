@@ -109,16 +109,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="metrob__quote card m-t-20 p-10" style=" display: flex; align-items: flex-end;">
-                    <h1 class="text-center"  style="color: #fff; font-weight: bold;">
+                <div class="metrob__quote card m-t-20 p-10" >
+                    <div class="text-right" style="position: absolute; bottom: 10px; right: 30px;">
+                        <h4 style="font-weight: 100; color: #fff; margin-bottom: 0;"> New Employee </h4>
+                        <h1 style="color: #c0fffb; font-weight: bold;margin-top: 0;"> August </h1>
+                    </div>
                         <!-- <span style="color: #f8c26b;">M</span>
                         <span style="color: #b3b2db;">E</span>
                         <span style="color: #5da3d7;">T</span>
                         <span style="color: #92c9a9;">R</span>
                         <span style="color: #e54b4f;">O</span>
                         <span style="color: #d08c7d;">Way</span> -->
-                        New Employee August
-                    </h1>
                     <!-- <a class="btn btn-primary btn-pill-primary pull-right m-t-10" href="http://appmetro.metrosystems.co.th/newportal/post/10471"> ดูเพิ่มเติม </a> -->
                 </div>
             </div>
@@ -324,20 +325,21 @@
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
                         <li data-target="#about_us" data-slide-to="1" class="active"></li>
-                        <li data-target="#about_us" data-slide-to="2" class="active"></li>
-                        <li data-target="#about_us" data-slide-to="3" class="active"></li>
-                        <li data-target="#about_us" data-slide-to="4" class="active"></li>
+                        <li data-target="#about_us" data-slide-to="2"></li>
+                        <li data-target="#about_us" data-slide-to="3"></li>
+                        <li data-target="#about_us" data-slide-to="4"></li>
+                        <li data-target="#about_us" data-slide-to="5"></li>
                     </ol>
 
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner max-h-285" style="height: 285px;">
-                        <div class="item active p-20 text-center " style="height: 100%;">
+                        <div class="item active p-20 text-center aboutus-slide__list slide1" >
                             <div class="metrob__slide-motto">
                                 <div>
-                                    <h2>Corporate Social Resposibility</h2>
+                                    <h2  style="color: #fff;">Corporate Social Resposibility</h2>
                                 </div>
                                 <div class="text-left" style="margin:0 auto; display: inline-block;">
-                                    <p class="m-t-5">
+                                    <p class="m-t-5" style="color: #fff;">
                                         - กำกับดูแลกิจการที่ดี <br />
                                         - ปฏิบัติต่อพนักงานอย่างเป็นธรรมและเคารพสิทธิมนุษยชน <br />
                                         - ต่อต้านการทุจริตคอร์รัปชั่น <br />
@@ -348,7 +350,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item p-20 text-center" style="height: 100%;">
+                        <div class="item p-20 text-center aboutus-slide__list slide2">
                             <div class="metrob__slide-motto">
                                 <div>
                                     <h2>Vision</h2>
@@ -358,7 +360,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item p-20 text-center"  style="height: 100%;">
+                        <div class="item p-20 text-center aboutus-slide__list slide3">
                             <div class="metrob__slide-motto">
                                 <div>
                                     <h2>Mission</h2>
@@ -368,7 +370,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item p-20 text-center" style="height: 100%;">
+                        <div class="item p-20 text-center  aboutus-slide__list slide4" >
                             <div class="metrob__slide-motto">
                                 <div>
                                     <h2>Metro Success Factors</h2>
@@ -381,6 +383,26 @@
                                         - การทำงานร่วมกัน <br />
                                         - ความรู้ในงานและความเป็นมืออาชีพ <br />
                                     </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item p-20 text-center  aboutus-slide__list slide5" >
+                            <div class="metrob__slide-motto">
+                                <div>
+                                    <h2><span style="color: #f8c26b;">M</span>
+                                        <span style="color: #b3b2db;">E</span>
+                                        <span style="color: #5da3d7;">T</span>
+                                        <span style="color: #92c9a9;">R</span>
+                                        <span style="color: #e54b4f;">O</span>
+                                        <span style="color: #d08c7d;">Way</span> </h2>
+                                </div>
+                                <div class="text-center" style="margin:0 auto; display: inline-block; font-size: 18px;">
+                                    <span style="color: #f8c26b; font-weight: bold; font-size: 20px;">M</span> - Moral
+                                    <span style="color: #b3b2db; font-weight: bold; font-size: 20px;">E</span> - Excellence
+                                    <span style="color: #5da3d7; font-weight: bold; font-size: 20px;">T</span> - Teamwork <br />
+                                    <span style="color: #92c9a9; font-weight: bold; font-size: 20px;">R</span> - Respect and Trust
+                                    <span style="color: #e54b4f; font-weight: bold; font-size: 20px;">O</span> - Ownership
+                                    <span style="color: #d08c7d; font-weight: bold; font-size: 20px;">Way</span>  - Way
                                 </div>
                             </div>
                         </div>

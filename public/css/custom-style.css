@@ -389,3 +389,27 @@ h1, h2, h3, h4, h5, h6 {
     background: #004eff;
     border-color: transparent;
 }
+
+.aboutus-slide__list {
+    height: 100%;
+    color: white;
+    background-position-y: top !important;
+    background-position-x: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+.aboutus-slide__list.slide1 {
+    background: url(../images/BuildingA-1.jpg); 
+}
+.aboutus-slide__list.slide2 {
+    background: url(../images/BuildingF-2.jpg); 
+}
+.aboutus-slide__list.slide3 {
+    background: url(../images/BuildingA-3.jpg); 
+}
+.aboutus-slide__list.slide4 {
+    background: url(../images/BuildingF-1.jpg); 
+}
+.aboutus-slide__list.slide5 {
+    background: url(../images/Metro-way.jpg); 
+}
