@@ -29,12 +29,66 @@
                             </button>
                         </form>
                     </div>
-                    <p class="navbar-text navbar-right nav__link-text p-t-5">
-                        <a href="#" class="navbar-link">
-                            <i class="fa fa-star-o" aria-hidden="true" style="color:#e4ce22"></i> Favorite App
-                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                        </a>
-                    </p>
+                    
+                    <div class="dropdown navbar-right nav__link-text ">
+                        <p class="navbar-text navbar-right nav__link-text p-t-5 dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <a href="#" class="navbar-link">
+
+                                @if(empty($fav_apps))
+                                    <i class="fa fa-star-o" aria-hidden="true" style="color:#ffe000"></i> Favorite App
+                                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                @else
+                                    <i class="fa fa-star" aria-hidden="true" style="color:#ffe000"></i> Favorite App
+                                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                @endif
+                            </a>
+                        </p>
+                        <span class="has-arrow"></span>
+                        <ul class="dropdown-menu card dropdown__wrap " aria-labelledby="dropdownMenu1">
+                           
+                            @forelse($fav_apps as $fav_app)
+                                <li>
+                                    <a href="{{asset($fav_app->app_link)}}"  target="_blank">
+                                        @php
+
+                                            if(strlen($fav_app->app_title)>2)
+                                                $app_name = substr($fav_app->app_title,0,1) . substr($fav_app->app_title,-1,1);
+                                            else
+                                                $app_name = substr($fav_app->app_title,0,2);
+
+                                        @endphp
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <div class="" style="width: 60px; "><span style="font-size:3em;color:rgba(135, 187, 139, 0.39);">{{$app_name}}</span></div>
+                                        </div>
+                                        <div class="media-body ">
+                                            <h3 {!!empty($fav_app->app_description) ? "style='margin-top:10px;'" : ''!!} class="m-t-5">{{$fav_app->app_title}}</h3>
+                                            <p>{{$fav_app->app_description}}</p>
+                                        </div>
+                                    </div>
+                                    </a>
+                                    <hr />
+                                </li>
+                                
+                                @empty
+                                <li class="flex flex-v-center">
+                                    <a class="cd-nav-item" href="{{asset('/application')}}">
+                                        <div class="item-icon"><i class="fa fa-2x fa-warning"></i></div>
+                                        <h3>Sorry, Not have a favorite application now.</h3>
+                                        <p>Please Click Here To Add Favorite App</p>
+                                    </a>
+                                </li>
+                                
+                            @endforelse
+                            <li>
+                                <a href="{{asset('/application')}}" class="flex-h-center flex-v-center div-link" style="display: flex;">
+                                    <h3 class="color__violet m-b-0 pointer m-t-0 text-link"> 
+                                    {{empty($fav_apps) ? 'Sorry, Not have favorite application now.' : 'All Application'}}
+                                    </h3>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                     <p class="navbar-text navbar-right nav__link-text p-t-5"><a href="#" class="navbar-link">About MSC</a></p>
                 </div>
             </div>
@@ -80,9 +134,9 @@
                         <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="Application ที่ชื่นชอบทั้งหมด">
                             <a href="#" class="npt_stat" data-name="favoriteApp" data-where="top-nav">
                                 @if(empty($fav_apps))
-                                    <i class="fa fa-star-o" aria-hidden="true" style="color:#e4ce22"></i> Favorite App
+                                    <i class="fa fa-star-o" aria-hidden="true" style="color:#e4ce22"></i> Favorite Apps
                                 @else
-                                    <i class="fa fa-star" aria-hidden="true" style="color:#e4ce22"></i> Favorite App
+                                    <i class="fa fa-star" aria-hidden="true" style="color:#e4ce22"></i> Favorite Apps
                                 @endif
 
                             </a>
