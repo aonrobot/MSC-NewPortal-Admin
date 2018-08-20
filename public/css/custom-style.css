@@ -519,3 +519,37 @@ footer .support-img {
  .no-touch .cd-top:hover {
     background: rgba(97, 99, 191, 0.58) !important;
  }
+
+
+@media only screen and (max-width:  991px) {
+    .footer__logo {
+        width: 100%;
+    }
+    .footer__logo-company {
+        width: 50px;
+    }
+
+}
+@media only screen and (max-width:  462px) {
+
+    .footer__row { display : block }
+    .footer__col-logo {
+        width: 20%;
+    }
+    .footer__col-company {
+        width: 80%;
+    }
+   
+}
+@media only screen and (max-width:  438px) {
+
+    .footer__col-logo, .footer__col-company {
+        width: 100%;
+        margin: 8px 0 ;
+        text-align: center;
+    }
+    .footer__col-logo img {
+        width: 20%;
+    }
+    
+}
