@@ -522,13 +522,13 @@ footer .support-img {
 
 
 @media only screen and (max-width:  991px) {
+
     .footer__logo {
         width: 100%;
     }
     .footer__logo-company {
         width: 50px;
     }
-
 }
 @media only screen and (max-width:  462px) {
 
@@ -539,7 +539,6 @@ footer .support-img {
     .footer__col-company {
         width: 80%;
     }
-   
 }
 @media only screen and (max-width:  438px) {
 
@@ -551,5 +550,4 @@ footer .support-img {
     .footer__col-logo img {
         width: 20%;
     }
-    
 }
