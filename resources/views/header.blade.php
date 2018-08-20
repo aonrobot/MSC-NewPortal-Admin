@@ -1,3 +1,8 @@
+<!-- 
+    TODO : Remove Comment Statement Before Connect Real Database
+-->
+
+
 @if(Session::get('user')->status != 'outsource')
 
     @inject('menu', 'App\Http\Controllers\FrontMenuController')
@@ -104,14 +109,14 @@
                     @if(Session::get('user')->status != 'outsource')
                     <li data-toggle="tooltip" data-placement="bottom" title="Application ทั้งหมด" class="nav__link-text">
                         <a href="{{asset('/application')}}" class="npt_stat" data-name="application" data-where="top-nav">
-                            <img src="../images/icon/MSC-APP.svg" width="25px" /> MSC Apps
+                            <img src="../images/icon/MSC-APP.svg" width="22px" /> <span> MSC Apps </span>
                         </a>
                     </li>
                     @endif 
 
                     <li data-toggle="tooltip" data-placement="bottom" title="สมุดโทรศัพท์" class="nav__link-text">
                         <a href="{{asset('/phonebook')}}" class="npt_stat" data-name="phonebook" data-where="top-nav">
-                            <img src="../images/icon/Phonebook.svg" width="25px" /> Phone Book
+                            <img src="../images/icon/Phonebook.svg" width="20px" /> <span> Phone Book </span>
                         </a>
                     </li>
 
@@ -121,7 +126,8 @@
 
                         <li data-toggle="tooltip" data-placement="bottom" title="Policy ทั้งหมด" class="nav__link-text">
                             <a href="{{asset('/post/' . $policy_id)}}" class="npt_stat" data-name="policy" data-where="top-nav">
-                                <img src="../images/icon/Policy.svg" width="20px" /> Policy
+                                <img src="../images/icon/Policy.svg" width="17px" /> 
+                                <span>Policy </span>
                             </a>
                         </li>
 
@@ -172,11 +178,14 @@
                                 @endforelse
                             </ul>
                         </li> -->
-                        
-                        @if($user->can(['view-menu-'.Config::get('newportal.menubar.department.id')]))
+                        <!-- TODO : Remove Statement Comment Below Before Go Production -->
+                        ​{{--  @if($user->can(['view-menu-'.Config::get('newportal.menubar.department.id')])) --}}
                             
-                            <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">
-                                <a href="{{asset('/')}}"><i class="fa fa-group"></i> Department</a>
+                            <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">
+                                <a href="{{asset('/')}}">
+                                    <i class="fa fa-group"></i> 
+                                    <span>Department</span>
+                                </a>
                                 <ul class="cd-nav-icons is-hidden">
                                     <li class="go-back"><a href="#0">Menu</a></li>
                                     <li class="see-all"><a href="#">{{empty($menus) ? 'Sorry, Not have a menu now.' : 'All Department'}}</a></li>
@@ -212,13 +221,15 @@
                                 </ul>
                             </li>
 
-                        @endif
-            
+                        ​{{-- @endif --}}
                         <!-- Meeting Document -->
                         @if($user->can(['view-menu-'.Config::get('newportal.menubar.meetingdocument.id')]))
 
                             <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="Meeting Document">
-                                <a href="{{asset('/')}}"><i class="fa fa-file-text"></i> Meeting Document</a>
+                                <a href="{{asset('/')}}">
+                                    <img src="../images/icon/MeetingDocument.svg" width="16px" style="margin-top: -4px;" />
+                                    <span> Meeting Document</span>
+                                </a>
 
                                     <ul class="cd-secondary-nav is-hidden">
                                         <li class="go-back"><a href="#0">Menu</a></li>
@@ -255,19 +266,24 @@
 
 
                         <!--Financial Statement-->                            
-                        @if($user->can(['view-trop-'.Config::get('newportal.trop.Financialstatement.id')]))
+                        {{-- @if($user->can(['view-trop-'.Config::get('newportal.trop.Financialstatement.id')])) --}}
 
-                            <li data-toggle="tooltip" data-placement="bottom" title="Financial statement">
+                            <li data-toggle="tooltip" data-placement="bottom" title="Financial statement" class="nav__link-text">
                                 <a href="{{asset(Config::get('newportal.post.Financialstatement.url'))}}" class="npt_stat" data-name="document" data-where="top-nav">
-                                    <i class="fa fa-book" aria-hidden="true" style="color:#52ec83"></i> Financial statement</a>
+                                    <i class="fa fa-book" aria-hidden="true" style="color:#00ff95;font-size: 17px"></i> 
+                                    <span>Financial statement</span>
+                                </a>
                             </li>
 
-                        @endif
+                        {{-- @endif --}}
 
-                        @if($user->can(['view-menu-'.Config::get('newportal.menubar.AccountingKM.id')]))
+                        {{-- @if($user->can(['view-menu-'.Config::get('newportal.menubar.AccountingKM.id')])) --}}
 
-                            <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="Accounting KM">
-                                <a href="{{asset('/')}}"><i class="fa fa-file-text"></i> Accounting KM</a>
+                            <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="Accounting KM">
+                                <a href="{{asset('/')}}">
+                                    <i class="fa fa-file-text"></i> 
+                                    <span> Accounting KM </span>
+                                </a>
 
                                     <ul class="cd-secondary-nav is-hidden">
                                         <li class="go-back"><a href="#0">Menu</a></li>
@@ -300,7 +316,7 @@
                                     </ul>
                             </li>
 
-                        @endif
+                        {{-- @endif --}}
                     @endif <!-- End check outsource -->
 
             </ul>
