@@ -29,7 +29,7 @@ class BasicAuth {
 			$value = str_replace('Basic ', '', $value);
 			Log::info(base64_decode($value));
 
-			if(env('APP_CONTAINER') == false){
+			if(env('APP_ENV') == "production" || env('APP_ENV') == "test"){
 				$user = $_SERVER['LOGON_USER'];
 			} else {
 				$user = env('APP_FAKE_USER');
