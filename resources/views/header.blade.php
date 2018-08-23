@@ -1,3 +1,8 @@
+<!-- 
+    TODO : Remove Comment Statement Before Connect Real Database
+-->
+
+
 @if(Session::get('user')->status != 'outsource')
 
     @inject('menu', 'App\Http\Controllers\FrontMenuController')
@@ -29,12 +34,66 @@
                             </button>
                         </form>
                     </div>
-                    <p class="navbar-text navbar-right nav__link-text p-t-5">
-                        <a href="#" class="navbar-link">
-                            <i class="fa fa-star-o" aria-hidden="true" style="color:#e4ce22"></i> Favorite App
-                            <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                        </a>
-                    </p>
+                    
+                    <div class="dropdown navbar-right nav__link-text ">
+                        <p class="navbar-text navbar-right nav__link-text p-t-5 dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <a href="#" class="navbar-link">
+
+                                @if(empty($fav_apps))
+                                    <i class="fa fa-star-o" aria-hidden="true" style="color:#ffe000"></i> Favorite App
+                                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                @else
+                                    <i class="fa fa-star" aria-hidden="true" style="color:#ffe000"></i> Favorite App
+                                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                @endif
+                            </a>
+                        </p>
+                        <span class="has-arrow"></span>
+                        <ul class="dropdown-menu card dropdown__wrap " aria-labelledby="dropdownMenu1">
+                                <div class="dropdown__wrap-list">
+                                @forelse($fav_apps as $fav_app)
+                                    <li>
+                                        <a href="{{asset($fav_app->app_link)}}"  target="_blank">
+                                            @php
+
+                                                if(strlen($fav_app->app_title)>2)
+                                                    $app_name = substr($fav_app->app_title,0,1) . substr($fav_app->app_title,-1,1);
+                                                else
+                                                    $app_name = substr($fav_app->app_title,0,2);
+
+                                            @endphp
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <div class="" style="width: 60px; "><span style="font-size:3em;color:rgba(97, 185, 192, 0.39);">{{$app_name}}</span></div>
+                                            </div>
+                                            <div class="media-body ">
+                                                <h5 {!!empty($fav_app->app_description) ? "style='margin-top:10px;'" : ''!!} class="m-t-5 list__item-title ">{{$fav_app->app_title}}</h5>
+                                                <p class="small light">{{$fav_app->app_description}}</p>
+                                            </div>
+                                        </div>
+                                        </a>
+                                        <hr />
+                                    </li>
+                                    
+                                    @empty
+                                    <li class="flex flex-v-center">
+                                        <a class="cd-nav-item" href="{{asset('/application')}}">
+                                            <div class="item-icon"><i class="fa fa-2x fa-warning"></i></div>
+                                            <h3>Sorry, Not have a favorite application now.</h3>
+                                            <p>Please Click Here To Add Favorite App</p>
+                                        </a>
+                                    </li>
+                                    @endforelse
+                                </div>
+                                <li>
+                                    <a href="{{asset('/application')}}" class="flex-h-center flex-v-center div-link" style="display: flex;">
+                                        <h3 class="color__violet m-b-0 pointer m-t-0 text-link"> 
+                                        {{empty($fav_apps) ? 'Sorry, Not have favorite application now.' : 'All Application'}}
+                                        </h3>
+                                    </a>
+                                </li>
+                        </ul>
+                    </div>
                     <p class="navbar-text navbar-right nav__link-text p-t-5"><a href="#" class="navbar-link">About MSC</a></p>
                 </div>
             </div>
@@ -45,19 +104,19 @@
         </div>
 
         <div class="row metrob__second-nav flex flex-h-center flex-v-center">
-            <ul id="cd-primary-nav" class="cd-primary-nav is-fixed metrob__second-nav-menu flex-v-center">
+            <ul id="cd-primary-nav" class="cd-primary-nav is-fixed metrob__second-nav-menu flex-v-center" style="width: 100%;justify-content: center;">
 
                     @if(Session::get('user')->status != 'outsource')
                     <li data-toggle="tooltip" data-placement="bottom" title="Application ทั้งหมด" class="nav__link-text">
                         <a href="{{asset('/application')}}" class="npt_stat" data-name="application" data-where="top-nav">
-                            <img src="../images/icon/MSC-APP.svg" width="25px" /> MSC Apps
+                            <img src="../images/icon/MSC-APP.svg" width="22px" /> <span> MSC Apps </span>
                         </a>
                     </li>
                     @endif 
 
                     <li data-toggle="tooltip" data-placement="bottom" title="สมุดโทรศัพท์" class="nav__link-text">
                         <a href="{{asset('/phonebook')}}" class="npt_stat" data-name="phonebook" data-where="top-nav">
-                            <img src="../images/icon/Phonebook.svg" width="25px" /> Phone Book
+                            <img src="../images/icon/Phonebook.svg" width="20px" /> <span> Phone Book </span>
                         </a>
                     </li>
 
@@ -67,7 +126,8 @@
 
                         <li data-toggle="tooltip" data-placement="bottom" title="Policy ทั้งหมด" class="nav__link-text">
                             <a href="{{asset('/post/' . $policy_id)}}" class="npt_stat" data-name="policy" data-where="top-nav">
-                                <img src="../images/icon/Policy.svg" width="20px" /> Policy
+                                <img src="../images/icon/Policy.svg" width="17px" /> 
+                                <span>Policy </span>
                             </a>
                         </li>
 
@@ -77,12 +137,12 @@
                             </a>
                         </li>
 
-                        <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="Application ที่ชื่นชอบทั้งหมด">
+                        <!-- <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="Application ที่ชื่นชอบทั้งหมด">
                             <a href="#" class="npt_stat" data-name="favoriteApp" data-where="top-nav">
                                 @if(empty($fav_apps))
-                                    <i class="fa fa-star-o" aria-hidden="true" style="color:#e4ce22"></i> Favorite App
+                                    <i class="fa fa-star-o" aria-hidden="true" style="color:#e4ce22"></i> Favorite Apps
                                 @else
-                                    <i class="fa fa-star" aria-hidden="true" style="color:#e4ce22"></i> Favorite App
+                                    <i class="fa fa-star" aria-hidden="true" style="color:#e4ce22"></i> Favorite Apps
                                 @endif
 
                             </a>
@@ -117,12 +177,15 @@
                                 </li>
                                 @endforelse
                             </ul>
-                        </li>
-                       
-                        @if($user->can(['view-menu-'.Config::get('newportal.menubar.department.id')]))
-                                
-                            <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">
-                                <a href="{{asset('/')}}"><i class="fa fa-group"></i> Department</a>
+                        </li> -->
+                        <!-- TODO : Remove Statement Comment Below Before Go Production -->
+                        ​{{--  @if($user->can(['view-menu-'.Config::get('newportal.menubar.department.id')])) --}}
+                            
+                            <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">
+                                <a href="{{asset('/')}}">
+                                    <i class="fa fa-group"></i> 
+                                    <span>Department</span>
+                                </a>
                                 <ul class="cd-nav-icons is-hidden">
                                     <li class="go-back"><a href="#0">Menu</a></li>
                                     <li class="see-all"><a href="#">{{empty($menus) ? 'Sorry, Not have a menu now.' : 'All Department'}}</a></li>
@@ -158,13 +221,15 @@
                                 </ul>
                             </li>
 
-                        @endif
-            
+                        ​{{-- @endif --}}
                         <!-- Meeting Document -->
                         @if($user->can(['view-menu-'.Config::get('newportal.menubar.meetingdocument.id')]))
 
                             <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="Meeting Document">
-                                <a href="{{asset('/')}}"><i class="fa fa-file-text"></i> Meeting Document</a>
+                                <a href="{{asset('/')}}">
+                                    <img src="../images/icon/MeetingDocument.svg" width="16px" style="margin-top: -4px;" />
+                                    <span> Meeting Document</span>
+                                </a>
 
                                     <ul class="cd-secondary-nav is-hidden">
                                         <li class="go-back"><a href="#0">Menu</a></li>
@@ -201,19 +266,24 @@
 
 
                         <!--Financial Statement-->                            
-                        @if($user->can(['view-trop-'.Config::get('newportal.trop.Financialstatement.id')]))
+                        {{-- @if($user->can(['view-trop-'.Config::get('newportal.trop.Financialstatement.id')])) --}}
 
-                            <li data-toggle="tooltip" data-placement="bottom" title="Financial statement">
+                            <li data-toggle="tooltip" data-placement="bottom" title="Financial statement" class="nav__link-text">
                                 <a href="{{asset(Config::get('newportal.post.Financialstatement.url'))}}" class="npt_stat" data-name="document" data-where="top-nav">
-                                    <i class="fa fa-book" aria-hidden="true" style="color:#52ec83"></i> Financial statement</a>
+                                    <i class="fa fa-book" aria-hidden="true" style="color:#00ff95;font-size: 17px"></i> 
+                                    <span>Financial statement</span>
+                                </a>
                             </li>
 
-                        @endif
+                        {{-- @endif --}}
 
-                        @if($user->can(['view-menu-'.Config::get('newportal.menubar.AccountingKM.id')]))
+                        {{-- @if($user->can(['view-menu-'.Config::get('newportal.menubar.AccountingKM.id')])) --}}
 
-                            <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="Accounting KM">
-                                <a href="{{asset('/')}}"><i class="fa fa-file-text"></i> Accounting KM</a>
+                            <li class="has-children nav__link-text" data-toggle="tooltip" data-placement="bottom" title="Accounting KM">
+                                <a href="{{asset('/')}}">
+                                    <i class="fa fa-file-text"></i> 
+                                    <span> Accounting KM </span>
+                                </a>
 
                                     <ul class="cd-secondary-nav is-hidden">
                                         <li class="go-back"><a href="#0">Menu</a></li>
@@ -246,7 +316,7 @@
                                     </ul>
                             </li>
 
-                        @endif
+                        {{-- @endif --}}
                     @endif <!-- End check outsource -->
 
             </ul>
