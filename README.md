@@ -19,7 +19,7 @@ Install Step
 10. `php artisan key:generate`
 11. open browser and sad to implement it!!! good luck
 
-New index page is coming By The Nontorious.
-
+[INW]
+New index page is coming By The Nontorious. 
 ![Alt Text](https://media.giphy.com/media/AWJy0ZcCJmILe/giphy.gif)
 
