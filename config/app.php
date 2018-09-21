@@ -167,6 +167,8 @@ return [
         /* For Stapler File Uploader */
         Codesleeve\LaravelStapler\Providers\L5ServiceProvider::class,
 
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+
     ],
 
     /*
@@ -214,7 +216,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
-
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];

@@ -582,50 +582,6 @@
 </div>
 <!-- /.row -->
 <hr>
-<!-- content 4 | Group News -->
-<!-- <div class="row">
-    <div class="metrop-text-head">
-        <h2>รวมข่าวสารแยกตามประเภท</h2>
-    </div>
-    <div class="col-md-12">
-        <div class="row">
-
-            {{--*/$i = 0;/*--}}
-            {{--*/ $color = ["#875F9A" , "#5D3F6A", "#763568", "#9B59B6" ,"#5B3256" , "#8E44AD" ,"#4D8FAC", "#5D8CAE","#22A7F0", "#19B5FE", "#59ABE3", "#48929B", "#317589", "#4B77BE", "#1F4788", "#044F67", "#264348", "#7A942E", "#5B8930", "#6B9362", "#407A52", "#006442", "#049372" , "#16A085", "#03A678", "#4DAF7C", "#E08A1E", "#FFA400", "#FFA631" , "#6C7A89", "#757D75"] /*--}}
-            @foreach($categorys as $category)
-
-            {{-- */$cat_posts = $categoryController->cat_posts($category->catid)/* --}}
-            {{-- */$posts = App\Library\Tools::sortPost($cat_posts['posts']) /* --}}
-            @if(isset($posts[0]))
-            <div class="col-sm-3" data-toggle="tooltip" title="คลิกเพื่อ อ่านข่าวประเภท {{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}" >
-                <a href="{{asset('category/news/'.$category->catid)}}">
-                <div class="metrop-news-group-content-color border-radius:50px;" style="background: {{$color[rand(0,30)]}};">
-                    <div class="metrop-news-group-content metrop-news-group-content-img border-radius:50%;" style="background-image:url('{{ asset($posts[0]['post_thumbnail']) }}'); " >
-                        <div class="metrop-news-content">
-                        </div>
-                    </div>
-                    <p class="cat-label">{{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}</p>
-                </div>
-
-                </a>
-            </div>
-            @else
-            <div class="col-sm-3">
-            
-                <a href="{{asset('category/news/'.$category->catid)}}">
-                <div class="metrop-news-group-content" style="background-color:{{$color[rand(0,24)]}};">
-                    <div class="metrop-news-content">
-                        <p class="cat-label">{{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}</p>
-                    </div>
-                </div>
-                </a>
-            </div>
-            @endif
-            {{--*/$i++;/*--}}
-            @endforeach
-        </div>
-    </div>
-</div> -->
 
 <!-- <br><hr> -->
 

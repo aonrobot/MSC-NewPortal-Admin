@@ -20,7 +20,7 @@ class FrontCategoryController extends Controller {
 	}
 
 	// Function to read category by id and read post in this category
-	public function cat_posts($cat_id) {
+	public function cat_posts($cat_id, $col = 'created_at', $sortType = 'DESC') {
 
 		$category = Category::where('catid', '=', $cat_id)->first();
 
@@ -31,8 +31,7 @@ class FrontCategoryController extends Controller {
 		$posts = \DB::select("select c.catid,p.*
 		from mscnewportal.dbo.category_rela as c
 		left join mscnewportal.dbo.post as p on c.pid = p.pid
-		where catid ='74'
-		order by ltrim(replace(replace(replace(p.post_title,char(9),''),'\"',''),'“','')) ASC");
+		where catid = ? ORDER BY p." . $col . " " . $sortType , [$cat_id]);
 		
 
 		return ['posts' => $posts, 'category' => $category];

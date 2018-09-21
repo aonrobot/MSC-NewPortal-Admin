@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "nicolaslopezj/searchable": "1.*",
         "sofa/eloquence": "~5.2",
-        "itsgoingd/clockwork": "^2.0"        
+        "itsgoingd/clockwork": "^2.0",
+        "sentry/sentry-laravel": "^0.10.0"        
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
