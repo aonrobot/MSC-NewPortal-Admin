@@ -66,7 +66,7 @@
     <!-- Template Color -->
     @php
     
-    $colorrrrrr = ["Blue","Green","yellow",""];
+    $color = ["Blue","Green","yellow",""];
     $ran_num = rand(0, 3);
     $css_name = $color[$ran_num] . '.css';
     
