@@ -1,30 +1,28 @@
+body{
+	background: url(../../images/m1.png);
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+} 
 .metrop-nav{
-	background-color: rgba(255, 128, 160, 0.95)!important;
+	background-color: rgba(255, 128, 160, 0.92)!important;
 }
-
 a.btn-primary{
 	background-color: #ff80a0 !important;
-	color: #ffffff !important;
-    border-color: #ff80a0 !important;
-	
-}
-a.btn-primary:hover{
-	background-color: #ff5279!important;
-	color: #ffffff !important;
-    border-color: #ff80a0 !important;
+    border-color: #ff80a0  !important;
 }
 .btn-default{
 	background-color: #ffffff!important;
-	color: #ff80a0 !important;
+	color: #ff80a0  !important;
     border-color: #ff80a0 !important;
 }
 .btn-default:hover{
-    background-color: #ff80a0 !important;
+    background-color: #ff80a0  !important;
 	color: #ffffff !important;
     border-color: #ff80a0 !important;
 }
 .cd-search-btn{
-	background-color: #ff6a8b !important;
+	background-color: #ff6a8b  !important;
 }
 
 .cd-primary-nav > li > a{
@@ -82,13 +80,13 @@ a.btn-primary:hover{
 	color: #f16278 !important;
 }
 .breadcrumb > li > a{
-	color : #f16278 !important;
+	color : rgb(255, 128, 160) !important;
 }
 
 
 .metrop-text-head{
-	color: rgba(241, 98, 120, 0.79) !important;
-    border-left: solid  #f48394 5px !important;
+	color: rgba(241, 98, 120, 0.75) !important;
+    border-left: solid #f48394 5px !important;
 }
 
 
@@ -100,16 +98,16 @@ a.btn-primary:hover{
 
 /*Search Bar*/
 .search-form-wrap{
-	background: linear-gradient(to bottom, rgba(255, 128, 160,0.95) 20%, rgba(255, 128, 170, 0.75) 43%, transparent) !important;
+	background: linear-gradient(to bottom, rgb(255, 128, 160,0.95) 20%, rgb(255, 128, 170, 0.75) 43%, transparent) !important;
 }
 .search-input{
 	color: #FFF;
 }
 .search-input-clear{
-	color:#FACDD2;
+	color:#c5f5d9eb;
 }
 .search-input-clear:hover{
-	color:#FADEE3;
+	color:#c5f5d9eb;
 }
 .btn-search-submit{
 	background-color: #ffffff !important;
@@ -119,14 +117,15 @@ a.btn-primary:hover{
 
 }
 .btn-search-submit:hover{
-	background-color: #ff587d!important;
+	background-color: #ff587d !important;
 	color: #ffffff !important;
 	/*border-left: solid #ffffff 2px !important;*/
 	border: 2px solid #ffffff !important;
 }
 .btn-search-submit > i{
-	color: #ff849b !important;
+	color: rgba(255, 128, 160, 0.47) !important;
 }
+
 .cd-search-btn.active > a{
 	color: #FFF !important;
 }

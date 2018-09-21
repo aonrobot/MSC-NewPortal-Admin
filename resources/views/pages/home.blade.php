@@ -49,6 +49,7 @@
 @else
 <header class="intro-header-empty">
 </header>
+
 @endif @stop @section('content')
 
 @if(Session::get('user')->status != 'outsource')
@@ -95,7 +96,7 @@
 <!-- content 2 | slide -->
 <div class="row">
     <div class="metrop-text-head">
-        <h2>Upcoming Event & Activities</h2>
+        <h2>ข่าวสารและกิจกรรม</h2>
     </div>
     <div class="news-slider home_slide">
         <ul>
@@ -132,13 +133,14 @@
 <!-- content 2 | news -->
 <div class="row">
     <div class="metrop-text-head">
-        <h2>Events & Activities{{--empty($news_category['cat_title']->cat_title)? 'ข่าวสาร' : $news_category['cat_title']->cat_title--}}</h2>
+        <h2>รอบรั้วเมโทรฯ <small><a href="{{ asset('category/'. $news_category['cat_title']->catid) }}">(ทั้งหมด)</a></small> {{--empty($news_category['cat_title']->cat_title)? 'ข่าวสาร' : $news_category['cat_title']->cat_title--}}</h2>
     </div>
     {{-- */$posts = App\Library\Tools::sortPost($news_category['posts'],'event_start_date') /* --}}
     @foreach($posts as $news)
     <div class="col-md-4 col-sm-6">
         <div class="metrop-thumbnail">
-            <a href="{{ asset('post/'. $news['pid']) }}"><img class="img-responsive" src="{{ asset($news['post_thumbnail']) }}" alt=""></a>
+            <a href="{{ asset('post/'. $news['pid']) }}"><img  class="img-responsive" src="{{ asset($news['post_thumbnail']) }}" alt=""></a>
+            <!-- <a href="{{ asset('post/'. $news['pid']) }}"><img  class="img-circle img-responsive center-block" src="{{ asset($news['post_thumbnail']) }}" alt="" style="width: 70%;"></a> -->
         </div>
         <div class="metrop-news-group-content">
             <div class="metrop-news-label">
@@ -151,30 +153,34 @@
                 <h3 class="metrop-news-head">{{$news['post_title']}}</h3>
             </a>
             <p class="metrop-news-content">{{$news['post_detail']}}</p>
-            <h5 style="color: rgba(108, 150, 175, 0.88);">{{$str_date}}</h5>
+            
             <div class="metrop-news-group-footer">
-                <a class="btn btn-default" href="{{ asset('post/'. $news['pid']) }}">อ่านข่าวต่อ</a>
+                 <h5 style="color: rgba(108, 150, 175, 0.88);">{{$str_date}}</h5>
+                
+                <!-- <a class="btn btn-default float-right" href="{{ asset('post/'. $news['pid']) }}">เพิ่มเติม</a> -->
+
                 <span>
-                                <i class="fa fa-clock-o"></i>
-                                {{App\Library\Tools::postTime($news['event_start_date'])}}</span>
+                <a href="{{ asset('post/'. $news['pid']) }}">เพิ่มเติม</a>
+                <!-- <h5> <i class="fa fa-clock-o"></i> {{App\Library\Tools::postTime($news['event_start_date'])}}</h5> -->
+            </span>
             </div>
         </div>
     </div>
     <!-- /.col-md-4 -->
     @endforeach
     @if(count($news_category['posts']) == 3 || count($news_category['posts']) == 0)
-    <div class="col-md-12 col-sm-12 text-center" style="margin:120px 0 120px 0;">
+    <!-- <div class="col-md-12 col-sm-12 text-center" style="margin:120px 0 120px 0;">
         <h3 class="metrop-news-head">สนใจอ่านข่าวอื่นๆเพิ่มเติมหรือไม่?</h3>
         <p>ถ้าคุณสนใจอ่านข่าวสารอื่นๆเพิ่มเติมสามารถ Click ได้ที่ปุ่มด้านล่างนี้</p>
         <a class="btn btn-primary"  href="{{ asset('category/'. $news_category['cat_title']->catid) }}">อ่านเพิ่มเติม</a>
-    </div>
+    </div> -->
     <!-- /.col-md-4 -->
     @else
-    <div class="col-md-4 col-sm-6">
-        <h3 class="metrop-news-head center-y">สนใจอ่านข่าวอื่นๆเพิ่มเติมหรือไม่?</h3>
-        <p>ถ้าคุณสนใจอ่านข่าวสารอื่นๆเพิ่มเติมสามารถ Click ได้ที่ปุ่มด้านล่างนี้</p>
+    <!-- <div class="col-md-4 col-sm-6"> -->
+        <!-- <h3 class="metrop-news-head center-y">สนใจอ่านข่าวอื่นๆเพิ่มเติมหรือไม่?</h3> -->
+        <!-- <h4 class="metrop-news-head center-y">สนใจข่าวสารอื่นๆเพิ่มเติม Click ได้ที่ปุ่มด้านล่างนี้</h4>
         <a class="btn btn-primary"  href="{{ asset('category/'. $news_category['cat_title']->catid) }}">อ่านเพิ่มเติม</a>
-    </div>
+    </div> -->
     <!-- /.col-md-4 -->
     @endif
 </div>
@@ -183,27 +189,38 @@
 
 <div class="row">
         <div class="row align-items-center"> 
-            <div class="col-sm-2" data-toggle="tooltip" title="คลิกเพื่อดูข่าวสารประเภทเยี่ยมชม">  
-             <a href="https://mscfamily.metrosystems.co.th/?page_id=652" target="_blank">
-             <img  class="img-responsive  center-block"  src="images/visitors.png" style="width: 80%;" alt="">
+            <div class="col-sm-2" data-toggle="tooltip" title="คลิกเพื่อดูข่าวสารประเภท Anti-Corruption">  
+             <a href="https://www.metrosystems.co.th/csr/anti-corruption/" target="_blank">
+             <img  class="img-responsive  center-block"  src="images/ac1.png" style="width: 80%;" alt="">
             </div>
 
-            <div class="col-sm-4">
-             <h3>News</h3>
+            <div class="col-sm-2">
+            <h4><strong>Anti-Corruption</strong></h4>
              </a>
-             <p>ข่าวสาร ความเคลื่อนไหวของกิจกรรมต่าง ๆ การแนะนำผลิตภัณฑ์ หรือ Solutions ใหม่ ๆ ขององค์กร</p>
+             <p>ข่าวสารของกิจกรรมด้านต่อต้านการทุจริตคอร์รัปชั่น</p>
             </div>
        
 
-            <div class="col-sm-2" data-toggle="tooltip" title="เอกสารให้ดาวน์โหลดต่างๆ เช่น บัตรอวยพรปีใหม่, LOGO, E-letter">  
-             <a href="https://mscfamily.metrosystems.co.th/?p=13436" target="_blank">
-             <img  class="img-responsive  center-block" src="images/DocShare.png" style="width: 80%;" alt="">
+            <div class="col-sm-2" data-toggle="tooltip" title="เอกสารหนังสือแสดงความมุ่งมั่น">  
+             <a href="http://appmetro.metrosystems.co.th/newportal/category/news/36" target="_blank">
+             <img  class="img-responsive  center-block" src="images/หนังสือความมุ่งมั่น1.png" style="width: 80%;" alt="">
             </div>
 
-            <div class="col-sm-4"> 
-             <h3>Document Sharing</h3>
+            <div class="col-sm-2"> 
+            <h4>Code of Conduct</h4>
              </a>
-             <p>คลังที่รวบรวมเอกสารต่างๆ เพื่อประโยชน์ต่อการใช้งานภายในองค์กร เช่น บัตรอวยพรปีใหม่, โลโก้บริษัท, กระดาษหัวจดหมายอิเล็กทรอนิกส์</p>
+             <p>หนังสือแสดงความมุ่งมั่นของMSCและบริษัทในเครือ</p>
+            </div>
+
+             <div class="col-sm-2" data-toggle="tooltip" title="เอกสารให้ดาวน์โหลดต่างๆ เช่น บัตรอวยพรปีใหม่, LOGO, E-letter">  
+             <a href="https://mscfamily.metrosystems.co.th/?p=13436" target="_blank">
+             <img  class="img-responsive  center-block" src="images/docshare1.png" style="width: 80%;" alt="">
+            </div>
+
+            <div class="col-sm-2"> 
+             <h4>Publications</h4>
+             </a>
+             <p>เอกสารเผยแพร่ : Company Profile, LOGO MSC, E-letter</p>
             </div>
         </div>
 </div>
@@ -566,7 +583,7 @@
 <!-- /.row -->
 <hr>
 <!-- content 4 | Group News -->
-<div class="row">
+<!-- <div class="row">
     <div class="metrop-text-head">
         <h2>รวมข่าวสารแยกตามประเภท</h2>
     </div>
@@ -580,10 +597,10 @@
             {{-- */$cat_posts = $categoryController->cat_posts($category->catid)/* --}}
             {{-- */$posts = App\Library\Tools::sortPost($cat_posts['posts']) /* --}}
             @if(isset($posts[0]))
-            <div class="col-sm-3" data-toggle="tooltip" title="คลิกเพื่อ อ่านข่าวประเภท {{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}">
+            <div class="col-sm-3" data-toggle="tooltip" title="คลิกเพื่อ อ่านข่าวประเภท {{is_null($category->cat_title) || empty($category->cat_title) ? $category->cat_name : $category->cat_title}}" >
                 <a href="{{asset('category/news/'.$category->catid)}}">
-                <div class="metrop-news-group-content-color" style="background: {{$color[rand(0,30)]}};">
-                    <div class="metrop-news-group-content metrop-news-group-content-img" style="background-image:url('{{ asset($posts[0]['post_thumbnail']) }}');">
+                <div class="metrop-news-group-content-color border-radius:50px;" style="background: {{$color[rand(0,30)]}};">
+                    <div class="metrop-news-group-content metrop-news-group-content-img border-radius:50%;" style="background-image:url('{{ asset($posts[0]['post_thumbnail']) }}'); " >
                         <div class="metrop-news-content">
                         </div>
                     </div>
@@ -594,6 +611,7 @@
             </div>
             @else
             <div class="col-sm-3">
+            
                 <a href="{{asset('category/news/'.$category->catid)}}">
                 <div class="metrop-news-group-content" style="background-color:{{$color[rand(0,24)]}};">
                     <div class="metrop-news-content">
@@ -607,15 +625,15 @@
             @endforeach
         </div>
     </div>
-</div>
+</div> -->
 
-<br><hr>
+<!-- <br><hr> -->
 
-<div class="row text-center">
+<!-- <div class="row text-center">
 
     <a href="http://appmsc.metrosystems.co.th/mscportal/homeportal.php" target="_blank"><i class="fa fa-history"></i> See Portal in old version.</a>
 
-</div>
+</div> -->
 
 <!--<script src="{{asset('plugins/snow/jquery.snow.min.1.0.js')}}"></script>-->
 

@@ -33,13 +33,21 @@
 
 
 body {
+    
+    
+        /* background: url(../images/m1.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center; 
+     */
     font-family: 'cloud_light';
     font-size: 18px;
     color: #404040;
+    
 }
 p {
     line-height: 1.5;
-    margin: 30px 0;
+    margin: 0px 0;
 }
 p a {
     text-decoration: underline;
@@ -509,7 +517,7 @@ form .row:first-child .floating-label-form-group {
     font-size: 14px;
     font-weight: 800;
     letter-spacing: 1px;
-    border-radius: 0;
+    border-radius: 10px;
     padding: 15px 25px;
 }
 .btn-lg {
@@ -683,6 +691,7 @@ body {
 }
 .metrop-thumbnail img {
     height: 220px;
+    border-radius: 0px 0px 0px 0px;
     /*margin-top: 25px;*/
 }
 
@@ -699,19 +708,22 @@ body {
     font-size: 24px;
     color: #4183D7;
 }
-.event-content {}
+
 
 /* Home Top News */
 
 .metrop-news-group-content {
     background-color: #fcfcfc;
     padding: 10px 20px 30px 20px;
-    border-radius: 0px;
+    border-radius: 0px 0px 0px 0px;
     box-shadow: 0.5px 2px 2px rgba(0, 0, 0, .15);
     margin-bottom: 25px; 
+   
+    
 }
 .metrop-news-group-content-img{
     opacity:0.15; 
+
 }
 div.metrop-news-group-content-color:hover .metrop-news-group-content-img{
     opacity:0.22; 
@@ -722,7 +734,7 @@ div.metrop-news-group-content-color:hover .metrop-news-group-content-img{
 }
 .metrop-news-group-footer span {
     float: right;
-    margin: 15px 0px 0px 1px;
+    margin: 0px 0px 0px 1px;
 }
 .metrop-news-label {
     margin-bottom: 20px;
@@ -812,7 +824,7 @@ a:link {
 .metrop-news-content {
     font-weight: 200;
     overflow: hidden;
-    height: 135px;
+    height: 80px;
     margin: 0px;
 }
 .metrop-news-bighead {
@@ -926,7 +938,7 @@ a:link {
       display: none;
   }
 }
-@media only screen (max-width : 1024px) {
+@media only screen and(max-width : 1024px) {
   .disible-tb{
     display: none;
   }
@@ -953,7 +965,7 @@ a:link {
 /* About */
 
 .metrop-about-group-content {
-    background-color:;
+    
     padding: 10px;
     border-radius: 0px;
     height:300px;

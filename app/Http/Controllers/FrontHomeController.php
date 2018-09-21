@@ -51,7 +51,7 @@ class FrontHomeController extends Controller {
 		}
 
 		$news_category['posts'] = \App\Library\Tools::sortPost($news_category['posts'], 'event_start_date');
-		$news_category['posts'] = array_slice($news_category['posts'], 0, 5, true);
+		$news_category['posts'] = array_slice($news_category['posts'], 0, 6, true);
 
 		// Script end
 		/*function rutime($ru, $rus, $index) {

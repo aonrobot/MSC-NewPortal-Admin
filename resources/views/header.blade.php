@@ -3,7 +3,7 @@
     @inject('menu', 'App\Http\Controllers\FrontMenuController')
     {{-- */$menus = $menu->index()['menus']/* --}}
     {{-- */$main_document_menu = $menu->index()['main_document_menu']/* --}}
-    {{-- */$main_document_menu1 = $menu->index()['main_document_menu1']/* --}}
+    {{-- */$main_acct_menu = $menu->index()['main_acct_menu']/* --}}
     @inject('fav_app', 'App\Http\Controllers\FrontFavoriteController')
     {{-- */$fav_apps = $fav_app->fetch_fav_app()/* --}}
 
@@ -218,16 +218,55 @@
              @endif
 
              @if($user->can(['view-menu-'.Config::get('newportal.menubar.AccountingKM.id')]))
+             
+             <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="หน่วยงานทั้งหมด">
+                    <a href="{{asset('/')}}"><i class="fa fa-file-text"></i> AccountingKM</a>
+                    <ul class="cd-nav-icons is-hidden">
+                        <li class="go-back"><a href="#0">Menu</a></li>
+                        <!-- <li class="see-all"><a href="#">{{empty($main_acct_menu) ? 'Sorry, Not have a menu now.' : 'All AccountingKM'}}</a></li> -->
+                        {{--*/$i = 0/*--}}
+                        @forelse($main_acct_menu as $menu)
+                        @if(!$user->can(['view-menu_item-' . $menu->mtid]))
+                            @continue
+                        @endif
+                        <li>
+                            <a class="cd-nav-item npt_stat" data-ff="{{strpos($menu->item_link, "http")}}" href="{{asset($menu->item_link)}}" data-name="{{$menu->item_name}}" data-where="department-bar" @if(strpos($menu->item_link, "http") !== false) target='_blank' @endif>
+                                {{--*/
 
-                <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="Accounting KM">
+                                    if(strlen($menu->item_name)>2)
+                                        $menu_name = substr($menu->item_name,0,1) . substr($menu->item_name,-1,1);
+                                    else
+                                        $menu_name = substr($menu->item_name,0,2);
+
+                                /*--}}
+                                <div class="item-icon"><span style="font-size:3em;color:rgba(135, 187, 139, 0.39);"><i class="fa fa-circle-o"></i></span></div>
+                                <h3 {!!empty($menu->item_description) ? "style='margin-top:10px;'" : ''!!}>{{$menu->item_name}}</h3>
+                                <p>{{$menu->item_description}}</p>
+                            </a>
+                        </li>
+                        @empty
+                        <li>
+                            <a class="cd-nav-item" href="#">
+                                <div class="item-icon"><i class="fa fa-2x fa-warning"></i></div>
+                                <h3>Sorry, Not have a menu now.</h3>
+                                <p>Please contact your administrator or call 78451(aon@mis)</p>
+                            </a>
+                        </li>
+                        @endforelse
+                    </ul>
+                </li>
+
+
+
+                <!-- <li class="has-children" data-toggle="tooltip" data-placement="bottom" title="Accounting KM">
                     <a href="{{asset('/')}}"><i class="fa fa-file-text"></i> Accounting KM</a>
 
                         <ul class="cd-secondary-nav is-hidden">
                             <li class="go-back"><a href="#0">Menu</a></li>
                     
-                            @if(count($main_document_menu1) != 0)
+                            @if(count($main_acct_menu) != 0) -->
                                 <!-- Loop Here-->
-                                @foreach($main_document_menu1 as $key => $value)
+                                <!-- @foreach($main_acct_menu as $key => $value)
 
                                 <li class="has-children">
                                     <a>{{$key}}</a>
@@ -251,7 +290,7 @@
                             @endif
 
                         </ul>
-                </li>
+                </li> -->
 
             @endif
         

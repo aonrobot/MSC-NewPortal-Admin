@@ -100,8 +100,8 @@
 <!-- Page Header -->
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header"><a href="#">
-          <i class="fa fa-fw fa-cubes"></i></a> Application<small> แอพพลิเคชั่น</small>
+        <h1 class="page-header">  <a href="#"> 
+          <i class="fa fa-desktop"></i> </a>  Application<small> แอพพลิเคชั่น</small>
         </h1>
     </div>
 </div>
@@ -110,9 +110,9 @@
     <div class="col-md-12">
         <div class="controls">
             <h3>คลิกเพื่อเลือกหมวดหมู่แอพพลิเคชั่น :</h3>
-            <button class="btn btn-primary filter" data-filter="all" style="margin-top:15px;">
+             <button class="btn btn-primary filter" data-filter="all" style="margin-top:15px;">
               <span data-toggle="tooltip" data-placement="left" title="กรองทุกหมวดหมู่" style="">All</span>
-            </button>
+            </button> 
             @foreach($group as $g)
                 @if(!$user->can(['view-app_group-'.$g->group_id]))
                     @continue
@@ -145,7 +145,7 @@
                 @if(!$user->can(['view-app_group-'.$app->group_id]))
                     @continue
                 @endif
-                <div class="col-md-3 mix {{$app->group_name}}" data-group-name="{{$app->group_name}}" data-app-name="{{$app->app_name}}" style="background: {{$app->group_color}};">
+                <div class="col-md-3  mix {{$app->group_name}}" data-group-name="{{$app->group_name}}" data-app-name="{{$app->app_name}}" style="background: {{$app->group_color}};">
                     <h4 class="app-title">
                     <a href="{{$app->app_link}}" target="_blank">
                       {{$app->app_name}} <br><br>

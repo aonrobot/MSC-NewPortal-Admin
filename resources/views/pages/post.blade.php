@@ -46,7 +46,7 @@
             <li class="active"> {{$post->post_title}}</li>-->
         </ol>
         <div class="col-md-12 text-right" style="margin-bottom: 15px;padding-right: 2px;color: rgba(108, 150, 175, 0.88);">
-            <h4><i class="fa fa-clock-o"></i> {{App\Library\Tools::thaiDate(date('Y-m-d',strtotime($post['event_start_date'])),3)}}</h4>
+            <h4><i class="fa fa-clock-o"></i> Last Update : {{App\Library\Tools::thaiDate(date('Y-m-d',strtotime($post['updated_at'])),3)}}</h4>
         </div>
         <hr>
 		{{--*/$orgid = 0/*--}}
@@ -152,20 +152,20 @@
 
         <br>
 
-        <hr>
+        <!-- <hr> -->
 <?php
 $len = strlen($post->emid);
 $len = 6 - $len;
 $EmpCode = str_repeat("0", $len) . $post->emid;
 ?>
         {{--*/ $author = App\MainEmployee::where('EmpCode', '=' , $EmpCode)->first() /*--}}
-        <address>
+        <!-- <address>
             <strong>{{ $author->FullNameEng }}</strong>
             <br> ( {{ $author->PositionNameEng }} )
             <br> {{ $author->OrgNameEng }}
             <br>
-            <!--<abbr title="Phone">Phone : </abbr> {{ $post->author_contact }}-->
-        </address>
+            <abbr title="Phone">Phone : </abbr> {{ $post->author_contact }}
+        </address> -->
     </div>
 </div>
 <!-- /.row -->

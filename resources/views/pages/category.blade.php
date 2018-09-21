@@ -14,8 +14,6 @@
 </div>
 <!-- /.row -->
 
-{{-- */$posts = App\Library\Tools::sortPost($posts, 'post_name', 'word', SORT_ASC) /* --}}
-
 {{-- */$row = 4 /* --}}
 
 @for($i = 0 ; $i < count($posts)/$row ; $i++)
@@ -23,6 +21,7 @@
 <div class="row">
     @for($j = 1 ; $j <= $row ; $j++)
     {{--*/ $index = $j+($i*$row)-1 /*--}}
+    @php $posts[$index] = (array) $posts[$index]; @endphp
     <div class="col-md-3">
         <div class="metrop-news-group-content">
             <a href="{{ asset('post/' . $posts[$index]['pid']) }}">

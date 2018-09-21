@@ -39,7 +39,8 @@ class FileController extends Controller {
 
 		$is_default = Tools::is_defaultType($pid); // Check Default Post Type
 
-		$post_type = Post::where('pid', $pid)->first()->post_type;
+		$post_type = Post::where('pid', $pid)->first()->post_type;-+-+
+		
 
 
 		//$upload_folder = \App\Library\Services::getUploadPathFromPID($pid);

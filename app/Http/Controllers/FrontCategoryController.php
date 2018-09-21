@@ -28,12 +28,12 @@ class FrontCategoryController extends Controller {
 			abort(404, '[Category -> cat_posts function] This category is not found');
 		}
 
-		$posts = [];
-		$pids = Category_rela::where('catid', '=', $cat_id)->get(['pid']);
-		foreach ($pids as $pid) {
-			$post = Post::where('pid', '=', $pid->pid)->first()->toArray();
-			array_push($posts, $post);
-		}
+		$posts = \DB::select("select c.catid,p.*
+		from mscnewportal.dbo.category_rela as c
+		left join mscnewportal.dbo.post as p on c.pid = p.pid
+		where catid ='74'
+		order by ltrim(replace(replace(replace(p.post_title,char(9),''),'\"',''),'“','')) ASC");
+		
 
 		return ['posts' => $posts, 'category' => $category];
 	}

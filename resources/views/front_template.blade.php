@@ -54,7 +54,7 @@
     <link href="{{asset('plugins/jQueryUI/jquery-ui-1.10.0.custom.css')}}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{asset('css/metrop.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/metrop.css')}}" rel="stylesheet">
     <link href="{{asset('css/metrop-component.min.css')}}" rel="stylesheet">
 
     <!-- King 9 Gray Style-->
@@ -64,7 +64,14 @@
 
 <!-- christmas Style-->
     <!-- Template Color -->
-    <!-- <link href="{{asset('css/template_color/christmas.css')}}" rel="stylesheet"> -->
+    @php
+    
+    $color = ["Blue","Green","yellow",""];
+    $ran_num = rand(0, 3);
+    $css_name = $color[$ran_num] . '.css';
+    
+    @endphp
+    <link href="{{asset('css/template_color/' . $css_name)}}" rel="stylesheet">
     
     <!-- Javascript Library -->
 
@@ -96,8 +103,8 @@
 </head>
 
 <body>
-
-    <div class="portal-loader">
+     
+    <div class="portal-loader" >
         <div>
             <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
         </div>

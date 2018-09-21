@@ -10,14 +10,16 @@ namespace App\Library {
 
 		static private $sqlGetPhoneStr = "
 			SELECT DISTINCT Emp.OrgCode, Emp.EmpCode, Emp.OrgUnitCode, Emp.FirstName, Emp.LastName, Emp.NickName, Emp.FullName,
-							Emp.FullNameEng, Emp.OrgUnitName, Emp.email, Emp.phone3 EmpPhone,Emp.location EmpLocation
+							Emp.FullNameEng, Emp.OrgUnitName, Emp.email, Emp.phone3 EmpPhone,Emp.location EmpLocation,Emp.StartDate
 			FROM MSCMain.dbo.EmployeeNew Emp
-			WHERE Emp.WorkingStatus = 1
+			WHERE Emp.WorkingStatus = 1 
+				and (CONVERT(VARCHAR(10),Emp.StartDate, 112) <= CONVERT(VARCHAR(10),getdate(), 112))
 				and (Emp.OrgCode  = 'MSC'  or  Emp.OrgCode = 'MID' or  Emp.OrgCode  = 'MCC' or  Emp.OrgCode  = 'MIT' or  Emp.OrgCode  = 'HIS') and Emp.Login <> ''
 		";
 
-		static public function getEmployeeImage($EmpCode) {
-			return asset('http://appmetro.metrosystems.co.th/empimages/' . intval($EmpCode) . '.jpg?' . rand(0, 10000));
+		static public function getEmployeeImage($EmpCode, $rand = null) {
+			$rand = ($rand == null) ? \Carbon\Carbon::now()->toTimeString() : $rand;
+			return asset('http://appmetro.metrosystems.co.th/empimages/' . intval($EmpCode) . '.jpg?' . $rand);
 
 		}
 
@@ -111,9 +113,10 @@ namespace App\Library {
 				break;*/
 
 			default:
+				$rand = \Carbon\Carbon::now()->toTimeString();
 				foreach ($phonebook as $pb) {
 
-					$img_url = Services::getEmployeeImage($pb->EmpCode);
+					$img_url = Services::getEmployeeImage($pb->EmpCode, $rand);
 					$img_404 = asset('/images/avatar-404.jpg');
 					$image = Tools::is_avatar_exist($pb->EmpCode) ? $img_url : $img_404;
 
