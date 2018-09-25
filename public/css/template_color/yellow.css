@@ -50,7 +50,7 @@ a.btn-primary{
 }
 
 .cd-overlay{
-	background-color: rgba(255, 128, 0, 0.8) !important;
+	background-color: rgba(255, 128, 0, 0.5) !important;
 }
 
 .cd-primary-nav .cd-secondary-nav > .see-all a:hover, .cd-primary-nav .cd-nav-gallery > .see-all a:hover, .cd-primary-nav .cd-nav-icons > .see-all a:hover{

@@ -16,12 +16,10 @@
 </div>
 <!-- /.row -->
 
-{{--*/$posts = App\Library\Tools::sortPost($posts, 'event_start_date')/*--}}
-
-
 @if($category->cat_subtype != 'not_news')
 
 @if(isset($posts[0]))
+@php $posts[0] = (array) $posts[0]; @endphp
 <div class="row">
     <div class="col-md-8">
         <a href="{{ asset('post/' . $posts[0]['pid']) }}">
@@ -56,6 +54,7 @@
 <div class="row">
     @for($j = 1 ; $j <= 3 ; $j++)
     {{--*/ $index = $j+($i*3)-1 /*--}}
+    @php $posts[$index] = (array) $posts[$index]; @endphp
     <div class="col-md-4">
         <div class="metrop-news-group-content">
             <a href="{{ asset('post/' . $posts[$index]['pid']) }}">

@@ -93,6 +93,9 @@
 
 <!-- include('pages.events.Chinese.index') -->
 
+
+
+
 <!-- content 2 | slide -->
 <div class="row">
     <div class="metrop-text-head">
@@ -237,9 +240,9 @@
             </a>
         </div> -->
 
-<hr>
+<!-- <hr> -->
 <!-- content 3 | Calendar -->
-<div class="row">
+<!-- <div class="row">
 	<div class="metrop-text-head">
         <h2>Call Center</h2>
     </div>
@@ -277,7 +280,12 @@
 			</div>
 		</div>
     </div>
-</div>
+</div> -->
+<!-- Call Center position fixed -->
+<div style="position: fixed; width:400px; height:200px; right:0px; bottom:80px;">
+<img  class="img-responsive  center-block" src="images/portal-callcenter3.png" style="width: 85%;" alt="">
+
+ </div>
 <!-- /.row -->
 
 <hr>
@@ -299,6 +307,8 @@
     </div>
 </div>-->
 <!-- /.col-lg-12-->
+
+
 <div class="row disible-sm">
     <div class="metrop-text-head">
         <h2>ปฏิทินกิจกรรมประจำปี</h2>

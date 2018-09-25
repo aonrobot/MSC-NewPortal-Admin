@@ -23,6 +23,7 @@
     {{--*/ $index = $j+($i*$row)-1 /*--}}
     @php $posts[$index] = (array) $posts[$index]; @endphp
     <div class="col-md-3">
+
         <div class="metrop-news-group-content">
             <a href="{{ asset('post/' . $posts[$index]['pid']) }}">
                 {{--*/$img_url = App\Library\Tools::have_link($posts[$index]['post_thumbnail'])/*--}}
@@ -31,7 +32,9 @@
             <h4 class="metrop-news-head" style="height: 60px;">
                 <a href="{{ asset('post/' . $posts[$index]['pid']) }}">{{ $posts[$index]['post_title'] }}</a>
             </h4>
-
+            {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($posts[$index]['event_start_date'])),3)/*--}}
+            <h5 style="color: rgba(108, 150, 175, 0.88);">{{$str_date}}</h5>
+            
             <!-- Insert and false to force this if to false (hide detail)-->
             
             @if(!empty($posts[$index]['post_detail']) and $posts[$index]['post_detail'] != null and false)
