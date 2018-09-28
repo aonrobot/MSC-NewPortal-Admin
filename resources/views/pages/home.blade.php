@@ -282,7 +282,7 @@
     </div>
 </div> -->
 <!-- Call Center position fixed -->
-<div style="position: fixed; width:400px; height:200px; right:0px; bottom:80px;">
+<div style="position: fixed; width:400px; height:200px; right:0px; bottom:80px; z-index:1000;">
 <img  class="img-responsive  center-block" src="images/portal-callcenter3.png" style="width: 85%;" alt="">
 
  </div>
