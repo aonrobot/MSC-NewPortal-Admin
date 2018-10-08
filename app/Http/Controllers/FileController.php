@@ -255,13 +255,6 @@ class FileController extends Controller {
 				//DIR
 				foreach ($files as $file) {
 
-					if(is_dir($file) and $file != "." && $file != "..") $filelist .= sprintf('<option value="%s">%s</option>' . PHP_EOL, $file, $file );
-						echo "<pre>";
-						echo "<li id='" . $dir . $file . "/' class='jstree-closed jstree-drop '>" . $file . "</li>";
-       					 echo "</pre>";
-				  }
-				/*foreach ($files as $file) {
-
 					$path = $dir . $file;
 
 					if (is_dir('wfio://' . $path) && !$this->is_hidden($file)) {
@@ -283,7 +276,7 @@ class FileController extends Controller {
 						
 					}
 
-				}*/
+				}
 
 				//FILE
 				foreach ($files as $file) {

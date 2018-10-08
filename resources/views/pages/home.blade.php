@@ -576,6 +576,103 @@
                                 location: '',
                                 startDate: new Date(2018, 11, 31),
                                 endDate: new Date(2018, 11, 31)
+                            }, {
+                                id: 33,
+                                name: 'วันขึ้นปีใหม่',
+                                location: '',
+                                startDate: new Date(2019, 0, 1),
+                                endDate: new Date(2019, 0, 1)
+                            }, {
+                                id: 34,
+                                name: 'วันตรุษจีน',
+                                location: '',
+                                startDate: new Date(2019, 1, 5),
+                                endDate: new Date(2019, 1, 7)
+                            },{
+                                id: 35,
+                                name: 'วันมาฆบูชา',
+                                location: '',
+                                startDate: new Date(2019, 1, 19),
+                                endDate: new Date(2019, 1, 19)
+                            },{
+                                id: 36,
+                                name: 'ชดเชยวันพระบาทสมเด็จพระพุทธยอดฟ้าจุฬาโลกมหาราชและวันที่ระลึกมหาจักรีบรมวงศ์',
+                                location: '',
+                                startDate: new Date(2019, 3, 8),
+                                endDate: new Date(2019, 3, 8)
+                            },{
+                                id: 37,
+                                name: 'วันสงกรานต์',
+                                location: '',
+                                startDate: new Date(2019, 3, 13),
+                                endDate: new Date(2019, 3, 15)
+                            },{
+                                id: 38,
+                                name: 'ชดเชยวันสงกรานต์',
+                                location: '',
+                                startDate: new Date(2019, 3, 16),
+                                endDate: new Date(2019, 3, 16)
+                            },{
+                                id: 39,
+                                name: 'วันแรงงานแห่งชาติ',
+                                location: '',
+                                startDate: new Date(2019, 4, 1),
+                                endDate: new Date(2019, 4, 1)
+                            },{
+                                id: 40,
+                                name: 'ชดเชยวันวิสาบูชา',
+                                location: '',
+                                startDate: new Date(2019, 4, 20),
+                                endDate: new Date(2019, 4, 20)
+                            },{
+                                id: 41,
+                                name: 'วันอาสาฬหบูชา',
+                                location: '',
+                                startDate: new Date(2019, 5, 16),
+                                endDate: new Date(2019, 5, 16)
+                            },{
+                                id: 42,
+                                name: 'ชดเชยวันเฉลิมพระชนมพรรษา สมเด็จพระเจ้าอยู่หัวมหาวชิราลงกรณบดินทรเทพยวรางกูร',
+                                location: '',
+                                startDate: new Date(2019, 6, 29),
+                                endDate: new Date(2019, 6, 29)
+                            },{
+                                id: 43,
+                                name: 'วันเฉลิมพระชนมพรรษา สมเด็จพระนางเจ้าฯ พระบรมราชินีนาถในพระบาทสมเด็จพระปรมินทรมหาภูมิพลอดุยเดช บรมนาถบพิตร',
+                                location: '',
+                                startDate: new Date(2019, 7, 12),
+                                endDate: new Date(2019, 7, 12)
+                            },{
+                                id: 44,
+                                name: 'ชดเชยวันคล้ายวันสวรรคตพระบาทสมเด็จพระปรมินทรมหาภูมิพลอดุลยเดช บรมนาถบพิตร',
+                                location: '',
+                                startDate: new Date(2019, 9, 14),
+                                endDate: new Date(2019, 9, 14)
+                            },{
+                                id: 45,
+                                name: 'วันปิยมหาราช',
+                                location: '',
+                                startDate: new Date(2019, 9, 23),
+                                endDate: new Date(2019, 9, 23)
+                            },{
+                                id: 46,
+                                name: 'วันคล้ายวันเฉลิมพระชนมพรรษา พระบาทสมเด็จพระปรมินทรมหาภูมิพลอดุลยเดช บรมนาถบพิตร วันชาติและวันพ่อแห่งชาติ',
+                                location: '',
+                                startDate: new Date(2019, 11, 5),
+                                endDate: new Date(2019, 11, 5)
+                            },{
+                                id: 47,
+                                name: 'วันพระราชทานรัฐธรรมนูญ',
+                                location: '',
+                                startDate: new Date(2019, 11, 10),
+                                endDate: new Date(2019, 11, 10)
+                            },{
+                                id: 47,
+                                name: 'วันสิ้นปี',
+                                location: '',
+                                startDate: new Date(2019, 11, 31),
+                                endDate: new Date(2019, 11, 31)
+                            
                             }]
                         });
 
