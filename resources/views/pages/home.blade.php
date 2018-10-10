@@ -106,8 +106,9 @@
             @foreach($slides as $slide)
             <li>
                 {{-- check if $slide not have image --}} @if(!is_null($slide->slide_item_img_url) and $slide->slide_item_img_url != '')
-                <div class="col-md-5">
-                    <img class="img-responsive img-rounded" src="{{asset($slide->slide_item_img_url)}}" width="900" height="350" alt="">
+                <div class="col-md-5">        
+                <a href="{{asset($slide->slide_item_img_url)}}" target="_blank">
+                    <img class="img-rounded" src="{{asset($slide->slide_item_img_url)}}" width="450" height="250" alt=""> </a>
                 </div>
                 @endif
                 <!-- /.col-md-8 -->
