@@ -122,7 +122,7 @@ namespace App\Library {
 			}
 
 			if ($f == '3') {
-				return 'วันที่ ' . (int) substr($date, 8) . ' ' .
+				return  (int) substr($date, 8) . ' ' .
 					$f_m[substr($date, 5, -3)] . ' พ.ศ. ' . ((int) substr($date, 0, -6) + 543);
 			}
 

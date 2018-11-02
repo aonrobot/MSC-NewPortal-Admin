@@ -31,6 +31,7 @@
         border-radius: 1.1em;
         padding: 0 45px 25px 35px;
     }
+
 </style>
 
 <!-- Page Header -->
@@ -148,25 +149,20 @@
         </div>
         <div class="metrop-news-group-content">
             <div class="metrop-news-label">
-                <!--<span class="label label-primary">
-                                <i class="fa fa-envelope"></i>
-                                New</span>-->
+            
             </div>
             {{--*/$str_date = App\Library\Tools::thaiDate(date('Y-m-d',strtotime($news['event_start_date'])),3)/*--}}
             <a href="{{ asset('post/'. $news['pid']) }}">
                 <h3 class="metrop-news-head">{{$news['post_title']}}</h3>
             </a>
-            <p class="metrop-news-content">{{$news['post_detail']}}</p>
+           
             
+            <p class="metrop-news-content">{{$news['post_detail']}}</p>
+           
             <div class="metrop-news-group-footer">
                  <h5 style="color: rgba(108, 150, 175, 0.88);">{{$str_date}}</h5>
                 
                 <!-- <a class="btn btn-default float-right" href="{{ asset('post/'. $news['pid']) }}">เพิ่มเติม</a> -->
-
-                <span>
-                <a href="{{ asset('post/'. $news['pid']) }}">เพิ่มเติม</a>
-                <!-- <h5> <i class="fa fa-clock-o"></i> {{App\Library\Tools::postTime($news['event_start_date'])}}</h5> -->
-            </span>
             </div>
         </div>
     </div>
@@ -243,19 +239,19 @@
 
 <!-- <hr> -->
 <!-- content 3 | Calendar -->
-<!-- <div class="row">
-	<div class="metrop-text-head">
+<!-- <div class="row callcentershow">
+	<div class="metrop-text-head ">
         <h2>Call Center</h2>
     </div>
-    <div class="col-lg-12">
-		<div class="col-md-12 hotline">
+    <div class="col-lg-12 ">
+		<div class="col-md-12 hotline ">
 			<style>
 				td.success{
 					font-weight: bolder;
 				}
 			</style>
-			<div class="table-responsive">
-				<table class="table table-hover">
+			<div class="table-responsive ">
+				<table class="table table-hover ">
 					<tr>
 						<th style="width:20%">Name</th>
 						<th>Number</th>
@@ -282,34 +278,40 @@
 		</div>
     </div>
 </div> -->
-<!-- Call Center position fixed -->
-<div style="position: fixed; width:400px; height:200px; right:0px; bottom:80px; z-index:1000;">
-<img  class="img-responsive  center-block" src="images/portal-callcenter3.png" style="width: 85%;" alt="">
+<hr class="fixedHead">
 
- </div>
-<!-- /.row -->
-
-<hr>
-<!-- content 3 | Calendar
 <div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default metrop-news-group-content">
-            <div class="panel-body" style="padding:0px;">
-                <div class="col-md-12">
-                    <div class="panel-heading text-center">
-
-                        <h3>Calendar will available soon <i class="fa fa-heart" style="color:#E26A6A"></i></h3>
-
-
-                    </div>
-                </div>
-            </div>
+    <div class="col-sm-6">
+    <!-- Call Center position fixed -->
+        <div class="metrop-text-head fixedHead">
+                <h2>Call Center</h2>
+        </div>
+        <div class="callcenter isfixedcall" >
+            <img  class="img-responsive  center-block" src="images/portal-callcenter7.png" style="width:85%"  alt="">
         </div>
     </div>
-</div>-->
-<!-- /.col-lg-12-->
+    <!-- /.row -->
 
+    <div class="col-sm-6">
+    <!-- Music METRO position fixed -->
+        <div class="metrop-text-head fixedHead">
+                <h2>Music</h2>
+        </div>
+        <div class="music">
+            <p class="music isfixedmusic2">เพลง Metro Systems</p>
+                <audio controls="controls" class="music isfixedmusic">
+                <source src="images/เพลงmetro.ogg" type="audio/ogg"> 
+                <source src="images/เพลงmetro.mpg" type="audio/mpeg">
+                Your browser does not support the audio element.
+                </audio>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<hr>
 
+<!-- Calendar -->
 <div class="row disible-sm">
     <div class="metrop-text-head">
         <h2>ปฏิทินกิจกรรมประจำปี</h2>
@@ -690,6 +692,8 @@
 </div>
 <!-- /.row -->
 <hr>
+
+
 
 <!-- <br><hr> -->
 

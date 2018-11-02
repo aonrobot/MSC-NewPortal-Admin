@@ -87,6 +87,9 @@ class FileController extends Controller {
 
 					$fid = $db_fn->insert_db($pid, $display_name, $file_name, 0, 0, $this->safe_name($file_name), $upload_folder, NULL, 0, NULL);
 
+					// For Old School Post
+					if(!file_exists('wfio://' . $upload_folder)) mkdir($upload_folder);
+
 					if (move_uploaded_file($tmp_name, $upload_folder . $fid . '~' . basename($this->safe_name($file_name)))) {
 
 						return redirect('/admin/file?pid=' . $pid);
@@ -259,7 +262,7 @@ class FileController extends Controller {
 
 					if (is_dir('wfio://' . $path) && !$this->is_hidden($file)) {
 
-						if(strpos($file, "~") == FALSE){ //Don't have data in database
+						if(strpos($file, "~") == FALSE){ 
 
 							//$file = iconv("tis-620", "utf-8", $file);
 
@@ -269,7 +272,8 @@ class FileController extends Controller {
 							
 							$file_info = DB::table('files')->where('fid', explode('~', $file)[0])->first();
 
-							$display_name = $file_info->display_name;
+							//Don't have data in database
+							$display_name = isset($file_info->display_name) ? $file_info->display_name : 'ไม่พบชื่อไฟล์ (display_name) ในฐานข้อมูล';
 
 							echo "<li id='" . $path . "/' class='jstree-closed jstree-drop '>" . $display_name . "</li>";
 						}
@@ -285,7 +289,8 @@ class FileController extends Controller {
 
 					if (!is_dir('wfio://' . $path) && !$this->is_hidden($file)) {
 
-						if(strpos($file, "~") == FALSE){ //Don't have data in database
+						if (strpos($file, "~") == FALSE)
+						{ //Don't have data in database
 
 							echo '<li id="' . $path . '" data-jstree=\'{"icon":"glyphicon glyphicon-file","type" : "file"}\'>';
 
