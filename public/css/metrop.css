@@ -1017,11 +1017,7 @@ a:link {
 
 }
 
-@media only screen and (min-width: 1270px) {
-    .audiometro{
-       
-    }
-}
+
 @media only screen and (min-width: 1800px) {
     .fixedHead{
         display: none;
@@ -1043,12 +1039,26 @@ a:link {
         height:200px;
     }
 }
+@media only screen and (max-width: 768px){
+    .iconcallcenter{
+        width: 70%;
+        margin: auto;
+    }
+}
+@media only screen and (min-width: 769px){
+    .iconcallcenter.isiconcall{
+        width: 80%;
+        margin: auto;
+    }
+}
+
 @media only screen and (min-width: 1800px) {
     .music.isfixedmusic{
         position: fixed;
         right:35px; 
         bottom:300px;
         z-index:1000;
+        padding: inherit;
         }
     }
 @media only screen and (max-width: 1799px){
@@ -1057,6 +1067,7 @@ a:link {
         height:50px;
         text-align:left;
         margin-left: 10px;
+        padding: inherit;
     }
 }
 @media only screen and (min-width: 1800px) {
@@ -1066,6 +1077,41 @@ a:link {
         bottom:360px;
         z-index:1000;
         text-align:left;
-        margin-right: 70px;
-        }
+        margin-right: 100px;
+        
     }
+}
+
+@media only screen and (max-width: 1799px) {
+    .iconmusic{
+        width: 30%;
+        margin: auto;
+        }
+}
+@media only screen and (min-width: 1800px) {
+    .iconmusic.issize{
+        width: 30%;
+        margin: auto;
+    }
+}
+
+@media only screen and (min-width: 1800px) {
+    .isfixdicon{
+        position: fixed;
+        right:35px; 
+        bottom:360px;
+        z-index:1000;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .iconbottom{
+        width: 40%;
+        margin: auto;
+    }
+}
+@media only screen and (min-width: 769px){
+    .iconbottom.isdefault{
+        width: 80%;
+        margin: auto;
+    }
+}

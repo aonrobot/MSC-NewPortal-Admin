@@ -191,7 +191,7 @@
         <div class="row align-items-center"> 
             <div class="col-sm-2" data-toggle="tooltip" title="คลิกเพื่อดูข่าวสารประเภท Anti-Corruption">  
              <a href="https://www.metrosystems.co.th/csr/anti-corruption/" target="_blank">
-             <img  class="img-responsive  center-block"  src="images/ac1.png" style="width: 80%;" alt="">
+             <img  class="img-responsive  iconbottom isdefault"  src="images/ac1.png" style="" alt="">
             </div>
 
             <div class="col-sm-2">
@@ -203,7 +203,7 @@
 
             <div class="col-sm-2" data-toggle="tooltip" title="เอกสารหนังสือแสดงความมุ่งมั่น">  
              <a href="http://appmetro.metrosystems.co.th/newportal/category/news/36" target="_blank">
-             <img  class="img-responsive  center-block" src="images/หนังสือความมุ่งมั่น1.png" style="width: 80%;" alt="">
+             <img  class="img-responsive  iconbottom isdefault" src="images/หนังสือความมุ่งมั่น1.png" style="" alt="">
             </div>
 
             <div class="col-sm-2"> 
@@ -214,7 +214,7 @@
 
              <div class="col-sm-2" data-toggle="tooltip" title="เอกสารให้ดาวน์โหลดต่างๆ เช่น บัตรอวยพรปีใหม่, LOGO, E-letter">  
              <a href="https://mscfamily.metrosystems.co.th/?p=13436" target="_blank">
-             <img  class="img-responsive  center-block" src="images/docshare1.png" style="width: 80%;" alt="">
+             <img  class="img-responsive iconbottom isdefault" src="images/docshare1.png" style="" alt="">
             </div>
 
             <div class="col-sm-2"> 
@@ -287,7 +287,7 @@
                 <h2>Call Center</h2>
         </div>
         <div class="callcenter isfixedcall" >
-            <img  class="img-responsive  center-block" src="images/portal-callcenter7.png" style="width:85%"  alt="">
+            <img  class="img-responsive iconcallcenter isiconcall" src="images/portal-callcenter7.png" style=""  alt="">
         </div>
     </div>
     <!-- /.row -->
@@ -297,19 +297,21 @@
         <div class="metrop-text-head fixedHead">
                 <h2>Music</h2>
         </div>
-        <div class="music">
-            <p class="music isfixedmusic2">เพลง Metro Systems</p>
-                <audio controls="controls" class="music isfixedmusic">
+
+        <div class="isfixdicon">
+        <img  class="img-responsive iconmusic issize" src="images/METROSONG.png" style=""  alt="">
+        </div>
+                <audio controls="controls" class="music isfixedmusic ">
                 <source src="images/เพลงmetro.ogg" type="audio/ogg"> 
                 <source src="images/เพลงmetro.mpg" type="audio/mpeg">
                 Your browser does not support the audio element.
                 </audio>
-        </div>
+        
     </div>
 </div>
-<br>
-<br>
-<hr>
+
+
+<hr class="disible-sm">
 
 <!-- Calendar -->
 <div class="row disible-sm">
