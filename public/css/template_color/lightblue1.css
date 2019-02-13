@@ -1,0 +1,138 @@
+/* body{
+	background: url(../../images/m1.png);
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}  */
+.metrop-nav{
+	background-color: rgba(0, 180, 187, 0.92)!important;
+}
+a.btn-primary{
+	background-color: #00b4bb !important;
+    border-color: #00b4bb !important;
+}
+.btn-default{
+	background-color: #ffffff!important;
+	color: #ffffff !important;
+    border-color:#00b4bb !important;
+}
+.btn-default:hover{
+    background-color: #00b4bb !important;
+	color: #ffffff !important;
+    border-color: #00b4bb!important;
+}
+.cd-search-btn{
+	background-color: #03cad2 !important;
+}
+
+.cd-primary-nav > li > a{
+	font-weight: 600;
+}
+.cd-primary-nav > .has-children > a::before, .cd-primary-nav > .has-children > a::after{
+	background: #EEE;
+}
+
+.cd-primary-nav .cd-nav-icons .cd-nav-item h3{
+	color:#00b4bb !important;
+}
+
+.cd-primary-nav .cd-nav-icons .cd-nav-item .item-icon span{
+	color: rgba(35, 200, 178, 0.54) !important;
+}
+
+.cd-primary-nav > li > a.selected{
+	box-shadow: inset 0 -6.5px 0 #00b4bb!important;
+}
+
+.cd-primary-nav .see-all a{
+	color: #00b4bb !important;
+}
+
+.cd-overlay{
+	background-color: rgba(35, 200, 178, 0.5) !important;
+}
+
+.cd-primary-nav .cd-secondary-nav > .see-all a:hover, .cd-primary-nav .cd-nav-gallery > .see-all a:hover, .cd-primary-nav .cd-nav-icons > .see-all a:hover{
+	background-color: #cffff9;
+	border-color: #00b4bb;
+}
+
+.cd-primary-nav .cd-secondary-nav > li > a{
+	color: #00b4bb !important;
+}
+
+.page-header a{
+	color: #00b4bb !important;
+}
+
+.starActive i{
+	color: rgb(208, 195, 85) !important;
+}
+.has-children .fa-star{
+	color: #F9A823 !important;
+}
+.has-children .fa-star-o{
+	color: #F9A823 !important;
+}
+
+/* Page */
+.metrop-row-content > div > h3 , .metrop-row-content > div > h3 > i{
+	color: #00b4bb !important;
+}
+.breadcrumb > li > a{
+	color : rgb(85, 224, 207) !important;
+}
+
+
+.metrop-text-head{
+	color: #00b4bb !important;
+    border-left: solid #00b4bb 5px !important;
+}
+
+.metrop-news-bighead a{
+	color: #00b4bb  !important;
+}
+
+
+
+/*Search Bar*/
+.search-form-wrap{
+	background: linear-gradient(to bottom, rgba(35, 200, 178,0.67) 20%, rgba(35, 200, 178,0.40) 43%, transparent) !important;
+}
+.search-input{
+	color: #FFF;
+}
+.search-input-clear{
+	color:#eefffd;
+}
+.search-input-clear:hover{
+	color:#eefffd;
+}
+.btn-search-submit{
+	background-color: #00b4bb !important;
+	border: 2px solid rgba(255, 255, 255, 0.47) !important;
+}
+.btn-search-submit > i{
+	color: rgba(251, 251, 251, 0.47) !important;
+}
+.cd-search-btn.active > a{
+	color: #FFF !important;
+}
+.cd-search-btn>a:hover{
+	color: rgb(250, 250, 250) !important;
+}
+.cd-search-btn>a{
+	color: #FFF !important;
+}
+.metrop-news-head {
+    overflow: hidden;
+    height: 55px;
+    color: #00b4bb;
+    padding-top: 5px;
+}
+.metrop-news-head:hover,.metrop-news-head:focus {
+    overflow: hidden;
+    height: 55px;
+    color: #26dec8;
+    padding-top: 5px;
+}

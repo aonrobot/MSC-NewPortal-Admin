@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use DB;
 
 class ChineseController extends Controller
 {
@@ -16,12 +17,8 @@ class ChineseController extends Controller
      */
     public function index()
     {
-               $a=array("red","green","blue","yellow","brown");
-                    $random_keys=array_rand($a,3);
-                    echo $a[$random_keys[0]]."<br>";
-                    echo $a[$random_keys[1]]."<br>";
-                    echo $a[$random_keys[2]];
-                        }
+        return "Chinese New Year";
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -39,9 +36,25 @@ class ChineseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $login = $request->input('login');
+        $cardid = $request->input('cardid');
+
+        \Log::info($login ." Random Chinese Card #{$cardid}");
+                    
+        try {
+            DB::table('event_ChineseNewYear')->insert(
+                [
+                    'name' => $login,
+                    'img_id' => intval($cardid),   
+                ]
+            );
+            return 200;
+        } catch(\Exception $e) {
+            return 500;
+        }
     }
 
     /**
@@ -50,9 +63,20 @@ class ChineseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($login)
     {
-        //
+        try {
+            $cards = DB::table('event_ChineseNewYear')->where('name', $login)->get();
+            $allLogin = DB::table('event_ChineseNewYear')->where('name', $login)->count();
+            $all = DB::table('event_ChineseNewYear')->count();
+            return response()->json([
+                'data' => $cards,
+                'allLogin' => $allLogin,
+                'all' => $all
+            ]);
+        } catch(\Exception $e) {
+            return $e;
+        }
     }
 
     /**

@@ -107,39 +107,39 @@
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณอรุณ ต่อเอกบัณฑิต.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณอรุณ ต่อเอกบัณฑิต</h3>
-                    <p class="metrop-about-content">ผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น</p>
+                    <p class="metrop-about-content">ผู้อำนวยการกลุ่มธุรกิจซอฟต์แวร์โซลูชั่น</p>
                 </div>
             </div>
-         </div>   
-         <!-- /.row -->
+        </div>   
+        <!-- /.row -->
 
         <!-- Projects Row -->
         <div class="row">
-            <div class="col-md-4">
-                <div class="metrop-about-group-content2">
-                    <div class="notcrop">
-                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณยงยุทธ ศรีวันทนียกุล.jpg')}}" alt="">
+                <div class="col-md-4">
+                    <div class="metrop-about-group-content2">
+                        <div class="notcrop">
+                            <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณสุรเดช เลิศธรรมจักร์.jpg')}}" alt="">
+                        </div>
+                        <h3 class="metrop-about-head">คุณสุรเดช เลิศธรรมจักร์</h3>
+                        <p class="metrop-about-content">ผู้อำนวยการกลุ่มธุรกิจซอฟต์แวร์โซลูชั่น</p>
                     </div>
-                    <h3 class="metrop-about-head">คุณยงยุทธ ศรีวันทนียกุล</h3>
-                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น</p>
                 </div>
-            </div>
                 <div class="col-md-4">
                     <div class="metrop-about-group-content2">
                         <div class="notcrop">
                             <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณฐิติพงค์ จรณะจิตต์.jpg')}}" alt="">
                         </div>
                         <h3 class="metrop-about-head">คุณฐิติพงค์ จรณะจิตต์</h3>
-                        <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น</p>
+                        <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มธุรกิจซอฟต์แวร์โซลูชั่น</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="metrop-about-group-content2">
                         <div class="notcrop">
-                            <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณอรวรรณ วิเชียรกวี.jpg')}}" alt="">
+                            <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณสมศักดิ์ มานะยิ่งเจริญ.jpg')}}" alt="">
                         </div>
-                        <h3 class="metrop-about-head">คุณอรวรรณ วิเชียรกวี</h3>
-                        <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น</p>
+                        <h3 class="metrop-about-head">คุณสมศักดิ์ มานะยิ่งเจริญ</h3>
+                        <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มธุรกิจซอฟต์แวร์โซลูชั่น</p>
                     </div>
                 </div>
             </div>
@@ -150,42 +150,43 @@
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
                     <div class="notcrop">
-                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณสุรเดช เลิศธรรมจักร์.jpg')}}" alt="">
-                    </div>
-                    <h3 class="metrop-about-head">คุณสุรเดช เลิศธรรมจักร์</h3>
-                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="metrop-about-group-content2">
-                    <div class="notcrop">
-                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณสมศักดิ์ มานะยิ่งเจริญ.jpg')}}" alt="">
-                    </div>
-                    <h3 class="metrop-about-head">คุณสมศักดิ์ มานะยิ่งเจริญ</h3>
-                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="metrop-about-group-content2">
-                    <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณธีรพร เลิศธรรมจักร.jpg')}}" alt="">
                     </div>
-                    <h3 class="metrop-about-head">คุณธีรพร เลิศธรรมจักร</h3>
-                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น</p>
+                    <h3 class="metrop-about-head">คุณธีรพร เลิศธรรมจักร์</h3>
+                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มธุรกิจซอฟต์แวร์โซลูชั่น</p>
                 </div>
             </div>
-        </div>
-         <!-- /.row -->
-
-        <!-- Projects Row -->
-        <div class="row">   
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
                     <div class="notcrop">
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณชัยวัฒน์ ลิขิตจรรยากุล.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณชัยวัฒน์ ลิขิตจรรยากุล</h3>
-                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มผลิตภัณฑ์ซอฟต์แวร์โซลูชั่น</p>
+                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มธุรกิจซอฟต์แวร์โซลูชั่น</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="metrop-about-group-content2">
+                    <div class="notcrop">
+                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/Female-icon.jpg')}}" alt="">
+                    </div>
+                    <h3 class="metrop-about-head">คุณอุไร ศุขตระกูล</h3>
+                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มธุรกิจซอฟต์แวร์โซลูชั่น</p>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Projects Row -->
+        <div class="row">   
+            
+            <div class="col-md-4">
+                <div class="metrop-about-group-content2">
+                    <div class="notcrop">
+                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/male-icon.jpg')}}" alt="">
+                    </div>
+                    <h3 class="metrop-about-head">คุณพงศ์พีระ ชวาลาธวัช</h3>
+                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มธุรกิจซอฟต์แวร์โซลูชั่น</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -206,6 +207,7 @@
                     <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มธุรกิจดิจิตอลพริ้นติ้ง</p>
                 </div>
             </div>
+            
         </div>
         <!-- /.row -->
 
@@ -238,9 +240,9 @@
                     <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มธุรกิจดิจิตอลพริ้นติ้ง</p>
                 </div>
             </div>
+            
         </div>
         <!-- /.row -->
-
 
         <!-- Projects Row -->
         <div class="row">     
@@ -250,7 +252,7 @@
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณนิตยา ธนวิริยะกุล.png')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณนิตยา ธนวิริยะกุล</h3>
-                    <p class="metrop-about-content">ผู้อำนวยการกลุ่มบัญชี การเงินและธุรการ/ผู้อำนวยการสำนักเลขานุการ</p>
+                    <p class="metrop-about-content">ผู้อำนวยการกลุ่มบัญชี การเงินและธุรการ/ผู้อำนวยการกลุ่มกิจการองค์กร</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -261,7 +263,7 @@
                     <h3 class="metrop-about-head">คุณณัฐพัชมน ตั้งจิตต์เลิศกิจ</h3>
                     <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มบัญชี การเงินและธุรการ</p>
                 </div>
-            </div>
+            </div>           
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
                     <div class="notcrop">
@@ -271,12 +273,12 @@
                     <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มบัญชี การเงินและธุรการ</p>
                 </div>
             </div>
+            
         </div>
         <!-- /.row -->
 
-
-         <!-- Projects Row -->
-         <div class="row">    
+        <!-- Projects Row -->
+        <div class="row">    
             <div class="col-md-4">
                 <div class="metrop-about-group-content2">
                     <div class="notcrop">
@@ -292,43 +294,10 @@
                         <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณสุเมตตา จิตต์ศิริผล.jpg')}}" alt="">
                     </div>
                     <h3 class="metrop-about-head">คุณสุเมตตา จิตต์ศิริผล</h3>
-                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการสำนักเลขานุการบริษัท / เลขานุการบริษัท</p>
+                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มกิจการองค์กร</p>
                 </div>
             </div>
-            </div>
-            <!--<div class="col-md-4">
-                <div class="metrop-about-group-content2">
-                    <div class="notcrop">
-                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณเสาวลักษณ์ พรรคสุพรรณ.jpg')}}" alt="">
-                    </div>
-                    <h3 class="metrop-about-head">คุณเสาวลักษณ์ พรรคสุพรรณ</h3>
-                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มบัญชี การเงินและธุรการ</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="metrop-about-group-content2">
-                    <div class="notcrop">
-                        <img class="img-responsive" src="{{asset('/images/pages/static/ManagementCommittee/คุณสำลี นุ่มศรี.jpg')}}" alt="">
-                    </div>
-                    <h3 class="metrop-about-head">คุณสำลี นุ่มศรี</h3>
-                    <p class="metrop-about-content">ผู้ช่วยผู้อำนวยการกลุ่มทรัพยากรบุคคล</p>
-                </div>
-            </div>-->
         </div>
-        <!-- /.row -->
-
-
-
-        <!-- Projects Row -->
-        <div class="row">
-            
-        </div>
-        <!-- /.row -->
-
     </div>
 </div>
-<!-- /.row -->
-
-
-
 @stop

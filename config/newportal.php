@@ -8,6 +8,8 @@ return [
 
 	'root_url' => '/newportal',
 
+	'socketio_url' => "https://mis_test.metrosystems.co.th:44301",
+
 	'upload_dir' => "D:\MSCNewPortal\public/uploads",
 
 	'upload_url' => "http://mis_test.metrosystems.co.th/newportal/uploads",

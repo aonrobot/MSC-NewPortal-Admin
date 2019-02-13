@@ -1,12 +1,12 @@
-body{
+/* body{
 	  background: url(../../images/m1.png);
 	  background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center; 
-} 
+}  */
 
 .metrop-nav{
-	background-color: rgba(244, 67, 54, 0.95)!important;
+	background-color: #05567b!important;
 }
 
 a.btn-primary{
@@ -31,7 +31,7 @@ a.btn-primary:hover{
     border-color: #4caf50 !important;
 }
 .cd-search-btn{
-	background-color: #4caf50 !important;
+	background-color: #05567b !important;
 }
 
 .cd-primary-nav > li > a{
@@ -210,3 +210,8 @@ a.btn-primary:hover{
     bottom: 30px;
   }
 }
+
+
+
+/* SANTA */
+

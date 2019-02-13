@@ -62,8 +62,8 @@ class FrontHomeController extends Controller {
 		$ru = getrusage();*/
 
 		//Event Valentine
-		//$sentHeart = (DB::table('eventValentine')->where('empCodeSend', intval(Session::get('emid')))->count() > 0) ? true : true;
-		//$receiveHeart = DB::table('eventValentine')->where('empCodeReceive', '=', intval(Session::get('emid')))->get();
+		$sentHeart = (DB::table('eventValentine')->where('empCodeSend', intval(Session::get('emid')))->count() > 0) ? true : true;
+		$receiveHeart = DB::table('eventValentine')->where('empCodeReceive', '=', intval(Session::get('emid')))->get();
 
 		$data = [
 			'slide_heads' => $slide_head,
@@ -73,8 +73,8 @@ class FrontHomeController extends Controller {
 			'categorys' => $categorys,
 			//'utime' => rutime($ru, $rustart, "utime"),
 			//'stime' => rutime($ru, $rustart, "stime"),
-			//'sentHeart' => $sentHeart,
-			//'receiveHeart' => $receiveHeart,
+			'sentHeart' => $sentHeart,
+			'receiveHeart' => $receiveHeart,
 		];
 
 		return view('pages.home', $data);

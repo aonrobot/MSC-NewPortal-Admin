@@ -315,12 +315,12 @@ $(function() {
         var pid = $(this).attr('value');
 
         swal({
-            title: "แน่ใจนะ?",
-            text: "ถ้าคุณลบโพสนี้จะไม่สามารถกู้คืนได้รวมถึงข้อมูลทุกอย่างจะหายไปนะ",
+            title: "แน่ใจหรือไม่?",
+            text: "ถ้าคุณลบโพสนี้จะไม่สามารถกู้คืนได้รวมถึงข้อมูลทุกอย่างจะหายไป",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "แน่ใจแล้ว, ลบเลย ><",
+            confirmButtonText: "แน่ใจแล้ว, ลบเลย",
             cancelButtonText: "ไม่ดีกว่า, กรุณายกเลิกเดี๋ยวนี้",
             closeOnConfirm: false,
             closeOnCancel: false
@@ -328,7 +328,7 @@ $(function() {
             function(isConfirm){
                 if (isConfirm) {
 
-                    swal("ลบโพสเรียนร้อย", "คุณจะไม่สามารถกู้คืนโพสนี้ได้อีกตลอดไป", "success");
+                    swal("ลบโพสเรียบร้อย", "คุณจะไม่สามารถกู้คืนโพสนี้ได้อีกตลอดไป", "success");
 
                     $("#loader_delete").fadeIn("slow");
 

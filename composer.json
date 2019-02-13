@@ -10,7 +10,8 @@
         "nicolaslopezj/searchable": "1.*",
         "sofa/eloquence": "~5.2",
         "itsgoingd/clockwork": "^2.0",
-        "sentry/sentry-laravel": "^0.10.0"        
+        "sentry/sentry-laravel": "^0.10.0",
+        "guzzlehttp/guzzle": "^6.3"        
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

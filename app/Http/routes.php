@@ -224,11 +224,39 @@ Route::group(['middleware' => ['auth.ad']], function () {
 
 });
 
-//Event Valentine
+////////////////////////////////////////// Event Zone //////////////////////////////////////////////////////////
+
+// Valentine
 Route::group(['prefix' => 'valentine', 'namespace' => 'Event_Valentine'], function () {
 	Route::get('store', 'ValentineController@store');
 	Route::get('find', 'ValentineController@find');
 });
+
+// Chinese New Year 
+Route::group(['prefix' => 'chinese', 'namespace' => 'Event'], function () {
+	Route::get('/index', 'ChineseController@index');
+	Route::post('/store', 'ChineseController@store');
+	Route::get('/show/{login}', 'ChineseController@show');
+});
+
+// Loykrathong
+Route::group(['prefix' => 'loykrathong', 'namespace' => 'Event'], function () {
+	Route::get('index', 'LoykrathongController@index');
+	Route::post('word/add', 'LoykrathongController@store');
+	Route::get('showall', 'LoykrathongController@showall');
+
+	Route::get('test', 'LoykrathongController@runTest');
+	
+});
+
+// Chrismashny
+Route::group(['prefix' => 'chrismashny', 'namespace' => 'Event'], function () {
+	Route::get('/index', 'ChrismashnyController@index');
+	Route::post('/word/add', 'ChrismashnyController@store');
+	Route::get('/showall/{take?}', 'ChrismashnyController@showall');
+});
+
+////////////////////////////////////////// Test Zone //////////////////////////////////////////////////////////
 
 //Test
 Route::group(['prefix' => 'test', 'namespace' => 'Test'], function () {
@@ -249,9 +277,7 @@ Route::get('testTTFB', function(){
 
 Route::get('testTTFB_meetdoc', 'FrontMenuController@index');
 
-//Event Chinese New Year 
-
-Route::group(['prefix' => 'Chinese', 'namespace' => 'Event'], function () {
-	Route::get('index', 'ChineseController@index');
-	
+Route::get('socketioTest', function () {
+	return view('pages.events.chrismashny.socketio');
 });
+

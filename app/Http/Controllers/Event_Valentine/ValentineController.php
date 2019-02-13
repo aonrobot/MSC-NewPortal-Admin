@@ -60,7 +60,9 @@ class ValentineController extends Controller {
 
 		$count = DB::table('eventValentine')->where('empCodeSend', intval(Session::get('emid')))->where('empCodeReceive', intval($id))->count();
 
-		$count_emp = MainEmployee::where('EmpCode', $id)->count();
+		$count_emp = MainEmployee::where('EmpCode', $id)->count(); 
+
+		
 
 		if (!$count && $count_emp) {
 			DB::table('eventValentine')->insert([
@@ -75,7 +77,7 @@ class ValentineController extends Controller {
 
 			if (!$count_emp) {
 				$status['message'] = "ไม่พบชื่อของคนที่คุณกำลังจะส่งหัวใจให้ กรุณาค้นหาใหม่อีกครั้งนะคะ";
-			} else if ($count) {
+			} else if($count) {
 				$status['message'] = "คุณได้เคยส่งหัวใจให้คนนี้แล้วนะคะ";
 			}
 

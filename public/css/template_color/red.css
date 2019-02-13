@@ -1,5 +1,5 @@
 .metrop-nav{
-	background-color: rgba(230, 56, 55, 0.92)!important;
+	background-color: rgba(255, 167, 0, 0.92)!important;
 }
 a.btn-primary{
 	background-color: #ED294A !important;
@@ -10,7 +10,7 @@ a.btn-primary{
     border: 1px solid #ed3838;
 }
 .cd-search-btn{
-	background-color: #D03333 !important;
+	background-color: RGB(255, 167, 0) !important;
 }
 
 .cd-primary-nav > li > a{

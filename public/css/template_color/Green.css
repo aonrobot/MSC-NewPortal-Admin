@@ -37,7 +37,7 @@ a.btn-primary{
 }
 
 .cd-primary-nav .cd-nav-icons .cd-nav-item .item-icon span{
-	color: rgba(39, 174, 97, 0.54) !important;
+	color: rgba(39, 174, 97, 0.70) !important;
 }
 
 .cd-primary-nav > li > a.selected{
@@ -98,7 +98,7 @@ a.btn-primary{
 
 /*Search Bar*/
 .search-form-wrap{
-	background: linear-gradient(to bottom, rgb(22, 230, 112) 20%, rgb(197, 245, 217) 43%, transparent) !important;
+	background: linear-gradient(to bottom, rgba(54, 204, 119, 0.82) 20%, rgb(197, 245, 217) 43%, transparent) !important;
 }
 .search-input{
 	color: #FFF;
@@ -134,4 +134,16 @@ a.btn-primary{
 }
 .cd-search-btn>a{
 	color: #FFF !important;
+}
+.metrop-news-head {
+    overflow: hidden;
+    height: 55px;
+    color: #27ae61;
+    padding-top: 5px;
+}
+.metrop-news-head:hover,.metrop-news-head:focus {
+    overflow: hidden;
+    height: 55px;
+    color: #1cca7a;
+    padding-top: 5px;
 }

@@ -105,21 +105,46 @@
         </h1>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <button style="background-color:#fedc56; border-radius:15px; border-color:#fedc56;"> 
+            <h3  style="margin-top:10px; " >  <a href="http://appmetro.metrosystems.co.th/newportal/category/64" target="_blank" style="color:#5b748a;"> 
+            <i class="fa fa-book"></i>  คู่มือการใช้งาน Application</a>
+            </h3>
+        </button>  
+    </div>
+</div>
+
 <!-- /.row -->
 <div class="row">
     <div class="col-md-12">
         <div class="controls">
             <h3>คลิกเพื่อเลือกหมวดหมู่แอพพลิเคชั่น :</h3>
-             <button class="btn btn-primary filter" data-filter="all" style="margin-top:15px;">
-              <span data-toggle="tooltip" data-placement="left" title="กรองทุกหมวดหมู่" style="">All</span>
+                <button class="btn btn-primary filter" data-filter="all" style="margin-top:15px;">
+                <span data-toggle="tooltip" data-placement="left" title="กรองทุกหมวดหมู่" style="">All</span>
             </button> 
             @foreach($group as $g)
-                @if(!$user->can(['view-app_group-'.$g->group_id]))
+
+                {{-- add Permission  Application Group--}}
+                {{-- @if(!$user->can(['view-app_group-'.$g->group_id]))
                     @continue
+                @endif --}}
+
+                @if($g->group_link!=NULL)
+                    <a href="{{$g->group_link}}" target="_blank" style="color: #ffffff;">   
+                        <button class="btn btn-primary filter" data-filter=".{{$g->group_name}}" style="margin-top:15px; background: {{$g->group_color}}; ">
+                            <span data-toggle="tooltip" data-placement="top" title="หมวดหมู่ {{$g->group_title}}">{{$g->group_title}}
+                            </span>
+                        </button>
+                        </a>
+                    @else   
+                    <button class="btn btn-primary filter" data-filter=".{{$g->group_name}}" style="margin-top:15px; background: {{$g->group_color}}; ">
+                        <span data-toggle="tooltip" data-placement="top" title="กรองตามหมวดหมู่ {{$g->group_title}}">{{$g->group_title}}
+                        </span>
+                    </button>
+                
                 @endif
-            <button class="btn btn-primary filter" data-filter=".{{$g->group_name}}" style="margin-top:15px; background: {{$g->group_color}};">
-              <span data-toggle="tooltip" data-placement="top" title="กรองตามหมวดหมู่ {{$g->group_title}}">{{$g->group_title}}</span>
-            </button>
             @endforeach
             <hr>
             <div class="input-group input-group-lg" style="margin-top:15px;z-index:0" data-toggle="tooltip" data-placement="bottom" title="ค้นหา Application ทั้งหมด">
@@ -135,26 +160,29 @@
                 {{--*/ //Check Favorite App /*--}}
                 {{--*/
 
-                  $emid = intval(Session::get('em_info')->EmpCode);
+                $emid = intval(Session::get('em_info')->EmpCode);
 
-                  $fid = App\Favorite::where('emid', $emid)->first()->fid;
+                $fid = App\Favorite::where('emid', $emid)->first()->fid;
 
                   $fav_count = DB::select('select * from favorite_app where app_id = ? and fid = ?',[$app->app_id, $fid])
 
                 /*--}}
-                @if(!$user->can(['view-app_group-'.$app->group_id]))
+
+                {{-- add Permission  Application Group--}}
+                {{-- @if(!$user->can(['view-app_group-'.$app->group_id]))
                     @continue
-                @endif
+                @endif --}}
+
                 <div class="col-md-3  mix {{$app->group_name}}" data-group-name="{{$app->group_name}}" data-app-name="{{$app->app_name}}" style="background: {{$app->group_color}};">
                     <h4 class="app-title">
-                    <a href="{{$app->app_link}}" target="_blank">
-                      {{$app->app_name}} <br><br>
-                      <small style="color:#FFF;">{{$app->app_description}}</small>
-                    </a>
-                    <div id="{{$app->app_id}}" class="favBtn {{count($fav_count)>0 ? 'starActive' : 'star'}}">
-                          <i class="fa fa-star fa-2x" data-toggle="tooltip" data-placement="left" {{count($fav_count)>0 ? 'title=ไม่ชื่นชอบ' : 'title=ชื่นชอบ'}}></i>
-                    </div>
-                  </h4>
+                        <a href="{{$app->app_link}}" target="_blank">
+                        {{$app->app_name}} <br><br>
+                        <small style="color:#FFF;">{{$app->app_description}}</small>
+                        </a>
+                        <div id="{{$app->app_id}}" class="favBtn {{count($fav_count)>0 ? 'starActive' : 'star'}}">
+                            <i class="fa fa-star fa-2x" data-toggle="tooltip" data-placement="left" {{count($fav_count)>0 ? 'title=ไม่ชื่นชอบ' : 'title=ชื่นชอบ'}}></i>
+                        </div>
+                    </h4>
                 </div>
                 {{--*/ $i++ /*--}}
                 @endforeach
@@ -186,16 +214,16 @@ $(function() {
         var class_name = $(this).attr('class').split(' ');
 
         if(class_name[1] == 'star'){
-          $.ajax({
-              url: '{{Config::get('newportal.root_url')}}' + '/favorite/add_application/' + id,
-              processData: false,
-              contentType: false,
-              async: true,
-              cache: false,
-              type: 'GET',
-              success: function(data) {
+        $.ajax({
+            url: '{{Config::get('newportal.root_url')}}' + '/favorite/add_application/' + id,
+            processData: false,
+            contentType: false,
+            async: true,
+            cache: false,
+            type: 'GET',
+            success: function(data) {
 
-                  swal({
+                swal({
 
                     title: "เพิ่มเรียบร้อย ^^",
                     text: "เพิ่มเป็นแอพพลิเคชั่นที่ชื่นชอบเรียบร้อย",
@@ -204,16 +232,16 @@ $(function() {
                     type: "success",
                     confirmButtonText: "ปิด"
 
-                  });
+                });
 
-                  $('div[id="'+ id +'"]').removeClass('star').addClass('starActive');
+                $('div[id="'+ id +'"]').removeClass('star').addClass('starActive');
 
-                  console.log(data);
+                console.log(data);
 
-                  //location.reload();
-              },
-              error: function(error) {
-                  swal({
+                //location.reload();
+            },
+            error: function(error) {
+                swal({
 
                     title: "แย่จัง T-T",
                     text: "ไม่เพิ่มเป็นแอพพลิเคชั่นที่ชื่นชอบได้เลย",
@@ -222,46 +250,46 @@ $(function() {
                     type: "error",
                     confirmButtonText: "ปิด"
 
-                  });
-              }
-          });
-        }else{
-          $.ajax({
-              url: '{{Config::get('newportal.root_url')}}' + '/favorite/remove_application/' + id,
-              processData: false,
-              contentType: false,
-              async: true,
-              cache: false,
-              type: 'GET',
-              success: function(data) {
-                  swal({
+                });
+            }
+        });
+    }else{
+        $.ajax({
+            url: '{{Config::get('newportal.root_url')}}' + '/favorite/remove_application/' + id,
+            processData: false,
+            contentType: false,
+            async: true,
+            cache: false,
+            type: 'GET',
+            success: function(data) {
+                swal({
 
-                    title: "ลบเรียบร้อย ^^",
-                    text: "ลบแอพพลิเคชั่นออกจากที่ชื่นชอบเรียบร้อย",
-                    showConfirmButton: true,
-                    timer: 3500,
-                    type: "success",
-                    confirmButtonText: "ปิด"
+                title: "ลบเรียบร้อย ^^",
+                text: "ลบแอพพลิเคชั่นออกจากที่ชื่นชอบเรียบร้อย",
+                showConfirmButton: true,
+                timer: 3500,
+                type: "success",
+                confirmButtonText: "ปิด"
 
-                  });
-                  $('div[id="'+ id +'"]').removeClass('starActive').addClass('star');
+                });
+                $('div[id="'+ id +'"]').removeClass('starActive').addClass('star');
 
-                  //location.reload();
-              },
-              error: function(error) {
-                  swal({
+                //location.reload();
+            },
+            error: function(error) {
+                swal({
 
-                    title: "แย่จัง T-T",
-                    text: "ไม่ลบแอพพลิเคชั่นออกจากที่ชื่นชอบได้เลย",
-                    showConfirmButton: true,
-                    timer: 3500,
-                    type: "error",
-                    confirmButtonText: "ปิด"
+                title: "แย่จัง T-T",
+                text: "ไม่ลบแอพพลิเคชั่นออกจากที่ชื่นชอบได้เลย",
+                showConfirmButton: true,
+                timer: 3500,
+                type: "error",
+                confirmButtonText: "ปิด"
 
-                  });
-              }
-          });
-        }
+                });
+            }
+        });
+    }
 
     });
 

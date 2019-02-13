@@ -3,6 +3,9 @@
     {{--*/ $em_info = Session::get('em_info')/*--}}
     {{--*/ $user = App\Employee::where('EmpCode', '=', $em_info->EmpCode)->first() /*--}}
 @endif
+@php 
+$cache_day = date("j"); //1-31
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{asset('/favicon.ico')}}" type="image/x-icon" />
     <title>New Portal | Metro Systems Corporation Public Company Limited</title>
 
@@ -54,8 +58,12 @@
     <link href="{{asset('plugins/jQueryUI/jquery-ui-1.10.0.custom.css')}}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{asset('css/metrop.css')}}" rel="stylesheet">
+    <link href="{{asset('css/metrop.css?' . $cache_day)}}" rel="stylesheet">
     <link href="{{asset('css/metrop-component.min.css')}}" rel="stylesheet">
+    {{-- Event--}}
+    <link href="{{asset('css/event/loykratong.css')}}" rel="stylesheet">
+    <link href="{{asset('css/event/chrismashny.css')}}" rel="stylesheet">
+
 
     <!-- King 9 Gray Style-->
     <!-- Template Color 
@@ -64,14 +72,15 @@
 
 <!-- christmas Style-->
     <!-- Template Color -->
-    @php
-    
-    $color = ["Blue","Green","yellow",""];
-    $ran_num = rand(0, 3);
+     {{-- @php
+    $color = ["greenlemon","lightblue1","lightblue","Blue","Green","original"];
+    $ran_num = rand(0,5);
+
     $css_name = $color[$ran_num] . '.css';
     
     @endphp
-    <link href="{{asset('css/template_color/' . $css_name)}}" rel="stylesheet">
+    <link href="{{asset('css/template_color/' . $css_name)}}" rel="stylesheet">  --}}
+    <link href="{{asset('css/template_color/pink.css')}}" rel="stylesheet">
     
     <!-- Javascript Library -->
 
@@ -174,13 +183,17 @@
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('js/metrop.min.js')}}"></script>
     <script src="{{asset('js/metrop-component.min.js')}}"></script>
+    <!-- Custom Theme  valentine JavaScript -->
+    <script src="{{asset('plugins/typeahead/typeahead.bundle.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/front/home/event/valentine.js')}}"></script>
 
     <!-- Custom By Season -->
     <!-- Snow -->
-     <!-- <script src="{{asset('plugins/snow/jquery.snow.min.1.0.js')}}"></script>
-    <script>$.fn.snow({ minSize: 5, maxSize: 40, newOn: 600, flakeColor: '#b5d8f2' });</script> -->
+      {{-- <script src="{{asset('plugins/snow/jquery.snow.min.1.0.js')}}"></script>
+    <script>$.fn.snow({ minSize: 5, maxSize: 40, newOn: 600, flakeColor: '#b5d8f2' });</script> --}}
 
     <script>
+        
 
 
         jQuery(window).load(function () {
@@ -237,6 +250,7 @@
         @endif
 
     </script>
+    
 
     <a href="#0" class="cd-top" data-goto="bottom">Top</a>
 

@@ -39,7 +39,7 @@ $(function() {
                 '<div class="list-group search-results-dropdown">'
             ],
             suggestion: function (data) {
-                var img_link = 'http://appmetro.metrosystems.co.th/empimages/' + parseInt(data.EmpCode) + '.jpg?' + Math.floor((Math.random() * 10000) + 1)
+                var img_link = 'https://appmetro.metrosystems.co.th/empimages/' + parseInt(data.EmpCode) + '.jpg?' + Math.floor((Math.random() * 10000) + 1)
 
                 return '<a class="list-group-item">'+
                             '<img src="'+ img_link +'" class="img-reponsive" height="80"><br><br>'+

@@ -33,10 +33,13 @@
     }
 
 </style>
-
+{{-- @include('pages.events.loykratong.index') --}}
+{{-- @include('pages.events.chrismashny.index')  --}}
+{{-- @include('pages.events.Chinese.index')  --}}
+@include('pages.events.valentine.index') 
 <!-- Page Header -->
-@if(!empty($slide_heads))
-<header class="intro-header">
+  @if(!empty($slide_heads))
+{{-- <header class="intro-header">
     <div class="header-slider">
         <ul>
             @foreach($slide_heads as $slide_head)
@@ -46,12 +49,14 @@
             @endforeach
         </ul>
     </div>
-</header>
+</header> --}}
 @else
-<header class="intro-header-empty">
-</header>
+{{-- <header class="intro-header-empty">
+</header>  --}}
 
-@endif @stop @section('content')
+@endif @stop @section('content') 
+
+
 
 @if(Session::get('user')->status != 'outsource')
 <!-- content 1 | info -->
@@ -91,11 +96,6 @@
 <!--</div> -->
 <!-- /.row -->
 @endif
-
-<!-- include('pages.events.Chinese.index') -->
-
-
-
 
 <!-- content 2 | slide -->
 <div class="row">
@@ -188,41 +188,35 @@
 <hr>
 
 <div class="row">
-        <div class="row align-items-center"> 
-            <div class="col-sm-2" data-toggle="tooltip" title="คลิกเพื่อดูข่าวสารประเภท Anti-Corruption">  
-             <a href="https://www.metrosystems.co.th/csr/anti-corruption/" target="_blank">
-             <img  class="img-responsive  iconbottom isdefault"  src="images/ac1.png" style="" alt="">
-            </div>
-
-            <div class="col-sm-2">
-            <h4><strong>Anti-Corruption</strong></h4>
-             </a>
-             <p>ข่าวสารของกิจกรรมด้านต่อต้านการทุจริตคอร์รัปชั่น</p>
-            </div>
-       
-
-            <div class="col-sm-2" data-toggle="tooltip" title="เอกสารหนังสือแสดงความมุ่งมั่น">  
-             <a href="http://appmetro.metrosystems.co.th/newportal/category/news/36" target="_blank">
-             <img  class="img-responsive  iconbottom isdefault" src="images/หนังสือความมุ่งมั่น1.png" style="" alt="">
-            </div>
-
-            <div class="col-sm-2"> 
-            <h4>Code of Conduct</h4>
-             </a>
-             <p>หนังสือแสดงความมุ่งมั่นของMSCและบริษัทในเครือ</p>
-            </div>
-
-             <div class="col-sm-2" data-toggle="tooltip" title="เอกสารให้ดาวน์โหลดต่างๆ เช่น บัตรอวยพรปีใหม่, LOGO, E-letter">  
-             <a href="https://mscfamily.metrosystems.co.th/?p=13436" target="_blank">
-             <img  class="img-responsive iconbottom isdefault" src="images/docshare1.png" style="" alt="">
-            </div>
-
-            <div class="col-sm-2"> 
-             <h4>Publications</h4>
-             </a>
-             <p>เอกสารเผยแพร่ : Company Profile, LOGO MSC, E-letter</p>
-            </div>
+    <div class="row align-items-center"> 
+        <div class="col-sm-3" data-toggle="tooltip" title="คลิกเพื่อดูข่าวสารประเภท Anti-Corruption">  
+            <a href="https://www.metrosystems.co.th/csr/anti-corruption/" target="_blank">
+            <img  class="img-responsive  iconbottom isdefault"  src="images/ac1.png" style="width:50%" alt="">
+            <h4 style="text-align: center;"><strong>Anti-Corruption</strong></h4></a>
+            <p style="text-align: center;">ข่าวสารของกิจกรรมด้านต่อต้านการทุจริตคอร์รัปชั่น</p>
         </div>
+
+        <div class="col-sm-3" data-toggle="tooltip" title="เอกสารหนังสือแสดงความมุ่งมั่น">  
+            <a href="http://appmetro.metrosystems.co.th/newportal/category/news/36" target="_blank">
+            <img  class="img-responsive  iconbottom isdefault" src="images/หนังสือความมุ่งมั่น1.png" style="" alt="">
+            <h4 style="text-align: center;">Code of Conduct</h4></a>
+            <p style="text-align: center;">หนังสือแสดงความมุ่งมั่นของMSCและบริษัทในเครือ</p>
+        </div>
+
+        <div class="col-sm-3" data-toggle="tooltip" title="เอกสารให้ดาวน์โหลดต่างๆ เช่น บัตรอวยพรปีใหม่, LOGO, E-letter">  
+            <a href="https://mscfamily.metrosystems.co.th/?p=13436" target="_blank">
+            <img  class="img-responsive iconbottom isdefault" src="images/docshare1.png" style="" alt="">
+            <h4 style="text-align: center;">Publications</h4></a>
+            <p style="text-align: center;">เอกสารเผยแพร่ : Company Profile, LOGO MSC, E-letter</p>
+        </div>
+
+        <div class="col-sm-3" data-toggle="tooltip" title="คู่มือการใช้งาน Application : DMAS, Workflow, BI, Portal">  
+            <a href="http://appmetro.metrosystems.co.th/newportal/category/64" target="_blank">
+            <img  class="img-responsive iconbottom isdefault" src="images/manual.png" style="" alt="">
+            <h4 style="text-align: center;">คู่มือการใช้งาน Application</h4></a>
+            <p style="text-align: center;">คู่มือการใช้งาน Application : DMAS, Workflow, BI, Portal </p>
+        </div>
+    </div>
 </div>
 
        <!-- <div class="col-sm-4" data-toggle="tooltip" title="เอกสารให้ดาวน์โหลดต่างๆ เช่น บัตรอวยพรปีใหม่, LOGO, E-letter" >  
@@ -237,49 +231,8 @@
             </a>
         </div> -->
 
-<!-- <hr> -->
-<!-- content 3 | Calendar -->
-<!-- <div class="row callcentershow">
-	<div class="metrop-text-head ">
-        <h2>Call Center</h2>
-    </div>
-    <div class="col-lg-12 ">
-		<div class="col-md-12 hotline ">
-			<style>
-				td.success{
-					font-weight: bolder;
-				}
-			</style>
-			<div class="table-responsive ">
-				<table class="table table-hover ">
-					<tr>
-						<th style="width:20%">Name</th>
-						<th>Number</th>
-					</tr>
-                    <tr>
-                        <td class="active">ITS Call Center</td>
-                        <td class="success">#78484</td>
-                    </tr>
-					<tr>
-						<td class="active">AR Call Center</td>
-						<td class="success">#74444</td>
-					</tr>
-					<tr>
-						<td class="active">BP Call Center</td>
-						<td class="success">#77777</td>
-					</tr>
-					<tr>
-						<td class="active">HR Call Center</td>
-						<td class="success">#79999</td>
-					</tr>
-
-				</table>
-			</div>
-		</div>
-    </div>
-</div> -->
 <hr class="fixedHead">
-
+{{-- 
 <div class="row">
     <div class="col-sm-6">
     <!-- Call Center position fixed -->
@@ -291,25 +244,23 @@
         </div>
     </div>
     <!-- /.row -->
-
+<div class="container">
     <div class="col-sm-6">
     <!-- Music METRO position fixed -->
         <div class="metrop-text-head fixedHead">
-                <h2>Music</h2>
+                <h2>METRO Song</h2>
         </div>
 
         <div class="isfixdicon">
         <img  class="img-responsive iconmusic issize" src="images/METROSONG.png" style=""  alt="">
-        </div>
-                <audio controls="controls" class="music isfixedmusic ">
-                <source src="images/เพลงmetro.ogg" type="audio/ogg"> 
-                <source src="images/เพลงmetro.mpg" type="audio/mpeg">
-                Your browser does not support the audio element.
-                </audio>
         
+                <audio controls="controls" class="music isfixedmusic">
+                <source src="images/เพลงmetro.mp3" type="audio/mpeg"> 
+                </audio>
+        </div>
     </div>
-</div>
-
+</div> 
+</div> --}}
 
 <hr class="disible-sm">
 
@@ -694,18 +645,6 @@
 </div>
 <!-- /.row -->
 <hr>
-
-
-
-<!-- <br><hr> -->
-
-<!-- <div class="row text-center">
-
-    <a href="http://appmsc.metrosystems.co.th/mscportal/homeportal.php" target="_blank"><i class="fa fa-history"></i> See Portal in old version.</a>
-
-</div> -->
-
-<!--<script src="{{asset('plugins/snow/jquery.snow.min.1.0.js')}}"></script>-->
 
 <script>
 jQuery(document).ready(function($) {

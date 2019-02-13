@@ -1,0 +1,189 @@
+.clouds {
+	height: 300px;
+	position: absolute;
+	bottom: 0;
+}
+
+.cloud {
+	position: absolute;
+}
+
+
+.cloud.s1 {
+	left: -38em;
+	/* top: -38em; */
+	-moz-transform: scale(0.7, 0.7);
+	-ms-transform: scale(0.7, 0.7);
+	-webkit-transform: scale(0.7, 0.7);
+	transform: scale(0.7, 0.7);
+	-webkit-animation: moveclouds 44s linear infinite;
+	-moz-animation: moveclouds 36s linear infinite;
+	-o-animation: moveclouds 36s linear infinite;
+	-ms-animation: moveclouds 36s linear infinite;
+}
+
+.cloud.s2 {
+	left: 12.5em;
+	-moz-transform: scale(0.7, 0.7);
+	-ms-transform: scale(0.7, 0.7);
+	-webkit-transform: scale(0.7, 0.7);
+	transform: scale(0.7, 0.7);
+	-webkit-animation: moveclouds 50s linear infinite;
+	-moz-animation: moveclouds 50s linear infinite;
+	-o-animation: moveclouds 50s linear infinite;
+	-ms-animation: moveclouds 50s linear infinite;
+}
+
+.cloud.s3 {
+	left: -15.625em;
+	/* top: -12.5em; */
+	-moz-transform: scale(1 ,1);
+	-ms-transform:scale(1 ,1);
+	-webkit-transform: scale(1 ,1);
+	transform: scale(1 ,1);
+	-webkit-animation: moveclouds 40s linear infinite;
+	-moz-animation: moveclouds 40s linear infinite;
+	-o-animation: moveclouds 40s linear infinite;
+	-ms-animation: moveclouds 40s linear infinite;
+}
+
+.cloud.s4 {
+	left: 29.375em;
+	/* top: -35.65em; */
+	-moz-transform: scale(0.865, 0.865);
+	-ms-transform: scale(0.865, 0.865);
+	-webkit-transform: scale(0.865, 0.865);
+	transform: scale(0.865, 0.865);
+	-webkit-animation: moveclouds 36s linear infinite;
+	-moz-animation: moveclouds 36s linear infinite;
+	-o-animation: moveclouds 36s linear infinite;
+	-ms-animation: moveclouds 36s linear infinite;
+}
+
+
+.cloud.s5 {
+	-moz-transform: scale(0.9, 0.9);
+	-ms-transform: scale(0.9, 0.9);
+	-webkit-transform: scale(0.9, 0.9);
+	transform: scale(0.9, 0.9);
+	-webkit-animation: moveclouds 30s linear infinite;
+	-moz-animation: moveclouds 30s linear infinite;
+	-o-animation: moveclouds 30s linear infinite;
+	-ms-animation: moveclouds 30s linear infinite;
+}
+
+.cloud.s6 {
+	left: 10em;
+	top: 1em;
+	-moz-transform: scale(0.9, 0.9);
+	-ms-transform: scale(0.9, 0.9);
+	-webkit-transform: scale(0.9, 0.9);
+	transform: scale(0.9, 0.9);
+	-webkit-animation: moveclouds 30s linear infinite;
+	-moz-animation: moveclouds 30s linear infinite;
+	-o-animation: moveclouds 30s linear infinite;
+	-ms-animation: moveclouds 30s linear infinite;
+}
+
+.cloud.s7 {
+	left: 4em;
+	-moz-transform: scale(0.7, 0.7);
+	-ms-transform: scale(0.7, 0.7);
+	-webkit-transform: scale(0.7, 0.7);
+	transform: scale(0.7, 0.7);
+	-webkit-animation: moveclouds 50s linear infinite;
+	-moz-animation: moveclouds 50s linear infinite;
+	-o-animation: moveclouds 50s linear infinite;
+	-ms-animation: moveclouds 50s linear infinite;
+}
+
+.cloud.s8 {
+	left: 8em;
+	/* top: -12.5em; */
+	-moz-transform: scale(0.49, 0.49);
+	-ms-transform: scale(0.49, 0.49);
+	-webkit-transform: scale(0.49, 0.49);
+	transform: scale(0.49, 0.49);
+	-webkit-animation: moveclouds 40s linear infinite;
+	-moz-animation: moveclouds 40s linear infinite;
+	-o-animation: moveclouds 40s linear infinite;
+	-ms-animation: moveclouds 40s linear infinite;
+}
+
+.cloud.s9 {
+	left: 12em;
+	/* top: -35.65em; */
+	-moz-transform: scale(0.55, 0.55);
+	-ms-transform: scale(0.55, 0.55);
+	-webkit-transform: scale(0.55, 0.55);
+	transform: scale(0.55, 0.55);
+	-webkit-animation: moveclouds 36s linear infinite;
+	-moz-animation: moveclouds 36s linear infinite;
+	-o-animation: moveclouds 36s linear infinite;
+	-ms-animation: moveclouds 36s linear infinite;
+}
+
+.cloud.s10 {
+	left: 28em;
+	/* top: -38em; */
+	-moz-transform: scale(0.67, 0.67);
+	-ms-transform: scale(0.67, 0.67);
+	-webkit-transform: scale(0.67, 0.67);
+	transform: scale(0.67, 0.67);
+	-webkit-animation: moveclouds 44s linear infinite;
+	-moz-animation: moveclouds 36s linear infinite;
+	-o-animation: moveclouds 36s linear infinite;
+	-ms-animation: moveclouds 44s linear infinite;
+}
+
+@-webkit-keyframes moveclouds {
+	0% {
+		margin-left: 125em;
+	}
+
+	100% {
+		margin-left: -125em;
+	}
+}
+@-ms-keyframes moveclouds {
+	0% {
+		margin-left: 125em;
+	}
+
+	100% {
+		margin-left: -125em;
+	}
+}
+
+@-moz-keyframes moveclouds {
+	0% {
+		margin-left: 125em;
+	}
+
+	100% {
+		margin-left: -125em;
+	}
+}
+
+@-o-keyframes moveclouds {
+	0% {
+		margin-left: 125em;
+	}
+
+	100% {
+		margin-left: -125em;
+	}
+}
+
+.message {
+	background: white;
+	border-radius: 5px;
+	max-width: 100%;
+	word-break: break-word;
+}
+.intro-header{
+	margin-bottom:0px; 
+}
+#blessing_form{
+	padding: 10px;
+}
